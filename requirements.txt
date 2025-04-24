@@ -1,0 +1,26 @@
+# Core dependencies (AWS + Utilities)
+boto3>=1.37.0
+pyfiglet>=1.0.2
+python-dateutil>=2.9.0
+termcolor>=3.0.1
+
+# typehints & static checking 
+# types-python-dateutil>=2.9.0.20240316  # Type stubs
+# typing-extensions>=4.10.0  # Backported features
+
+# Testing (Modern pytest ecosystem)
+# pytest>=8.0.0  # Python 3.12 optimized
+# pytest-mock>=3.14.0
+# pytest-cov>=4.1.0
+
+# Documentation (Modern toolchain)
+# mkdocs>=1.5.3
+# mkdocs-material>=9.5.3  # Dark/light mode support
+# mkdocstrings[python]>=0.24.0  # Async processing
+
+# Formatting (3.12+ optimized formatters)
+# black>=24.0.0  # Python 3.12+ style
+# ruff>=0.3.0  # Ultra-fast linting
+
+# # Optional runtime validation
+# pydantic>=2.6.0  # With 3.12 speed improvements

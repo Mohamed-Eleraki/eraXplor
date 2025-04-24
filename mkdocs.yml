@@ -1,0 +1,16 @@
+site_name: eraXplor - AWS Cost Export Tool
+
+theme:
+  name: "material"
+
+# fetch date from docstring
+plugins:
+  - mkdocstrings  # must install mkdocstrings first
+
+nav:
+  # - Welcome to eraXplor - AWS cost Export Toold Docs: index.md
+  - Welcome to eraXplor: index.md
+  - tutorials.md
+  - how-to-guides.md
+  - reference.md
+  - explanation.md
