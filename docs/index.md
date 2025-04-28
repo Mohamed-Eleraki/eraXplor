@@ -13,6 +13,7 @@ it extracts detailed cost data by calling AWS Cost Explorer API directly and Tra
 
 ## Key Features
 - ✅ **Account-Level Cost Breakdown**: Monthly unblended costs per linked account.
+- ✅ **Service-Level Cost Breakdown**: Monthly unblended costs per Services.
 - ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
 - ✅ **Multi-Profile Support**: Works with all configured AWS profiles.
 - ✅ **CSV Export**: Ready-to-analyze reports in spreadsheet format.
@@ -27,7 +28,7 @@ graph LR
     B --> C[Spreadsheet Manipulation]
     D[eraXplor] -->|Automated| E[Standardized Reports]
     style D fill:#4CAF50,stroke:#388E3C
-```
+
 
 ## Table Of Contents
 Quickly find what you're looking for depending on
