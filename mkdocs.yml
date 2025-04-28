@@ -6,6 +6,9 @@ theme:
 # fetch date from docstring
 plugins:
   - mkdocstrings  # must install mkdocstrings first
+  - mermaid2
+  - admonition
+  - pymdownx.details
 
 nav:
   # - Welcome to eraXplor - AWS cost Export Toold Docs: index.md
