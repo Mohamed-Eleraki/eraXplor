@@ -1,3 +1,57 @@
+# How-To Guides
+
+## AWS Profile Configuration
+
+- Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - Command line tool.
+- Create an AWS AMI user then extract Access ID & key.
+- Configure AWS CLI profile by:
+```bash
+aws configure --profile [PROFILE_NAME]  # Replace [PROFILE_NAME] with your profile name
+# 2- Input the Access ID & Key as required.
+# 3- Specify the defalut region.
+```
+
+## Check installed Python version
+
+- Ensure you Python version is >= 3.12.3 by:
+```bash
+python --version
+```
+
+## Install eraXplor 
+
+- Install eraxplor too by:
+```bash
+pip install eraXplor
+```
+
+## How-To use
+
+- Simply run the `eraXplor` Command:
+```bash
+eraXplor
+# 1- input start date of data will be collected.
+# 2- input end date of date will be collected.
+# 3- input configure AWS profile name.
+# 4- [1] for Collecting & sorting data based on AWS Accounts.
+#    [2] for Collecting & sorting data based on AWS Services.
+# 5- input CSV file name, Default value = test_output.csv
+```
+
+- Check CSV file Created.
+
+
+## How-To Schedule Regular Exports
+
+if you want automatic monthly exports;
+- use cron on linux/macOS or Task Scheduler on windows.
+- Example `cron` job monthly *i.e. 1st day of the month at 2 AM.*
+```bash
+0 2 1 * * /usr/bin/python3 /path/to/main.py --profile [PROFILE_NAME]
+```
+
+<!-- 
+
 This part of the project documentation focuses on a
 **problem-oriented** approach. You'll tackle common
 tasks that you might have, with the help of the code
@@ -37,4 +91,4 @@ to add any two numbers that you need to add:
     print(add(20, 22))  # OUTPUT: 42.0
 
 You're now able to add any two numbers, and you'll
-always get a `float` as a result.
+always get a `float` as a result. -->

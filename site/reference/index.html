@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#main" class="md-skip">
+        <a href="#reference" class="md-skip">
           Skip to content
         </a>
       
@@ -111,6 +111,46 @@
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
     
     
   </nav>
@@ -205,7 +245,7 @@
   
   
   <span class="md-ellipsis">
-    How to guides
+    How-To Guides
     
   </span>
   
@@ -227,6 +267,8 @@
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
+      
+        
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
@@ -260,12 +302,23 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#main-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main Application
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#main" class="md-nav__link">
@@ -280,6 +333,156 @@
   <a href="#main.main" class="md-nav__link">
     <span class="md-ellipsis">
       main
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banner-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Banner Utilities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.banner_utils" class="md-nav__link">
+    <span class="md-ellipsis">
+      banner_utils
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banner_utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cost-export-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Export Utilities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.cost_export_utils" class="md-nav__link">
+    <span class="md-ellipsis">
+      cost_export_utils
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.cost_export_utils.CostRecord" class="md-nav__link">
+    <span class="md-ellipsis">
+      CostRecord
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.cost_export_utils.monthly_account_cost_export" class="md-nav__link">
+    <span class="md-ellipsis">
+      monthly_account_cost_export
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="monthly_account_cost_export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#csv-export-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSV Export Utilities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.csv_export_utils" class="md-nav__link">
+    <span class="md-ellipsis">
+      csv_export_utils
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.csv_export_utils.csv_export" class="md-nav__link">
+    <span class="md-ellipsis">
+      csv_export
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="csv_export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#date-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Date Utilities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.date_utils" class="md-nav__link">
+    <span class="md-ellipsis">
+      date_utils
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.date_utils.get_end_date_from_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_end_date_from_user
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.date_utils.get_start_date_from_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_start_date_from_user
     </span>
   </a>
   
@@ -332,12 +535,23 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#main-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main Application
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#main" class="md-nav__link">
@@ -352,6 +566,156 @@
   <a href="#main.main" class="md-nav__link">
     <span class="md-ellipsis">
       main
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banner-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Banner Utilities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.banner_utils" class="md-nav__link">
+    <span class="md-ellipsis">
+      banner_utils
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banner_utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cost-export-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Export Utilities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.cost_export_utils" class="md-nav__link">
+    <span class="md-ellipsis">
+      cost_export_utils
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.cost_export_utils.CostRecord" class="md-nav__link">
+    <span class="md-ellipsis">
+      CostRecord
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.cost_export_utils.monthly_account_cost_export" class="md-nav__link">
+    <span class="md-ellipsis">
+      monthly_account_cost_export
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="monthly_account_cost_export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#csv-export-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSV Export Utilities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.csv_export_utils" class="md-nav__link">
+    <span class="md-ellipsis">
+      csv_export_utils
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.csv_export_utils.csv_export" class="md-nav__link">
+    <span class="md-ellipsis">
+      csv_export
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="csv_export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#date-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Date Utilities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.date_utils" class="md-nav__link">
+    <span class="md-ellipsis">
+      date_utils
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.date_utils.get_end_date_from_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_end_date_from_user
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utils.date_utils.get_start_date_from_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_start_date_from_user
     </span>
   </a>
   
@@ -373,12 +737,8 @@
 
 
 
-  <h1>Reference</h1>
-
-<p>This part of the project documentation focuses on
-an <strong>information-oriented</strong> approach. Use it as a
-reference for the technical implementation of the
-<code>eraXplor</code> project code.</p>
+<h1 id="reference">Reference</h1>
+<h2 id="main-application">Main Application</h2>
 
 
 <div class="doc doc-object doc-module">
@@ -475,7 +835,1150 @@ reference for the technical implementation of the
 
     </div>
 
-</div><!-- ::: dir/pythonfilewithoutextention -->
+</div><h2 id="utilities">Utilities</h2>
+<h3 id="banner-utilities">Banner Utilities</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="utils.banner_utils"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div><h3 id="cost-export-utilities">Cost Export Utilities</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="utils.cost_export_utils"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="utils.cost_export_utils.CostRecord" class="doc doc-heading">
+            <code>CostRecord</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="typing.TypedDict">TypedDict</span></code></p>
+
+
+        <p>Class type annotation tool dettermining the List Schema.
+Type definition for a single cost record.</p>
+
+
+
+
+
+
+
+              <details class="quote">
+                <summary>Source code in <code>utils/cost_export_utils.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CostRecord</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class type annotation tool dettermining the List Schema.</span>
+<span class="sd">    Type definition for a single cost record.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">time_period</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>  <span class="c1"># {&#39;Start&#39;: str, &#39;End&#39;: str}</span>
+    <span class="n">account_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">account_cost</span><span class="p">:</span> <span class="nb">str</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="utils.cost_export_utils.monthly_account_cost_export" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">monthly_account_cost_export</span><span class="p">(</span><span class="n">start_date_input</span><span class="p">,</span> <span class="n">end_date_input</span><span class="p">,</span> <span class="n">aws_profile_name_input</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Retrieves AWS account cost data for a specified time period using AWS Cost Explorer.</p>
+<p>Fetches the unblended costs for all linked accounts in an AWS organization for a given
+date range, grouped by account ID and returned in monthly granularity.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>start_date_input</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The start date of the cost report in YYYY-MM-DD format.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>end_date_input</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The end date of the cost report in YYYY-MM-DD format.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>aws_profile_name_input</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the AWS profile to use for authentication,
+as configured in the local AWS credentials file.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>list</code></td>            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="CostRecord (utils.cost_export_utils.CostRecord)" href="#utils.cost_export_utils.CostRecord">CostRecord</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of dictionaries containing cost data, where each dictionary has:
+- time_period (dict): Contains 'Start' and 'End' dates for the time period
+- account_id (str): The AWS account ID
+- account_cost (str): The unblended cost amount as a string</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="botocore.exceptions.ClientError">ClientError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If there are AWS API authorization or parameter issues</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="botocore.exceptions.ProfileNotFound">ProfileNotFound</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the specified AWS profile doesn't exist</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <p>This is an illustrative example that won't actually execute AWS calls:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>costs = monthly_account_cost_export('2023-01-01', '2023-01-31', 'dummy_profile')  # doctest: +SKIP
+[
+    {
+        'time_period': {'Start': '2023-01-01', 'End': '2023-01-31'},
+        'account_id': '123456789012',
+        'account_cost': '42.50'
+    }
+]</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>For actual testing, you would need to:
+1. Have valid AWS credentials configured
+2. Use a real profile name
+3. Mark the test to run only when AWS available:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>monthly_account_cost_export('2023-01-01', '2023-01-31', 'real_profile')  # doctest: +SKIP</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>utils/cost_export_utils.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">monthly_account_cost_export</span><span class="p">(</span>
+    <span class="n">start_date_input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">datetime</span><span class="p">],</span>  <span class="c1"># str | datetime </span>
+    <span class="n">end_date_input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">datetime</span><span class="p">],</span> 
+    <span class="n">aws_profile_name_input</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CostRecord</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieves AWS account cost data for a specified time period using AWS Cost Explorer.</span>
+
+<span class="sd">    Fetches the unblended costs for all linked accounts in an AWS organization for a given</span>
+<span class="sd">    date range, grouped by account ID and returned in monthly granularity.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        start_date_input (str): The start date of the cost report in YYYY-MM-DD format.</span>
+<span class="sd">        end_date_input (str): The end date of the cost report in YYYY-MM-DD format.</span>
+<span class="sd">        aws_profile_name_input (str): The name of the AWS profile to use for authentication,</span>
+<span class="sd">            as configured in the local AWS credentials file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: A list of dictionaries containing cost data, where each dictionary has:</span>
+<span class="sd">            - time_period (dict): Contains &#39;Start&#39; and &#39;End&#39; dates for the time period</span>
+<span class="sd">            - account_id (str): The AWS account ID</span>
+<span class="sd">            - account_cost (str): The unblended cost amount as a string</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        botocore.exceptions.ClientError: If there are AWS API authorization or parameter issues</span>
+<span class="sd">        botocore.exceptions.ProfileNotFound: If the specified AWS profile doesn&#39;t exist</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        This is an illustrative example that won&#39;t actually execute AWS calls:</span>
+<span class="sd">        &gt;&gt;&gt; costs = monthly_account_cost_export(&#39;2023-01-01&#39;, &#39;2023-01-31&#39;, &#39;dummy_profile&#39;)  # doctest: +SKIP</span>
+<span class="sd">        [</span>
+<span class="sd">            {</span>
+<span class="sd">                &#39;time_period&#39;: {&#39;Start&#39;: &#39;2023-01-01&#39;, &#39;End&#39;: &#39;2023-01-31&#39;},</span>
+<span class="sd">                &#39;account_id&#39;: &#39;123456789012&#39;,</span>
+<span class="sd">                &#39;account_cost&#39;: &#39;42.50&#39;</span>
+<span class="sd">            }</span>
+<span class="sd">        ]</span>
+
+<span class="sd">        For actual testing, you would need to:</span>
+<span class="sd">        1. Have valid AWS credentials configured</span>
+<span class="sd">        2. Use a real profile name</span>
+<span class="sd">        3. Mark the test to run only when AWS available:</span>
+<span class="sd">        &gt;&gt;&gt; monthly_account_cost_export(&#39;2023-01-01&#39;, &#39;2023-01-31&#39;, &#39;real_profile&#39;)  # doctest: +SKIP</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">profile_session</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">profile_name</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">aws_profile_name_input</span><span class="p">))</span>
+    <span class="n">ce_client</span> <span class="o">=</span> <span class="n">profile_session</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;ce&#39;</span><span class="p">)</span>
+
+    <span class="n">account_cost_usage</span> <span class="o">=</span> <span class="n">ce_client</span><span class="o">.</span><span class="n">get_cost_and_usage</span><span class="p">(</span>
+        <span class="n">TimePeriod</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;Start&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_date_input</span><span class="p">),</span>
+            <span class="s1">&#39;End&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">end_date_input</span><span class="p">)</span>
+        <span class="p">},</span>
+        <span class="n">Granularity</span> <span class="o">=</span> <span class="s1">&#39;MONTHLY&#39;</span><span class="p">,</span>
+        <span class="n">Metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;UnblendedCost&#39;</span><span class="p">],</span>
+        <span class="n">GroupBy</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># group the result based on account ID</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;Type&#39;</span><span class="p">:</span> <span class="s1">&#39;DIMENSION&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Key&#39;</span><span class="p">:</span> <span class="s1">&#39;LINKED_ACCOUNT&#39;</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># print(json.dumps(account_cost_usage, indent=4, default=str))</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">account_cost_usage</span><span class="p">[</span><span class="s1">&#39;ResultsByTime&#39;</span><span class="p">]:</span>
+        <span class="n">time_period</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;TimePeriod&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;Groups&#39;</span><span class="p">]:</span>
+            <span class="n">account_id</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;Keys&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">account_cost</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;Metrics&#39;</span><span class="p">][</span><span class="s1">&#39;UnblendedCost&#39;</span><span class="p">][</span><span class="s1">&#39;Amount&#39;</span><span class="p">]</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;time_period&#39;</span><span class="p">:</span> <span class="n">time_period</span><span class="p">,</span>
+                <span class="s1">&#39;account_id&#39;</span><span class="p">:</span> <span class="n">account_id</span><span class="p">,</span>
+                <span class="s1">&#39;account_cost&#39;</span><span class="p">:</span> <span class="n">account_cost</span>
+            <span class="p">})</span>
+            <span class="c1"># results.append(f&quot;Account ID: {termcolor.colored(account_id, color=&#39;yellow&#39;)}, Cost: {termcolor.colored(account_cost, color=&#39;yellow&#39;)}&quot;)</span>
+            <span class="c1"># results.append(&quot;\n&quot;)</span>
+    <span class="k">return</span> <span class="n">results</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h3 id="csv-export-utilities">CSV Export Utilities</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="utils.csv_export_utils"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="utils.csv_export_utils.csv_export" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">csv_export</span><span class="p">(</span><span class="n">fetch_monthly_account_cost_usage</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;cost_repot.csv&#39;</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Exports AWS cost data to a CSV file with standardized formatting.</p>
+<p>Takes the output from monthly_account_cost_export() and writes it to a CSV file
+with consistent column headers and proper formatting. The CSV will contain
+the time period, account IDs, and associated costs.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>fetch_monthly_account_cost_usage</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of cost data dictionaries as returned
+by monthly_account_cost_export(). Each dictionary should contain:
+- time_period (dict): With 'Start' and 'End' keys
+- account_id (str): AWS account ID
+- account_cost (str): Cost amount as string</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>filename</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Output filename for the CSV. Defaults to 'cost_report.csv'.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;cost_repot.csv&#39;</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>None</code></td>            <td>
+                  <code>None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Writes directly to file but doesn't return any value.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyError">KeyError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If input data is missing required fields</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="IOError">IOError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If there are issues writing to the specified file</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">test_data</span> <span class="o">=</span> <span class="p">[{</span>
+<span class="gp">... </span>    <span class="s1">&#39;time_period&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Start&#39;</span><span class="p">:</span> <span class="s1">&#39;2023-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">:</span> <span class="s1">&#39;2023-01-31&#39;</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="s1">&#39;account_id&#39;</span><span class="p">:</span> <span class="s1">&#39;123456789012&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;account_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;42.50&#39;</span>
+<span class="gp">... </span><span class="p">}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">csv_export</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="s1">&#39;test_output.csv&#39;</span><span class="p">)</span>
+<span class="go">✅ Data exported to test_output.csv</span>
+</code></pre></div>
+    <p>The file content would be:
+Start Date,End Date,Account ID,Cost
+2023-01-01,2023-01-31,123456789012,42.50</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>utils/csv_export_utils.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">csv_export</span><span class="p">(</span>
+    <span class="n">fetch_monthly_account_cost_usage</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> 
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span><span class="s1">&#39;cost_repot.csv&#39;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># appending typehint</span>
+<span class="c1"># def csv_export(fetch_monthly_account_cost_usage: Union[List, Dict], filename: str =&#39;cost_repot.csv&#39;) -&gt; None:  # appending type hint, accepting List with any value inside or single dict</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exports AWS cost data to a CSV file with standardized formatting.</span>
+
+<span class="sd">    Takes the output from monthly_account_cost_export() and writes it to a CSV file</span>
+<span class="sd">    with consistent column headers and proper formatting. The CSV will contain</span>
+<span class="sd">    the time period, account IDs, and associated costs.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fetch_monthly_account_cost_usage (list): List of cost data dictionaries as returned</span>
+<span class="sd">            by monthly_account_cost_export(). Each dictionary should contain:</span>
+<span class="sd">            - time_period (dict): With &#39;Start&#39; and &#39;End&#39; keys</span>
+<span class="sd">            - account_id (str): AWS account ID</span>
+<span class="sd">            - account_cost (str): Cost amount as string</span>
+<span class="sd">        filename (str, optional): Output filename for the CSV. Defaults to &#39;cost_report.csv&#39;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None: Writes directly to file but doesn&#39;t return any value.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        KeyError: If input data is missing required fields</span>
+<span class="sd">        IOError: If there are issues writing to the specified file</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; test_data = [{</span>
+<span class="sd">        ...     &#39;time_period&#39;: {&#39;Start&#39;: &#39;2023-01-01&#39;, &#39;End&#39;: &#39;2023-01-31&#39;},</span>
+<span class="sd">        ...     &#39;account_id&#39;: &#39;123456789012&#39;,</span>
+<span class="sd">        ...     &#39;account_cost&#39;: &#39;42.50&#39;</span>
+<span class="sd">        ... }]</span>
+<span class="sd">        &gt;&gt;&gt; csv_export(test_data, &#39;test_output.csv&#39;)  # doctest: +ELLIPSIS</span>
+<span class="sd">        ✅ Data exported to test_output.csv</span>
+
+<span class="sd">        The file content would be:</span>
+<span class="sd">        Start Date,End Date,Account ID,Cost</span>
+<span class="sd">        2023-01-01,2023-01-31,123456789012,42.50</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Define CSV headers (column names)</span>
+    <span class="n">fieldnames</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Start Date&quot;</span><span class="p">,</span> <span class="s2">&quot;End Date&quot;</span><span class="p">,</span> <span class="s2">&quot;Account ID&quot;</span><span class="p">,</span> <span class="s2">&quot;Cost&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Create a CSV file with write mode</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+
+        <span class="c1"># Write headers</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="n">fieldnames</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+
+        <span class="c1"># Write each row of data</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">fetch_monthly_account_cost_usage</span><span class="p">:</span>
+            <span class="c1"># print(f&quot;time_period&#39;: {result[&#39;time_period&#39;]}&quot;)</span>
+            <span class="c1"># print(f&quot;account_id&#39;: {result[&#39;account_id&#39;]}&quot;)</span>
+            <span class="c1"># print(f&quot;account_cost&#39;: {result[&#39;account_cost&#39;]}&quot;) </span>
+
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">({</span>
+                <span class="s2">&quot;Start Date&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;time_period&quot;</span><span class="p">][</span><span class="s2">&quot;Start&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;End Date&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;time_period&quot;</span><span class="p">][</span><span class="s2">&quot;End&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Account ID&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;account_id&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Cost&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;account_cost&quot;</span><span class="p">]</span>
+            <span class="p">})</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Data exported to </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h3 id="date-utilities">Date Utilities</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="utils.date_utils"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="utils.date_utils.get_end_date_from_user" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_end_date_from_user</span><span class="p">()</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Prompts the user to enter an end date and validates the input format.</p>
+<p>Continuously prompts the user until a valid date is provided in the specified
+format or until the user interrupts with keyboard input. Handles both format
+validation and user interruption gracefully.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>datetime.date or None: Returns a date object if valid input is provided,
+returns None if the user interrupts the input (Ctrl+C).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyboardInterrupt">KeyboardInterrupt</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the user interrupts the input prompt (though this is
+caught and handled within the function).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>date = get_end_date_from_user()
+Enter a start date value with YYYY-MM-DD format: 2023-05-15
+print(date)
+2023-05-15</p>
+<p>date = get_start_date_from_user()
+Enter an end date value with YYYY-MM-DD format: invalid
+Invalid date format, Please use YYYY-MM-DD
+Enter an end date value with YYYY-MM-DD format: ^C
+User interrupted. Exiting
+print(date)
+None</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>utils/date_utils.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_end_date_from_user</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prompts the user to enter an end date and validates the input format.</span>
+
+<span class="sd">    Continuously prompts the user until a valid date is provided in the specified</span>
+<span class="sd">    format or until the user interrupts with keyboard input. Handles both format</span>
+<span class="sd">    validation and user interruption gracefully.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        datetime.date or None: Returns a date object if valid input is provided,</span>
+<span class="sd">            returns None if the user interrupts the input (Ctrl+C).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        KeyboardInterrupt: If the user interrupts the input prompt (though this is</span>
+<span class="sd">            caught and handled within the function).</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; date = get_end_date_from_user()</span>
+<span class="sd">        &gt;&gt;&gt; Enter a start date value with YYYY-MM-DD format: 2023-05-15</span>
+<span class="sd">        &gt;&gt;&gt; print(date)</span>
+<span class="sd">        2023-05-15</span>
+
+<span class="sd">        &gt;&gt;&gt; date = get_start_date_from_user()</span>
+<span class="sd">        &gt;&gt;&gt; Enter an end date value with YYYY-MM-DD format: invalid</span>
+<span class="sd">        &gt;&gt;&gt; Invalid date format, Please use YYYY-MM-DD</span>
+<span class="sd">        &gt;&gt;&gt; Enter an end date value with YYYY-MM-DD format: ^C</span>
+<span class="sd">        &gt;&gt;&gt; User interrupted. Exiting</span>
+<span class="sd">        &gt;&gt;&gt; print(date)</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">date_string</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter an end date value with YYYY-MM-DD format: &quot;</span><span class="p">)</span>
+            <span class="n">date_object</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_string</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">date_object</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid date format, Please use YYYY-MM-DD&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">User interrupted. Exiting&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="utils.date_utils.get_start_date_from_user" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_start_date_from_user</span><span class="p">()</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Prompts the user to enter a start date and validates the input format.</p>
+<p>Continuously prompts the user until a valid date is provided in the specified
+format or until the user interrupts with keyboard input. Handles both format
+validation and user interruption gracefully.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>datetime.date or None: Returns a date object if valid input is provided,
+returns None if the user interrupts the input (Ctrl+C).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyboardInterrupt">KeyboardInterrupt</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the user interrupts the input prompt (though this is
+caught and handled within the function).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>get_end_date_from_user()  # doctest: +SKIP
+Enter an end date value with YYYY-MM-DD format: 2023-05-15
+2023-05-15</p>
+<p>get_end_date_from_user()  # doctest: +SKIP
+Enter an end date value with YYYY-MM-DD format: invalid
+Invalid date format, Please use YYYY-MM-DD
+Enter an end date value with YYYY-MM-DD format: ^C
+User interrupted. Exiting
+None</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>utils/date_utils.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_start_date_from_user</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prompts the user to enter a start date and validates the input format.</span>
+
+<span class="sd">    Continuously prompts the user until a valid date is provided in the specified</span>
+<span class="sd">    format or until the user interrupts with keyboard input. Handles both format</span>
+<span class="sd">    validation and user interruption gracefully.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        datetime.date or None: Returns a date object if valid input is provided,</span>
+<span class="sd">            returns None if the user interrupts the input (Ctrl+C).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        KeyboardInterrupt: If the user interrupts the input prompt (though this is</span>
+<span class="sd">            caught and handled within the function).</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; get_end_date_from_user()  # doctest: +SKIP</span>
+<span class="sd">        Enter an end date value with YYYY-MM-DD format: 2023-05-15</span>
+<span class="sd">        2023-05-15</span>
+
+<span class="sd">        &gt;&gt;&gt; get_end_date_from_user()  # doctest: +SKIP</span>
+<span class="sd">        Enter an end date value with YYYY-MM-DD format: invalid</span>
+<span class="sd">        Invalid date format, Please use YYYY-MM-DD</span>
+<span class="sd">        Enter an end date value with YYYY-MM-DD format: ^C</span>
+<span class="sd">        User interrupted. Exiting</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">date_string</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter a start date value with YYYY-MM-DD format: &quot;</span><span class="p">)</span>
+            <span class="n">date_object</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_string</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">date_object</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid date format, Please use YYYY-MM-DD&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">User interrupted. Exiting&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+
+    <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><!-- This part of the project documentation focuses on
+an **information-oriented** approach. Use it as a
+reference for the technical implementation of the
+`eraXplor` project code.
+
+::: main -->
+<!-- ::: dir/pythonfilewithoutextention -->
 
 
 

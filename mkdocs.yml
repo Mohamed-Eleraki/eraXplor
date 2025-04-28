@@ -7,6 +7,7 @@ theme:
 plugins:
   - mkdocstrings  # must install mkdocstrings first
   - mermaid2
+  - search
 
 markdown_extensions:
   - admonition
@@ -17,5 +18,6 @@ nav:
   - Welcome to eraXplor: index.md
   - tutorials.md
   - how-to-guides.md
-  - reference.md
   - explanation.md
+  - reference.md
+  
