@@ -28,7 +28,7 @@ graph LR
     B --> C[Spreadsheet Manipulation]
     D[eraXplor] -->|Automated| E[Standardized Reports]
     style D fill:#4CAF50,stroke:#388E3C
-
+```
 
 ## Table Of Contents
 Quickly find what you're looking for depending on
@@ -61,6 +61,7 @@ your use case by looking at the different pages.
     ### Acknowledgments
 
     Special thanks to the open source community for:
+    
     - [RealPython](https://realpython.com/)
     - [boto3](https://boto3.amazonaws.com) - AWS SDK for Python
     - [mkdocs-material](https://squidfunk.github.io/mkdocs-material/) - Documentation framework
