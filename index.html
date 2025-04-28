@@ -256,12 +256,12 @@ it extracts detailed cost data by calling AWS Cost Explorer API directly and Tra
 <li>✅ <strong>Open-Source</strong>: the tool is open-source under Apache02 and GNU licenses, which enables your to enhance it for your purpose.</li>
 </ul>
 <h2 id="why-eraxplor">Why eraXplor?</h2>
-<p>```mermaid
-graph LR
+<div class="mermaid">graph LR
     A[AWS Console] --&gt;|Complex UI| B[Manual Export]
     B --&gt; C[Spreadsheet Manipulation]
     D[eraXplor] --&gt;|Automated| E[Standardized Reports]
-    style D fill:#4CAF50,stroke:#388E3C</p>
+    style D fill:#4CAF50,stroke:#388E3C
+</div>
 <h2 id="table-of-contents">Table Of Contents</h2>
 <p>Quickly find what you're looking for depending on
 your use case by looking at the different pages.</p>
@@ -286,10 +286,12 @@ your use case by looking at the different pages.</p>
 <p>"I built eraXplor to solve real-world cloud cost visibility challenges — the same pain points I encounter daily in enterprise environments. This tool embodies my belief that financial accountability should be accessible to every technical team."</p>
 </blockquote>
 <h3 id="acknowledgments">Acknowledgments</h3>
-<p>Special thanks to the open source community for:
-- <a href="https://realpython.com/">RealPython</a>
-- <a href="https://boto3.amazonaws.com">boto3</a> - AWS SDK for Python
-- <a href="https://squidfunk.github.io/mkdocs-material/">mkdocs-material</a> - Documentation framework</p>
+<p>Special thanks to the open source community for:</p>
+<ul>
+<li><a href="https://realpython.com/">RealPython</a></li>
+<li><a href="https://boto3.amazonaws.com">boto3</a> - AWS SDK for Python</li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/">mkdocs-material</a> - Documentation framework</li>
+</ul>
 </details>
 <!-- [Get Started](#){ .md-button } -->
 <!-- This site contains the project documentation for the
@@ -351,5 +353,6 @@ nourishment free of charge. -->
 </div>
 <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
 <script src="assets/javascripts/bundle.c8b220af.min.js"></script>
-</body>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
 </html>
