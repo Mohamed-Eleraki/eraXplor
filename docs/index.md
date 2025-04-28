@@ -1,4 +1,18 @@
-This site contains the project documentation for the
+# Welcome to eraXplor
+
+![Banner](assets/images/banner.png) <!-- Add your pyfiglet banner as image -->
+
+AWS Cost Export Tool for automated cost reporting and analysis.
+
+## Features
+- ✅ Monthly cost breakdown by account
+- ✅ CSV export functionality
+- ✅ Custom date range selection
+- ✅ Command-line interface
+
+[Get Started](#){ .md-button }
+
+<!-- This site contains the project documentation for the
 `calculator` project that is a toy module used in the
 Real Python tutorial
 [Build Your Python Project Documentation With MkDocs](
@@ -31,4 +45,4 @@ your use case by looking at the different pages.
 I want to thank my house plants for providing me with
 a negligible amount of oxygen each day. Also, I want
 to thank the sun for providing more than half of their
-nourishment free of charge.
+nourishment free of charge. -->
