@@ -7,6 +7,8 @@ theme:
 plugins:
   - mkdocstrings  # must install mkdocstrings first
   - mermaid2
+
+markdown_extensions:
   - admonition
   - pymdownx.details
 
