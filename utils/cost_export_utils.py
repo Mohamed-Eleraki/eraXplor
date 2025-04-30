@@ -9,15 +9,20 @@ def get_cost_groupby_key():
         try:
             # Prompt user for input
             cost_groupby_key_input = input("""Enter the cost group by key:
-    Enter [1] to list by 'LINKED_ACCOUNT'
+    Enter [1] to list by 'LINKED_ACCOUNT' -> Default
     Enter [2] to list by 'SERVICE'
     Enter [3] to list by 'PURCHASE_TYPE'
-    Enter [4] to list by 'USAGE_TYPE':\n""")
+    Enter [4] to list by 'USAGE_TYPE'
+    Press Enter for 'LINKED_ACCOUNT' -> Default:\n""").strip()
 
-            # Strip any surrounding whitespace
-            cost_groupby_key_object = cost_groupby_key_input.strip()
-
-            # Ensure input is valid (1 or 2)
+            # use default if empty
+            if cost_groupby_key_input == '':
+                cost_groupby_key_object = '1'
+                print("Defaulting to 'LINKED_ACCOUNT'")
+            else:
+                cost_groupby_key_object = cost_groupby_key_input
+                
+            # Ensure input is valid
             if cost_groupby_key_object not in ['1', '2', '3','4']:
                 print("Invalid selection. Please enter [1], [2], [3] or [4].")
                 continue
@@ -41,7 +46,7 @@ def monthly_account_cost_export(
     start_date_input: Union[str, datetime],  # str | datetime
     end_date_input: Union[str, datetime],
     aws_profile_name_input: str,
-    cost_groupby_key_input: int
+    cost_groupby_key_input: int = 1
     ) -> List[CostRecord]:
     """Retrieves AWS account cost data for a specified time period using AWS Cost Explorer.
 
