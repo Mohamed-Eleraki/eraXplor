@@ -44,7 +44,7 @@ def csv_export(
     # Create a CSV file with write mode
     with open(filename, mode="w", newline="") as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(["Start Date", "End Date", "Account/Service", "Cost"])
+        writer.writerow(["Start Date", "End Date", "Account/Service/Purchase_type/Usage_type", "Cost"])
         for row in results:
             time_period = row["time_period"]
             name = row.get("account_id") or row.get("service_name")

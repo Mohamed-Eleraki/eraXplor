@@ -9,15 +9,17 @@ def get_cost_groupby_key():
         try:
             # Prompt user for input
             cost_groupby_key_input = input("""Enter the cost group by key:
-            Enter [1] to list by 'LINKED_ACCOUNT'
-            Enter [2] to list by 'SERVICE'\n""")
+    Enter [1] to list by 'LINKED_ACCOUNT'
+    Enter [2] to list by 'SERVICE'
+    Enter [3] to list by 'PURCHASE_TYPE'
+    Enter [4] to list by 'USAGE_TYPE':\n""")
 
             # Strip any surrounding whitespace
             cost_groupby_key_object = cost_groupby_key_input.strip()
 
             # Ensure input is valid (1 or 2)
-            if cost_groupby_key_object not in ['1', '2']:
-                print("Invalid selection. Please enter [1] or [2].")
+            if cost_groupby_key_object not in ['1', '2', '3','4']:
+                print("Invalid selection. Please enter [1], [2], [3] or [4].")
                 continue
             
             # Return the valid selection
@@ -125,6 +127,64 @@ def monthly_account_cost_export(
                 {
                     'Type': 'DIMENSION',
                     'Key': 'SERVICE'
+                }
+            ]
+        )
+        for item in account_cost_usage['ResultsByTime']:
+            time_period = item['TimePeriod']
+            for group in item['Groups']:
+                # account_id = group['Keys'][0]  # no output for account id
+                service_name = group['Keys'][0]
+                service_cost = group['Metrics']['UnblendedCost']['Amount']
+                results.append({
+                    'time_period': time_period,
+                    'service_name': service_name,
+                    'service_cost': service_cost
+                })
+                # results.append(f"Account ID: {termcolor.colored(account_id, color='yellow')}, Cost: {termcolor.colored(account_cost, color='yellow')}")
+                # results.append("\n")               
+    elif cost_groupby_key_input == 3:
+        # group by service
+        account_cost_usage = ce_client.get_cost_and_usage(
+            TimePeriod = {
+                'Start': str(start_date_input),
+                'End': str(end_date_input)
+            },
+            Granularity = 'MONTHLY',
+            Metrics = ['UnblendedCost'],
+            GroupBy = [  # group the result based on service
+                {
+                    'Type': 'DIMENSION',
+                    'Key': 'PURCHASE_TYPE'
+                }
+            ]
+        )
+        for item in account_cost_usage['ResultsByTime']:
+            time_period = item['TimePeriod']
+            for group in item['Groups']:
+                # account_id = group['Keys'][0]  # no output for account id
+                service_name = group['Keys'][0]
+                service_cost = group['Metrics']['UnblendedCost']['Amount']
+                results.append({
+                    'time_period': time_period,
+                    'service_name': service_name,
+                    'service_cost': service_cost
+                })
+                # results.append(f"Account ID: {termcolor.colored(account_id, color='yellow')}, Cost: {termcolor.colored(account_cost, color='yellow')}")
+                # results.append("\n")
+    elif cost_groupby_key_input == 4:
+        # group by service
+        account_cost_usage = ce_client.get_cost_and_usage(
+            TimePeriod = {
+                'Start': str(start_date_input),
+                'End': str(end_date_input)
+            },
+            Granularity = 'MONTHLY',
+            Metrics = ['UnblendedCost'],
+            GroupBy = [  # group the result based on service
+                {
+                    'Type': 'DIMENSION',
+                    'Key': 'USAGE_TYPE'
                 }
             ]
         )
