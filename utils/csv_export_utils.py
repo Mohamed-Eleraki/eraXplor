@@ -3,7 +3,7 @@ from typing import List, Dict, Any, Optional
 from .cost_export_utils import monthly_account_cost_export
 
 def csv_export(
-    fetch_monthly_account_cost_usage: List[Dict[str, Any]], 
+    results: List[Dict[str, Any]], 
     filename: str ='cost_repot.csv'
     ) -> None:  # appending typehint
 # def csv_export(fetch_monthly_account_cost_usage: Union[List, Dict], filename: str ='cost_repot.csv') -> None:  # appending type hint, accepting List with any value inside or single dict
@@ -41,28 +41,43 @@ def csv_export(
         Start Date,End Date,Account ID,Cost
         2023-01-01,2023-01-31,123456789012,42.50
     """
-    # Define CSV headers (column names)
-    fieldnames = ["Start Date", "End Date", "Account ID", "Cost"]
-            
     # Create a CSV file with write mode
     with open(filename, mode="w", newline="") as csvfile:
-        
-        # Write headers
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        
-        # Write each row of data
-        for result in fetch_monthly_account_cost_usage:
-            # print(f"time_period': {result['time_period']}")
-            # print(f"account_id': {result['account_id']}")
-            # print(f"account_cost': {result['account_cost']}") 
-            
-            writer.writerow({
-                "Start Date": result["time_period"]["Start"],
-                "End Date": result["time_period"]["End"],
-                "Account ID": result["account_id"],
-                "Cost": result["account_cost"]
-            })
+        writer = csv.writer(csvfile)
+        writer.writerow(["Start Date", "End Date", "Account/Service", "Cost"])
+        for row in results:
+            time_period = row["time_period"]
+            name = row.get("account_id") or row.get("service_name")
+            cost = row.get("account_cost") or row.get("service_cost")
+            writer.writerow([time_period["Start"], time_period["End"], name, cost])
     print(f"✅ Data exported to {filename}")
-    
+        # try:
+        #     # Ensure the iterable can be reused
+        #     results = list(results)
+
+        #     for result in results:
+        #         try:
+        #             # First row: Account-level cost info
+        #             writer.writerow({
+        #                 "Start Date": result["time_period"]["Start"],
+        #                 "End Date": result["time_period"]["End"],
+        #                 "Account ID": result["account_id"],
+        #                 "Cost": result["account_cost"]
+        #             })
+
+        #             # Second row: Service-level cost info (if available)
+        #             writer.writerow({
+        #                 "Start Date": result["time_period"]["Start"],
+        #                 "End Date": result["time_period"]["End"],
+        #                 "Service Name": result["service_name"],
+        #                 "Cost": result["account_cost"]
+        #             })
+
+        #         except KeyError as e:
+        #             print(f"Missing expected key {e} in result: {result}")
+        #             continue  # Skip this result and continue with the next
+
+        # except Exception as e:
+        #     print(f"Unexpected error occurred: {e}")
+    # print(f"✅ Data exported to {filename}")
 # help(csv_export)

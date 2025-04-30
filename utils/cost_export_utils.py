@@ -1,6 +1,31 @@
 import boto3
 from datetime import datetime, timedelta
 from typing import Union, TypedDict, Dict, List
+# import json
+
+def get_cost_groupby_key():
+    """Iteratively prompts the user to select a cost group by key."""
+    while True:
+        try:
+            # Prompt user for input
+            cost_groupby_key_input = input("""Enter the cost group by key:
+            Enter [1] to list by 'LINKED_ACCOUNT'
+            Enter [2] to list by 'SERVICE'\n""")
+
+            # Strip any surrounding whitespace
+            cost_groupby_key_object = cost_groupby_key_input.strip()
+
+            # Ensure input is valid (1 or 2)
+            if cost_groupby_key_object not in ['1', '2']:
+                print("Invalid selection. Please enter [1] or [2].")
+                continue
+            
+            # Return the valid selection
+            return int(cost_groupby_key_object)
+
+        except KeyboardInterrupt:
+            print("\nUser interrupted. Exiting")
+            break
 
 class CostRecord(TypedDict):
     """Class type annotation tool dettermining the List Schema.
@@ -11,9 +36,10 @@ class CostRecord(TypedDict):
     account_cost: str
     
 def monthly_account_cost_export(
-    start_date_input: Union[str, datetime],  # str | datetime 
-    end_date_input: Union[str, datetime], 
-    aws_profile_name_input: str
+    start_date_input: Union[str, datetime],  # str | datetime
+    end_date_input: Union[str, datetime],
+    aws_profile_name_input: str,
+    cost_groupby_key_input: int
     ) -> List[CostRecord]:
     """Retrieves AWS account cost data for a specified time period using AWS Cost Explorer.
 
@@ -56,36 +82,75 @@ def monthly_account_cost_export(
     profile_session = boto3.Session(profile_name=str(aws_profile_name_input))
     ce_client = profile_session.client('ce')
 
-    account_cost_usage = ce_client.get_cost_and_usage(
-        TimePeriod = {
-            'Start': str(start_date_input),
-            'End': str(end_date_input)
-        },
-        Granularity = 'MONTHLY',
-        Metrics = ['UnblendedCost'],
-        GroupBy = [  # group the result based on account ID
-            {
-                'Type': 'DIMENSION',
-                'Key': 'LINKED_ACCOUNT'
-            }
-        ]
-    )
-
-    # print(json.dumps(account_cost_usage, indent=4, default=str))
+    # if condition determine the type of groupby key
     results = []
-    for item in account_cost_usage['ResultsByTime']:
-        time_period = item['TimePeriod']
-        for group in item['Groups']:
-            account_id = group['Keys'][0]
-            account_cost = group['Metrics']['UnblendedCost']['Amount']
-            results.append({
-                'time_period': time_period,
-                'account_id': account_id,
-                'account_cost': account_cost
-            })
-            # results.append(f"Account ID: {termcolor.colored(account_id, color='yellow')}, Cost: {termcolor.colored(account_cost, color='yellow')}")
-            # results.append("\n")
+    if cost_groupby_key_input == 1:
+        # group by account ID
+        account_cost_usage = ce_client.get_cost_and_usage(
+            TimePeriod = {
+                'Start': str(start_date_input),
+                'End': str(end_date_input)
+            },
+            Granularity = 'MONTHLY',
+            Metrics = ['UnblendedCost'],
+            GroupBy = [  # group the result based on account ID
+                {
+                    'Type': 'DIMENSION',
+                    'Key': 'LINKED_ACCOUNT'
+                }
+            ]
+        )
+        for item in account_cost_usage['ResultsByTime']:
+            time_period = item['TimePeriod']
+            for group in item['Groups']:
+                account_id = group['Keys'][0]
+                account_cost = group['Metrics']['UnblendedCost']['Amount']
+                results.append({
+                    'time_period': time_period,
+                    'account_id': account_id,
+                    'account_cost': account_cost
+                })
+                # results.append(f"Account ID: {termcolor.colored(account_id, color='yellow')}, Cost: {termcolor.colored(account_cost, color='yellow')}")
+                # results.append("\n")
+    elif cost_groupby_key_input == 2:
+        # group by service
+        account_cost_usage = ce_client.get_cost_and_usage(
+            TimePeriod = {
+                'Start': str(start_date_input),
+                'End': str(end_date_input)
+            },
+            Granularity = 'MONTHLY',
+            Metrics = ['UnblendedCost'],
+            GroupBy = [  # group the result based on service
+                {
+                    'Type': 'DIMENSION',
+                    'Key': 'SERVICE'
+                }
+            ]
+        )
+        for item in account_cost_usage['ResultsByTime']:
+            time_period = item['TimePeriod']
+            for group in item['Groups']:
+                # account_id = group['Keys'][0]  # no output for account id
+                service_name = group['Keys'][0]
+                service_cost = group['Metrics']['UnblendedCost']['Amount']
+                results.append({
+                    'time_period': time_period,
+                    'service_name': service_name,
+                    'service_cost': service_cost
+                })
+                # results.append(f"Account ID: {termcolor.colored(account_id, color='yellow')}, Cost: {termcolor.colored(account_cost, color='yellow')}")
+                # results.append("\n")
     return results
+
+# test function run
+# run_function_temp = monthly_account_cost_export(
+#     start_date_input='2025-01-01',
+#     end_date_input='2025-03-30',
+#     get_cost_groupby_key=2,
+#     aws_profile_name_input='eraki'
+# )
+# print(json.dumps(run_function_temp, indent=4, default=str))  # print all
 
 # help(monthly_account_cost_export)
 

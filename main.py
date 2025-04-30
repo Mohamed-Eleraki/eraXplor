@@ -21,6 +21,7 @@ from utils import (
     get_start_date_from_user,
     get_end_date_from_user,
     monthly_account_cost_export,
+    get_cost_groupby_key,
     csv_export
 )
 
@@ -34,7 +35,8 @@ def main() -> None:
     start_date_input = get_start_date_from_user()
     end_date_input = get_end_date_from_user()
     aws_profile_name_input = input("Enter your AWS Profile name: ")
-    fetch_monthly_account_cost_usage = monthly_account_cost_export(start_date_input, end_date_input, aws_profile_name_input)
+    cost_groupby_key_input = get_cost_groupby_key()
+    fetch_monthly_account_cost_usage = monthly_account_cost_export(start_date_input, end_date_input, aws_profile_name_input, cost_groupby_key_input)
     # print(json.dumps(fetch_monthly_account_cost_usage, indent=4, default=str))  # print all
     # print(fetch_monthly_account_cost_usage[0]['account_id'])  # print account id 
     
