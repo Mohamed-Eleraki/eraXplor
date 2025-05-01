@@ -47,8 +47,6 @@ your use case by looking at the different pages.
     **Mohamed eraki**  
     *Cloud & DevOps Engineer*
 
-    Cloud and DevOps engineer with a total of 5 years experience in technologies. With 2 years of experience in Cloud and DevOps, specializing in implementing and optimizing cloud-based *'Fin-Tech'* solutions, and 3 years of experience focused on on-prem *'Fin-Tech'* solutions.
-
     [![Email](https://img.shields.io/badge/Contact-mohamed--ibrahim2021@outlook.com-blue?style=flat&logo=mail.ru)](mailto:mohamed-ibrahim2021@outlook.com)  
     [![LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-informational?style=flat&logo=linkedin)](https://www.linkedin.com/in/mohamed-el-eraki-8bb5111aa/)  
     [![Twitter](https://img.shields.io/badge/Twitter-Follow-blue?style=flat&logo=twitter)](https://x.com/__eraki__)  
