@@ -17,7 +17,7 @@ it extracts detailed cost data by calling AWS Cost Explorer API directly and Tra
 - ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
 - ✅ **Multi-Profile Support**: Works with all configured AWS profiles.
 - ✅ **CSV Export**: Ready-to-analyze reports in CSV format.
-- ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and Cross OS plateform.
+- ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and Cross OS platform.
 - ✅ **Documentation Ready**: Well explained documentations assest you kick start rapidly.
 - ✅ **Open-Source**: the tool is open-source under Apache02 and GNU licenses, which enables your to enhance it for your purpose.
 
