@@ -41,7 +41,7 @@ your use case by looking at the different pages.
 
 
 
-<details>
+<details open>
 <summary><strong>👋Show/Hide Author Details👋</strong></summary>
 
 **Mohamed eraki**  
