@@ -16,7 +16,7 @@ import termcolor
 # from cost_export_utils import monthly_account_cost_export
 # from csv_export_utils import csv_export
 # from banner_utils import banner
-from utils import (
+from .utils import (
     banner as generate_banner,  # avoiding naming conflicts with the banner var name
     get_start_date_from_user,
     get_end_date_from_user,
