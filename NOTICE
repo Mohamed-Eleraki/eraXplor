@@ -1,0 +1,14 @@
+eraXplor - AWS Cost Explorer CLI Tool
+Copyright 2025 Mohamed eraki
+Licensed under the Apache License, Version 2.0
+
+This product includes software developed by Amazon Web Services, Inc.
+
+---
+
+Third-Party Components:
+
+1. Boto3 – AWS SDK for Python
+Copyright 2013-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Licensed under the Apache License, Version 2.0
+   https://aws.amazon.com/apache-2-0/
