@@ -68,33 +68,26 @@ setup(
     url="https://github.com/pypa/sampleproject",  # Optional
     # This should be your name or the name of the organization which owns the
     # project.
-    author="A. Random Developer",  # Optional
+    author="Mohamed eraki",  # Optional
     # This should be a valid email address corresponding to the author listed
     # above.
-    author_email="author@example.com",  # Optional
+    author_email="mohamed-ibrahim2021@outlook.com",  # Optional
     # Classifiers help users find your project by categorizing it.
     #
     # For a list of valid classifiers, see https://pypi.org/classifiers/
     classifiers=[  # Optional
-        # How mature is this project? Common values are
-        #   3 - Alpha
-        #   4 - Beta
-        #   5 - Production/Stable
         "Development Status :: 3 - Alpha",
-        # Indicate who your project is intended for
         "Intended Audience :: Developers",
-        "Topic :: Software Development :: Build Tools",
-        # Pick your license as you wish
-        "License :: OSI Approved :: MIT License",
-        # Specify the Python versions you support here. In particular, ensure
-        # that you indicate you support Python 3. These classifiers are *not*
-        # checked by 'pip install'. See instead 'python_requires' below.
+        "License :: OSI Approved :: Apache Software License",
+        "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3 :: Only",
+        "Topic :: System :: Systems Administration",
+        "Intended Audience :: System Administrators",
+        "Intended Audience :: Information Technology",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Software Development :: Libraries :: Application Frameworks",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Environment :: Console",
     ],
     # This field adds keywords for your project which will appear on the
     # project page. What does your project relate to?
@@ -102,7 +95,7 @@ setup(
     # Note that this is a list of additional keywords, separated
     # by commas, to be used to assist searching for the distribution in a
     # larger catalog.
-    keywords="sample, setuptools, development",  # Optional
+    keywords="CLI, ASCII Art",  # Optional
     # When your source code is in a subdirectory under the project root, e.g.
     # `src/`, it is necessary to specify the `package_dir` argument.
     package_dir={"": "src"},  # Optional
@@ -120,7 +113,7 @@ setup(
     # 'Programming Language' classifiers above, 'pip install' will check this
     # and refuse to install the project if the version does not match. See
     # https://packaging.python.org/guides/distributing-packages-using-setuptools/#python-requires
-    python_requires=">=3.7, <4",
+    python_requires=">=3.12",
     # This field lists other packages that your project depends on to run.
     # Any package you put here will be installed by pip when your project is
     # installed, so they must be valid existing projects.
@@ -137,7 +130,21 @@ setup(
     # Similar to `install_requires` above, these must be valid existing
     # projects.
     extras_require={  # Optional
-        "dev": ["check-manifest"],
+        "dev": [
+            "pytest>=8.0.0",
+            "pytest-mock>=3.14.0",
+            "pytest-cov>=4.1.0",
+            "mkdocs>=1.6.1",
+            "mkdocs-autorefs>=1.4.1",
+            "mkdocs-get-deps>=0.2.0",
+            "mkdocs-material>=9.6.12",
+            "mkdocs-material-extensions>=1.3.1",
+            "mkdocs-mermaid2-plugin>=1.2.1",
+            "mkdocstrings>=0.29.1",
+            "mkdocstrings-python>=1.16.10",
+            "pylint>=3.3.6",
+            "isort>=6.0.1",
+            ],
         "test": ["coverage"],
     },
     # If there are data files included in your packages that need to be
