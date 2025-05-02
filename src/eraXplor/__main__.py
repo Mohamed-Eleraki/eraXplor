@@ -1,23 +1,34 @@
-""" eraXplor - AWS Cost Export Tool
+"""eraXplor - AWS Cost Export Tool
 
-Main entry point with type-annotated workflow functions.
+This is the main entry point for the eraXplor CLI tool, which allows users to export
+AWS cost and usage data using AWS Cost Explorer.
+
+It provides an interactive command-line workflow to:
+1. Prompt the user for a date range (start and end dates).
+2. Prompt for an AWS CLI profile to authenticate with.
+3. Allow the user to select a cost grouping dimension _(e.g., by account, service,
+    Purchase type, Usage type.)_
+4. Fetch cost data using the AWS Cost Explorer API.
+5. Export the resulting data to a CSV file.
 
 Examples:
-    >>> python3 main.py  #doctest: +SKIP 
-    Enter a start date value with YYYY-MM-DD format: 2025-1-1  #doctest: +SKIP 
-    Enter a end date value with YYYY-MM-DD format: 2025-3-30  #doctest: +SKIP 
-    Enter your AWS Profile name:  #doctest: +SKIP 
-    dummy_profile  #doctest: +SKIP
+    >>> eraXplor
+    Enter a start date value with YYYY-MM-DD format: 2025-1-1
+    Enter a end date value with YYYY-MM-DD format: 2025-3-30
+    Enter your AWS Profile name:  [Profile name]
+    Enter the cost group by key:
+        Enter [1] to list by 'LINKED_ACCOUNT' -> Default
+        Enter [2] to list by 'SERVICE'
+        Enter [3] to list by 'PURCHASE_TYPE'
+        Enter [4] to list by 'USAGE_TYPE'
+        Press Enter for 'LINKED_ACCOUNT' -> Default:
+
+    ✅ Data exported to test_output.csv
 """
+
 import termcolor
-# Add the utils directory system path
-# sys.path.append(os.path.join(os.path.dirname(__file__), 'utils'))
-# from date_utils import get_start_date_from_user, get_end_date_from_user
-# from cost_export_utils import monthly_account_cost_export
-# from csv_export_utils import csv_export
-# from banner_utils import banner
 from .utils import (
-    banner as generate_banner,  # avoiding naming conflicts with the banner var name
+    banner as generate_banner,
     get_start_date_from_user,
     get_end_date_from_user,
     monthly_account_cost_export,
@@ -26,21 +37,30 @@ from .utils import (
 )
 
 def main() -> None:
-    """Orchestrates the cost export workflow with type hints."""
+    """Orchestrates & Manage depends of cost export workflow."""
     # Banner
-    banner, copyright = generate_banner()
-    print(f"\n\n {termcolor.colored(banner, color="green")}")
-    print(f"{termcolor.colored(copyright, color="green")}", end="\n\n")
-    
+    banner_format, copyright_notice = generate_banner()
+    print(f"\n\n {termcolor.colored(banner_format, color="green")}")
+    print(f"{termcolor.colored(copyright_notice, color="green")}", end="\n\n")
+
+    # Prompt user for input
     start_date_input = get_start_date_from_user()
     end_date_input = get_end_date_from_user()
+
+    # Prompt for AWS profile name
     aws_profile_name_input = input("Enter your AWS Profile name: ")
+
+    # Prompt for cost group by key
     cost_groupby_key_input = get_cost_groupby_key()
-    fetch_monthly_account_cost_usage = monthly_account_cost_export(start_date_input, end_date_input, aws_profile_name_input, cost_groupby_key_input)
-    # print(json.dumps(fetch_monthly_account_cost_usage, indent=4, default=str))  # print all
-    # print(fetch_monthly_account_cost_usage[0]['account_id'])  # print account id 
-    
-    csv_export(fetch_monthly_account_cost_usage)  # pass results to csv func
-    
+
+    # Fetch monthly account cost usage
+    fetch_monthly_account_cost_usage = monthly_account_cost_export(
+        start_date_input, end_date_input,
+        aws_profile_name_input,
+        cost_groupby_key_input)
+
+    # Export results to CSV
+    csv_export(fetch_monthly_account_cost_usage)
+
 if __name__ == "__main__":
     main()
