@@ -25,20 +25,6 @@ def csv_export(
 
     Returns:
         None: Writes directly to file but doesn't return any value.
-
-    Examples:
-        >>> test_data = [{
-        ...     'time_period': {'Start': '2023-01-01', 'End': '2023-01-31'},
-        ...     'account_id': '123456789012',
-        ...     'account_cost': '42.50'
-        ... }]
-        >>> csv_export(test_data, 'test_output.csv')  # doctest: +ELLIPSIS
-
-        ✅ Data exported to test_output.csv
-
-        # Output file content:
-        # Start Date,End Date,Account ID,Cost
-        # 2023-01-01,2023-01-31,123456789012,42.50
     """
     # Create a CSV file with write mode
     with open(filename, mode="w", newline="", encoding="utf-8") as csvfile:

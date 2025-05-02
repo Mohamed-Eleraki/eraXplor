@@ -1,4 +1,4 @@
-# 📚 Reference
+# Reference
 
 This section provides a structured breakdown of the main application module and its supporting utilities used in the `eraXplor` project.
 
@@ -38,7 +38,7 @@ Contains functions for retrieving cost and usage reports from AWS Cost Explorer 
 
 ---
 
-### 🧾CSV Export Utilities
+### 🧾 CSV Export Utilities
 
 ::: eraXplor.utils.csv_export_utils
 
