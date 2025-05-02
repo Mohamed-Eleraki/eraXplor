@@ -14,13 +14,13 @@ dependencies = [
 ]
 authors = [{name = "Mohamed eraki", email = "mohamed-ibrahim2021@outlook.com"}]
 keywords = ["CLI", "ASCII Art"]  # CLI + Text-based Art
-license = "MIT"
+license = "Apache-2.0"  # License type
 readme = {file = "README.md", content-type = "text/markdown"}
 requires-python = ">=3.12.3"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    #"License :: OSI Approved :: MIT License",
+    #"License :: OSI Approved :: Apache-2.0",
     "Programming Language :: Python :: 3.12.3",
     "Topic :: System :: Systems Administration",
     "Intended Audience :: System Administrators",
