@@ -14,7 +14,7 @@ dependencies = [
 ]
 authors = [{name = "Mohamed eraki", email = "mohamed-ibrahim2021@outlook.com"}]
 keywords = ["CLI", "ASCII Art"]  # CLI + Text-based Art
-license = "Apache-2.0"  # License type
+license = { text = "Apache-2.0" }
 readme = {file = "README.md", content-type = "text/markdown"}
 requires-python = ">=3.12.3"
 classifiers = [
