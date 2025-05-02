@@ -18,7 +18,7 @@
     
     
       
-        <title>📚 Reference - eraXplor - AWS Cost Export Tool</title>
+        <title>Reference - eraXplor - AWS Cost Export Tool</title>
       
     
     
@@ -98,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              📚 Reference
+              Reference
             
           </span>
         </div>
@@ -296,7 +296,7 @@
   
   
   <span class="md-ellipsis">
-    📚 Reference
+    Reference
     
   </span>
   
@@ -309,7 +309,7 @@
   
   
   <span class="md-ellipsis">
-    📚 Reference
+    Reference
     
   </span>
   
@@ -470,7 +470,7 @@
           <li class="md-nav__item">
   <a href="#csv-export-utilities" class="md-nav__link">
     <span class="md-ellipsis">
-      🧾CSV Export Utilities
+      🧾 CSV Export Utilities
     </span>
   </a>
   
@@ -499,33 +499,6 @@
   
     <nav class="md-nav" aria-label="csv_export">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#eraXplor.utils.csv_export_utils.csv_export--output-file-content" class="md-nav__link">
-    <span class="md-ellipsis">
-      Output file content:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#eraXplor.utils.csv_export_utils.csv_export--start-dateend-dateaccount-idcost" class="md-nav__link">
-    <span class="md-ellipsis">
-      Start Date,End Date,Account ID,Cost
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#eraXplor.utils.csv_export_utils.csv_export--2023-01-012023-01-311234567890124250" class="md-nav__link">
-    <span class="md-ellipsis">
-      2023-01-01,2023-01-31,123456789012,42.50
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#date-utilities" class="md-nav__link">
@@ -741,7 +714,7 @@
           <li class="md-nav__item">
   <a href="#csv-export-utilities" class="md-nav__link">
     <span class="md-ellipsis">
-      🧾CSV Export Utilities
+      🧾 CSV Export Utilities
     </span>
   </a>
   
@@ -770,33 +743,6 @@
   
     <nav class="md-nav" aria-label="csv_export">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#eraXplor.utils.csv_export_utils.csv_export--output-file-content" class="md-nav__link">
-    <span class="md-ellipsis">
-      Output file content:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#eraXplor.utils.csv_export_utils.csv_export--start-dateend-dateaccount-idcost" class="md-nav__link">
-    <span class="md-ellipsis">
-      Start Date,End Date,Account ID,Cost
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#eraXplor.utils.csv_export_utils.csv_export--2023-01-012023-01-311234567890124250" class="md-nav__link">
-    <span class="md-ellipsis">
-      2023-01-01,2023-01-31,123456789012,42.50
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#date-utilities" class="md-nav__link">
@@ -855,7 +801,7 @@
 
 
 
-<h1 id="reference">📚 Reference</h1>
+<h1 id="reference">Reference</h1>
 <p>This section provides a structured breakdown of the main application module and its supporting utilities used in the <code>eraXplor</code> project.</p>
 <hr />
 <h2 id="main-application-module">🔹Main Application Module</h2>
@@ -1643,7 +1589,7 @@ as configured in the local AWS credentials file.</p>
 <li>Usage types</li>
 </ul>
 <hr />
-<h3 id="csv-export-utilities">🧾CSV Export Utilities</h3>
+<h3 id="csv-export-utilities">🧾 CSV Export Utilities</h3>
 
 
 <div class="doc doc-object doc-module">
@@ -1765,20 +1711,6 @@ by monthly_account_cost_export(). Each dictionary should contain:
     </table>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">test_data</span> <span class="o">=</span> <span class="p">[{</span>
-<span class="gp">... </span>    <span class="s1">&#39;time_period&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Start&#39;</span><span class="p">:</span> <span class="s1">&#39;2023-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">:</span> <span class="s1">&#39;2023-01-31&#39;</span><span class="p">},</span>
-<span class="gp">... </span>    <span class="s1">&#39;account_id&#39;</span><span class="p">:</span> <span class="s1">&#39;123456789012&#39;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="s1">&#39;account_cost&#39;</span><span class="p">:</span> <span class="s1">&#39;42.50&#39;</span>
-<span class="gp">... </span><span class="p">}]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">csv_export</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="s1">&#39;test_output.csv&#39;</span><span class="p">)</span>
-</code></pre></div>
-    <p>✅ Data exported to test_output.csv</p>
-<h3 id="eraXplor.utils.csv_export_utils.csv_export--output-file-content">Output file content:</h3>
-<h3 id="eraXplor.utils.csv_export_utils.csv_export--start-dateend-dateaccount-idcost">Start Date,End Date,Account ID,Cost</h3>
-<h3 id="eraXplor.utils.csv_export_utils.csv_export--2023-01-012023-01-311234567890124250">2023-01-01,2023-01-31,123456789012,42.50</h3>
-
-
             <details class="quote">
               <summary>Source code in <code>src/eraXplor/utils/csv_export_utils.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 7</span>
@@ -1819,21 +1751,7 @@ by monthly_account_cost_export(). Each dictionary should contain:
 <span class="normal">42</span>
 <span class="normal">43</span>
 <span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">csv_export</span><span class="p">(</span>
+<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">csv_export</span><span class="p">(</span>
     <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
     <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cost_repot.csv&quot;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1854,20 +1772,6 @@ by monthly_account_cost_export(). Each dictionary should contain:
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None: Writes directly to file but doesn&#39;t return any value.</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; test_data = [{</span>
-<span class="sd">        ...     &#39;time_period&#39;: {&#39;Start&#39;: &#39;2023-01-01&#39;, &#39;End&#39;: &#39;2023-01-31&#39;},</span>
-<span class="sd">        ...     &#39;account_id&#39;: &#39;123456789012&#39;,</span>
-<span class="sd">        ...     &#39;account_cost&#39;: &#39;42.50&#39;</span>
-<span class="sd">        ... }]</span>
-<span class="sd">        &gt;&gt;&gt; csv_export(test_data, &#39;test_output.csv&#39;)  # doctest: +ELLIPSIS</span>
-
-<span class="sd">        ✅ Data exported to test_output.csv</span>
-
-<span class="sd">        # Output file content:</span>
-<span class="sd">        # Start Date,End Date,Account ID,Cost</span>
-<span class="sd">        # 2023-01-01,2023-01-31,123456789012,42.50</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Create a CSV file with write mode</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
