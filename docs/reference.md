@@ -1,33 +1,39 @@
 # Reference
 
-## Main Application
+
+This section provides a structured breakdown of the main application module and its supporting utilities used in the `eraXplor` project.
+
+## Main Application Module
+
+### Entry Point
 
 ::: eraXplor.__main__
 
+This is the primary script responsible for orchestrating the user workflow. It handles user input, invokes AWS cost data retrieval, and manages data export functionality.
 
-## Utilities
+## Utility Modules
 
 ### Banner Utilities
 
 ::: eraXplor.utils.banner_utils
 
+Responsible for rendering styled ASCII banners and displaying copyright
+information used in the CLI interface.
+
 ### Cost Export Utilities
 
 ::: eraXplor.utils.cost_export_utils
+
+Contains functions for retrieving cost and usage reports from AWS Cost Explorer using `boto3`, grouped by various dimensions (e.g., account, service, etc.).
 
 ### CSV Export Utilities
 
 ::: eraXplor.utils.csv_export_utils
 
+Provides functionality to export retrieved cost data into a structured CSV format.
+
 ### Date Utilities
 
 ::: eraXplor.utils.date_utils
 
-
-<!-- This part of the project documentation focuses on
-an **information-oriented** approach. Use it as a
-reference for the technical implementation of the
-`eraXplor` project code.
-
-::: main -->
-<!-- ::: dir/pythonfilewithoutextention -->
+Includes interactive functions for prompting and validating date input from users, ensuring format compliance and error handling.
