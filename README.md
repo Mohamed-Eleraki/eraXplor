@@ -20,13 +20,14 @@ it extracts detailed cost data by calling AWS Cost Explorer API directly and Tra
 - ✅ **Open-Source**: the tool is open-source under Apache02 and GNU licenses, which enables your to enhance it for your purpose.
 
 ## Why eraXplor?
+![Why_eraXplor](https://github.com/Mohamed-Eleraki/eraXplor/blob/master/docs/assets/images/why_eraXplor.jpeg)
 ```mermaid
-graph LR
+<!-- graph LR
     A[AWS Console] -->|Complex UI| B[Manual Export]
     B --> C[Spreadsheet Manipulation]
     D[eraXplor] -->|Automated| E[Standardized Reports]
     style D fill:#4CAF50,stroke:#388E3C
-```
+``` -->
 
 
 ## Table Of Contents
