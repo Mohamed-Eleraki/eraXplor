@@ -61,14 +61,6 @@ your use case by looking at the different pages.
 
 > "I built eraXplor to solve real-world cloud cost visibility challenges — the same pain points I encounter daily in enterprise environments. This tool embodies my belief that financial accountability should be accessible to every technical team."
 
-### Acknowledgments
-
-Special thanks to the open source community for:
-
-- [RealPython](https://realpython.com/)
-- [boto3](https://boto3.amazonaws.com) - AWS SDK for Python
-- [mkdocs-material](https://squidfunk.github.io/mkdocs-material/) - Documentation framework
-
 </details>
 
 
