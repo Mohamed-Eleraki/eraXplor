@@ -359,19 +359,28 @@
 </code></pre>
 <h2 id="steps">Steps</h2>
 <ol>
-<li><strong>Install dependencies:</strong></li>
+<li><strong>Install eraXplor:</strong></li>
 </ol>
-<pre><code class="language-bash">pip install -r requirements.txt
+<pre><code class="language-bash">pip install eraXplor
 </code></pre>
 <ol>
-<li><strong>Configure AWS credentials:</strong></li>
+<li><strong>Run eraXplor:</strong></li>
 </ol>
-<pre><code class="language-bash">aws configure --profile [PROFILE_NAME]
+<pre><code class="language-bash">eraXplor
 </code></pre>
-<ol>
-<li><strong>Run the tool:</strong></li>
-</ol>
-<pre><code class="language-bash">python main.py
+<p>This will prompet you with an Interactive session.
+Please, Follow the guide below and enter a valied inputs as follows example:</p>
+<pre><code class="language-bash">Enter a start date value with YYYY-MM-DD format: 2025-1-1
+Enter an end date value with YYYY-MM-DD format: 2025-3-30
+Enter your AWS Profile name: profile_name
+Enter the cost group by key:
+    Enter [1] to list by 'LINKED_ACCOUNT' -&gt; Default
+    Enter [2] to list by 'SERVICE'
+    Enter [3] to list by 'PURCHASE_TYPE'
+    Enter [4] to list by 'USAGE_TYPE'
+    Press Enter for 'LINKED_ACCOUNT' -&gt; Default:
+
+    # Press Enter for list cost per account, Or Enter a number for attending result.
 </code></pre>
 <!-- This part of the project documentation focuses on a
 **learning-oriented** approach. You'll learn how to

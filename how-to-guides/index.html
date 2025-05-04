@@ -325,15 +325,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#how-to-schedule-regular-exports" class="md-nav__link">
-    <span class="md-ellipsis">
-      How-To Schedule Regular Exports
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -448,15 +439,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#how-to-schedule-regular-exports" class="md-nav__link">
-    <span class="md-ellipsis">
-      How-To Schedule Regular Exports
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -489,6 +471,8 @@
 <li>Ensure you Python version is &gt;= 3.12.3 by:</li>
 </ul>
 <pre><code class="language-bash">python --version
+
+# Consider update Python version if less than 3
 </code></pre>
 <h2 id="install-eraxplor">Install eraXplor</h2>
 <ul>
@@ -498,25 +482,38 @@
 </code></pre>
 <h2 id="how-to-use">How-To use</h2>
 <ul>
-<li>Simply run the <code>eraXplor</code> Command:</li>
+<li>Simply run the <code>eraXplor</code> Command, Then follow the prompet interactive session with valid inputs:</li>
 </ul>
 <pre><code class="language-bash">eraXplor
-# 1- input start date of data will be collected.
-# 2- input end date of date will be collected.
-# 3- input configure AWS profile name.
-# 4- [1] for Collecting &amp; sorting data based on AWS Accounts.
-#    [2] for Collecting &amp; sorting data based on AWS Services.
-# 5- input CSV file name, Default value = test_output.csv
+
+# Enter a start date value with YYYY-MM-DD format: 2025-1-1
+# Enter an end date value with YYYY-MM-DD format: 2025-3-30
+# Enter your AWS Profile name: profile_name
+# Enter the cost group by key:
+#     Enter [1] to list by 'LINKED_ACCOUNT' -&gt; Default
+#     Enter [2] to list by 'SERVICE'
+#     Enter [3] to list by 'PURCHASE_TYPE'
+#     Enter [4] to list by 'USAGE_TYPE'
+#     Press Enter for 'LINKED_ACCOUNT' -&gt; Default:
+
+# Press Enter for list cost per account, Or Enter a number for attending result.
 </code></pre>
 <ul>
 <li>Check CSV file Created.</li>
 </ul>
-<h2 id="how-to-schedule-regular-exports">How-To Schedule Regular Exports</h2>
-<p>if you want automatic monthly exports;
+<h1 id="upcomming-features">Upcomming Features</h1>
+<ul>
+<li>Parse args with non-interactive sessions.</li>
+<li>Rich speadsheets content and charts.</li>
+<li>Fetch the top 10 most expensive services.</li>
+</ul>
+<!--
+if you want automatic monthly exports;
 - use cron on linux/macOS or Task Scheduler on windows.
-- Example <code>cron</code> job monthly <em>i.e. 1st day of the month at 2 AM.</em></p>
-<pre><code class="language-bash">0 2 1 * * /usr/bin/python3 /path/to/main.py --profile [PROFILE_NAME]
-</code></pre>
+- Example `cron` job monthly *i.e. 1st day of the month at 2 AM.*
+bash
+0 2 1 * * /usr/bin/python3 /path/to/main.py --profile [PROFILE_NAME] -->
+
 <!-- 
 
 This part of the project documentation focuses on a
