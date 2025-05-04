@@ -19,25 +19,33 @@ python3 --version
 
 ## Steps
 
-1. **Install dependencies:**
+1. **Install eraXplor:**
 
 ```bash
-pip install -r requirements.txt
+pip install eraXplor
 ```
 
-2. **Configure AWS credentials:**
+2. **Run eraXplor:**
 
 ```bash
-aws configure --profile [PROFILE_NAME]
+eraXplor
 ```
 
-3. **Run the tool:**
-
+This will prompet you with an Interactive session.
+Please, Follow the guide below and enter a valied inputs as follows example:
 ```bash
-python main.py
+Enter a start date value with YYYY-MM-DD format: 2025-1-1
+Enter an end date value with YYYY-MM-DD format: 2025-3-30
+Enter your AWS Profile name: profile_name
+Enter the cost group by key:
+    Enter [1] to list by 'LINKED_ACCOUNT' -> Default
+    Enter [2] to list by 'SERVICE'
+    Enter [3] to list by 'PURCHASE_TYPE'
+    Enter [4] to list by 'USAGE_TYPE'
+    Press Enter for 'LINKED_ACCOUNT' -> Default:
+
+    # Press Enter for list cost per account, Or Enter a number for attending result.
 ```
-
-
 
 
 <!-- This part of the project documentation focuses on a

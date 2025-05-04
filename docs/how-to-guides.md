@@ -16,6 +16,8 @@ aws configure --profile [PROFILE_NAME]  # Replace [PROFILE_NAME] with your profi
 - Ensure you Python version is >= 3.12.3 by:
 ```bash
 python --version
+
+# Consider update Python version if less than 3
 ```
 
 ## Install eraXplor 
@@ -27,28 +29,39 @@ pip install eraXplor
 
 ## How-To use
 
-- Simply run the `eraXplor` Command:
+- Simply run the `eraXplor` Command, Then follow the prompet interactive session with valid inputs:
+
 ```bash
 eraXplor
-# 1- input start date of data will be collected.
-# 2- input end date of date will be collected.
-# 3- input configure AWS profile name.
-# 4- [1] for Collecting & sorting data based on AWS Accounts.
-#    [2] for Collecting & sorting data based on AWS Services.
-# 5- input CSV file name, Default value = test_output.csv
+
+# Enter a start date value with YYYY-MM-DD format: 2025-1-1
+# Enter an end date value with YYYY-MM-DD format: 2025-3-30
+# Enter your AWS Profile name: profile_name
+# Enter the cost group by key:
+#     Enter [1] to list by 'LINKED_ACCOUNT' -> Default
+#     Enter [2] to list by 'SERVICE'
+#     Enter [3] to list by 'PURCHASE_TYPE'
+#     Enter [4] to list by 'USAGE_TYPE'
+#     Press Enter for 'LINKED_ACCOUNT' -> Default:
+
+# Press Enter for list cost per account, Or Enter a number for attending result.
 ```
 
 - Check CSV file Created.
 
+# Upcomming Features
 
-## How-To Schedule Regular Exports
+- Parse args with non-interactive sessions.
+- Rich speadsheets content and charts.
+- Fetch the top 10 most expensive services.
 
+<!--
 if you want automatic monthly exports;
 - use cron on linux/macOS or Task Scheduler on windows.
 - Example `cron` job monthly *i.e. 1st day of the month at 2 AM.*
-```bash
-0 2 1 * * /usr/bin/python3 /path/to/main.py --profile [PROFILE_NAME]
-```
+bash
+0 2 1 * * /usr/bin/python3 /path/to/main.py --profile [PROFILE_NAME] -->
+
 
 <!-- 
 
