@@ -47,6 +47,20 @@ eraXplor
 # Press Enter for list cost per account, Or Enter a number for attending result.
 ```
 
+For Windows/PowerShell users restart your terminal, and you may need to use the following command:
+
+```bash
+python3 -m eraXplor
+# to avoid using this command, apend the eraXplor to your paths.
+# Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\
+```
+
+???+ info "Note"
+
+    Ensure you run the command in a place you have sufficient permission to replace file.
+    *The eraXport tool sorting cost reult into a CSV file, by default The CSV will replace for next run.*
+
+
 - Check CSV file Created.
 
 # Upcomming Features
