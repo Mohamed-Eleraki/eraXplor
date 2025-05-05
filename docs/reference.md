@@ -2,7 +2,7 @@
 
 This section provides a structured breakdown of the main application module and its supporting utilities used in the `eraXplor` project.
 
-🌟![eraXplor source code](https://github.com/Mohamed-Eleraki/eraXplor)
+🌟[eraXplor source code](https://github.com/Mohamed-Eleraki/eraXplor)
 
 ---
 
