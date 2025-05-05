@@ -9,7 +9,7 @@ from .cost_export_utils import get_cost_groupby_key
 from .csv_export_utils import csv_export
 from .date_utils import get_start_date_from_user, get_end_date_from_user
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 __all__=[
     'banner',
