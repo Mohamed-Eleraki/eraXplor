@@ -19,7 +19,8 @@ def get_start_date_from_user():
         KeyboardInterrupt: If the user interrupts the input prompt (though this is
             caught and handled within the function).
     """
-    while True:
+    attempts = 0
+    while attempts < 4:
         try:
             date_string = input("Enter a start date value with YYYY-MM-DD format: ")
             date_object = datetime.strptime(date_string, "%Y-%m-%d").date()
@@ -29,7 +30,8 @@ def get_start_date_from_user():
         except KeyboardInterrupt:
             print("\nUser interrupted. Exiting")
             break
-
+        attempts +=1
+    print("Too many invalid attempts. Exiting.")
     return None
 
 
