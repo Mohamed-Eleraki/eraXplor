@@ -59,7 +59,7 @@ python3 -m eraXplor
 
 
 
-<details>
+<details open>
 <summary><strong> ℹ️ Notes </strong></summary>
 
     Ensure you run the command in a place you have sufficient permission to replace file.
@@ -94,6 +94,7 @@ graph LR
     Replace -> with double --
 ``` -->
 
+---
 
 
 ## Table Of Contents
@@ -106,6 +107,7 @@ your use case by looking at the different pages.
 4. [Explanation](https://mohamed-eleraki.github.io/eraXplor/explanation/)
 5. [Reference](https://mohamed-eleraki.github.io/eraXplor/reference/)
 
+---
 
 
 <details open>
