@@ -36,12 +36,12 @@ def get_start_date_from_user():
 def get_end_date_from_user():
     """Prompts the user to enter an end date and validates the input format.
 
-    Continuously prompts the user until a valid date is provided in the specified
+    Continuously prompts the user up to 4 times until a valid date is provided in the specified
     format or until the user interrupts with keyboard input. Handles both format
     validation and user interruption gracefully.
 
     Returns:
-        datetime.date or None: Returns a date object if valid input is provided,
+        datetime.date, 'Too many invalid attempts', or None: Returns a date object if valid input is provided,
             returns None if the user interrupts the input (Ctrl+C).
 
     Raises:
@@ -50,7 +50,8 @@ def get_end_date_from_user():
         KeyboardInterrupt: If the user interrupts the input prompt (though this is
             caught and handled within the function).
     """
-    while True:
+    attempts = 0
+    while attempts < 4:
         try:
             date_string = input("Enter an end date value with YYYY-MM-DD format: ")
             date_object = datetime.strptime(date_string, "%Y-%m-%d").date()
@@ -60,4 +61,6 @@ def get_end_date_from_user():
         except KeyboardInterrupt:
             print("\nUser interrupted. Exiting")
             break
+        attempts += 1
+    print("Too many invalid attempts. Exiting.")
     return None
