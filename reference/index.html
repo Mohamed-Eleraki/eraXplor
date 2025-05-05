@@ -1847,7 +1847,7 @@ by monthly_account_cost_export(). Each dictionary should contain:
     <div class="doc doc-contents ">
 
         <p>Prompts the user to enter an end date and validates the input format.</p>
-<p>Continuously prompts the user until a valid date is provided in the specified
+<p>Continuously prompts the user up to 4 times until a valid date is provided in the specified
 format or until the user interrupts with keyboard input. Handles both format
 validation and user interruption gracefully.</p>
 
@@ -1866,7 +1866,7 @@ validation and user interruption gracefully.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>datetime.date or None: Returns a date object if valid input is provided,
+                <p>datetime.date, 'Too many invalid attempts', or None: Returns a date object if valid input is provided,
 returns None if the user interrupts the input (Ctrl+C).</p>
               </div>
             </td>
@@ -1938,15 +1938,18 @@ caught and handled within the function).</p>
 <span class="normal">60</span>
 <span class="normal">61</span>
 <span class="normal">62</span>
-<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_end_date_from_user</span><span class="p">():</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_end_date_from_user</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prompts the user to enter an end date and validates the input format.</span>
 
-<span class="sd">    Continuously prompts the user until a valid date is provided in the specified</span>
+<span class="sd">    Continuously prompts the user up to 4 times until a valid date is provided in the specified</span>
 <span class="sd">    format or until the user interrupts with keyboard input. Handles both format</span>
 <span class="sd">    validation and user interruption gracefully.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        datetime.date or None: Returns a date object if valid input is provided,</span>
+<span class="sd">        datetime.date, &#39;Too many invalid attempts&#39;, or None: Returns a date object if valid input is provided,</span>
 <span class="sd">            returns None if the user interrupts the input (Ctrl+C).</span>
 
 <span class="sd">    Raises:</span>
@@ -1955,7 +1958,8 @@ caught and handled within the function).</p>
 <span class="sd">        KeyboardInterrupt: If the user interrupts the input prompt (though this is</span>
 <span class="sd">            caught and handled within the function).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">attempts</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">attempts</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">date_string</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter an end date value with YYYY-MM-DD format: &quot;</span><span class="p">)</span>
             <span class="n">date_object</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_string</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
@@ -1965,6 +1969,8 @@ caught and handled within the function).</p>
         <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">User interrupted. Exiting&quot;</span><span class="p">)</span>
             <span class="k">break</span>
+        <span class="n">attempts</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Too many invalid attempts. Exiting.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
