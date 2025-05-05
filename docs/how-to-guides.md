@@ -51,6 +51,10 @@ For Windows/PowerShell users restart your terminal, and you may need to use the 
 
 ```bash
 python3 -m eraXplor
+
+# Or
+python -m eraXplor
+
 # to avoid using this command, apend the eraXplor to your paths.
 # Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\
 ```
