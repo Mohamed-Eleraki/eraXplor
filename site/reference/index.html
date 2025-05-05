@@ -900,7 +900,11 @@ AWS cost and usage data using AWS Cost Explorer.</p>
 <span class="normal">60</span>
 <span class="normal">61</span>
 <span class="normal">62</span>
-<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Orchestrates &amp; Manage depends of cost export workflow.&quot;&quot;&quot;</span>
     <span class="c1"># Banner</span>
     <span class="n">banner_format</span><span class="p">,</span> <span class="n">copyright_notice</span> <span class="o">=</span> <span class="n">generate_banner</span><span class="p">()</span>
@@ -909,6 +913,10 @@ AWS cost and usage data using AWS Cost Explorer.</p>
 
     <span class="c1"># Prompt user for input</span>
     <span class="n">start_date_input</span> <span class="o">=</span> <span class="n">get_start_date_from_user</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">start_date_input</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exiting due to invalid date input.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>  <span class="c1"># immediately exits the main() function</span>
+
     <span class="n">end_date_input</span> <span class="o">=</span> <span class="n">get_end_date_from_user</span><span class="p">()</span>
 
     <span class="c1"># Prompt for AWS profile name</span>
@@ -1911,9 +1919,7 @@ caught and handled within the function).</p>
 
             <details class="quote">
               <summary>Source code in <code>src/eraXplor/utils/date_utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
 <span class="normal">41</span>
@@ -1941,7 +1947,9 @@ caught and handled within the function).</p>
 <span class="normal">63</span>
 <span class="normal">64</span>
 <span class="normal">65</span>
-<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_end_date_from_user</span><span class="p">():</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_end_date_from_user</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prompts the user to enter an end date and validates the input format.</span>
 
 <span class="sd">    Continuously prompts the user up to 4 times until a valid date is provided in the specified</span>
@@ -1990,7 +1998,7 @@ caught and handled within the function).</p>
     <div class="doc doc-contents ">
 
         <p>Prompts the user to enter a start date and validates the input format.</p>
-<p>Continuously prompts the user until a valid date is provided in the specified
+<p>Continuously prompts the user up to 4 times until a valid date is provided in the specified
 format or until the user interrupts with keyboard input. Handles both format
 validation and user interruption gracefully.</p>
 
@@ -2009,7 +2017,7 @@ validation and user interruption gracefully.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>datetime.date or None: Returns a date object if valid input is provided,
+                <p>datetime.date, 'Too many invalid attempts', or None: Returns a date object if valid input is provided,
 returns None if the user interrupts the input (Ctrl+C).</p>
               </div>
             </td>
@@ -2082,15 +2090,17 @@ caught and handled within the function).</p>
 <span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
-<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_start_date_from_user</span><span class="p">():</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_start_date_from_user</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prompts the user to enter a start date and validates the input format.</span>
 
-<span class="sd">    Continuously prompts the user until a valid date is provided in the specified</span>
+<span class="sd">    Continuously prompts the user up to 4 times until a valid date is provided in the specified</span>
 <span class="sd">    format or until the user interrupts with keyboard input. Handles both format</span>
 <span class="sd">    validation and user interruption gracefully.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        datetime.date or None: Returns a date object if valid input is provided,</span>
+<span class="sd">        datetime.date, &#39;Too many invalid attempts&#39;, or None: Returns a date object if valid input is provided,</span>
 <span class="sd">            returns None if the user interrupts the input (Ctrl+C).</span>
 
 <span class="sd">    Raises:</span>
@@ -2099,7 +2109,8 @@ caught and handled within the function).</p>
 <span class="sd">        KeyboardInterrupt: If the user interrupts the input prompt (though this is</span>
 <span class="sd">            caught and handled within the function).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">attempts</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">attempts</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">date_string</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter a start date value with YYYY-MM-DD format: &quot;</span><span class="p">)</span>
             <span class="n">date_object</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_string</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
@@ -2109,7 +2120,8 @@ caught and handled within the function).</p>
         <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">User interrupted. Exiting&quot;</span><span class="p">)</span>
             <span class="k">break</span>
-
+        <span class="n">attempts</span> <span class="o">+=</span><span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Too many invalid attempts. Exiting.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
