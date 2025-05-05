@@ -57,10 +57,17 @@ python3 -m eraXplor
 # Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\
 ```
 
-???+ info "Note"
+
+
+<details>
+<summary><strong> ℹ️ Notes </strong></summary>
 
     Ensure you run the command in a place you have sufficient permission to replace file.
     *The eraXport tool sorting cost reult into a CSV file, by default The CSV will replace for next run.*
+</details>
+
+
+
 
 This will prompet you with an Interactive session.
 Please, Follow the guide below and enter a valied inputs as follows example:
