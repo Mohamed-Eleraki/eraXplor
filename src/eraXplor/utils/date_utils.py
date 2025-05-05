@@ -5,12 +5,12 @@ from datetime import datetime
 def get_start_date_from_user():
     """Prompts the user to enter a start date and validates the input format.
 
-    Continuously prompts the user until a valid date is provided in the specified
+    Continuously prompts the user up to 4 times until a valid date is provided in the specified
     format or until the user interrupts with keyboard input. Handles both format
     validation and user interruption gracefully.
 
     Returns:
-        datetime.date or None: Returns a date object if valid input is provided,
+        datetime.date, 'Too many invalid attempts', or None: Returns a date object if valid input is provided,
             returns None if the user interrupts the input (Ctrl+C).
 
     Raises:

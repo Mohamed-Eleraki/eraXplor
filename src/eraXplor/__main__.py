@@ -45,6 +45,10 @@ def main() -> None:
 
     # Prompt user for input
     start_date_input = get_start_date_from_user()
+    if start_date_input is None:
+        print("Exiting due to invalid date input.")
+        return  # immediately exits the main() function
+
     end_date_input = get_end_date_from_user()
 
     # Prompt for AWS profile name
