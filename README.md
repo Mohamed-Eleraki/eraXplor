@@ -33,6 +33,8 @@ it extracts detailed cost data by calling AWS Cost Explorer API directly and Tra
 
 ```bash
 python3 --version
+
+# Consider update Python version if less than 3
 ```
 
 ## Steps
