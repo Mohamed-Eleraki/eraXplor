@@ -26,7 +26,8 @@ Examples:
     ✅ Data exported to test_output.csv
 """
 
-from datetime import datetime
+from datetime import datetime, date
+from dateutil.relativedelta import relativedelta 
 import termcolor
 from .utils import (
     banner as generate_banner,
@@ -52,6 +53,10 @@ def main() -> None:
     if args.start_date:
         start_date_input = args.start_date
         start_date_input = datetime.strptime(start_date_input, "%Y-%m-%d").date()
+    elif args.start_date is None:
+        six_months_ago = date.today() - relativedelta(months=6)
+        start_date_input = date(six_months_ago.year, six_months_ago.month, 1).strftime("%Y-%m-%d")
+        # start_date_input = datetime.strptime(start_date_input, "%Y-%m-%d").date()
     else:
         # Prompt user for input
         start_date_input = get_start_date_from_user()
@@ -62,6 +67,9 @@ def main() -> None:
     if args.end_date:
         end_date_input = args.end_date
         end_date_input = datetime.strptime(end_date_input, "%Y-%m-%d").date()
+    elif args.end_date is None:
+        end_date_input = date.today().strftime("%Y-%m-%d")
+        # end_date_input = datetime.strptime(end_date_input, "%Y-%m-%d").date()
     else:
         end_date_input = get_end_date_from_user()
         if end_date_input is None:
@@ -71,6 +79,9 @@ def main() -> None:
     # Check if AWS Profile is provided via command line arguments
     if args.profile:
         aws_profile_name_input = args.profile
+    elif args.profile is None:
+        # Default to 'default' profile if not provided
+        aws_profile_name_input = "default"
     else:
         # Prompt for AWS profile name
         aws_profile_name_input = input("Enter your AWS Profile name: ")

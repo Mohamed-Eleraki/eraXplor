@@ -55,7 +55,7 @@ def get_cost_groupby_key():
     Enter [1] to list by 'LINKED_ACCOUNT' -> Default
     Enter [2] to list by 'SERVICE'
     Enter [3] to list by 'PURCHASE_TYPE'
-    Enter [4] to list by 'USAGE_TYPE'
+    Enter [4] to list by 'USAGE_TYPE'\n
     Press Enter for 'LINKED_ACCOUNT' -> Default:\n"""
             ).strip()
 
