@@ -1,10 +1,49 @@
 """Module to retrieve AWS account cost data using AWS Cost Explorer API."""
 
+import argparse
 from datetime import datetime
 from typing import Dict, List, TypedDict, Union
-
 import boto3
 
+def parser():
+    """Parser for the cost export utility."""
+
+    arg_parser = argparse.ArgumentParser(
+        description="Export AWS account cost data using AWS Cost Explorer API."
+    )
+    arg_parser.add_argument(
+        "-s", "--start-date",
+        type=str,
+        required=False,
+        help="Start date for cost data in YYYY-MM-DD format.",
+    )
+    arg_parser.add_argument(
+        "-e", "--end-date",
+        type=str,
+        required=False,
+        help="End date for cost data in YYYY-MM-DD format.",
+    )
+    arg_parser.add_argument(
+        "-p", "--profile",
+        type=str,
+        required=False,
+        help="AWS profile name to use for authentication.",
+    )
+    arg_parser.add_argument(
+        "-g", "--groupby",
+        type=str,
+        # choices=[1, 2, 3, 4],
+        choices=["account", "service", "purchase_type", "usage_type"],
+        # default=1,
+        help=(
+            "Cost group by key: "
+            "1 for 'LINKED_ACCOUNT' (default), "
+            "2 for 'SERVICE', "
+            "3 for 'PURCHASE_TYPE', "
+            "4 for 'USAGE_TYPE'."
+        ),
+    )
+    return arg_parser
 
 def get_cost_groupby_key():
     """Iteratively prompts the user to select a cost group by key."""
@@ -76,12 +115,13 @@ def monthly_account_cost_export(
         botocore.exceptions.ClientError: If there are AWS API authorization or parameter issues
         botocore.exceptions.ProfileNotFound: If the specified AWS profile doesn't exist
     """
+
     profile_session = boto3.Session(profile_name=str(aws_profile_name_input))
     ce_client = profile_session.client("ce")
 
     # if condition determine the type of groupby key
     results = []
-    if cost_groupby_key_input == 1:
+    if cost_groupby_key_input == 1 or cost_groupby_key_input == "account":
         # group by account ID
         account_cost_usage = ce_client.get_cost_and_usage(
             TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
@@ -103,7 +143,7 @@ def monthly_account_cost_export(
                         "account_cost": account_cost,
                     }
                 )
-    elif cost_groupby_key_input == 2:
+    elif cost_groupby_key_input == 2 or cost_groupby_key_input == "service":
         account_cost_usage = ce_client.get_cost_and_usage(
             TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
             Granularity="MONTHLY",
@@ -124,7 +164,7 @@ def monthly_account_cost_export(
                         "service_cost": service_cost,
                     }
                 )
-    elif cost_groupby_key_input == 3:
+    elif cost_groupby_key_input == 3 or cost_groupby_key_input == "purchase_type":
         account_cost_usage = ce_client.get_cost_and_usage(
             TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
             Granularity="MONTHLY",
@@ -143,7 +183,7 @@ def monthly_account_cost_export(
                         "service_cost": service_cost,
                     }
                 )
-    elif cost_groupby_key_input == 4:
+    elif cost_groupby_key_input == 4 or cost_groupby_key_input == "usage_type":
         account_cost_usage = ce_client.get_cost_and_usage(
             TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
             Granularity="MONTHLY",

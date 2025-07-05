@@ -26,6 +26,7 @@ Examples:
     ✅ Data exported to test_output.csv
 """
 
+from datetime import datetime
 import termcolor
 from .utils import (
     banner as generate_banner,
@@ -33,7 +34,8 @@ from .utils import (
     get_end_date_from_user,
     monthly_account_cost_export,
     get_cost_groupby_key,
-    csv_export
+    csv_export,
+    parser
 )
 
 def main() -> None:
@@ -43,19 +45,48 @@ def main() -> None:
     print(f"\n\n {termcolor.colored(banner_format, color="green")}")
     print(f"{termcolor.colored(copyright_notice, color="green")}", end="\n\n")
 
-    # Prompt user for input
-    start_date_input = get_start_date_from_user()
-    if start_date_input is None:
-        print("Exiting due to invalid date input.")
-        return  # immediately exits the main() function
+    # Parse command line arguments
+    args = parser().parse_args()
 
-    end_date_input = get_end_date_from_user()
+    # Check if start and end dates are provided via command line arguments
+    if args.start_date:
+        start_date_input = args.start_date
+        start_date_input = datetime.strptime(start_date_input, "%Y-%m-%d").date()
+    else:
+        # Prompt user for input
+        start_date_input = get_start_date_from_user()
+        if start_date_input is None:
+            print("Exiting due to invalid date input.")
+            return  # immediately exits the main() function
 
-    # Prompt for AWS profile name
-    aws_profile_name_input = input("Enter your AWS Profile name: ")
+    if args.end_date:
+        end_date_input = args.end_date
+        end_date_input = datetime.strptime(end_date_input, "%Y-%m-%d").date()
+    else:
+        end_date_input = get_end_date_from_user()
+        if end_date_input is None:
+            print("Exiting due to invalid date input.")
+            return  # immediately exits the main() function
 
-    # Prompt for cost group by key
-    cost_groupby_key_input = get_cost_groupby_key()
+    # Check if AWS Profile is provided via command line arguments
+    if args.profile:
+        aws_profile_name_input = args.profile
+    else:
+        # Prompt for AWS profile name
+        aws_profile_name_input = input("Enter your AWS Profile name: ")
+        if aws_profile_name_input is None:
+            print("Exiting due to invalid date input.")
+            return  # immediately exits the main() function
+
+    # Check if groupby is provided via command line arguments
+    if args.groupby:
+        cost_groupby_key_input = args.groupby
+    else:
+        # Prompt for cost group by key
+        cost_groupby_key_input = get_cost_groupby_key()
+        if cost_groupby_key_input is None:
+            print("Exiting due to invalid date input.")
+            return  # immediately exits the main() function
 
     # Fetch monthly account cost usage
     fetch_monthly_account_cost_usage = monthly_account_cost_export(

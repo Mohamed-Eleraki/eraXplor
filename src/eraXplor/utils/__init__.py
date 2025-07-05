@@ -5,7 +5,7 @@ Exports all untility functions with type annotations for documentation.
 
 from .banner_utils import banner
 from .cost_export_utils import monthly_account_cost_export
-from .cost_export_utils import get_cost_groupby_key
+from .cost_export_utils import get_cost_groupby_key, parser
 from .csv_export_utils import csv_export
 from .date_utils import get_start_date_from_user, get_end_date_from_user
 
@@ -17,7 +17,8 @@ __all__=[
     'get_cost_groupby_key',
     'csv_export',
     'get_start_date_from_user',
-    'get_end_date_from_user'
+    'get_end_date_from_user',
+    'parser'
 ]
 
 # Add module-level type hints for MkDocs
@@ -27,6 +28,7 @@ get_cost_groupby_key: callable
 csv_export:callable
 get_start_date_from_user: callable
 get_end_date_from_user: callable
+parser: callable
 
 def __dir__():
     """For autocomplete and documentation tools"""

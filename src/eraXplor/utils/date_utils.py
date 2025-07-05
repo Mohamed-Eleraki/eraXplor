@@ -34,7 +34,6 @@ def get_start_date_from_user():
     print("Too many invalid attempts. Exiting.")
     return None
 
-
 def get_end_date_from_user():
     """Prompts the user to enter an end date and validates the input format.
 
