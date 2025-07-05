@@ -4,6 +4,12 @@ import argparse
 from datetime import datetime
 from typing import Dict, List, TypedDict, Union
 import boto3
+from rich.progress import Progress
+# from rich.console import Console
+from rich.live import Live
+from rich.spinner import Spinner
+# from rich.text import Text
+import threading
 
 def parser():
     """Parser for the cost export utility."""
@@ -123,83 +129,109 @@ def monthly_account_cost_export(
     results = []
     if cost_groupby_key_input == 1 or cost_groupby_key_input == "account":
         # group by account ID
-        account_cost_usage = ce_client.get_cost_and_usage(
-            TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
-            Granularity="MONTHLY",
-            Metrics=["UnblendedCost"],
-            GroupBy=[  # group the result based on account ID
-                {"Type": "DIMENSION", "Key": "LINKED_ACCOUNT"}
-            ],
-        )
-        for item in account_cost_usage["ResultsByTime"]:
-            time_period = item["TimePeriod"]
-            for group in item["Groups"]:
-                account_id = group["Keys"][0]
-                account_cost = group["Metrics"]["UnblendedCost"]["Amount"]
-                results.append(
-                    {
-                        "time_period": time_period,
-                        "account_id": account_id,
-                        "account_cost": account_cost,
-                    }
+        # with Progress() as progress:
+        #     task = progress.add_task(f"[cyan] Fetching AWS Costs grouped by {cost_groupby_key_input}...", total=1)
+        with Live(Spinner("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}..."), refresh_per_second=10):
+            def fetch():
+                account_cost_usage = ce_client.get_cost_and_usage(
+                    TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
+                    Granularity="MONTHLY",
+                    Metrics=["UnblendedCost"],
+                    GroupBy=[  # group the result based on account ID
+                        {"Type": "DIMENSION", "Key": "LINKED_ACCOUNT"}
+                    ],
                 )
+                for item in account_cost_usage["ResultsByTime"]:
+                    time_period = item["TimePeriod"]
+                    for group in item["Groups"]:
+                        account_id = group["Keys"][0]
+                        account_cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        results.append(
+                            {
+                                "time_period": time_period,
+                                "account_id": account_id,
+                                "account_cost": account_cost,
+                            }
+                        )
+            # progress.update(task, advance=1)
+            thread = threading.Thread(target=fetch)
+            thread.start()
+            thread.join()
+            
     elif cost_groupby_key_input == 2 or cost_groupby_key_input == "service":
-        account_cost_usage = ce_client.get_cost_and_usage(
-            TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
-            Granularity="MONTHLY",
-            Metrics=["UnblendedCost"],
-            GroupBy=[  # group the result based on service
-                {"Type": "DIMENSION", "Key": "SERVICE"}
-            ],
-        )
-        for item in account_cost_usage["ResultsByTime"]:
-            time_period = item["TimePeriod"]
-            for group in item["Groups"]:
-                service_name = group["Keys"][0]
-                service_cost = group["Metrics"]["UnblendedCost"]["Amount"]
-                results.append(
-                    {
-                        "time_period": time_period,
-                        "service_name": service_name,
-                        "service_cost": service_cost,
-                    }
+        with Live(Spinner("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}..."), refresh_per_second=10):
+            def fetch():
+                account_cost_usage = ce_client.get_cost_and_usage(
+                    TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
+                    Granularity="MONTHLY",
+                    Metrics=["UnblendedCost"],
+                    GroupBy=[  # group the result based on service
+                        {"Type": "DIMENSION", "Key": "SERVICE"}
+                    ],
                 )
+                for item in account_cost_usage["ResultsByTime"]:
+                    time_period = item["TimePeriod"]
+                    for group in item["Groups"]:
+                        service_name = group["Keys"][0]
+                        service_cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        results.append(
+                            {
+                                "time_period": time_period,
+                                "service_name": service_name,
+                                "service_cost": service_cost,
+                            }
+                        )
+            thread = threading.Thread(target=fetch)
+            thread.start()
+            thread.join()
+                        
     elif cost_groupby_key_input == 3 or cost_groupby_key_input == "purchase_type":
-        account_cost_usage = ce_client.get_cost_and_usage(
-            TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
-            Granularity="MONTHLY",
-            Metrics=["UnblendedCost"],
-            GroupBy=[{"Type": "DIMENSION", "Key": "PURCHASE_TYPE"}],
-        )
-        for item in account_cost_usage["ResultsByTime"]:
-            time_period = item["TimePeriod"]
-            for group in item["Groups"]:
-                service_name = group["Keys"][0]
-                service_cost = group["Metrics"]["UnblendedCost"]["Amount"]
-                results.append(
-                    {
-                        "time_period": time_period,
-                        "service_name": service_name,
-                        "service_cost": service_cost,
-                    }
+        with Live(Spinner("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}..."), refresh_per_second=10):
+            def fetch():
+                account_cost_usage = ce_client.get_cost_and_usage(
+                    TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
+                    Granularity="MONTHLY",
+                    Metrics=["UnblendedCost"],
+                    GroupBy=[{"Type": "DIMENSION", "Key": "PURCHASE_TYPE"}],
                 )
+                for item in account_cost_usage["ResultsByTime"]:
+                    time_period = item["TimePeriod"]
+                    for group in item["Groups"]:
+                        service_name = group["Keys"][0]
+                        service_cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        results.append(
+                            {
+                                "time_period": time_period,
+                                "service_name": service_name,
+                                "service_cost": service_cost,
+                            }
+                        )
+            thread = threading.Thread(target=fetch)
+            thread.start()
+            thread.join()
+            
     elif cost_groupby_key_input == 4 or cost_groupby_key_input == "usage_type":
-        account_cost_usage = ce_client.get_cost_and_usage(
-            TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
-            Granularity="MONTHLY",
-            Metrics=["UnblendedCost"],
-            GroupBy=[{"Type": "DIMENSION", "Key": "USAGE_TYPE"}],
-        )
-        for item in account_cost_usage["ResultsByTime"]:
-            time_period = item["TimePeriod"]
-            for group in item["Groups"]:
-                service_name = group["Keys"][0]
-                service_cost = group["Metrics"]["UnblendedCost"]["Amount"]
-                results.append(
-                    {
-                        "time_period": time_period,
-                        "service_name": service_name,
-                        "service_cost": service_cost,
-                    }
+        with Live(Spinner("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}..."), refresh_per_second=10):
+            def fetch():
+                account_cost_usage = ce_client.get_cost_and_usage(
+                    TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
+                    Granularity="MONTHLY",
+                    Metrics=["UnblendedCost"],
+                    GroupBy=[{"Type": "DIMENSION", "Key": "USAGE_TYPE"}],
                 )
+                for item in account_cost_usage["ResultsByTime"]:
+                    time_period = item["TimePeriod"]
+                    for group in item["Groups"]:
+                        service_name = group["Keys"][0]
+                        service_cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        results.append(
+                            {
+                                "time_period": time_period,
+                                "service_name": service_name,
+                                "service_cost": service_cost,
+                            }
+                        )
+            thread = threading.Thread(target=fetch)
+            thread.start()
+            thread.join()
     return results
