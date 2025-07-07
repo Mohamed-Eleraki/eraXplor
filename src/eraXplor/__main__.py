@@ -95,7 +95,7 @@ def main() -> None:
         aws_profile_name_input = input("Enter your AWS Profile name: ")
         if aws_profile_name_input is None:
             print("Exiting due to invalid date input.")
-            return  # immediately exits the main() function       
+            return  # immediately exits the main() function
     elif args.profile is None:
         # Default to 'default' profile if not provided
         aws_profile_name_input = "default"
