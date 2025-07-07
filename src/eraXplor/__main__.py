@@ -33,7 +33,8 @@ from .utils.parser_utils import (
     parser_end_date_handler,
     parser_profile_handler,
     parser_groupby_handler,
-    parser_filename_handler
+    parser_filename_handler,
+    parser_granularity_handler,
 )
 
 def main() -> None:
@@ -61,12 +62,16 @@ def main() -> None:
     # Select output filename
     filename = parser_filename_handler(arg_parser)
     
+    # check granularity
+    granularity = parser_granularity_handler(arg_parser)
+    
     # Fetch monthly account cost usage
     results = monthly_account_cost_export(
         start_date_input, end_date_input,
         aws_profile_name_input,
-        cost_groupby_key_input)
-
+        cost_groupby_key_input,
+        granularity)
+    
     # Export results to CSV
     csv_export(results, filename)
 

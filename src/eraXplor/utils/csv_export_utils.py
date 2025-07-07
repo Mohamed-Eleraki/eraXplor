@@ -33,13 +33,13 @@ def csv_export(
             [
                 "Start Date",
                 "End Date",
-                "Account/Service/Purchase_type/Usage_type",
+                "ID",
                 "Cost",
             ]
         )
         for row in results:
-            time_period = row["time_period"]
-            name = row.get("account_id") or row.get("service_name")
-            cost = row.get("account_cost") or row.get("service_cost")
+            time_period = row["TIME_PERIOD"]
+            name = row.get("ID")
+            cost = row.get("COST")
             writer.writerow([time_period["Start"], time_period["End"], name, cost])
     print(f"\n✅ Data exported to {filename}")

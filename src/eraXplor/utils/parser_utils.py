@@ -31,12 +31,10 @@ def parser():
     arg_parser.add_argument(
         "-g", "--groupby",
         type=str,
-        # choices=[1, 2, 3, 4],
-        choices=["account", "service", "purchase_type", "usage_type"],
-        # default=1,
+        choices=["LINKED_ACCOUNT", "SERVICE", "PURCHASE_TYPE", "USAGE_TYPE"],
         help=(
             "Cost group by key. "
-            "Choose from 'account', 'service', 'purchase_type', 'usage_type'. "
+            "Choose from 'LINKED_ACCOUNT', 'SERVICE', 'PURCHASE_TYPE', 'USAGE_TYPE'. "
             "Default is 'account'."
         ),
     )
@@ -47,6 +45,16 @@ def parser():
         default="cost_repot.csv",
         help=(
             "CSV output filename. "
+        ),
+    )
+    arg_parser.add_argument(
+        "-G", "--granularity",
+        type=str,
+        required=False,
+        # choices=["DAILY", "MONTHLY", "HOURLY"],
+        choices=["DAILY", "MONTHLY"],
+        help=(
+            "Granularity of the cost data."
         ),
     )
     return arg_parser
@@ -181,6 +189,32 @@ def parser_filename_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
             return filename
     except ValueError as e:
         print(f"Error parsing output filename: {e}")
+        return
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return
+
+
+def parser_granularity_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
+    """parser_granularity_handler
+
+    Handles the granularity input from the user or sets a default value to "monthly".
+
+    Args:
+        arg_parser (list[argparse.ArgumentParser]): The parser objects.
+
+    Returns:
+        str: Return a `granularity` object holds the granularity value.
+    """
+    try:
+        if arg_parser.granularity:
+            granularity = arg_parser.granularity
+            return granularity
+        if arg_parser.granularity is None:  # set default value
+            granularity = "MONTHLY"
+            return granularity
+    except ValueError as e:
+        print(f"Error parsing granularity: {e}")
         return
     except Exception as e:
         print(f"Unexpected error: {e}")

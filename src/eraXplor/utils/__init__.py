@@ -12,7 +12,8 @@ from .parser_utils import (
     parser_end_date_handler,
     parser_profile_handler,
     parser_groupby_handler,
-    parser_filename_handler
+    parser_filename_handler,
+    parser_granularity_handler,
 )
 
 __version__ = "2.0.0"
