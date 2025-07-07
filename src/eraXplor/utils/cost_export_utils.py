@@ -57,7 +57,7 @@ def monthly_account_cost_export(
     start_date_input: Union[str, datetime],  # str | datetime
     end_date_input: Union[str, datetime],
     aws_profile_name_input: str,
-    cost_groupby_key_input: int = 1,
+    cost_groupby_key_input: int,
 ) -> List[CostRecord]:
     """Retrieves AWS account cost data for a specified time period using AWS Cost Explorer.
 
