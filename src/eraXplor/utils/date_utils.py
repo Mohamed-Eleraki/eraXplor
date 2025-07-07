@@ -10,8 +10,9 @@ def get_start_date_from_user():
     validation and user interruption gracefully.
 
     Returns:
-        datetime.date, 'Too many invalid attempts', or None: Returns a date object if valid input is provided,
-            returns None if the user interrupts the input (Ctrl+C).
+        datetime.date, 'Too many invalid attempts', or None: 
+        Returns a date object if valid input is provided, returns None if 
+        the user interrupts the input (Ctrl+C).
 
     Raises:
         ValueError: If the input date format is invalid.
@@ -42,8 +43,9 @@ def get_end_date_from_user():
     validation and user interruption gracefully.
 
     Returns:
-        datetime.date, 'Too many invalid attempts', or None: Returns a date object if valid input is provided,
-            returns None if the user interrupts the input (Ctrl+C).
+        datetime.date, 'Too many invalid attempts', or None: 
+        Returns a date object if valid input is provided, returns None if the user 
+        interrupts the input (Ctrl+C).
 
     Raises:
         ValueError: If the input date format is invalid.

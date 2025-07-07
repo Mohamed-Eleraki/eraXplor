@@ -1,8 +1,8 @@
 """MOudle for parsing command line arguments for cost export utility."""
 
+import argparse
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
-import argparse
 
 def parser():
     """Parser for the cost export utility."""
@@ -35,11 +35,18 @@ def parser():
         choices=["account", "service", "purchase_type", "usage_type"],
         # default=1,
         help=(
-            "Cost group by key: "
-            "1 for 'LINKED_ACCOUNT' (default), "
-            "2 for 'SERVICE', "
-            "3 for 'PURCHASE_TYPE', "
-            "4 for 'USAGE_TYPE'."
+            "Cost group by key. "
+            "Choose from 'account', 'service', 'purchase_type', 'usage_type'. "
+            "Default is 'account'."
+        ),
+    )
+    arg_parser.add_argument(
+        "-o", "--out",
+        type=str,
+        required=False,
+        default="cost_repot.csv",
+        help=(
+            "CSV output filename. "
         ),
     )
     return arg_parser
@@ -62,7 +69,9 @@ def parser_start_date_handler(arg_parser: list[argparse.ArgumentParser]) -> date
             return start_date_input
         if arg_parser.start_date is None:  # set default value
             six_months_ago = date.today() - relativedelta(months=6)
-            start_date_input = date(six_months_ago.year, six_months_ago.month, 1).strftime("%Y-%m-%d")
+            start_date_input = date(
+                six_months_ago.year, 
+                six_months_ago.month, 1).strftime("%Y-%m-%d")
             return start_date_input
     except ValueError as e:
         print(f"Error parsing start date: {e}")
@@ -70,7 +79,7 @@ def parser_start_date_handler(arg_parser: list[argparse.ArgumentParser]) -> date
     except Exception as e:
         print(f"Unexpected error: {e}")
         return
-    
+
 
 def parser_end_date_handler(arg_parser: list[argparse.ArgumentParser]) -> date | str:
     """parser_end_date_handler 
@@ -118,15 +127,15 @@ def parser_profile_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
         if arg_parser.profile is None:  # set default value
             aws_profile_name_input = "default"
             return aws_profile_name_input
-    
+
     except ValueError as e:
         print(f"Error parsing AWS profile: {e}")
         return
     except Exception as e:
         print(f"Unexpected error: {e}")
         return
-   
-    
+
+
 def parser_groupby_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
     """parser_groupby_handler
 
@@ -143,10 +152,35 @@ def parser_groupby_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
             cost_groupby_key_input = arg_parser.groupby
             return cost_groupby_key_input
         if arg_parser.groupby is None:  # set default value
-            cost_groupby_key_input = "LINKED_ACCOUNT"        
+            cost_groupby_key_input = "account"
             return cost_groupby_key_input
     except ValueError as e:
         print(f"Error parsing cost group by key: {e}")
+        return
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return
+
+def parser_filename_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
+    """parser_filename_handler
+
+    Handles the output filename input from the user or sets a default value to "cost_report.csv".
+
+    Args:
+        arg_parser (list[argparse.ArgumentParser]): The parser objects.
+
+    Returns:
+        str: Returns a `filename` object holds the output filename.
+    """
+    try:
+        if arg_parser.out:
+            filename = arg_parser.out
+            return filename
+        if arg_parser.out is None:  # set default value
+            filename = "cost_report.csv"
+            return filename
+    except ValueError as e:
+        print(f"Error parsing output filename: {e}")
         return
     except Exception as e:
         print(f"Unexpected error: {e}")

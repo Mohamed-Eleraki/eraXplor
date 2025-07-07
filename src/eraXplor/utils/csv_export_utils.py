@@ -6,7 +6,7 @@ from typing import Any, Dict, List
 
 def csv_export(
     results: List[Dict[str, Any]],
-    filename: str = "cost_repot.csv"
+    filename: str
     ) -> None:
     """Exports AWS cost data to a CSV file with standardized formatting.
 

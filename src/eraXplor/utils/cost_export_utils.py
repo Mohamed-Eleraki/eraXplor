@@ -1,46 +1,46 @@
 """Module to retrieve AWS account cost data using AWS Cost Explorer API."""
 
+import threading
 from datetime import datetime
 from typing import Dict, List, TypedDict, Union
 import boto3
 from rich.live import Live
 from rich.spinner import Spinner
-import threading
 
 # def parser():
 #     pass
 
-def get_cost_groupby_key():
-    """Iteratively prompts the user to select a cost group by key."""
-    while True:
-        try:
-            # Prompt user for input
-            cost_groupby_key_input = input(
-                """Enter the cost group by key:
-    Enter [1] to list by 'LINKED_ACCOUNT' -> Default
-    Enter [2] to list by 'SERVICE'
-    Enter [3] to list by 'PURCHASE_TYPE'
-    Enter [4] to list by 'USAGE_TYPE'\n
-    Press Enter for 'LINKED_ACCOUNT' -> Default:\n"""
-            ).strip()
+# def get_cost_groupby_key():
+#     """Iteratively prompts the user to select a cost group by key."""
+#     while True:
+#         try:
+#             # Prompt user for input
+#             cost_groupby_key_input = input(
+#                 """Enter the cost group by key:
+#     Enter [1] to list by 'LINKED_ACCOUNT' -> Default
+#     Enter [2] to list by 'SERVICE'
+#     Enter [3] to list by 'PURCHASE_TYPE'
+#     Enter [4] to list by 'USAGE_TYPE'\n
+#     Press Enter for 'LINKED_ACCOUNT' -> Default:\n"""
+#             ).strip()
 
-            # use default if empty
-            if cost_groupby_key_input == "":
-                cost_groupby_key_object = "1"
-                print("Defaulting to 'LINKED_ACCOUNT'")
-            else:
-                cost_groupby_key_object = cost_groupby_key_input
+#             # use default if empty
+#             if cost_groupby_key_input == "":
+#                 cost_groupby_key_object = "1"
+#                 print("Defaulting to 'LINKED_ACCOUNT'")
+#             else:
+#                 cost_groupby_key_object = cost_groupby_key_input
 
-            # Ensure input is valid
-            if cost_groupby_key_object not in ["1", "2", "3", "4"]:
-                print("Invalid selection. Please enter [1], [2], [3] or [4].")
-                continue
-            # Return the valid selection
-            return int(cost_groupby_key_object)
+#             # Ensure input is valid
+#             if cost_groupby_key_object not in ["1", "2", "3", "4"]:
+#                 print("Invalid selection. Please enter [1], [2], [3] or [4].")
+#                 continue
+#             # Return the valid selection
+#             return int(cost_groupby_key_object)
 
-        except KeyboardInterrupt:
-            print("\nUser interrupted. Exiting")
-            break
+#         except KeyboardInterrupt:
+#             print("\nUser interrupted. Exiting")
+#             break
 
 
 class CostRecord(TypedDict):
@@ -86,12 +86,10 @@ def monthly_account_cost_export(
 
     # if condition determine the type of groupby key
     results = []
-    if cost_groupby_key_input == 1 or cost_groupby_key_input == "account":
-        # group by account ID
-        # with Progress() as progress:
-        #     task = progress.add_task(f"[cyan] Fetching AWS Costs grouped by {cost_groupby_key_input}...", total=1)
-        with Live(Spinner("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}..."), refresh_per_second=10):
-            def fetch():
+    if cost_groupby_key_input == "account":
+        with Live(Spinner("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}..."),
+                  refresh_per_second=10):
+            def fetch_account():
                 account_cost_usage = ce_client.get_cost_and_usage(
                     TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
                     Granularity="MONTHLY",
@@ -113,13 +111,14 @@ def monthly_account_cost_export(
                             }
                         )
             # progress.update(task, advance=1)
-            thread = threading.Thread(target=fetch)
+            thread = threading.Thread(target=fetch_account)
             thread.start()
             thread.join()
-            
-    elif cost_groupby_key_input == 2 or cost_groupby_key_input == "service":
-        with Live(Spinner("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}..."), refresh_per_second=10):
-            def fetch():
+
+    if cost_groupby_key_input == "service":
+        with Live(Spinner("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}..."),
+                  refresh_per_second=10):
+            def fetch_service():
                 account_cost_usage = ce_client.get_cost_and_usage(
                     TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
                     Granularity="MONTHLY",
@@ -140,13 +139,14 @@ def monthly_account_cost_export(
                                 "service_cost": service_cost,
                             }
                         )
-            thread = threading.Thread(target=fetch)
+            thread = threading.Thread(target=fetch_service)
             thread.start()
             thread.join()
-                        
-    elif cost_groupby_key_input == 3 or cost_groupby_key_input == "purchase_type":
-        with Live(Spinner("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}..."), refresh_per_second=10):
-            def fetch():
+
+    if cost_groupby_key_input == 3 or cost_groupby_key_input == "purchase_type":
+        with Live(Spinner("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}..."),
+                  refresh_per_second=10):
+            def fetch_purchase_type():
                 account_cost_usage = ce_client.get_cost_and_usage(
                     TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
                     Granularity="MONTHLY",
@@ -165,13 +165,14 @@ def monthly_account_cost_export(
                                 "service_cost": service_cost,
                             }
                         )
-            thread = threading.Thread(target=fetch)
+            thread = threading.Thread(target=fetch_purchase_type)
             thread.start()
             thread.join()
             
-    elif cost_groupby_key_input == 4 or cost_groupby_key_input == "usage_type":
-        with Live(Spinner("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}..."), refresh_per_second=10):
-            def fetch():
+    if cost_groupby_key_input == "usage_type":
+        with Live(Spinner("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}..."),
+                  refresh_per_second=10):
+            def fetch_usage_type():
                 account_cost_usage = ce_client.get_cost_and_usage(
                     TimePeriod={"Start": str(start_date_input), "End": str(end_date_input)},
                     Granularity="MONTHLY",
@@ -190,7 +191,7 @@ def monthly_account_cost_export(
                                 "service_cost": service_cost,
                             }
                         )
-            thread = threading.Thread(target=fetch)
+            thread = threading.Thread(target=fetch_usage_type)
             thread.start()
             thread.join()
     return results
