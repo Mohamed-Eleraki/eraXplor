@@ -1,55 +1,14 @@
 """Module to retrieve AWS account cost data using AWS Cost Explorer API."""
 
-import argparse
 from datetime import datetime
 from typing import Dict, List, TypedDict, Union
 import boto3
-from rich.progress import Progress
-# from rich.console import Console
 from rich.live import Live
 from rich.spinner import Spinner
-# from rich.text import Text
 import threading
 
-def parser():
-    """Parser for the cost export utility."""
-
-    arg_parser = argparse.ArgumentParser(
-        description="Export AWS account cost data using AWS Cost Explorer API."
-    )
-    arg_parser.add_argument(
-        "-s", "--start-date",
-        type=str,
-        required=False,
-        help="Start date for cost data in YYYY-MM-DD format.",
-    )
-    arg_parser.add_argument(
-        "-e", "--end-date",
-        type=str,
-        required=False,
-        help="End date for cost data in YYYY-MM-DD format.",
-    )
-    arg_parser.add_argument(
-        "-p", "--profile",
-        type=str,
-        required=False,
-        help="AWS profile name to use for authentication.",
-    )
-    arg_parser.add_argument(
-        "-g", "--groupby",
-        type=str,
-        # choices=[1, 2, 3, 4],
-        choices=["account", "service", "purchase_type", "usage_type"],
-        # default=1,
-        help=(
-            "Cost group by key: "
-            "1 for 'LINKED_ACCOUNT' (default), "
-            "2 for 'SERVICE', "
-            "3 for 'PURCHASE_TYPE', "
-            "4 for 'USAGE_TYPE'."
-        ),
-    )
-    return arg_parser
+# def parser():
+#     pass
 
 def get_cost_groupby_key():
     """Iteratively prompts the user to select a cost group by key."""

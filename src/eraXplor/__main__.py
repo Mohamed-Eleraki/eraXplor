@@ -25,18 +25,27 @@ Examples:
 
     ✅ Data exported to test_output.csv
 """
-
+import importlib
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta 
 import termcolor
-from .utils import (
-    banner as generate_banner,
-    get_start_date_from_user,
-    get_end_date_from_user,
-    monthly_account_cost_export,
-    get_cost_groupby_key,
-    csv_export,
-    parser
+# from .utils import (
+#     banner as generate_banner,
+#     get_start_date_from_user,
+#     get_end_date_from_user,
+#     monthly_account_cost_export,
+#     get_cost_groupby_key,
+#     csv_export,
+# )
+from .utils.csv_export_utils import csv_export
+from .utils.cost_export_utils import monthly_account_cost_export
+from .utils.banner_utils import banner as generate_banner
+from .utils.parser_utils import (
+    parser,
+    parser_start_date_handler,
+    parser_end_date_handler,
+    parser_profile_handler,
+    parser_groupby_handler
 )
 
 def main() -> None:
@@ -47,84 +56,19 @@ def main() -> None:
     print(f"{termcolor.colored(copyright_notice, color="green")}", end="\n\n")
 
     # Parse command line arguments
-    args = parser().parse_args()
+    arg_parser = parser().parse_args()
 
-    # Check if start and end dates are provided via command line arguments
-    if args.start_date:
-        start_date_input = args.start_date
-        start_date_input = datetime.strptime(start_date_input, "%Y-%m-%d").date()
-    elif args.start_date is None:
-         # Prompt user for input
-        start_date_input = get_start_date_from_user()
-        if start_date_input is None:
-            print("Exiting due to invalid date input.")
-            return  # immediately exits the main() function       
-    elif args.start_date is None:
-        six_months_ago = date.today() - relativedelta(months=6)
-        start_date_input = date(six_months_ago.year, six_months_ago.month, 1).strftime("%Y-%m-%d")
-        # start_date_input = datetime.strptime(start_date_input, "%Y-%m-%d").date()
-    else:
-        # Prompt user for input
-        start_date_input = get_start_date_from_user()
-        if start_date_input is None:
-            print("Exiting due to invalid date input.")
-            return  # immediately exits the main() function
+    # start date handler
+    start_date_input = parser_start_date_handler(arg_parser)
 
-    if args.end_date:
-        end_date_input = args.end_date
-        end_date_input = datetime.strptime(end_date_input, "%Y-%m-%d").date()
-    elif args.end_date is None:
-        end_date_input = get_end_date_from_user()
-        if end_date_input is None:
-            print("Exiting due to invalid date input.")
-            return  # immediately exits the main() function     
-    elif args.end_date is None:
-        end_date_input = date.today().strftime("%Y-%m-%d")
-        # end_date_input = datetime.strptime(end_date_input, "%Y-%m-%d").date()
-    else:
-        end_date_input = get_end_date_from_user()
-        if end_date_input is None:
-            print("Exiting due to invalid date input.")
-            return  # immediately exits the main() function
+    # end date handler
+    end_date_input = parser_end_date_handler(arg_parser)
 
-    # Check if AWS Profile is provided via command line arguments
-    if args.profile:
-        aws_profile_name_input = args.profile
-    elif args.profile is None:
-        # Prompt for AWS profile name
-        aws_profile_name_input = input("Enter your AWS Profile name: ")
-        if aws_profile_name_input is None:
-            print("Exiting due to invalid date input.")
-            return  # immediately exits the main() function
-    elif args.profile is None:
-        # Default to 'default' profile if not provided
-        aws_profile_name_input = "default"
-    else:
-        # Prompt for AWS profile name
-        aws_profile_name_input = input("Enter your AWS Profile name: ")
-        if aws_profile_name_input is None:
-            print("Exiting due to invalid date input.")
-            return  # immediately exits the main() function
+    # profile name
+    aws_profile_name_input = parser_profile_handler(arg_parser)
 
-    # Check if groupby is provided via command line arguments
-    if args.groupby:
-        cost_groupby_key_input = args.groupby
-    elif args.groupby is None:
-        # Prompt for cost group by key
-        cost_groupby_key_input = get_cost_groupby_key()
-        if cost_groupby_key_input is None:
-            print("Exiting due to invalid date input.")
-            return  # immediately exits the main() function
-    elif args.groupby is None:
-        # Default to 'LINKED_ACCOUNT' if not provided
-        cost_groupby_key_input = "LINKED_ACCOUNT"        
-    else:
-        # Prompt for cost group by key
-        cost_groupby_key_input = get_cost_groupby_key()
-        if cost_groupby_key_input is None:
-            print("Exiting due to invalid date input.")
-            return  # immediately exits the main() function
-
+    cost_groupby_key_input = parser_groupby_handler(arg_parser)
+    
     # Fetch monthly account cost usage
     fetch_monthly_account_cost_usage = monthly_account_cost_export(
         start_date_input, end_date_input,
