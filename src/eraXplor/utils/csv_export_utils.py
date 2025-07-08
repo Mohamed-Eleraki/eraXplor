@@ -19,8 +19,9 @@ def csv_export(
         fetch_monthly_account_cost_usage (list): List of cost data dictionaries as returned
             by monthly_account_cost_export(). Each dictionary should contain:
             - time_period (dict): With 'Start' and 'End' keys
-            - [<account_id | service name>] (str): AWS account ID | service name
-            - account_cost (str): Cost amount as string
+            - ID : AWS account ID, service name, purchase type name, usage type name.
+            - COST (str): Cost amount as string
+            
         filename (str, optional): Output filename for the CSV. Defaults to 'cost_report.csv'.
 
     Returns:

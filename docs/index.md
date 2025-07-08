@@ -6,22 +6,24 @@ AWS Cost Export Tool for automated cost reporting and analysis.
 
 **eraXplor** is an automated AWS cost reporting tool designed for assest DevOps and FinOps teams fetching and sorting AWS Cost Explorer.
 it extracts detailed cost data by calling AWS Cost Explorer API directly and Transform result as a CSV.
-`eraXplor` gives you the ability to sort the cost by Account or even By Service, as well as format and separate the result Monthly.
-
-*`eraXplor` is still under enhancement and this is an 'Initial Model'*
-
+`eraXplor` gives you the ability to sort the cost by Account, Service, Usage Type or even By Purchase Type.
+as well as format and separate the result by Monthly or Daily cost.
 
 ## Key Features
-- ✅ **Account-Level Cost Breakdown**: Monthly unblended costs per linked account.
-- ✅ **Service-Level Cost Breakdown**: Monthly unblended costs per Services.
+
+- ✅ **Account-Level Cost Breakdown**: Monthly or daily unblended costs per linked account.
+- ✅ **Service-Level Cost Breakdown**: Monthly or daily unblended costs per Services.
+- ✅ **Purchase Type-Level Cost Breakdown**: Monthly or daily unblended costs per Purchase Type.
+- ✅ **Usage Type-Level Cost Breakdown**: Monthly or daily unblended costs per Usage Type.
 - ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
 - ✅ **Multi-Profile Support**: Works with all configured AWS profiles.
 - ✅ **CSV Export**: Ready-to-analyze reports in CSV format.
-- ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and Cross OS platform.
+- ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
 - ✅ **Documentation Ready**: Well explained documentations assest you kick start rapidly.
 - ✅ **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
 
 ## Why eraXplor?
+
 ```mermaid
 graph LR
     A[AWS Console] -->|Complex UI| B[Manual Export]
@@ -31,6 +33,7 @@ graph LR
 ```
 
 ## Table Of Contents
+
 Quickly find what you're looking for depending on
 your use case by looking at the different pages.
 
@@ -38,7 +41,6 @@ your use case by looking at the different pages.
 2. [How-To Guides](how-to-guides.md)
 3. [Reference](reference.md)
 4. [Explanation](explanation.md)
-
 
 ## About the Author
 

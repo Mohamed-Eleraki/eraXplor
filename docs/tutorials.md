@@ -1,6 +1,5 @@
 # Tutorials
 
-
 # 1. Setup eraXplor for your AWS Account
 
 This tutorial walks you through setting up `eraXplor` to start exporting your AWS cost data automatically.
@@ -31,6 +30,14 @@ pip install eraXplor
 eraXplor
 ```
 
+```bash
+eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
+<--profile [PROFILE-NAME]> \
+<--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE]> \
+<--out [file.csv]>
+<--granularity [DAILY | MONTHLY]>
+```
+
 For Windows/PowerShell users restart your terminal, and you may need to use the following command:
 
 ```bash
@@ -48,22 +55,16 @@ python -m eraXplor
     Ensure you run the command in a place you have sufficient permission to replace file.
     *The eraXport tool sorting cost reult into a CSV file, by default The CSV will replace for next run.*
 
-This will prompet you with an Interactive session.
-Please, Follow the guide below and enter a valied inputs as follows example:
-```bash
-Enter a start date value with YYYY-MM-DD format: 2025-1-1
-Enter an end date value with YYYY-MM-DD format: 2025-3-30
-Enter your AWS Profile name: profile_name
-Enter the cost group by key:
-    Enter [1] to list by 'LINKED_ACCOUNT' -> Default
-    Enter [2] to list by 'SERVICE'
-    Enter [3] to list by 'PURCHASE_TYPE'
-    Enter [4] to list by 'USAGE_TYPE'
-    Press Enter for 'LINKED_ACCOUNT' -> Default:
+### Argument Reference
 
-    # Press Enter for list cost per account, Or Enter a number for attending result.
-```
-
+- `--start-date` or `-s`: **_(Not_Required)_** Default value set as six months before.
+- `--end-date` or `-e`: **_(Not_Required)_** Default value set as Today date.
+- `--profile` or `-p`: **_(Not_Required)_** Default value set as default.
+- `--groupby` or `-g`: **_(Not_Required)_** Default value set as LINKED_ACCOUNT.
+    The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`)
+- `--out` or `-o`: **_(Not_Required)_** Default value set as `cost_repot.csv`.
+- `--granularity` or `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
+    The available options are (`MONTHLY`, `DAILY`)
 
 <!-- This part of the project documentation focuses on a
 **learning-oriented** approach. You'll learn how to

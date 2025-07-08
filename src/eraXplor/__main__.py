@@ -3,24 +3,28 @@
 This is the main entry point for the eraXplor CLI tool, which allows users to export
 AWS cost and usage data using AWS Cost Explorer.
 
-It provides a parser command-line workflow allowing users to:
-1. Parse the date range (start and end dates).
-2. Parse AWS CLI profile to authenticate with.
-3. Parse a cost grouping dimension _(e.g., by account, service,
-    Purchase type, Usage type.)_
-4. Fetch cost data using the AWS Cost Explorer API.
-5. Export the resulting data to a CSV file.
-
+Args: 
+ --start-date or -s: (Not_Required) Default value set as six months before.
+ 
+ --end-date or -e: (Not_Required) Default value set as Today date.
+ 
+ --profile or -p: (Not_Required) Default value set as default.
+ 
+ --groupby or -g: (Not_Required) Default value set as LINKED_ACCOUNT.
+   The available options are (LINKED_ACCOUNT, SERVICE, PURCHASE_TYPE, USAGE_TYPE)
+   
+ --out or -o: (Not_Required) Default value set as `cost_repot.csv`.
+ 
+ --granularity or -G: (Not_Required) Default value set as `MONTHLY`.
+    The available options are (MONTHLY, DAILY)
+    
 Examples:
-    >>> eraXplor --start-date 2025-01-01 \
-        --end-date 2025-03-30 \
-        --profile myawsprofile \
-        --groupby service  \
-        # (choose from 'account', 'service', 'purchase_type', \
-        # 'usage_type') \
-        --out file.csv
+eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
+<--profile [PROFILE-NAME]> \
+<--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE]> \
+<--out [file.csv]>
+<--granularity [DAILY | MONTHLY]>
 
-    ✅ Data exported to test_output.csv
 """
 
 import termcolor

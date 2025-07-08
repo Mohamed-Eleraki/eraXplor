@@ -5,46 +5,40 @@
 - Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - Command line tool.
 - Create an AWS AMI user then extract Access ID & key.
 - Configure AWS CLI profile by:
+
 ```bash
-aws configure --profile [PROFILE_NAME]  # Replace [PROFILE_NAME] with your profile name
-# 2- Input the Access ID & Key as required.
-# 3- Specify the defalut region.
+aws configure <--profile [PROFILE_NAME]>
+# ensure you set a defalut region.
 ```
 
 ## Check installed Python version
 
 - Ensure you Python version is >= 3.12.3 by:
+
 ```bash
 python --version
 
 # Consider update Python version if less than 3
 ```
 
-## Install eraXplor 
+## Install eraXplor
 
 - Install eraxplor too by:
+
 ```bash
 pip install eraXplor
 ```
 
 ## How-To use
 
-- Simply run the `eraXplor` Command, Then follow the prompet interactive session with valid inputs:
+`eraXplor` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
 
 ```bash
-eraXplor
-
-# Enter a start date value with YYYY-MM-DD format: 2025-1-1
-# Enter an end date value with YYYY-MM-DD format: 2025-3-30
-# Enter your AWS Profile name: profile_name
-# Enter the cost group by key:
-#     Enter [1] to list by 'LINKED_ACCOUNT' -> Default
-#     Enter [2] to list by 'SERVICE'
-#     Enter [3] to list by 'PURCHASE_TYPE'
-#     Enter [4] to list by 'USAGE_TYPE'
-#     Press Enter for 'LINKED_ACCOUNT' -> Default:
-
-# Press Enter for list cost per account, Or Enter a number for attending result.
+eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
+<--profile [PROFILE-NAME]> \
+<--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE]> \
+<--out [file.csv]>
+<--granularity [DAILY | MONTHLY]>
 ```
 
 For Windows/PowerShell users restart your terminal, and you may need to use the following command:
@@ -64,14 +58,24 @@ python -m eraXplor
     Ensure you run the command in a place you have sufficient permission to replace file.
     *The eraXport tool sorting cost reult into a CSV file, by default The CSV will replace for next run.*
 
+### Argument Reference
 
-- Check CSV file Created.
+- `--start-date` or `-s`: **_(Not_Required)_** Default value set as six months before.
+- `--end-date` or `-e`: **_(Not_Required)_** Default value set as Today date.
+- `--profile` or `-p`: **_(Not_Required)_** Default value set as default.
+- `--groupby` or `-g`: **_(Not_Required)_** Default value set as LINKED_ACCOUNT.
+    The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`)
+- `--out` or `-o`: **_(Not_Required)_** Default value set as `cost_repot.csv`.
+- `--granularity` or `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
+    The available options are (`MONTHLY`, `DAILY`)
+
+<!-- 
 
 # Upcomming Features
 
 - Parse args with non-interactive sessions.
 - Rich speadsheets content and charts.
-- Fetch the top 10 most expensive services.
+- Fetch the top 10 most expensive services. -->
 
 <!--
 if you want automatic monthly exports;
@@ -79,7 +83,6 @@ if you want automatic monthly exports;
 - Example `cron` job monthly *i.e. 1st day of the month at 2 AM.*
 bash
 0 2 1 * * /usr/bin/python3 /path/to/main.py --profile [PROFILE_NAME] -->
-
 
 <!-- 
 
