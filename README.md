@@ -24,8 +24,7 @@ as well as format and separate the result by Monthly or Daily cost.
 
 ## Table Of Contents
 
-Quickly find what you're looking for depending on
-your use case by looking at the different pages.
+Quickly find what you're looking for:
 
 1. [Welcome to eraXplor](https://mohamed-eleraki.github.io/eraXplor/)
 2. [Tutorials](https://mohamed-eleraki.github.io/eraXplor/tutorials/)
@@ -103,13 +102,13 @@ python -m eraXplor
 
 ### Argument Reference
 
-- `--start-date` or `-s`: **_(Not_Required)_** Default value set as six months before.
-- `--end-date` or `-e`: **_(Not_Required)_** Default value set as Today date.
-- `--profile` or `-p`: **_(Not_Required)_** Default value set as default.
-- `--groupby` or `-g`: **_(Not_Required)_** Default value set as LINKED_ACCOUNT.
+- `--start-date`, `-s`: **_(Not_Required)_** Default value set as six months before.
+- `--end-date`, `-e`: **_(Not_Required)_** Default value set as Today date.
+- `--profile`, `-p`: **_(Not_Required)_** Default value set as default.
+- `--groupby`, `-g`: **_(Not_Required)_** Default value set as LINKED_ACCOUNT.
     The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`)
-- `--out` or `-o`: **_(Not_Required)_** Default value set as `cost_repot.csv`.
-- `--granularity` or `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
+- `--out`, `-o`: **_(Not_Required)_** Default value set as `cost_repot.csv`.
+- `--granularity`, `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
     The available options are (`MONTHLY`, `DAILY`)
 
 <!-- ```mermaid
