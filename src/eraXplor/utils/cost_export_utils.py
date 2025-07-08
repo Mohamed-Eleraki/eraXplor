@@ -57,7 +57,6 @@ def monthly_account_cost_export(
 
     # if condition determine the type of groupby key
     results = []
-    # if cost_groupby_key_input == "account":
     with Live(Spinner
               ("bouncingBar", text=f"Fetching AWS costs grouped by {cost_groupby_key_input}...\n\n"),
                 refresh_per_second=10):

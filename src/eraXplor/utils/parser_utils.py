@@ -15,28 +15,24 @@ def parser():
         "-s", "--start-date",
         type=str,
         required=False,
-        default="six months ago",
         help="Start date for cost data in YYYY-MM-DD format.",
     )
     arg_parser.add_argument(
         "-e", "--end-date",
         type=str,
         required=False,
-        default="current date",
         help="End date for cost data in YYYY-MM-DD format.",
     )
     arg_parser.add_argument(
         "-p", "--profile",
         type=str,
         required=False,
-        default="default",
         help="AWS profile name to use for authentication.",
     )
     arg_parser.add_argument(
         "-g", "--groupby",
         type=str,
         required=False,
-        default="LINKED_ACCOUNT",
         choices=["LINKED_ACCOUNT", "SERVICE", "PURCHASE_TYPE", "USAGE_TYPE"],
         help=(
             "Cost group by key. "
@@ -47,7 +43,6 @@ def parser():
         "-o", "--out",
         type=str,
         required=False,
-        default="cost_repot.csv",
         help=(
             "CSV output filename. "
         ),
@@ -56,7 +51,6 @@ def parser():
         "-G", "--granularity",
         type=str,
         required=False,
-        default="MONTHLY",
         # choices=["DAILY", "MONTHLY", "HOURLY"],
         choices=["DAILY", "MONTHLY"],
         help=(
@@ -166,7 +160,7 @@ def parser_groupby_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
             cost_groupby_key_input = arg_parser.groupby
             return cost_groupby_key_input
         if arg_parser.groupby is None:  # set default value
-            cost_groupby_key_input = "account"
+            cost_groupby_key_input = "LINKED_ACCOUNT"
             return cost_groupby_key_input
     except ValueError as e:
         print(f"Error parsing cost group by key: {e}")
