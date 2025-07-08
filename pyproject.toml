@@ -64,7 +64,6 @@ dev = [
 ]
 
 [project.scripts]
-#ssay = "snakesay.__main__:main"
 eraXplor = "eraXplor.__main__:main"
 
 [tool.setuptools]
