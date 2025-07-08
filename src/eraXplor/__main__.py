@@ -4,26 +4,26 @@ This is the main entry point for the eraXplor CLI tool, which allows users to ex
 AWS cost and usage data using AWS Cost Explorer.
 
 Args: 
- --start-date or -s: (Not_Required) Default value set as six months before.
+ --start-date, -s: (Optional) Default value set as six months before.
  
- --end-date or -e: (Not_Required) Default value set as Today date.
+ --end-date, -e: (Optional) Default value set as Today date.
  
- --profile or -p: (Not_Required) Default value set as default.
+ --profile, -p: (Optional) Default value set as default.
  
- --groupby or -g: (Not_Required) Default value set as LINKED_ACCOUNT.
+ --groupby, -g: (Optional) Default value set as LINKED_ACCOUNT.
    The available options are (LINKED_ACCOUNT, SERVICE, PURCHASE_TYPE, USAGE_TYPE)
    
- --out or -o: (Not_Required) Default value set as `cost_repot.csv`.
+ --out, -o: (Optional) Default value set as `cost_repot.csv`.
  
- --granularity or -G: (Not_Required) Default value set as `MONTHLY`.
+ --granularity, -G: (Optional) Default value set as `MONTHLY`.
     The available options are (MONTHLY, DAILY)
     
 Examples:
-eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
-<--profile [PROFILE-NAME]> \
-<--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE]> \
-<--out [file.csv]>
-<--granularity [DAILY | MONTHLY]>
+    eraXplor --start-date 2025-01-01 --end-date 2025-03-30 \
+             --profile my-aws-profile \
+             --groupby SERVICE \
+             --out output.csv \
+             --granularity DAILY
 
 """
 

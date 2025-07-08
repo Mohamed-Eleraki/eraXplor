@@ -6,36 +6,41 @@ from dateutil.relativedelta import relativedelta
 
 def parser():
     """Parser for the cost export utility."""
-
+    
     arg_parser = argparse.ArgumentParser(
-        description="Export AWS account cost data using AWS Cost Explorer API."
+        description="Export AWS account cost data using AWS Cost Explorer API.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     arg_parser.add_argument(
         "-s", "--start-date",
         type=str,
         required=False,
+        default="six months ago",
         help="Start date for cost data in YYYY-MM-DD format.",
     )
     arg_parser.add_argument(
         "-e", "--end-date",
         type=str,
         required=False,
+        default="current date",
         help="End date for cost data in YYYY-MM-DD format.",
     )
     arg_parser.add_argument(
         "-p", "--profile",
         type=str,
         required=False,
+        default="default",
         help="AWS profile name to use for authentication.",
     )
     arg_parser.add_argument(
         "-g", "--groupby",
         type=str,
+        required=False,
+        default="LINKED_ACCOUNT",
         choices=["LINKED_ACCOUNT", "SERVICE", "PURCHASE_TYPE", "USAGE_TYPE"],
         help=(
             "Cost group by key. "
             "Choose from 'LINKED_ACCOUNT', 'SERVICE', 'PURCHASE_TYPE', 'USAGE_TYPE'. "
-            "Default is 'account'."
         ),
     )
     arg_parser.add_argument(
@@ -51,6 +56,7 @@ def parser():
         "-G", "--granularity",
         type=str,
         required=False,
+        default="MONTHLY",
         # choices=["DAILY", "MONTHLY", "HOURLY"],
         choices=["DAILY", "MONTHLY"],
         help=(

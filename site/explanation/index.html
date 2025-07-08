@@ -235,25 +235,29 @@
 <h1 id="explanation">Explanation</h1>
 <h2 id="understanding-aws-cost-visibility-challenges">Understanding AWS Cost Visibility Challenges</h2>
 <p>In <strong><em>big Architectural designs</em></strong>, AWS Cloud Architects tend to segregate resources via <strong><em>multi AWS Accounts environment/Landing Zone environment.</em></strong></p>
-<p>Manual Cost visibility, comparison, and Reconciliation, versus these multi accounts, become overwhelming as we go. based on how many accounts you have and months you wanna compare.</p>
+<p>Manual Cost visibility, comparison, and Reconciliation, versus these multi accounts, become overwhelming as we go. based on how many accounts you have and months you attend to compare.</p>
 <p>Even in <strong><em>a tiny Architectural design</em></strong>, Manual Comparing the <strong><em>current cost</em></strong> of all <strong><em>consumied Services</em></strong> agianest the <strong><em>months before</em></strong>, become overwheming, based on the how many services you consiume and months you intend to compare.</p>
 <h2 id="how-eraxplor-addresses-these-challenges">How eraXplor Addresses These Challenges</h2>
 <p><code>eraXplor</code> is a CLI tool deliver an automatic way to aggregate cost data based on user inputs and export these data into CSV format.</p>
 <ul>
-<li>Aggregate cost data per AWS Accounts.</li>
-<li>Aggregate cost data per AWS Services.</li>
-<li>Export data in reports, CVS format. </li>
+<li>Aggregate cost data per AWS Accounts, Monthly or Daily.</li>
+<li>Aggregate cost data per AWS Services. Monthly or Daily.</li>
+<li>Aggregate cost data per AWS Purchase Type. Monthly or Daily.</li>
+<li>Aggregate cost data per AWS Usage Type. Monthly or Daily.</li>
+<li>Export data in reports, CVS format.</li>
 <li>Suport AWS profile Credintials.</li>
 <li>Cross-platform CLI interface.</li>
 </ul>
 <h2 id="key-features">Key Features</h2>
 <ul>
-<li>✅ <strong>Account-Level Cost Breakdown</strong>: Monthly unblended costs per linked account.</li>
-<li>✅ <strong>Service-Level Cost Breakdown</strong>: Monthly unblended costs per Services.</li>
+<li>✅ <strong>Account-Level Cost Breakdown</strong>: Monthly or daily unblended costs per linked account.</li>
+<li>✅ <strong>Service-Level Cost Breakdown</strong>: Monthly or daily unblended costs per Services.</li>
+<li>✅ <strong>Purchase Type-Level Cost Breakdown</strong>: Monthly or daily unblended costs per Purchase Type.</li>
+<li>✅ <strong>Usage Type-Level Cost Breakdown</strong>: Monthly or daily unblended costs per Usage Type.</li>
 <li>✅ <strong>Flexible Date Ranges</strong>: Custom start/end dates with validation.</li>
 <li>✅ <strong>Multi-Profile Support</strong>: Works with all configured AWS profiles.</li>
 <li>✅ <strong>CSV Export</strong>: Ready-to-analyze reports in CSV format.</li>
-<li>✅ <strong>Cross-platform CLI Interface</strong>: Simple terminal-based workflow, and Cross OS platform.</li>
+<li>✅ <strong>Cross-platform CLI Interface</strong>: Simple terminal-based workflow, and <strong>Cross OS</strong> platform.</li>
 <li>✅ <strong>Documentation Ready</strong>: Well explained documentations assest you kick start rapidly.</li>
 <li>✅ <strong>Open-Source</strong>: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.</li>
 </ul>
@@ -264,21 +268,6 @@
     D[eraXplor] --&gt;|Automated| E[Standardized Reports]
     style D fill:#4CAF50,stroke:#388E3C
 </div>
-<!-- This part of the project documentation focuses on an
-**understanding-oriented** approach. You'll get a
-chance to read about the background of the project,
-as well as reasoning about how it was implemented.
-
-> **Note:** Expand this section by considering the
-> following points:
-
-- Give context and background on your library
-- Explain why you created it
-- Provide multiple examples and approaches of how
-    to work with it
-- Help the reader make connections
-- Avoid writing instructions or technical descriptions
-    here -->
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>

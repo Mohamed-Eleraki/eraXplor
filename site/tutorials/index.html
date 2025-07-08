@@ -368,6 +368,12 @@
 </ol>
 <pre><code class="language-bash">eraXplor
 </code></pre>
+<pre><code class="language-bash">eraXplor &lt;--start-date [yyyy-MM-DD]&gt; &lt;--end-date [yyyy-MM-DD]&gt; \
+&lt;--profile [PROFILE-NAME]&gt; \
+&lt;--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE]&gt; \
+&lt;--out [file.csv]&gt;
+&lt;--granularity [DAILY | MONTHLY]&gt;
+</code></pre>
 <p>For Windows/PowerShell users restart your terminal, and you may need to use the following command:</p>
 <pre><code class="language-bash">python3 -m eraXplor
 
@@ -382,20 +388,17 @@ python -m eraXplor
 <p>Ensure you run the command in a place you have sufficient permission to replace file.
 <em>The eraXport tool sorting cost reult into a CSV file, by default The CSV will replace for next run.</em></p>
 </details>
-<p>This will prompet you with an Interactive session.
-Please, Follow the guide below and enter a valied inputs as follows example:</p>
-<pre><code class="language-bash">Enter a start date value with YYYY-MM-DD format: 2025-1-1
-Enter an end date value with YYYY-MM-DD format: 2025-3-30
-Enter your AWS Profile name: profile_name
-Enter the cost group by key:
-    Enter [1] to list by 'LINKED_ACCOUNT' -&gt; Default
-    Enter [2] to list by 'SERVICE'
-    Enter [3] to list by 'PURCHASE_TYPE'
-    Enter [4] to list by 'USAGE_TYPE'
-    Press Enter for 'LINKED_ACCOUNT' -&gt; Default:
-
-    # Press Enter for list cost per account, Or Enter a number for attending result.
-</code></pre>
+<h3 id="argument-reference">Argument Reference</h3>
+<ul>
+<li><code>--start-date</code> or <code>-s</code>: <strong><em>(Not_Required)</em></strong> Default value set as six months before.</li>
+<li><code>--end-date</code> or <code>-e</code>: <strong><em>(Not_Required)</em></strong> Default value set as Today date.</li>
+<li><code>--profile</code> or <code>-p</code>: <strong><em>(Not_Required)</em></strong> Default value set as default.</li>
+<li><code>--groupby</code> or <code>-g</code>: <strong><em>(Not_Required)</em></strong> Default value set as LINKED_ACCOUNT.
+    The available options are (<code>LINKED_ACCOUNT</code>, <code>SERVICE</code>, <code>PURCHASE_TYPE</code>, <code>USAGE_TYPE</code>)</li>
+<li><code>--out</code> or <code>-o</code>: <strong><em>(Not_Required)</em></strong> Default value set as <code>cost_repot.csv</code>.</li>
+<li><code>--granularity</code> or <code>-G</code>: <strong><em>(Not_Required)</em></strong> Default value set as <code>MONTHLY</code>.
+    The available options are (<code>MONTHLY</code>, <code>DAILY</code>)</li>
+</ul>
 <!-- This part of the project documentation focuses on a
 **learning-oriented** approach. You'll learn how to
 get started with the code in this project.
