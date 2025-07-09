@@ -104,7 +104,7 @@ python -m eraXplor
 
 - `--start-date`, `-s`: **_(Not_Required)_** Default value set as six months before.
 - `--end-date`, `-e`: **_(Not_Required)_** Default value set as Today date.
-- `--profile`, `-p`: **_(Not_Required)_** Default value set as default.
+- `--profile`, `-p`: **_(Not_Required)_** Default value set as `default`.
 - `--groupby`, `-g`: **_(Not_Required)_** Default value set as LINKED_ACCOUNT.
     The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`)
 - `--out`, `-o`: **_(Not_Required)_** Default value set as `cost_repot.csv`.

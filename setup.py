@@ -144,6 +144,7 @@ setup(
             "mkdocstrings-python>=1.16.10",
             "pylint>=3.3.6",
             "isort>=6.0.1",
+            "rich>=13.7.1",
             ],
         "test": ["coverage"],
     },
