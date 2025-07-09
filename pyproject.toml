@@ -11,6 +11,7 @@ dependencies = [
     "pyfiglet>=1.0.2",
     "python-dateutil>=2.9.0",
     "termcolor>=3.0.1",
+    "rich>=13.7.1",
 ]
 authors = [{name = "Mohamed eraki", email = "mohamed-ibrahim2021@outlook.com"}]
 keywords = ["CLI", "ASCII Art"]  # CLI + Text-based Art

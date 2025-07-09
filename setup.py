@@ -120,7 +120,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/discussions/install-requires-vs-requirements/
-    install_requires=["boto3>=1.37.0", "pyfiglet>=1.0.2", "python-dateutil>=2.9.0", "termcolor>=3.0.1",],  # Optional
+    install_requires=["boto3>=1.37.0", "pyfiglet>=1.0.2", "python-dateutil>=2.9.0", "termcolor>=3.0.1", "rich>=13.7.1",],  # Optional
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
     # syntax, for example:
