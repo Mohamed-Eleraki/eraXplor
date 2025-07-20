@@ -2,19 +2,21 @@
 
 ![Banner](assets/images/eraXplor.jpeg)
 
-AWS Cost Export Tool for automated cost reporting and analysis.
+Cost Export Tool for automated cost reporting and analysis.
 
-**eraXplor** is an automated AWS cost reporting tool designed for assest DevOps and FinOps teams fetching and sorting AWS Cost Explorer.
-it extracts detailed cost data by calling AWS Cost Explorer API directly and Transform result as a CSV.
-`eraXplor` gives you the ability to sort the cost by Account, Service, Usage Type or even By Purchase Type.
-as well as format and separate the result by Monthly or Daily cost.
+**eraXplor** is an automated cost reporting tool designed for assest DevOps and FinOps teams fetching and sorting AWS and Azure Cost Explorer.
+it extracts detailed cost data by calling nativly cloud provider APIs directly and Transform result into CSV file.
+`eraXplor` gives you the ability to sort the cost with wide range of options:
+
+- For **AWS** you able to sort cost by Account, Service, Usage Type or even By Purchase Type; as well as format and separate the result by Monthly or Daily.
+- For **Azure** you able to sort cost by Subscription, as well as format and separate the result by Monthly or Daily.
+</br>
+
+_azure still under development, more features will be added soon._
 
 ## Key Features
 
-- ✅ **Account-Level Cost Breakdown**: Monthly or daily unblended costs per linked account.
-- ✅ **Service-Level Cost Breakdown**: Monthly or daily unblended costs per Services.
-- ✅ **Purchase Type-Level Cost Breakdown**: Monthly or daily unblended costs per Purchase Type.
-- ✅ **Usage Type-Level Cost Breakdown**: Monthly or daily unblended costs per Usage Type.
+- ✅ **Cloud provider Separated tools**: Separated tool for each cloud provider (AWS and Azure) avoiding complexty.
 - ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
 - ✅ **Multi-Profile Support**: Works with all configured AWS profiles.
 - ✅ **CSV Export**: Ready-to-analyze reports in CSV format.
@@ -26,7 +28,7 @@ as well as format and separate the result by Monthly or Daily cost.
 
 ```mermaid
 graph LR
-    A[AWS Console] -->|Complex UI| B[Manual Export]
+    A[AWS/Azure Console] -->|Complex UI| B[Manual Export]
     B --> C[Spreadsheet Manipulation]
     D[eraXplor] -->|Automated| E[Standardized Reports]
     style D fill:#4CAF50,stroke:#388E3C
@@ -37,10 +39,23 @@ graph LR
 Quickly find what you're looking for depending on
 your use case by looking at the different pages.
 
-1. [Tutorials](tutorials.md)
-2. [How-To Guides](how-to-guides.md)
-3. [Reference](reference.md)
-4. [Explanation](explanation.md)
+### AWS (eraXplor)
+
+1. [Overview](aws/index.md)
+2. [Tutorials](aws/tutorials.md)
+3. [How-To Guides](aws/how-to-guides.md)
+5. [Concepts & Explanation](aws/explanation.md)
+
+### Azure (eraXplor_az)
+
+1. [Overview](azure/index.md)
+2. [Tutorials](azure/tutorials.md)
+3. [How-To Guides](azure/how-to-guides.md)
+5. [Concepts & Explanation](azure/explanation.md)
+
+---
+
+- [Reference](reference.md)
 
 ## About the Author
 

@@ -1,4 +1,4 @@
-site_name: eraXplor - AWS Cost Export Tool
+site_name: eraXplor - Cost Export Tool
 
 theme:
   name: "material"
@@ -20,11 +20,10 @@ nav:
       - Overview: aws/index.md
       - Tutorials: aws/tutorials.md
       - How-to Guides: aws/how-to-guides.md
-      - Reference: aws/reference.md
       - Concepts: aws/explanation.md
-  - Azure (eraXplor):
-      - Overview: aws/index.md
-      - Tutorials: aws/tutorials.md
-      - How-to Guides: aws/how-to-guides.md
-      - Reference: aws/reference.md
-      - Concepts: aws/explanation.md
+  - Azure (eraXplor_az):
+      - Overview: azure/index.md
+      - Tutorials: azure/tutorials.md
+      - How-to Guides: azure/how-to-guides.md
+      - Concepts: azure/explanation.md
+  - Reference: reference.md

@@ -1,6 +1,6 @@
-# Welcome to eraXplor
+# Welcome to eraXplor - AWS
 
-![Banner](assets/images/eraXplor.jpeg)
+![Banner](../assets/images/eraXplor.jpeg)
 
 AWS Cost Export Tool for automated cost reporting and analysis.
 

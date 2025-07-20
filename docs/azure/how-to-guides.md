@@ -1,15 +1,22 @@
 # How-To Guides
 
-## AWS Profile Configuration
+## Azure CLI Authentication
 
-- Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - Command line tool.
-- Create an AWS AMI user then extract Access ID & key.
-- Configure AWS CLI profile by:
+- Install [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?view=azure-cli-latest&pivots=apt) - Command line tool by specifing your attended OS.
+- ensure your account have sufficient permission as `Billing Reader` or `Usage Billing Contributor` to manage Azure billing.
+- Check installed package by:
 
 ```bash
-aws configure <--profile [PROFILE_NAME]>
-# ensure you set a defalut region.
+Azure --version
 ```
+
+- Authenticate using your Azure account:
+
+```bash
+az login
+```
+
+This will open the portal in your default browser to authenticate.
 
 ## Check installed Python version
 
@@ -26,28 +33,27 @@ python --version
 - Install eraxplor too by:
 
 ```bash
-pip install eraXplor
+pip install eraXplor_az
 ```
 
 ## How-To use
 
-`eraXplor` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
+`eraXplor_az` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
 
 ```bash
-eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
-<--profile [PROFILE-NAME]> \
-<--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE]> \
-<--out [file.csv]>
-<--granularity [DAILY | MONTHLY]>
+eraXplor <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
+<--subscription_id [SUBSCRIPTION_ID]> \
+<--granularity [DAILY | MONTHLY]> \
+<--output [FILE_NAME.CSV]>
 ```
 
 For Windows/PowerShell users restart your terminal, and you may need to use the following command:
 
 ```bash
-python3 -m eraXplor
+python3 -m eraXplor_az
 
 # Or
-python -m eraXplor
+python -m eraXplor_az
 
 # to avoid using this command, apend the eraXplor to your paths.
 # Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\
@@ -60,13 +66,11 @@ python -m eraXplor
 
 ### Argument Reference
 
-- `--start-date` or `-s`: **_(Not_Required)_** Default value set as six months before.
-- `--end-date` or `-e`: **_(Not_Required)_** Default value set as Today date.
-- `--profile` or `-p`: **_(Not_Required)_** Default value set as default.
-- `--groupby` or `-g`: **_(Not_Required)_** Default value set as LINKED_ACCOUNT.
-    The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`)
-- `--out` or `-o`: **_(Not_Required)_** Default value set as `cost_repot.csv`.
-- `--granularity` or `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
+- `--start-date` or `-s`: **_(Optional)_** Default value set as three months before.
+- `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
+- `--subscription_id` or `-S`: **_(Required)_** subscription id.
+- `--out` or `-o`: **_(Optional)_** Default value set as `az_cost_report.csv`.
+- `--granularity` or `-g`: **_(Optional)_** Default value set as `MONTHLY`.
     The available options are (`MONTHLY`, `DAILY`)
 
 <!-- 

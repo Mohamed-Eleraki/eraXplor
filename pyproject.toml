@@ -12,6 +12,8 @@ dependencies = [
     "python-dateutil>=2.9.0",
     "termcolor>=3.0.1",
     "rich>=13.7.1",
+    "azure.identity>=1.23.0",
+    "azure.mgmt.costmanagement>=4.0.1",
 ]
 authors = [{name = "Mohamed eraki", email = "mohamed-ibrahim2021@outlook.com"}]
 keywords = ["CLI", "ASCII Art"]  # CLI + Text-based Art
@@ -66,6 +68,7 @@ dev = [
 
 [project.scripts]
 eraXplor = "eraXplor.__main__:main"
+eraXplor_az = "eraXplor_az.__main__:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

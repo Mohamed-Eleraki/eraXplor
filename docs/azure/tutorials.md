@@ -1,13 +1,12 @@
 # Tutorials
 
-# 1. Setup eraXplor for your AWS Account
+# 1. Setup eraXplor for your Azure Authentication
 
-This tutorial walks you through setting up `eraXplor` to start exporting your AWS cost data automatically.
+This tutorial walks you through setting up of `eraXplor_az` to start exporting your Azure cost data automatically.
 
 ## Prerequisites
 
-- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-- [Configure AWS Profile](https://docs.aws.amazon.com/cli/latest/reference/configure/)
+- [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?view=azure-cli-latest&pivots=apt)
 - [Python version >= 3.12.3](https://www.python.org/downloads/)
 
     Check that by:
@@ -18,33 +17,32 @@ python3 --version
 
 ## Steps
 
-1. **Install eraXplor:**
+1. **Install eraXplor_az:**
 
 ```bash
-pip install eraXplor
+pip install eraXplor_az
 ```
 
 2. **Run eraXplor:**
 
 ```bash
-eraXplor
+eraXplor_az -S SUBSCRIPTION_ID
 ```
 
 ```bash
-eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
-<--profile [PROFILE-NAME]> \
-<--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE]> \
-<--out [file.csv]>
-<--granularity [DAILY | MONTHLY]>
+eraXplor <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
+<--subscription_id [SUBSCRIPTION_ID]> \
+<--granularity [DAILY | MONTHLY]> \
+<--output [FILE_NAME.CSV]>
 ```
 
 For Windows/PowerShell users restart your terminal, and you may need to use the following command:
 
 ```bash
-python3 -m eraXplor
+python3 -m eraXplor_az
 
 # Or
-python -m eraXplor
+python -m eraXplor_az
 
 # to avoid using this command, apend the eraXplor to your paths.
 # Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\
@@ -57,13 +55,11 @@ python -m eraXplor
 
 ### Argument Reference
 
-- `--start-date` or `-s`: **_(Not_Required)_** Default value set as six months before.
-- `--end-date` or `-e`: **_(Not_Required)_** Default value set as Today date.
-- `--profile` or `-p`: **_(Not_Required)_** Default value set as default.
-- `--groupby` or `-g`: **_(Not_Required)_** Default value set as LINKED_ACCOUNT.
-    The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`)
-- `--out` or `-o`: **_(Not_Required)_** Default value set as `cost_repot.csv`.
-- `--granularity` or `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
+- `--start-date` or `-s`: **_(Optional)_** Default value set as three months before.
+- `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
+- `--subscription_id` or `-S`: **_(Required)_** subscription id.
+- `--out` or `-o`: **_(Optional)_** Default value set as `az_cost_report.csv`.
+- `--granularity` or `-g`: **_(Optional)_** Default value set as `MONTHLY`.
     The available options are (`MONTHLY`, `DAILY`)
 
 <!-- This part of the project documentation focuses on a

@@ -1,22 +1,21 @@
-# Welcome to eraXplor
+# Welcome to eraXplor - Azure
 
-![Banner](assets/images/eraXplor.jpeg)
+![Banner](../assets/images/eraXplor.jpeg)
 
-AWS Cost Export Tool for automated cost reporting and analysis.
+Azure Cost Export Tool for automated cost reporting and analysis.
 
-**eraXplor** is an automated AWS cost reporting tool designed for assest DevOps and FinOps teams fetching and sorting AWS Cost Explorer.
-it extracts detailed cost data by calling AWS Cost Explorer API directly and Transform result as a CSV.
-`eraXplor` gives you the ability to sort the cost by Account, Service, Usage Type or even By Purchase Type.
-as well as format and separate the result by Monthly or Daily cost.
+**eraXplor** is an automated Azure cost reporting tool designed for assest DevOps and FinOps teams fetching and sorting Azure Cost Explorer.
+it extracts detailed cost data by calling natively Azure APIs directly and Transform result into CSVs.
+`eraXplor_az` gives you the ability to sort the cost by Subscription; as well as format and separate the result by Monthly or Daily.
+
+_azure still under development, more features will be added soon._
 
 ## Key Features
 
-- ✅ **Account-Level Cost Breakdown**: Monthly or daily unblended costs per linked account.
-- ✅ **Service-Level Cost Breakdown**: Monthly or daily unblended costs per Services.
-- ✅ **Purchase Type-Level Cost Breakdown**: Monthly or daily unblended costs per Purchase Type.
-- ✅ **Usage Type-Level Cost Breakdown**: Monthly or daily unblended costs per Usage Type.
+- ✅ **subscription-Level Cost Breakdown** : eraXplor provides a detailed breakdown of costs by subscription, allowing you to identify areas where costs.
+- ✅ **Daily/Monthly Cost Breakdown** : eraXplor allows you to view costs on a daily or monthly basis, giving you a clear.
 - ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
-- ✅ **Multi-Profile Support**: Works with all configured AWS profiles.
+- ✅ **Support secure authentication**: By fetching Azure credentials configured within terminal.
 - ✅ **CSV Export**: Ready-to-analyze reports in CSV format.
 - ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
 - ✅ **Documentation Ready**: Well explained documentations assest you kick start rapidly.
@@ -26,7 +25,7 @@ as well as format and separate the result by Monthly or Daily cost.
 
 ```mermaid
 graph LR
-    A[AWS Console] -->|Complex UI| B[Manual Export]
+    A[Azure Console] -->|Complex UI| B[Manual Export]
     B --> C[Spreadsheet Manipulation]
     D[eraXplor] -->|Automated| E[Standardized Reports]
     style D fill:#4CAF50,stroke:#388E3C
@@ -37,10 +36,10 @@ graph LR
 Quickly find what you're looking for depending on
 your use case by looking at the different pages.
 
-1. [Tutorials](tutorials.md)
-2. [How-To Guides](how-to-guides.md)
-3. [Reference](reference.md)
-4. [Explanation](explanation.md)
+1. [Azure - Tutorials](tutorials.md)
+2. [Azure - How-To Guides](how-to-guides.md)
+3. [Azure - Reference](reference.md)
+4. [Azure - Explanation](explanation.md)
 
 ## About the Author
 
