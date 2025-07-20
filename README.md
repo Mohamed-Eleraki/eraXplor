@@ -65,7 +65,7 @@ python --version
 pip install eraXplor
 ```
 
-## AWS - How-To-Guide
+## How-To-Guide - AWS
 
 ### AWS profile configuration
 
@@ -78,7 +78,7 @@ aws configure <--profile [PROFILE_NAME]>
 # ensure you set a defalut region.
 ```
 
-### AWS - How-To use
+### How-To use - AWS
 
 `eraXplor` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
 
@@ -90,7 +90,7 @@ eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
 <--granularity [DAILY | MONTHLY]>
 ```
 
-### Argument Reference
+### Argument Reference - AWS
 
 - `--start-date`, `-s`: **_(Not_Required)_** Default value set as six months before.
 - `--end-date`, `-e`: **_(Not_Required)_** Default value set as Today date.
@@ -101,7 +101,7 @@ eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
 - `--granularity`, `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
     The available options are (`MONTHLY`, `DAILY`)
 
-## Azure - How-To-Guide
+## How-To-Guide - Azure
 
 ## Azure CLI Authentication
 
@@ -121,7 +121,7 @@ az login
 
 This will open the portal in your default browser to authenticate.
 
-### Azure - How-To use
+### How-To use - Azure
 
 `eraXplor_az` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
 
@@ -132,7 +132,7 @@ eraXplor_az <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
 <--output [FILE_NAME.CSV]>
 ```
 
-### Argument Reference
+### Argument Reference - Azure
 
 - `--start-date` or `-s`: **_(Optional)_** Default value set as three months before.
 - `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
@@ -157,16 +157,19 @@ python -m eraXplor_az  # for auzre
 
 ## About the Author
 
-???+ info "Show/Hide Author Details"
+<details open>
+<summary><strong>👋Show/Hide Author Details👋</strong></summary>
 
-    **Mohamed eraki**  
-    *Cloud & DevOps Engineer*
+**Mohamed eraki**  
+_Cloud & DevOps Engineer_
 
-    [![Email](https://img.shields.io/badge/Contact-mohamed--ibrahim2021@outlook.com-blue?style=flat&logo=mail.ru)](mailto:mohamed-ibrahim2021@outlook.com)  
-    [![LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-informational?style=flat&logo=linkedin)](https://www.linkedin.com/in/mohamed-el-eraki-8bb5111aa/)  
-    [![Twitter](https://img.shields.io/badge/Twitter-Follow-blue?style=flat&logo=twitter)](https://x.com/__eraki__)  
-    [![Blog](https://img.shields.io/badge/Blog-Visit-brightgreen?style=flat&logo=rss)](https://eraki.hashnode.dev/)
+[![Email](https://img.shields.io/badge/Contact-mohamed--ibrahim2021@outlook.com-blue?style=flat&logo=mail.ru)](mailto:mohamed-ibrahim2021@outlook.com)  
+[![LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-informational?style=flat&logo=linkedin)](https://www.linkedin.com/in/mohamed-el-eraki-8bb5111aa/)  
+[![Twitter](https://img.shields.io/badge/Twitter-Follow-blue?style=flat&logo=twitter)](https://x.com/__eraki__)  
+[![Blog](https://img.shields.io/badge/Blog-Visit-brightgreen?style=flat&logo=rss)](https://eraki.hashnode.dev/)
 
-    ### Project Philosophy
+### Project Philosophy
 
-    > "I built eraXplor to solve real-world cloud cost visibility challenges — the same pain points I encounter daily in enterprise environments. This tool embodies my belief that financial accountability should be accessible to every technical team."
+> "I built eraXplor to solve real-world cloud cost visibility challenges — the same pain points I encounter daily in enterprise environments. This tool embodies my belief that financial accountability should be accessible to every technical team."
+
+</details>
