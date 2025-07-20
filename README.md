@@ -126,7 +126,7 @@ This will open the portal in your default browser to authenticate.
 `eraXplor_az` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
 
 ```bash
-eraXplor <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
+eraXplor_az <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
 <--subscription_id [SUBSCRIPTION_ID]> \
 <--granularity [DAILY | MONTHLY]> \
 <--output [FILE_NAME.CSV]>

@@ -20,7 +20,7 @@ python3 --version
 1. **Install eraXplor_az:**
 
 ```bash
-pip install eraXplor_az
+pip install eraXplor
 ```
 
 2. **Run eraXplor:**
@@ -30,7 +30,7 @@ eraXplor_az -S SUBSCRIPTION_ID
 ```
 
 ```bash
-eraXplor <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
+eraXplor_az <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
 <--subscription_id [SUBSCRIPTION_ID]> \
 <--granularity [DAILY | MONTHLY]> \
 <--output [FILE_NAME.CSV]>
