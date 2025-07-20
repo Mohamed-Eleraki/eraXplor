@@ -7,7 +7,7 @@
 - Check installed package by:
 
 ```bash
-Azure --version
+az --version
 ```
 
 - Authenticate using your Azure account:
@@ -33,7 +33,7 @@ python --version
 - Install eraxplor too by:
 
 ```bash
-pip install eraXplor_az
+pip install eraXplor
 ```
 
 ## How-To use

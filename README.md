@@ -1,18 +1,20 @@
-![https://github.com/Mohamed-Eleraki/eraXplor/blob/master/docs/assets/images/eraXplor.jpeg](https://github.com/Mohamed-Eleraki/eraXplor/blob/master/docs/assets/images/eraXplor.jpeg)
+# Welcome to eraXplor
 
-AWS Cost Export Tool for automated cost reporting and analysis.
+Cost Export Tool for automated cost reporting and analysis.
 
-**eraXplor** is an automated AWS cost reporting tool designed for assest DevOps and FinOps teams fetching and sorting AWS Cost Explorer.
-it extracts detailed cost data by calling AWS Cost Explorer API directly and Transform result as a CSV.
-`eraXplor` gives you the ability to sort the cost by Account, Service, Usage Type or even By Purchase Type.
-as well as format and separate the result by Monthly or Daily cost.
+**eraXplor** is an automated cost reporting tool designed for assest DevOps and FinOps teams fetching and sorting AWS and Azure Cost Explorer.
+it extracts detailed cost data by calling nativly cloud provider APIs directly and Transform result into CSV file.
+`eraXplor` gives you the ability to sort the cost with wide range of options:
+
+- For **AWS** you able to sort cost by Account, Service, Usage Type or even By Purchase Type; as well as format and separate the result by Monthly or Daily.
+- For **Azure** you able to sort cost by Subscription, as well as format and separate the result by Monthly or Daily.
+</br>
+
+_azure still under development, more features will be added soon._
 
 ## Key Features
 
-- ✅ **Account-Level Cost Breakdown**: Monthly or daily unblended costs per linked account.
-- ✅ **Service-Level Cost Breakdown**: Monthly or daily unblended costs per Services.
-- ✅ **Purchase Type-Level Cost Breakdown**: Monthly or daily unblended costs per Purchase Type.
-- ✅ **Usage Type-Level Cost Breakdown**: Monthly or daily unblended costs per Usage Type.
+- ✅ **Cloud provider Separated tools**: Separated tool for each cloud provider (AWS and Azure) avoiding complexty.
 - ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
 - ✅ **Multi-Profile Support**: Works with all configured AWS profiles.
 - ✅ **CSV Export**: Ready-to-analyze reports in CSV format.
@@ -20,36 +22,30 @@ as well as format and separate the result by Monthly or Daily cost.
 - ✅ **Documentation Ready**: Well explained documentations assest you kick start rapidly.
 - ✅ **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
 
----
-
 ## Table Of Contents
 
-Quickly find what you're looking for:
+Quickly find what you're looking for depending on
+your use case by looking at the different pages.
 
-1. [Welcome to eraXplor](https://mohamed-eleraki.github.io/eraXplor/)
-2. [Tutorials](https://mohamed-eleraki.github.io/eraXplor/tutorials/)
-3. [How-To Guides](https://mohamed-eleraki.github.io/eraXplor/how-to-guides/)
-4. [Explanation](https://mohamed-eleraki.github.io/eraXplor/explanation/)
-5. [Reference](https://mohamed-eleraki.github.io/eraXplor/reference/)
+### AWS (eraXplor)
+
+1. [Overview](https://mohamed-eleraki.github.io/eraXplor/aws/)
+2. [Tutorials](https://mohamed-eleraki.github.io/eraXplor/aws/tutorials/)
+3. [How-To Guides](https://mohamed-eleraki.github.io/eraXplor/aws/how-to-guides/)
+5. [Concepts & Explanation](https://mohamed-eleraki.github.io/eraXplor/aws/explanation/)
+
+### Azure (eraXplor_az)
+
+1. [Overview](https://mohamed-eleraki.github.io/eraXplor/azure/)
+2. [Tutorials](https://mohamed-eleraki.github.io/eraXplor/azure/tutorials/)
+3. [How-To Guides](https://mohamed-eleraki.github.io/eraXplor/azure/how-to-guides/)
+5. [Concepts & Explanation](https://mohamed-eleraki.github.io/eraXplor/azure/explanation/)
 
 ---
 
-## Why eraXplor?
-
-![https://github.com/Mohamed-Eleraki/eraXplor/blob/master/docs/assets/images/why_eraXplor.jpeg](https://github.com/Mohamed-Eleraki/eraXplor/blob/master/docs/assets/images/why_eraXplor.jpeg)
+- [Reference](https://mohamed-eleraki.github.io/eraXplor/reference/)
 
 # How-To Guides
-
-## AWS Profile Configuration
-
-- Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - Command line tool.
-- Create an AWS AMI user then extract Access ID & key.
-- Configure AWS CLI profile by:
-
-```bash
-aws configure <--profile [PROFILE_NAME]>
-# ensure you set a defalut region.
-```
 
 ## Check installed Python version
 
@@ -69,7 +65,20 @@ python --version
 pip install eraXplor
 ```
 
-## How-To use
+## AWS - How-To-Guide
+
+### AWS profile configuration
+
+- Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) - Command line tool.
+- Create an AWS AMI user then extract Access ID & key.
+- Configure AWS CLI profile by:
+
+```bash
+aws configure <--profile [PROFILE_NAME]>
+# ensure you set a defalut region.
+```
+
+### AWS - How-To use
 
 `eraXplor` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
 
@@ -80,25 +89,6 @@ eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
 <--out [file.csv]>
 <--granularity [DAILY | MONTHLY]>
 ```
-
-For Windows/PowerShell users restart your terminal, and you may need to use the following command:
-
-```bash
-python3 -m eraXplor
-
-# Or
-python -m eraXplor
-
-# to avoid using this command, apend the eraXplor to your paths.
-# Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\
-```
-
-<details open>
-<summary><strong> ℹ️ Notes </strong></summary>
-
-    Ensure you run the command in a place you have sufficient permission to replace file.
-    *The eraXport tool sorting cost reult into a CSV file, by default The CSV will replace for next run.*
-</details>
 
 ### Argument Reference
 
@@ -111,28 +101,72 @@ python -m eraXplor
 - `--granularity`, `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
     The available options are (`MONTHLY`, `DAILY`)
 
-<!-- ```mermaid
-graph LR
-    A[AWS Console] ->|Complex UI| B[Manual Export]
-    B -> C[Spreadsheet Manipulation]
-    D[eraXplor] ->|Automated| E[Standardized Reports]
-    style D fill:#4CAF50,stroke:#388E3C
-    Replace -> with double --
-``` -->
-<br><br>
-<details open>
-<summary><strong>👋Show/Hide Author Details👋</strong></summary>
+## Azure - How-To-Guide
 
-**Mohamed eraki**  
-_Cloud & DevOps Engineer_
+## Azure CLI Authentication
 
-[![Email](https://img.shields.io/badge/Contact-mohamed--ibrahim2021@outlook.com-blue?style=flat&logo=mail.ru)](mailto:mohamed-ibrahim2021@outlook.com)  
-[![LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-informational?style=flat&logo=linkedin)](https://www.linkedin.com/in/mohamed-el-eraki-8bb5111aa/)  
-[![Twitter](https://img.shields.io/badge/Twitter-Follow-blue?style=flat&logo=twitter)](https://x.com/__eraki__)  
-[![Blog](https://img.shields.io/badge/Blog-Visit-brightgreen?style=flat&logo=rss)](https://eraki.hashnode.dev/)
+- Install [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?view=azure-cli-latest&pivots=apt) - Command line tool by specifing your attended OS.
+- ensure your account have sufficient permission as `Billing Reader` or `Usage Billing Contributor` to manage Azure billing.
+- Check installed package by:
 
-### Project Philosophy
+```bash
+az --version
+```
 
-> "I built eraXplor to solve real-world cloud cost visibility challenges — the same pain points I encounter daily in enterprise environments. This tool embodies my belief that financial accountability should be accessible to every technical team."
+- Authenticate using your Azure account:
 
-</details>
+```bash
+az login
+```
+
+This will open the portal in your default browser to authenticate.
+
+### Azure - How-To use
+
+`eraXplor_az` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
+
+```bash
+eraXplor <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
+<--subscription_id [SUBSCRIPTION_ID]> \
+<--granularity [DAILY | MONTHLY]> \
+<--output [FILE_NAME.CSV]>
+```
+
+### Argument Reference
+
+- `--start-date` or `-s`: **_(Optional)_** Default value set as three months before.
+- `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
+- `--subscription_id` or `-S`: **_(Required)_** subscription id.
+- `--out` or `-o`: **_(Optional)_** Default value set as `az_cost_report.csv`.
+- `--granularity` or `-g`: **_(Optional)_** Default value set as `MONTHLY`.
+    The available options are (`MONTHLY`, `DAILY`)
+
+---
+
+For Windows/PowerShell users restart your terminal, and you may need to use the following command:
+
+```bash
+python -m eraXplor
+
+# Or
+python -m eraXplor_az  # for auzre
+
+# to avoid using this command, apend the eraXplor to your paths.
+# Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\
+```
+
+## About the Author
+
+???+ info "Show/Hide Author Details"
+
+    **Mohamed eraki**  
+    *Cloud & DevOps Engineer*
+
+    [![Email](https://img.shields.io/badge/Contact-mohamed--ibrahim2021@outlook.com-blue?style=flat&logo=mail.ru)](mailto:mohamed-ibrahim2021@outlook.com)  
+    [![LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-informational?style=flat&logo=linkedin)](https://www.linkedin.com/in/mohamed-el-eraki-8bb5111aa/)  
+    [![Twitter](https://img.shields.io/badge/Twitter-Follow-blue?style=flat&logo=twitter)](https://x.com/__eraki__)  
+    [![Blog](https://img.shields.io/badge/Blog-Visit-brightgreen?style=flat&logo=rss)](https://eraki.hashnode.dev/)
+
+    ### Project Philosophy
+
+    > "I built eraXplor to solve real-world cloud cost visibility challenges — the same pain points I encounter daily in enterprise environments. This tool embodies my belief that financial accountability should be accessible to every technical team."
