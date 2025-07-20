@@ -8,7 +8,7 @@ Args:
  
  --end-date, -e: (Optional) Default value set as Today date.
  
- --subscription-id, -p: (Optional) Default value set as default.
+ --subscription-id, -S: (Optional) Default value set as default.
    
  --out, -o: (Optional) Default value set as `az_cost_report.csv`.
  
