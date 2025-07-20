@@ -4,6 +4,7 @@ import argparse
 from datetime import datetime, timedelta
 
 def _get_default_start_date():
+    """ Calculates a default start date for cost export, approximately 3 months ago."""
     today = datetime.today()
     # Go back approx 3 months (~90 days); not always accurate for month boundaries
     three_months_ago = today - timedelta(days=90)

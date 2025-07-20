@@ -1,3 +1,5 @@
+"""Module for exporting Azure cost data using the Azure Cost Management API."""
+
 import datetime
 import threading
 from typing import Dict, List, TypedDict
@@ -19,10 +21,23 @@ def cost_export(
     end_date: str,
     granularity: str = 'Daily',
 ) -> List[_CostRecord]:
-    
+    """cost_export function to fetch Azure costs for a given subscription
+
+    Args:
+        subscription_id (str): pass your Azure subscription ID here.
+        start_date (str): start date in YYYY,MM,DD format.
+        end_date (str): end date in YYYY,MM,DD format.
+        granularity (str, optional): pass granularity as 'Daily' or 'Monthly'. Defaults to 'Daily'.
+
+    Returns:
+        List[_CostRecord]: Returns a list of cost records, each containing:
+            - TIME_PERIOD: A dictionary with date strings.
+            - COST: A formatted string representing the cost amount and currency.
+    """
+
     credential = DefaultAzureCredential()
     cm_client = CostManagementClient(credential)
-    
+
     start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
     end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
     scope = f"/subscriptions/{subscription_id}"
@@ -35,14 +50,13 @@ def cost_export(
     # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}"
     # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}"
     
-    
-    
     cm_client_query_results = []
     with Live(Spinner
               ("bouncingBar", text=f"Fetching Azure costs of subscriptions:{subscription_id}...\n\n"),
                 refresh_per_second=10):
         def _sub_cost_export():
-             
+            """Internal function to handle the cost export query."""
+            
             try:
                 cm_client_query = cm_client.query.usage(
                     scope=scope,
