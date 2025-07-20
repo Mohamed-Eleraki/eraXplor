@@ -40,8 +40,7 @@ your use case by looking at the different pages.
 2. [Tutorials](https://mohamed-eleraki.github.io/eraXplor/azure/tutorials/)
 3. [How-To Guides](https://mohamed-eleraki.github.io/eraXplor/azure/how-to-guides/)
 5. [Concepts & Explanation](https://mohamed-eleraki.github.io/eraXplor/azure/explanation/)
-
----
+</br>
 
 - [Reference](https://mohamed-eleraki.github.io/eraXplor/reference/)
 
