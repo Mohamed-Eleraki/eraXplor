@@ -8,7 +8,7 @@ from .parser_utils import parser
 from .cost_export_utils import cost_export
 
 
-__version__ = "3.0.0"
+__version__ = "3.0.1"
 
 __all__=[
     'banner',

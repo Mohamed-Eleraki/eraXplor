@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "eraXplor"
 dynamic = ["version"]  # Use dynamic versioning
-description = "A Python CLI tool for exporting AWS cost reports using the eraXplor."
+description = "A Python CLI tool for exporting cost reports over Multi-providers AWS/Azure."
 dependencies = [
     "boto3>=1.37.0",
     "pyfiglet>=1.0.2",
@@ -78,4 +78,5 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.dynamic]
+#version = {attr = "eraXplor.utils.__version__"}
 version = {attr = "eraXplor.utils.__version__"}

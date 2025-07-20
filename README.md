@@ -100,6 +100,8 @@ eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
 - `--granularity`, `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
     The available options are (`MONTHLY`, `DAILY`)
 
+---
+
 ## How-To-Guide - Azure
 
 ## Azure CLI Authentication
