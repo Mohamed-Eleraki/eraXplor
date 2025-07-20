@@ -5,7 +5,7 @@ theme:
 
 # fetch date from docstring
 plugins:
-  - mkdocstrings  # must install mkdocstrings first
+  - mkdocstrings # must install mkdocstrings first
   - mermaid2
   - search
 
@@ -16,8 +16,15 @@ markdown_extensions:
 nav:
   # - Welcome to eraXplor - AWS cost Export Toold Docs: index.md
   - Welcome to eraXplor: index.md
-  - tutorials.md
-  - how-to-guides.md
-  - explanation.md
-  - reference.md
-  
+  - AWS (eraXplor):
+      - Overview: aws/index.md
+      - Tutorials: aws/tutorials.md
+      - How-to Guides: aws/how-to-guides.md
+      - Reference: aws/reference.md
+      - Concepts: aws/explanation.md
+  - Azure (eraXplor):
+      - Overview: aws/index.md
+      - Tutorials: aws/tutorials.md
+      - How-to Guides: aws/how-to-guides.md
+      - Reference: aws/reference.md
+      - Concepts: aws/explanation.md
