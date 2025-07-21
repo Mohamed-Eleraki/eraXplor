@@ -16,7 +16,7 @@ from .parser_utils import (
     parser_granularity_handler,
 )
 
-__version__ = "3.0.2"
+__version__ = "3.0.3"
 
 __all__=[
     'banner',
