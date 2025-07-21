@@ -67,8 +67,8 @@ dev = [
 ]
 
 [project.scripts]
-eraXplor = "eraXplor.__main__:main"
-eraXplor_az = "eraXplor_az.__main__:main"
+eraXplor-aws = "eraXplor.__main__:main"
+eraXplor-azure = "eraXplor_az.__main__:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
