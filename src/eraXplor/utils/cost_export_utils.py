@@ -31,17 +31,17 @@ def monthly_account_cost_export(
     monthly granularity.
 
     Args:
-        - start_date_input (str): The start date of the cost report in YYYY-MM-DD format.
+        - start_date_input (str): The start date of the cost report in YYYY-MM-DD format. Default: Six months ago.
         
-        - end_date_input (str): The end date of the cost report in YYYY-MM-DD format.
+        - end_date_input (str): The end date of the cost report in YYYY-MM-DD format. Default: Today.
         
         - aws_profile_name_input (str): The name of the AWS profile to use for authentication,
-            as configured in the local AWS credentials file.
+            as configured in the local AWS credentials file. Default: 'default'.
             
         - cost_groupby_key_input (str): The key to group costs by (`LINKED_ACCOUNT`, `SERVICE`, 
-            `PURCHASE_TYPE`, `USAGE_TYPE`)
+            `PURCHASE_TYPE`, `USAGE_TYPE`). Default: `LINKED_ACCOUNT`.
         
-        - granularity (str): The granularity of the cost data, either 'MONTHLY' or 'DAILY'.
+        - granularity (str): The granularity of the cost data, either 'MONTHLY' or 'DAILY'. Default: 'MONTHLY'.
 
 
     Returns:
