@@ -4,63 +4,76 @@ import argparse
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 
+
 def parser():
     """Parser for the cost export utility."""
-    
+
     arg_parser = argparse.ArgumentParser(
         description="Export AWS account cost data using AWS Cost Explorer API.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     arg_parser.add_argument(
-        "-s", "--start-date",
+        "-s",
+        "--start-date",
         type=str,
         required=False,
         help="Start date for cost data in YYYY-MM-DD format.",
     )
     arg_parser.add_argument(
-        "-e", "--end-date",
+        "-e",
+        "--end-date",
         type=str,
         required=False,
         help="End date for cost data in YYYY-MM-DD format.",
     )
     arg_parser.add_argument(
-        "-p", "--profile",
+        "-p",
+        "--profile",
         type=str,
         required=False,
         help="AWS profile name to use for authentication.",
     )
     arg_parser.add_argument(
-        "-g", "--groupby",
+        "-g",
+        "--groupby",
         type=str,
         required=False,
-        choices=["LINKED_ACCOUNT", "SERVICE", "PURCHASE_TYPE", "USAGE_TYPE"],
+        choices=[
+            "LINKED_ACCOUNT",
+            "SERVICE",
+            "PURCHASE_TYPE",
+            "USAGE_TYPE",
+            "LINKED_ACCOUNT-With-SERVICE",
+            "LINKED_ACCOUNT-With-PURCHASE_TYPE",
+            "LINKED_ACCOUNT-With-USAGE_TYPE",
+        ],
+        default="LINKED_ACCOUNT",
         help=(
             "Cost group by key. "
             "Choose from 'LINKED_ACCOUNT', 'SERVICE', 'PURCHASE_TYPE', 'USAGE_TYPE'. "
         ),
     )
     arg_parser.add_argument(
-        "-o", "--out",
+        "-o",
+        "--out",
         type=str,
         required=False,
-        help=(
-            "CSV output filename. "
-        ),
+        help=("CSV output filename. "),
     )
     arg_parser.add_argument(
-        "-G", "--granularity",
+        "-G",
+        "--granularity",
         type=str,
         required=False,
         # choices=["DAILY", "MONTHLY", "HOURLY"],
         choices=["DAILY", "MONTHLY"],
-        help=(
-            "Granularity of the cost data."
-        ),
+        help=("Granularity of the cost data."),
     )
     return arg_parser
 
+
 def parser_start_date_handler(arg_parser: list[argparse.ArgumentParser]) -> date | str:
-    """parser_start_date_handler 
+    """parser_start_date_handler
 
     Hanles the start date input from the user or sets a default value to 6 months ago date.
 
@@ -78,8 +91,8 @@ def parser_start_date_handler(arg_parser: list[argparse.ArgumentParser]) -> date
         if arg_parser.start_date is None:  # set default value
             six_months_ago = date.today() - relativedelta(months=6)
             start_date_input = date(
-                six_months_ago.year, 
-                six_months_ago.month, 1).strftime("%Y-%m-%d")
+                six_months_ago.year, six_months_ago.month, 1
+            ).strftime("%Y-%m-%d")
             return start_date_input
     except ValueError as e:
         print(f"Error parsing start date: {e}")
@@ -90,7 +103,7 @@ def parser_start_date_handler(arg_parser: list[argparse.ArgumentParser]) -> date
 
 
 def parser_end_date_handler(arg_parser: list[argparse.ArgumentParser]) -> date | str:
-    """parser_end_date_handler 
+    """parser_end_date_handler
 
     Hanles the end date input from the user or sets a default value to today date.
 
@@ -128,7 +141,7 @@ def parser_profile_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
         str: Returns a `aws_profile_name_input` object holds the profile name.
     """
     try:
-         # Check if AWS Profile is provided via command line arguments
+        # Check if AWS Profile is provided via command line arguments
         if arg_parser.profile:
             aws_profile_name_input = arg_parser.profile
             return aws_profile_name_input
@@ -168,6 +181,7 @@ def parser_groupby_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
     except Exception as e:
         print(f"Unexpected error: {e}")
         return
+
 
 def parser_filename_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
     """parser_filename_handler
