@@ -25,32 +25,68 @@ def monthly_account_cost_export(
     cost_groupby_key_input: str,
     granularity: str,
 ) -> List[_CostRecord]:
-    """Retrieves AWS account cost data for a specified time period using AWS Cost Explorer.
+    """Retrieve AWS cost and usage data via Cost Explorer API.
 
-    Fetches the unblended costs for all linked accounts, services, purchase type, or usage type
-    in an AWS organization for a given date range, grouped by account ID and returned in
-    monthly granularity.
+    Fetches unblended costs across all linked accounts in an AWS organization, with flexible
+    grouping and granularity options. Data is returned in standardized records suitable for
+    analysis or export.
 
     Args:
-        - start_date_input (str): The start date of the cost report in YYYY-MM-DD format. Default: Six months ago.
+        start_date_input (Union[str, datetime]): 
+            [REQUIRED] Start date for cost report (inclusive).
+            Default: "3 Months ago"
+            Format: YYYY-MM-DD datetime object.
+            Note: AWS limits historical data to 14 months.
 
-        - end_date_input (str): The end date of the cost report in YYYY-MM-DD format. Default: Today.
+        end_date_input (Union[str, datetime]): 
+            [REQUIRED] End date for cost report (inclusive).
+            Default: "Today date"
+            Format: YYYY-MM-DD datetime object.
+            Note: Cannot be earlier than start date.
 
-        - aws_profile_name_input (str): The name of the AWS profile to use for authentication,
-            as configured in the local AWS credentials file. Default: 'default'.
+        aws_profile_name_input (str): 
+            [REQUIRED] AWS credential profile name from local configuration.
+            Default: "default"
 
-        - cost_groupby_key_input (str): The key to group costs by (`LINKED_ACCOUNT`, `SERVICE`,
-            `PURCHASE_TYPE`, `USAGE_TYPE`). Default: `LINKED_ACCOUNT`.
+        cost_groupby_key_input (str): 
+            [REQUIRED] Dimension for cost aggregation. Valid values:
+            Default: "LINKED_ACCOUNT"
+            - 'LINKED_ACCOUNT' (default): Costs by AWS account
+            - 'SERVICE': Costs by AWS service (e.g. EC2, S3)
+            - 'PURCHASE_TYPE': Costs by purchase option
+            - 'USAGE_TYPE': Costs by usage category
+            - Composite keys (e.g. 'LINKED_ACCOUNT-With-SERVICE')
+            - Composite keys (e.g. 'LINKED_ACCOUNT-With-PURCHASE_TYPE')
+            - Composite keys (e.g. 'LINKED_ACCOUNT-With-USAGE_TYPE')
 
-        - granularity (str): The granularity of the cost data, either 'MONTHLY' or 'DAILY'. Default: 'MONTHLY'.
-
+        granularity (str): 
+            [REQUIRED] Time interval for cost breakdown:
+            Default: 'MONTHLY'
+            - 'MONTHLY' (default): Monthly aggregates
+            - 'DAILY': Daily cost records
 
     Returns:
-        list: A list of dictionaries containing cost data, where each dictionary has:
-            - TIME_PERIOD (dict): Contains 'Start' and 'End' dates for the time period.
-            - ID (str): The AWS account, service, purchase type, or usage type.
-            - COST (str): The unblended cost amount as a string.
+        List[_CostRecord]: Structured cost records containing:
+            - TIME_PERIOD: Dict with 'Start'/'End' date strings
+            - ID: Resource identifier (account, service, etc.)
+            - GROUPBY_FILTER: Composite values.
+            - COST: Unblended cost as string (USD)
 
+    Raises:
+        ValueError: For invalid date ranges or parameters
+        ClientError: For AWS API authentication/access issues
+        DataNotAvailableError: If requested data exceeds retention period
+
+    Example:
+        >>> costs = monthly_account_cost_export(
+        ...     start_date_input="2023-01-01",
+        ...     end_date_input="2023-03-31",
+        ...     aws_profile_name_input="production",
+        ...     cost_groupby_key_input="SERVICE",
+        ...     granularity="MONTHLY"
+        ... )
+        >>> len(costs) > 0
+        True
     """
 
     _profile_session = boto3.Session(profile_name=str(aws_profile_name_input))

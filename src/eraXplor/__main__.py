@@ -1,30 +1,51 @@
 """eraXplor - AWS Cost Export Tool
 
-This is the main entry point for the eraXplor CLI tool, which allows users to export
-AWS cost and usage data using AWS Cost Explorer.
+The official CLI interface for exporting AWS cost and usage data via AWS Cost Explorer API.
+Provides flexible filtering, grouping, and output options for cost analysis.
 
-Args: 
- --start-date, -s: (Optional) Default value set as six months before.
- 
- --end-date, -e: (Optional) Default value set as Today date.
- 
- --profile, -p: (Optional) Default value set as default.
- 
- --groupby, -g: (Optional) Default value set as LINKED_ACCOUNT.
-   The available options are (LINKED_ACCOUNT, SERVICE, PURCHASE_TYPE, USAGE_TYPE)
-   
- --out, -o: (Optional) Default value set as `cost_repot.csv`.
- 
- --granularity, -G: (Optional) Default value set as `MONTHLY`.
-    The available options are (MONTHLY, DAILY)
-    
+Command Line Arguments:
+  --start-date, -s DATE    Start date in YYYY-MM-DD format. 
+                           Default: First day of month, 6 months prior
+                           
+  --end-date, -e DATE      End date in YYYY-MM-DD format.
+                           Default: Current date
+                           
+  --profile, -p PROFILE    AWS credential profile name.
+                           Default: 'default'
+                           
+  --groupby, -g DIMENSION  Cost grouping dimension. Options:
+                           - LINKED_ACCOUNT (default)
+                           - SERVICE
+                           - PURCHASE_TYPE 
+                           - USAGE_TYPE
+                           - LINKED_ACCOUNT-With-SERVICE
+                           - LINKED_ACCOUNT-With-PURCHASE_TYPE
+                           - LINKED_ACCOUNT-With-USAGE_TYPE
+                           
+  --out, -o FILENAME       Output CSV filename.
+                           Default: 'cost_report_<timestamp>.csv'
+                           
+  --granularity, -G GRAN   Time granularity. Options:
+                           - MONTHLY (default)
+                           - DAILY
+
 Examples:
-    eraXplor --start-date 2025-01-01 --end-date 2025-03-30 \
-             --profile my-aws-profile \
-             --groupby SERVICE \
-             --out output.csv \
-             --granularity DAILY
+  1. Basic usage with default settings:
+     eraXplor-aws
+  
+  2. Custom date range and profile:
+     eraXplor-aws -s 2025-01-01 -e 2025-03-30 -p production
+  
+  3. Service-level breakdown with daily granularity:
+     eraXplor-aws -g SERVICE -G DAILY -o service_costs.csv
+  
+  4. Account+Service combined analysis:
+     eraXplor-aws -g LINKED_ACCOUNT-With-SERVICE
 
+Notes:
+  - Requires AWS credentials configured via CLI or IAM role
+  - Date range cannot exceed 14 months per AWS limitations
+  - Output files contain unblended costs in USD
 """
 
 import json

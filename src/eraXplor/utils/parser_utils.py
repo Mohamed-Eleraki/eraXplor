@@ -1,4 +1,4 @@
-"""MOudle for parsing command line arguments for cost export utility."""
+"""Moudle for parsing command line arguments for cost export utility."""
 
 import argparse
 from datetime import datetime, date
@@ -17,20 +17,23 @@ def parser():
         "--start-date",
         type=str,
         required=False,
-        help="Start date for cost data in YYYY-MM-DD format. Default: First day of month, 3 months ago",
+        default=(date.today() - relativedelta(months=3)).strftime("%Y-%m-%d"),
+        help="Start date for cost data in YYYY-MM-DD format. Default: 3 months ago.",
     )
     arg_parser.add_argument(
         "-e",
         "--end-date",
         type=str,
         required=False,
-        help="End date for cost data in YYYY-MM-DD format.",
+        default=date.today().strftime("%Y-%m-%d"),
+        help="End date for cost data in YYYY-MM-DD format. Default: Today",
     )
     arg_parser.add_argument(
         "-p",
         "--profile",
         type=str,
         required=False,
+        default="default",
         help="AWS profile name to use for authentication.",
     )
     arg_parser.add_argument(
@@ -48,16 +51,14 @@ def parser():
             "LINKED_ACCOUNT-With-USAGE_TYPE",
         ],
         default="LINKED_ACCOUNT",
-        help=(
-            "Cost group by key. "
-            "Choose from 'LINKED_ACCOUNT', 'SERVICE', 'PURCHASE_TYPE', 'USAGE_TYPE'. "
-        ),
+         help="Cost grouping dimension.",
     )
     arg_parser.add_argument(
         "-o",
         "--out",
         type=str,
         required=False,
+        default="cost_report.csv",
         help=("CSV output filename. "),
     )
     arg_parser.add_argument(
@@ -65,9 +66,9 @@ def parser():
         "--granularity",
         type=str,
         required=False,
-        # choices=["DAILY", "MONTHLY", "HOURLY"],
         choices=["DAILY", "MONTHLY"],
-        help=("Granularity of the cost data."),
+        default="MONTHLY",
+        help=("Time granularity of the cost data."),
     )
     return arg_parser
 
@@ -75,7 +76,7 @@ def parser():
 def parser_start_date_handler(arg_parser: list[argparse.ArgumentParser]) -> date | str:
     """parser_start_date_handler
 
-    Hanles the start date input from the user or sets a default value to 6 months ago date.
+    Hanles the start date input from the user.
 
     Args:
         arg_parser (argparse.ArgumentParser): The parser objects.
