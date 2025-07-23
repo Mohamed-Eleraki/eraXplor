@@ -28,8 +28,8 @@ def csv_export(
         None: Writes directly to file but doesn't return any value.
     """
     # Create a CSV file with write mode
-    with open(filename, mode="w", newline="", encoding="utf-8") as csvfile:
-        writer = csv.writer(csvfile)
+    with open(filename, mode="w", newline="", encoding="utf-8") as _csvfile:
+        writer = csv.writer(_csvfile)
         writer.writerow(
             [
                 "Start Date",
@@ -39,10 +39,11 @@ def csv_export(
                 "Cost",
             ]
         )
-        for row in results:
-            time_period = row["TIME_PERIOD"]
-            ID = row.get("ID")
-            groupby = row.get("GROUPBY_FILTER")
-            cost = row.get("COST")
+        for _row in results:
+            time_period = _row["TIME_PERIOD"]
+            ID = _row.get("ID")
+            groupby = _row.get("GROUPBY_FILTER")
+            cost = _row.get("COST")
             writer.writerow([time_period["Start"], time_period["End"], ID, groupby, cost])
     print(f"\n✅ Data exported to {filename}")
+    

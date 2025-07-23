@@ -45,9 +45,9 @@ from .utils.parser_utils import (
 def main() -> None:
     """Orchestrates & Manage depends of cost export workflow."""
     # Banner
-    banner_format, copyright_notice = generate_banner()
-    print(f"\n\n {termcolor.colored(banner_format, color="green")}")
-    print(f"{termcolor.colored(copyright_notice, color="green")}", end="\n\n")
+    _banner_format, _copyright_notice = generate_banner()
+    print(f"\n\n {termcolor.colored(_banner_format, color="green")}")
+    print(f"{termcolor.colored(_copyright_notice, color="green")}", end="\n\n")
 
     # fetch Parsed parameters by command line
     arg_parser = parser().parse_args()

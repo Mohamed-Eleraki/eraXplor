@@ -8,7 +8,7 @@ from rich.live import Live
 from rich.spinner import Spinner
 
 
-class CostRecord(TypedDict):
+class _CostRecord(TypedDict):
     """Class type annotation tool dettermining the List Schema.
     Type definition for a single cost record.
     """
@@ -24,7 +24,7 @@ def monthly_account_cost_export(
     aws_profile_name_input: str,
     cost_groupby_key_input: str,
     granularity: str,
-) -> List[CostRecord]:
+) -> List[_CostRecord]:
     """Retrieves AWS account cost data for a specified time period using AWS Cost Explorer.
 
     Fetches the unblended costs for all linked accounts, services, purchase type, or usage type
@@ -53,8 +53,8 @@ def monthly_account_cost_export(
 
     """
 
-    profile_session = boto3.Session(profile_name=str(aws_profile_name_input))
-    ce_client = profile_session.client("ce")
+    _profile_session = boto3.Session(profile_name=str(aws_profile_name_input))
+    _ce_client = _profile_session.client("ce")
 
     # if condition determine the type of groupby key
     results = []
@@ -66,9 +66,9 @@ def monthly_account_cost_export(
         refresh_per_second=10,
     ):
 
-        def fetch_account():
+        def _fetch_account():
             if cost_groupby_key_input == "LINKED_ACCOUNT-With-SERVICE":
-                account_cost_usage = ce_client.get_cost_and_usage(
+                _account_cost_usage = _ce_client.get_cost_and_usage(
                     TimePeriod={
                         "Start": str(start_date_input),
                         "End": str(end_date_input),
@@ -81,13 +81,13 @@ def monthly_account_cost_export(
                         {"Type": "DIMENSION", "Key": "SERVICE"},
                     ],
                 )
-                for item in account_cost_usage["ResultsByTime"]:
-                    time_period = item["TimePeriod"]
-                    for group in item["Groups"]:
-                        ID = group["Keys"][0]
-                        service = group["Keys"][1]
-                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
-                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
+                for _item in _account_cost_usage["ResultsByTime"]:
+                    time_period = _item["TimePeriod"]
+                    for _group in _item["Groups"]:
+                        ID = _group["Keys"][0]
+                        service = _group["Keys"][1]
+                        cost = float(_group["Metrics"]["UnblendedCost"]["Amount"])
+                        currency = _group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
                                 "TIME_PERIOD": time_period,
@@ -97,7 +97,7 @@ def monthly_account_cost_export(
                             }
                         )
             if cost_groupby_key_input == "LINKED_ACCOUNT-With-PURCHASE_TYPE":
-                account_cost_usage = ce_client.get_cost_and_usage(
+                _account_cost_usage = _ce_client.get_cost_and_usage(
                     TimePeriod={
                         "Start": str(start_date_input),
                         "End": str(end_date_input),
@@ -110,13 +110,13 @@ def monthly_account_cost_export(
                         {"Type": "DIMENSION", "Key": "PURCHASE_TYPE"},
                     ],
                 )
-                for item in account_cost_usage["ResultsByTime"]:
-                    time_period = item["TimePeriod"]
-                    for group in item["Groups"]:
-                        ID = group["Keys"][0]
-                        purchase_type = group["Keys"][1]
-                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
-                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
+                for _item in _account_cost_usage["ResultsByTime"]:
+                    time_period = _item["TimePeriod"]
+                    for _group in _item["Groups"]:
+                        ID = _group["Keys"][0]
+                        purchase_type = _group["Keys"][1]
+                        cost = float(_group["Metrics"]["UnblendedCost"]["Amount"])
+                        currency = _group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
                                 "TIME_PERIOD": time_period,
@@ -126,7 +126,7 @@ def monthly_account_cost_export(
                             }
                         )
             if cost_groupby_key_input == "LINKED_ACCOUNT-With-USAGE_TYPE":
-                account_cost_usage = ce_client.get_cost_and_usage(
+                _account_cost_usage = _ce_client.get_cost_and_usage(
                     TimePeriod={
                         "Start": str(start_date_input),
                         "End": str(end_date_input),
@@ -139,13 +139,13 @@ def monthly_account_cost_export(
                         {"Type": "DIMENSION", "Key": "USAGE_TYPE"},
                     ],
                 )
-                for item in account_cost_usage["ResultsByTime"]:
-                    time_period = item["TimePeriod"]
-                    for group in item["Groups"]:
-                        ID = group["Keys"][0]
-                        usage_type = group["Keys"][1]
-                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
-                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
+                for _item in _account_cost_usage["ResultsByTime"]:
+                    time_period = _item["TimePeriod"]
+                    for _group in _item["Groups"]:
+                        ID = _group["Keys"][0]
+                        usage_type = _group["Keys"][1]
+                        cost = float(_group["Metrics"]["UnblendedCost"]["Amount"])
+                        currency = _group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
                                 "TIME_PERIOD": time_period,
@@ -155,7 +155,7 @@ def monthly_account_cost_export(
                             }
                         )
             if cost_groupby_key_input == "LINKED_ACCOUNT":
-                account_cost_usage = ce_client.get_cost_and_usage(
+                _account_cost_usage = _ce_client.get_cost_and_usage(
                     TimePeriod={
                         "Start": str(start_date_input),
                         "End": str(end_date_input),
@@ -167,13 +167,13 @@ def monthly_account_cost_export(
                         {"Type": "DIMENSION", "Key": "LINKED_ACCOUNT"},
                     ],
                 )
-                for item in account_cost_usage["ResultsByTime"]:
-                    time_period = item["TimePeriod"]
-                    for group in item["Groups"]:
-                        ID = group["Keys"][0]
+                for _item in _account_cost_usage["ResultsByTime"]:
+                    time_period = _item["TimePeriod"]
+                    for _group in _item["Groups"]:
+                        ID = _group["Keys"][0]
                         # usage_type = group["Keys"][1]
-                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
-                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
+                        cost = float(_group["Metrics"]["UnblendedCost"]["Amount"])
+                        currency = _group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
                                 "TIME_PERIOD": time_period,
@@ -183,7 +183,7 @@ def monthly_account_cost_export(
                             }
                         )
             if cost_groupby_key_input == "SERVICE":
-                account_cost_usage = ce_client.get_cost_and_usage(
+                _account_cost_usage = _ce_client.get_cost_and_usage(
                     TimePeriod={
                         "Start": str(start_date_input),
                         "End": str(end_date_input),
@@ -195,13 +195,13 @@ def monthly_account_cost_export(
                         {"Type": "DIMENSION", "Key": "SERVICE"},
                     ],
                 )
-                for item in account_cost_usage["ResultsByTime"]:
-                    time_period = item["TimePeriod"]
-                    for group in item["Groups"]:
-                        ID = group["Keys"][0]
+                for _item in _account_cost_usage["ResultsByTime"]:
+                    time_period = _item["TimePeriod"]
+                    for _group in _item["Groups"]:
+                        ID = _group["Keys"][0]
                         # usage_type = group["Keys"][1]
-                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
-                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
+                        cost = float(_group["Metrics"]["UnblendedCost"]["Amount"])
+                        currency = _group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
                                 "TIME_PERIOD": time_period,
@@ -211,7 +211,7 @@ def monthly_account_cost_export(
                             }
                         )
             if cost_groupby_key_input == "PURCHASE_TYPE":
-                account_cost_usage = ce_client.get_cost_and_usage(
+                _account_cost_usage = _ce_client.get_cost_and_usage(
                     TimePeriod={
                         "Start": str(start_date_input),
                         "End": str(end_date_input),
@@ -223,13 +223,13 @@ def monthly_account_cost_export(
                         {"Type": "DIMENSION", "Key": "PURCHASE_TYPE"},
                     ],
                 )
-                for item in account_cost_usage["ResultsByTime"]:
-                    time_period = item["TimePeriod"]
-                    for group in item["Groups"]:
-                        ID = group["Keys"][0]
+                for _item in _account_cost_usage["ResultsByTime"]:
+                    time_period = _item["TimePeriod"]
+                    for _group in _item["Groups"]:
+                        ID = _group["Keys"][0]
                         # usage_type = group["Keys"][1]
-                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
-                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
+                        cost = float(_group["Metrics"]["UnblendedCost"]["Amount"])
+                        currency = _group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
                                 "TIME_PERIOD": time_period,
@@ -239,7 +239,7 @@ def monthly_account_cost_export(
                             }
                         )
             if cost_groupby_key_input == "USAGE_TYPE":
-                account_cost_usage = ce_client.get_cost_and_usage(
+                _account_cost_usage = _ce_client.get_cost_and_usage(
                     TimePeriod={
                         "Start": str(start_date_input),
                         "End": str(end_date_input),
@@ -251,13 +251,13 @@ def monthly_account_cost_export(
                         {"Type": "DIMENSION", "Key": "USAGE_TYPE"},
                     ],
                 )
-                for item in account_cost_usage["ResultsByTime"]:
-                    time_period = item["TimePeriod"]
-                    for group in item["Groups"]:
-                        ID = group["Keys"][0]
+                for _item in _account_cost_usage["ResultsByTime"]:
+                    time_period = _item["TimePeriod"]
+                    for _group in _item["Groups"]:
+                        ID = _group["Keys"][0]
                         # usage_type = group["Keys"][1]
-                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
-                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
+                        cost = float(_group["Metrics"]["UnblendedCost"]["Amount"])
+                        currency = _group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
                                 "TIME_PERIOD": time_period,
@@ -267,7 +267,7 @@ def monthly_account_cost_export(
                             }
                         )
         # progress.update(task, advance=1)
-        thread = threading.Thread(target=fetch_account)
-        thread.start()
-        thread.join()
+        _thread = threading.Thread(target=_fetch_account)
+        _thread.start()
+        _thread.join()
     return results
