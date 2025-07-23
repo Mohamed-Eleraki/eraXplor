@@ -17,7 +17,7 @@ def parser():
         "--start-date",
         type=str,
         required=False,
-        help="Start date for cost data in YYYY-MM-DD format.",
+        help="Start date for cost data in YYYY-MM-DD format. Default: First day of month, 3 months ago",
     )
     arg_parser.add_argument(
         "-e",
@@ -89,9 +89,9 @@ def parser_start_date_handler(arg_parser: list[argparse.ArgumentParser]) -> date
             start_date_input = datetime.strptime(start_date_input, "%Y-%m-%d").date()
             return start_date_input
         if arg_parser.start_date is None:  # set default value
-            six_months_ago = date.today() - relativedelta(months=6)
+            three_months_ago = date.today() - relativedelta(months=3)
             start_date_input = date(
-                six_months_ago.year, six_months_ago.month, 1
+                three_months_ago.year, three_months_ago.month, 1
             ).strftime("%Y-%m-%d")
             return start_date_input
     except ValueError as e:
