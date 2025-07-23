@@ -86,7 +86,7 @@ def monthly_account_cost_export(
                     for group in item["Groups"]:
                         ID = group["Keys"][0]
                         service = group["Keys"][1]
-                        cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
                         currency = group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
@@ -115,7 +115,7 @@ def monthly_account_cost_export(
                     for group in item["Groups"]:
                         ID = group["Keys"][0]
                         purchase_type = group["Keys"][1]
-                        cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
                         currency = group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
@@ -144,7 +144,7 @@ def monthly_account_cost_export(
                     for group in item["Groups"]:
                         ID = group["Keys"][0]
                         usage_type = group["Keys"][1]
-                        cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
                         currency = group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
@@ -172,7 +172,7 @@ def monthly_account_cost_export(
                     for group in item["Groups"]:
                         ID = group["Keys"][0]
                         # usage_type = group["Keys"][1]
-                        cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
                         currency = group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
@@ -200,7 +200,7 @@ def monthly_account_cost_export(
                     for group in item["Groups"]:
                         ID = group["Keys"][0]
                         # usage_type = group["Keys"][1]
-                        cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
                         currency = group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
@@ -228,7 +228,7 @@ def monthly_account_cost_export(
                     for group in item["Groups"]:
                         ID = group["Keys"][0]
                         # usage_type = group["Keys"][1]
-                        cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
                         currency = group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
@@ -256,7 +256,7 @@ def monthly_account_cost_export(
                     for group in item["Groups"]:
                         ID = group["Keys"][0]
                         # usage_type = group["Keys"][1]
-                        cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        cost = float(group["Metrics"]["UnblendedCost"]["Amount"])
                         currency = group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
