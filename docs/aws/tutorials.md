@@ -57,13 +57,13 @@ python -m eraXplor-aws
 
 ### Argument Reference
 
-- `--start-date` or `-s`: **_(Not_Required)_** Default value set as six months before.
-- `--end-date` or `-e`: **_(Not_Required)_** Default value set as Today date.
-- `--profile` or `-p`: **_(Not_Required)_** Default value set as default.
+- `--start-date` or `-s`: **_(Optional)_** Default value set as six months before.
+- `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
+- `--profile` or `-p`: **_(Optional)_** Default value set as default.
 - `--groupby` or `-g`: **_(Optional)_** Default value set as `LINKED_ACCOUNT`.
     The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`, `LINKED_ACCOUNT-With-SERVICE`, `LINKED_ACCOUNT-With-PURCHASE_TYPE`, `LINKED_ACCOUNT-With-USAGE_TYPE`)
-- `--out` or `-o`: **_(Not_Required)_** Default value set as `cost_repot.csv`.
-- `--granularity` or `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
+- `--out` or `-o`: **_(Optional)_** Default value set as `cost_repot.csv`.
+- `--granularity` or `-G`: **_(Optional)_** Default value set as `MONTHLY`.
     The available options are (`MONTHLY`, `DAILY`)
 
 <!-- This part of the project documentation focuses on a

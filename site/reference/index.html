@@ -648,15 +648,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#eraXplor.utils.cost_export_utils.CostRecord" class="md-nav__link">
-    <span class="md-ellipsis">
-      CostRecord
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#eraXplor.utils.cost_export_utils.monthly_account_cost_export" class="md-nav__link">
     <span class="md-ellipsis">
       monthly_account_cost_export
@@ -883,15 +874,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#eraXplor.utils.cost_export_utils.CostRecord" class="md-nav__link">
-    <span class="md-ellipsis">
-      CostRecord
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#eraXplor.utils.cost_export_utils.monthly_account_cost_export" class="md-nav__link">
     <span class="md-ellipsis">
       monthly_account_cost_export
@@ -1007,126 +989,62 @@
     <div class="doc doc-contents first">
 
         <p>eraXplor - AWS Cost Export Tool</p>
-<p>This is the main entry point for the eraXplor CLI tool, which allows users to export
-AWS cost and usage data using AWS Cost Explorer.</p>
+<p>The official CLI interface for exporting AWS cost and usage data via AWS Cost Explorer API.
+Provides flexible filtering, grouping, and output options for cost analysis.</p>
 
 
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>--start-date,</code>
-            </td>
-            <td>
-                  <code>-<span title="s">s</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>(Optional) Default value set as six months before.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>--end-date,</code>
-            </td>
-            <td>
-                  <code>-<span title="e">e</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>(Optional) Default value set as Today date.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>--profile,</code>
-            </td>
-            <td>
-                  <code>-<span title="p">p</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>(Optional) Default value set as default.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>--groupby,</code>
-            </td>
-            <td>
-                  <code>-<span title="g">g</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>(Optional) Default value set as LINKED_ACCOUNT.
- The available options are (LINKED_ACCOUNT, SERVICE, PURCHASE_TYPE, USAGE_TYPE)</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>--out,</code>
-            </td>
-            <td>
-                  <code>-<span title="o">o</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>(Optional) Default value set as <code>cost_repot.csv</code>.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>--granularity,</code>
-            </td>
-            <td>
-                  <code>-<span title="G">G</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>(Optional) Default value set as <code>MONTHLY</code>.
-  The available options are (MONTHLY, DAILY)</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
+<details class="command-line-arguments" open>
+  <summary>Command Line Arguments</summary>
+  <p>--start-date, -s DATE    Start date in YYYY-MM-DD format. 
+                         Default: First day of month, 6 months prior</p>
+<p>--end-date, -e DATE      End date in YYYY-MM-DD format.
+                         Default: Current date</p>
+<p>--profile, -p PROFILE    AWS credential profile name.
+                         Default: 'default'</p>
+<p>--groupby, -g DIMENSION  Cost grouping dimension. Options:
+                         - LINKED_ACCOUNT (default)
+                         - SERVICE
+                         - PURCHASE_TYPE 
+                         - USAGE_TYPE
+                         - LINKED_ACCOUNT-With-SERVICE
+                         - LINKED_ACCOUNT-With-PURCHASE_TYPE
+                         - LINKED_ACCOUNT-With-USAGE_TYPE</p>
+<p>--out, -o FILENAME       Output CSV filename.
+                         Default: 'cost_report_<timestamp>.csv'</p>
+<p>--granularity, -G GRAN   Time granularity. Options:
+                         - MONTHLY (default)
+                         - DAILY</p>
+</details>
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <p>eraXplor --start-date 2025-01-01 --end-date 2025-03-30              --profile my-aws-profile              --groupby SERVICE              --out output.csv              --granularity DAILY</p>
+    <ol>
+<li>
+<p>Basic usage with default settings:
+   eraXplor-aws</p>
+</li>
+<li>
+<p>Custom date range and profile:
+   eraXplor-aws -s 2025-01-01 -e 2025-03-30 -p production</p>
+</li>
+<li>
+<p>Service-level breakdown with daily granularity:
+   eraXplor-aws -g SERVICE -G DAILY -o service_costs.csv</p>
+</li>
+<li>
+<p>Account+Service combined analysis:
+   eraXplor-aws -g LINKED_ACCOUNT-With-SERVICE</p>
+</li>
+</ol>
 
+
+<details class="notes" open>
+  <summary>Notes</summary>
+  <ul>
+<li>Requires AWS credentials configured via CLI or IAM role</li>
+<li>Date range cannot exceed 14 months per AWS limitations</li>
+<li>Output files contain unblended costs in USD</li>
+</ul>
+</details>
 
 
 
@@ -1161,48 +1079,50 @@ AWS cost and usage data using AWS Cost Explorer.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/eraXplor/__main__.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Orchestrates &amp; Manage depends of cost export workflow.&quot;&quot;&quot;</span>
     <span class="c1"># Banner</span>
-    <span class="n">banner_format</span><span class="p">,</span> <span class="n">copyright_notice</span> <span class="o">=</span> <span class="n">generate_banner</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2"> </span><span class="si">{</span><span class="n">termcolor</span><span class="o">.</span><span class="n">colored</span><span class="p">(</span><span class="n">banner_format</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">termcolor</span><span class="o">.</span><span class="n">colored</span><span class="p">(</span><span class="n">copyright_notice</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">_banner_format</span><span class="p">,</span> <span class="n">_copyright_notice</span> <span class="o">=</span> <span class="n">generate_banner</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2"> </span><span class="si">{</span><span class="n">termcolor</span><span class="o">.</span><span class="n">colored</span><span class="p">(</span><span class="n">_banner_format</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">termcolor</span><span class="o">.</span><span class="n">colored</span><span class="p">(</span><span class="n">_copyright_notice</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># fetch Parsed parameters by command line</span>
     <span class="n">arg_parser</span> <span class="o">=</span> <span class="n">parser</span><span class="p">()</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
@@ -1231,6 +1151,8 @@ AWS cost and usage data using AWS Cost Explorer.</p>
         <span class="n">aws_profile_name_input</span><span class="p">,</span>
         <span class="n">cost_groupby_key_input</span><span class="p">,</span>
         <span class="n">granularity</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Export results to CSV</span>
     <span class="n">csv_export</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
@@ -1312,7 +1234,7 @@ AWS cost and usage data using AWS Cost Explorer.</p>
     <span class="n">copyright_notice</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;╔══════════════════════════════════════════════════╗</span>
 <span class="s2">║  © 2025 Mohamed eraki                            ║</span>
 <span class="s2">║  mohamed-ibrahim2021@outlook.com                 ║</span>
-<span class="s2">║  Version: 2.0.2                                  ║</span>
+<span class="s2">║  Version: 3.0.2                                  ║</span>
 <span class="s2">║  eraXplor - AWS Cost exporter Tool               ║</span>
 <span class="s2">╚══════════════════════════════════════════════════╝</span>
 <span class="s2">    &quot;&quot;&quot;</span>
@@ -1362,71 +1284,6 @@ information used in the CLI interface.</p>
 
 
 
-<div class="doc doc-object doc-class">
-
-
-
-<h2 id="eraXplor.utils.cost_export_utils.CostRecord" class="doc doc-heading">
-            <code>CostRecord</code>
-
-
-</h2>
-
-
-    <div class="doc doc-contents ">
-            <p class="doc doc-class-bases">
-              Bases: <code><span title="typing.TypedDict">TypedDict</span></code></p>
-
-
-        <p>Class type annotation tool dettermining the List Schema.
-Type definition for a single cost record.</p>
-
-
-
-
-
-
-
-              <details class="quote">
-                <summary>Source code in <code>src/eraXplor/utils/cost_export_utils.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CostRecord</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class type annotation tool dettermining the List Schema.</span>
-<span class="sd">    Type definition for a single cost record.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">time_period</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>  <span class="c1"># {&#39;Start&#39;: str, &#39;End&#39;: str}</span>
-    <span class="n">account_id</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">account_cost</span><span class="p">:</span> <span class="nb">str</span>
-</code></pre></div></td></tr></table></div>
-              </details>
-
-
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-    </div>
-
-</div>
-
 
 <div class="doc doc-object doc-function">
 
@@ -1439,10 +1296,10 @@ Type definition for a single cost record.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Retrieves AWS account cost data for a specified time period using AWS Cost Explorer.</p>
-<p>Fetches the unblended costs for all linked accounts, services, purchase type, or usage type
-in an AWS organization for a given date range, grouped by account ID and returned in 
-monthly granularity.</p>
+        <p>Retrieve AWS cost and usage data via Cost Explorer API.</p>
+<p>Fetches unblended costs across all linked accounts in an AWS organization, with flexible
+grouping and granularity options. Data is returned in standardized records suitable for
+analysis or export.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1458,14 +1315,17 @@ monthly granularity.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                <code>-</code>
+                <code>start_date_input</code>
             </td>
             <td>
-                  <code>start_date_input (str</code>
+                  <code><span title="typing.Union">Union</span>[<span title="str">str</span>, <span title="datetime.datetime">datetime</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The start date of the cost report in YYYY-MM-DD format.</p>
+                <p>[REQUIRED] Start date for cost report (inclusive).
+Default: "3 Months ago"
+Format: YYYY-MM-DD datetime object.
+Note: AWS limits historical data to 14 months.</p>
               </div>
             </td>
             <td>
@@ -1474,14 +1334,17 @@ monthly granularity.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>-</code>
+                <code>end_date_input</code>
             </td>
             <td>
-                  <code>end_date_input (str</code>
+                  <code><span title="typing.Union">Union</span>[<span title="str">str</span>, <span title="datetime.datetime">datetime</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The end date of the cost report in YYYY-MM-DD format.</p>
+                <p>[REQUIRED] End date for cost report (inclusive).
+Default: "Today date"
+Format: YYYY-MM-DD datetime object.
+Note: Cannot be earlier than start date.</p>
               </div>
             </td>
             <td>
@@ -1490,15 +1353,15 @@ monthly granularity.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>-</code>
+                <code>aws_profile_name_input</code>
             </td>
             <td>
-                  <code>aws_profile_name_input (str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The name of the AWS profile to use for authentication,
-as configured in the local AWS credentials file.</p>
+                <p>[REQUIRED] AWS credential profile name from local configuration.
+Default: "default"</p>
               </div>
             </td>
             <td>
@@ -1507,15 +1370,22 @@ as configured in the local AWS credentials file.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>-</code>
+                <code>cost_groupby_key_input</code>
             </td>
             <td>
-                  <code>cost_groupby_key_input (str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The key to group costs by (<code>LINKED_ACCOUNT</code>, <code>SERVICE</code>, 
-<code>PURCHASE_TYPE</code>, <code>USAGE_TYPE</code>)</p>
+                <p>[REQUIRED] Dimension for cost aggregation. Valid values:
+Default: "LINKED_ACCOUNT"
+- 'LINKED_ACCOUNT' (default): Costs by AWS account
+- 'SERVICE': Costs by AWS service (e.g. EC2, S3)
+- 'PURCHASE_TYPE': Costs by purchase option
+- 'USAGE_TYPE': Costs by usage category
+- Composite keys (e.g. 'LINKED_ACCOUNT-With-SERVICE')
+- Composite keys (e.g. 'LINKED_ACCOUNT-With-PURCHASE_TYPE')
+- Composite keys (e.g. 'LINKED_ACCOUNT-With-USAGE_TYPE')</p>
               </div>
             </td>
             <td>
@@ -1524,14 +1394,17 @@ as configured in the local AWS credentials file.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>-</code>
+                <code>granularity</code>
             </td>
             <td>
-                  <code>granularity (str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The granularity of the cost data, either 'MONTHLY' or 'DAILY'.</p>
+                <p>[REQUIRED] Time interval for cost breakdown:
+Default: 'MONTHLY'
+- 'MONTHLY' (default): Monthly aggregates
+- 'DAILY': Daily cost records</p>
               </div>
             </td>
             <td>
@@ -1546,21 +1419,22 @@ as configured in the local AWS credentials file.</p>
     <table>
       <thead>
         <tr>
-<th>Name</th>          <th>Type</th>
+          <th>Type</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-<td><code>list</code></td>            <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="CostRecord (eraXplor.utils.cost_export_utils.CostRecord)" href="#eraXplor.utils.cost_export_utils.CostRecord">CostRecord</a>]</code>
+            <td>
+                  <code><span title="typing.List">List</span>[<span title="eraXplor.utils.cost_export_utils._CostRecord">_CostRecord</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>A list of dictionaries containing cost data, where each dictionary has:
-- TIME_PERIOD (dict): Contains 'Start' and 'End' dates for the time period.
-- ID (str): The AWS account, service, purchase type, or usage type.
-- COST (str): The unblended cost amount as a string.</p>
+                <p>List[_CostRecord]: Structured cost records containing:
+- TIME_PERIOD: Dict with 'Start'/'End' date strings
+- ID: Resource identifier (account, service, etc.)
+- GROUPBY_FILTER: Composite values.
+- COST: Unblended cost as string (USD)</p>
               </div>
             </td>
           </tr>
@@ -1568,146 +1442,646 @@ as configured in the local AWS credentials file.</p>
     </table>
 
 
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>For invalid date ranges or parameters</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ClientError">ClientError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>For AWS API authentication/access issues</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="DataNotAvailableError">DataNotAvailableError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If requested data exceeds retention period</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>costs = monthly_account_cost_export(
+...     start_date_input="2023-01-01",
+...     end_date_input="2023-03-31",
+...     aws_profile_name_input="production",
+...     cost_groupby_key_input="SERVICE",
+...     granularity="MONTHLY"
+... )
+len(costs) &gt; 0
+True</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+
             <details class="quote">
               <summary>Source code in <code>src/eraXplor/utils/cost_export_utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">monthly_account_cost_export</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">monthly_account_cost_export</span><span class="p">(</span>
     <span class="n">start_date_input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">datetime</span><span class="p">],</span>  <span class="c1"># str | datetime</span>
     <span class="n">end_date_input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">datetime</span><span class="p">],</span>
     <span class="n">aws_profile_name_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">cost_groupby_key_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">granularity</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CostRecord</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieves AWS account cost data for a specified time period using AWS Cost Explorer.</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">_CostRecord</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve AWS cost and usage data via Cost Explorer API.</span>
 
-<span class="sd">    Fetches the unblended costs for all linked accounts, services, purchase type, or usage type</span>
-<span class="sd">    in an AWS organization for a given date range, grouped by account ID and returned in </span>
-<span class="sd">    monthly granularity.</span>
+<span class="sd">    Fetches unblended costs across all linked accounts in an AWS organization, with flexible</span>
+<span class="sd">    grouping and granularity options. Data is returned in standardized records suitable for</span>
+<span class="sd">    analysis or export.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        - start_date_input (str): The start date of the cost report in YYYY-MM-DD format.</span>
+<span class="sd">        start_date_input (Union[str, datetime]): </span>
+<span class="sd">            [REQUIRED] Start date for cost report (inclusive).</span>
+<span class="sd">            Default: &quot;3 Months ago&quot;</span>
+<span class="sd">            Format: YYYY-MM-DD datetime object.</span>
+<span class="sd">            Note: AWS limits historical data to 14 months.</span>
 
-<span class="sd">        - end_date_input (str): The end date of the cost report in YYYY-MM-DD format.</span>
+<span class="sd">        end_date_input (Union[str, datetime]): </span>
+<span class="sd">            [REQUIRED] End date for cost report (inclusive).</span>
+<span class="sd">            Default: &quot;Today date&quot;</span>
+<span class="sd">            Format: YYYY-MM-DD datetime object.</span>
+<span class="sd">            Note: Cannot be earlier than start date.</span>
 
-<span class="sd">        - aws_profile_name_input (str): The name of the AWS profile to use for authentication,</span>
-<span class="sd">            as configured in the local AWS credentials file.</span>
+<span class="sd">        aws_profile_name_input (str): </span>
+<span class="sd">            [REQUIRED] AWS credential profile name from local configuration.</span>
+<span class="sd">            Default: &quot;default&quot;</span>
 
-<span class="sd">        - cost_groupby_key_input (str): The key to group costs by (`LINKED_ACCOUNT`, `SERVICE`, </span>
-<span class="sd">            `PURCHASE_TYPE`, `USAGE_TYPE`)</span>
+<span class="sd">        cost_groupby_key_input (str): </span>
+<span class="sd">            [REQUIRED] Dimension for cost aggregation. Valid values:</span>
+<span class="sd">            Default: &quot;LINKED_ACCOUNT&quot;</span>
+<span class="sd">            - &#39;LINKED_ACCOUNT&#39; (default): Costs by AWS account</span>
+<span class="sd">            - &#39;SERVICE&#39;: Costs by AWS service (e.g. EC2, S3)</span>
+<span class="sd">            - &#39;PURCHASE_TYPE&#39;: Costs by purchase option</span>
+<span class="sd">            - &#39;USAGE_TYPE&#39;: Costs by usage category</span>
+<span class="sd">            - Composite keys (e.g. &#39;LINKED_ACCOUNT-With-SERVICE&#39;)</span>
+<span class="sd">            - Composite keys (e.g. &#39;LINKED_ACCOUNT-With-PURCHASE_TYPE&#39;)</span>
+<span class="sd">            - Composite keys (e.g. &#39;LINKED_ACCOUNT-With-USAGE_TYPE&#39;)</span>
 
-<span class="sd">        - granularity (str): The granularity of the cost data, either &#39;MONTHLY&#39; or &#39;DAILY&#39;.</span>
-
+<span class="sd">        granularity (str): </span>
+<span class="sd">            [REQUIRED] Time interval for cost breakdown:</span>
+<span class="sd">            Default: &#39;MONTHLY&#39;</span>
+<span class="sd">            - &#39;MONTHLY&#39; (default): Monthly aggregates</span>
+<span class="sd">            - &#39;DAILY&#39;: Daily cost records</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        list: A list of dictionaries containing cost data, where each dictionary has:</span>
-<span class="sd">            - TIME_PERIOD (dict): Contains &#39;Start&#39; and &#39;End&#39; dates for the time period.</span>
-<span class="sd">            - ID (str): The AWS account, service, purchase type, or usage type.</span>
-<span class="sd">            - COST (str): The unblended cost amount as a string.</span>
+<span class="sd">        List[_CostRecord]: Structured cost records containing:</span>
+<span class="sd">            - TIME_PERIOD: Dict with &#39;Start&#39;/&#39;End&#39; date strings</span>
+<span class="sd">            - ID: Resource identifier (account, service, etc.)</span>
+<span class="sd">            - GROUPBY_FILTER: Composite values.</span>
+<span class="sd">            - COST: Unblended cost as string (USD)</span>
 
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: For invalid date ranges or parameters</span>
+<span class="sd">        ClientError: For AWS API authentication/access issues</span>
+<span class="sd">        DataNotAvailableError: If requested data exceeds retention period</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; costs = monthly_account_cost_export(</span>
+<span class="sd">        ...     start_date_input=&quot;2023-01-01&quot;,</span>
+<span class="sd">        ...     end_date_input=&quot;2023-03-31&quot;,</span>
+<span class="sd">        ...     aws_profile_name_input=&quot;production&quot;,</span>
+<span class="sd">        ...     cost_groupby_key_input=&quot;SERVICE&quot;,</span>
+<span class="sd">        ...     granularity=&quot;MONTHLY&quot;</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; len(costs) &gt; 0</span>
+<span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">profile_session</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">profile_name</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">aws_profile_name_input</span><span class="p">))</span>
-    <span class="n">ce_client</span> <span class="o">=</span> <span class="n">profile_session</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;ce&quot;</span><span class="p">)</span>
+    <span class="n">_profile_session</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">profile_name</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">aws_profile_name_input</span><span class="p">))</span>
+    <span class="n">_ce_client</span> <span class="o">=</span> <span class="n">_profile_session</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;ce&quot;</span><span class="p">)</span>
 
     <span class="c1"># if condition determine the type of groupby key</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">with</span> <span class="n">Live</span><span class="p">(</span><span class="n">Spinner</span>
-              <span class="p">(</span><span class="s2">&quot;bouncingBar&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Fetching AWS costs grouped by </span><span class="si">{</span><span class="n">cost_groupby_key_input</span><span class="si">}</span><span class="s2">...</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">),</span>
-                <span class="n">refresh_per_second</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">fetch_account</span><span class="p">():</span>
-            <span class="n">account_cost_usage</span> <span class="o">=</span> <span class="n">ce_client</span><span class="o">.</span><span class="n">get_cost_and_usage</span><span class="p">(</span>
-                <span class="n">TimePeriod</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Start&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_date_input</span><span class="p">),</span> <span class="s2">&quot;End&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">end_date_input</span><span class="p">)},</span>
-                <span class="c1"># Granularity=&quot;MONTHLY&quot;,</span>
-                <span class="n">Granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
-                <span class="n">Metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">],</span>
-                <span class="n">GroupBy</span><span class="o">=</span><span class="p">[</span>  <span class="c1"># group the result based on account ID</span>
-                    <span class="p">{</span><span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;DIMENSION&quot;</span><span class="p">,</span> <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="n">cost_groupby_key_input</span><span class="p">}</span>
-                <span class="p">],</span>
-            <span class="p">)</span>
-            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">account_cost_usage</span><span class="p">[</span><span class="s2">&quot;ResultsByTime&quot;</span><span class="p">]:</span>
-                <span class="n">time_period</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;TimePeriod&quot;</span><span class="p">]</span>
-                <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;Groups&quot;</span><span class="p">]:</span>
-                    <span class="n">ID</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;Keys&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-                    <span class="n">cost</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Amount&quot;</span><span class="p">]</span>
-                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="p">{</span>
-                            <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">:</span> <span class="n">time_period</span><span class="p">,</span>
-                            <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="n">ID</span><span class="p">,</span>
-                            <span class="s2">&quot;COST&quot;</span><span class="p">:</span> <span class="n">cost</span><span class="p">,</span>
-                        <span class="p">}</span>
-                    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">Live</span><span class="p">(</span>
+        <span class="n">Spinner</span><span class="p">(</span>
+            <span class="s2">&quot;bouncingBar&quot;</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Fetching AWS costs grouped by </span><span class="si">{</span><span class="n">cost_groupby_key_input</span><span class="si">}</span><span class="s2">...</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">refresh_per_second</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">_fetch_account</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">cost_groupby_key_input</span> <span class="o">==</span> <span class="s2">&quot;LINKED_ACCOUNT-With-SERVICE&quot;</span><span class="p">:</span>
+                <span class="n">_account_cost_usage</span> <span class="o">=</span> <span class="n">_ce_client</span><span class="o">.</span><span class="n">get_cost_and_usage</span><span class="p">(</span>
+                    <span class="n">TimePeriod</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;Start&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_date_input</span><span class="p">),</span>
+                        <span class="s2">&quot;End&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">end_date_input</span><span class="p">),</span>
+                    <span class="p">},</span>
+                    <span class="c1"># Granularity=&quot;MONTHLY&quot;,</span>
+                    <span class="n">Granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
+                    <span class="n">Metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">],</span>
+                    <span class="n">GroupBy</span><span class="o">=</span><span class="p">[</span>
+                        <span class="p">{</span><span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;DIMENSION&quot;</span><span class="p">,</span> <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;LINKED_ACCOUNT&quot;</span><span class="p">},</span>
+                        <span class="p">{</span><span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;DIMENSION&quot;</span><span class="p">,</span> <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;SERVICE&quot;</span><span class="p">},</span>
+                    <span class="p">],</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">_item</span> <span class="ow">in</span> <span class="n">_account_cost_usage</span><span class="p">[</span><span class="s2">&quot;ResultsByTime&quot;</span><span class="p">]:</span>
+                    <span class="n">time_period</span> <span class="o">=</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;TimePeriod&quot;</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">_group</span> <span class="ow">in</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;Groups&quot;</span><span class="p">]:</span>
+                        <span class="n">ID</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Keys&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">service</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Keys&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">cost</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Amount&quot;</span><span class="p">])</span>
+                        <span class="n">currency</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Unit&quot;</span><span class="p">]</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="p">{</span>
+                                <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">:</span> <span class="n">time_period</span><span class="p">,</span>
+                                <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="n">ID</span><span class="p">,</span>
+                                <span class="s2">&quot;GROUPBY_FILTER&quot;</span><span class="p">:</span> <span class="n">service</span><span class="p">,</span>
+                                <span class="s2">&quot;COST&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="p">}</span>
+                        <span class="p">)</span>
+            <span class="k">if</span> <span class="n">cost_groupby_key_input</span> <span class="o">==</span> <span class="s2">&quot;LINKED_ACCOUNT-With-PURCHASE_TYPE&quot;</span><span class="p">:</span>
+                <span class="n">_account_cost_usage</span> <span class="o">=</span> <span class="n">_ce_client</span><span class="o">.</span><span class="n">get_cost_and_usage</span><span class="p">(</span>
+                    <span class="n">TimePeriod</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;Start&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_date_input</span><span class="p">),</span>
+                        <span class="s2">&quot;End&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">end_date_input</span><span class="p">),</span>
+                    <span class="p">},</span>
+                    <span class="c1"># Granularity=&quot;MONTHLY&quot;,</span>
+                    <span class="n">Granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
+                    <span class="n">Metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">],</span>
+                    <span class="n">GroupBy</span><span class="o">=</span><span class="p">[</span>
+                        <span class="p">{</span><span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;DIMENSION&quot;</span><span class="p">,</span> <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;LINKED_ACCOUNT&quot;</span><span class="p">},</span>
+                        <span class="p">{</span><span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;DIMENSION&quot;</span><span class="p">,</span> <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;PURCHASE_TYPE&quot;</span><span class="p">},</span>
+                    <span class="p">],</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">_item</span> <span class="ow">in</span> <span class="n">_account_cost_usage</span><span class="p">[</span><span class="s2">&quot;ResultsByTime&quot;</span><span class="p">]:</span>
+                    <span class="n">time_period</span> <span class="o">=</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;TimePeriod&quot;</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">_group</span> <span class="ow">in</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;Groups&quot;</span><span class="p">]:</span>
+                        <span class="n">ID</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Keys&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">purchase_type</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Keys&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">cost</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Amount&quot;</span><span class="p">])</span>
+                        <span class="n">currency</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Unit&quot;</span><span class="p">]</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="p">{</span>
+                                <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">:</span> <span class="n">time_period</span><span class="p">,</span>
+                                <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="n">ID</span><span class="p">,</span>
+                                <span class="s2">&quot;GROUPBY_FILTER&quot;</span><span class="p">:</span> <span class="n">purchase_type</span><span class="p">,</span>
+                                <span class="s2">&quot;COST&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="p">}</span>
+                        <span class="p">)</span>
+            <span class="k">if</span> <span class="n">cost_groupby_key_input</span> <span class="o">==</span> <span class="s2">&quot;LINKED_ACCOUNT-With-USAGE_TYPE&quot;</span><span class="p">:</span>
+                <span class="n">_account_cost_usage</span> <span class="o">=</span> <span class="n">_ce_client</span><span class="o">.</span><span class="n">get_cost_and_usage</span><span class="p">(</span>
+                    <span class="n">TimePeriod</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;Start&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_date_input</span><span class="p">),</span>
+                        <span class="s2">&quot;End&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">end_date_input</span><span class="p">),</span>
+                    <span class="p">},</span>
+                    <span class="c1"># Granularity=&quot;MONTHLY&quot;,</span>
+                    <span class="n">Granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
+                    <span class="n">Metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">],</span>
+                    <span class="n">GroupBy</span><span class="o">=</span><span class="p">[</span>
+                        <span class="p">{</span><span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;DIMENSION&quot;</span><span class="p">,</span> <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;LINKED_ACCOUNT&quot;</span><span class="p">},</span>
+                        <span class="p">{</span><span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;DIMENSION&quot;</span><span class="p">,</span> <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;USAGE_TYPE&quot;</span><span class="p">},</span>
+                    <span class="p">],</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">_item</span> <span class="ow">in</span> <span class="n">_account_cost_usage</span><span class="p">[</span><span class="s2">&quot;ResultsByTime&quot;</span><span class="p">]:</span>
+                    <span class="n">time_period</span> <span class="o">=</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;TimePeriod&quot;</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">_group</span> <span class="ow">in</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;Groups&quot;</span><span class="p">]:</span>
+                        <span class="n">ID</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Keys&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">usage_type</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Keys&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">cost</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Amount&quot;</span><span class="p">])</span>
+                        <span class="n">currency</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Unit&quot;</span><span class="p">]</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="p">{</span>
+                                <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">:</span> <span class="n">time_period</span><span class="p">,</span>
+                                <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="n">ID</span><span class="p">,</span>
+                                <span class="s2">&quot;GROUPBY_FILTER&quot;</span><span class="p">:</span> <span class="n">usage_type</span><span class="p">,</span>
+                                <span class="s2">&quot;COST&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="p">}</span>
+                        <span class="p">)</span>
+            <span class="k">if</span> <span class="n">cost_groupby_key_input</span> <span class="o">==</span> <span class="s2">&quot;LINKED_ACCOUNT&quot;</span><span class="p">:</span>
+                <span class="n">_account_cost_usage</span> <span class="o">=</span> <span class="n">_ce_client</span><span class="o">.</span><span class="n">get_cost_and_usage</span><span class="p">(</span>
+                    <span class="n">TimePeriod</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;Start&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_date_input</span><span class="p">),</span>
+                        <span class="s2">&quot;End&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">end_date_input</span><span class="p">),</span>
+                    <span class="p">},</span>
+                    <span class="c1"># Granularity=&quot;MONTHLY&quot;,</span>
+                    <span class="n">Granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
+                    <span class="n">Metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">],</span>
+                    <span class="n">GroupBy</span><span class="o">=</span><span class="p">[</span>
+                        <span class="p">{</span><span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;DIMENSION&quot;</span><span class="p">,</span> <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;LINKED_ACCOUNT&quot;</span><span class="p">},</span>
+                    <span class="p">],</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">_item</span> <span class="ow">in</span> <span class="n">_account_cost_usage</span><span class="p">[</span><span class="s2">&quot;ResultsByTime&quot;</span><span class="p">]:</span>
+                    <span class="n">time_period</span> <span class="o">=</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;TimePeriod&quot;</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">_group</span> <span class="ow">in</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;Groups&quot;</span><span class="p">]:</span>
+                        <span class="n">ID</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Keys&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="c1"># usage_type = group[&quot;Keys&quot;][1]</span>
+                        <span class="n">cost</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Amount&quot;</span><span class="p">])</span>
+                        <span class="n">currency</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Unit&quot;</span><span class="p">]</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="p">{</span>
+                                <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">:</span> <span class="n">time_period</span><span class="p">,</span>
+                                <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="n">ID</span><span class="p">,</span>
+                                <span class="s2">&quot;GROUPBY_FILTER&quot;</span><span class="p">:</span> <span class="s2">&quot;NONE&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;COST&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="p">}</span>
+                        <span class="p">)</span>
+            <span class="k">if</span> <span class="n">cost_groupby_key_input</span> <span class="o">==</span> <span class="s2">&quot;SERVICE&quot;</span><span class="p">:</span>
+                <span class="n">_account_cost_usage</span> <span class="o">=</span> <span class="n">_ce_client</span><span class="o">.</span><span class="n">get_cost_and_usage</span><span class="p">(</span>
+                    <span class="n">TimePeriod</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;Start&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_date_input</span><span class="p">),</span>
+                        <span class="s2">&quot;End&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">end_date_input</span><span class="p">),</span>
+                    <span class="p">},</span>
+                    <span class="c1"># Granularity=&quot;MONTHLY&quot;,</span>
+                    <span class="n">Granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
+                    <span class="n">Metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">],</span>
+                    <span class="n">GroupBy</span><span class="o">=</span><span class="p">[</span>
+                        <span class="p">{</span><span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;DIMENSION&quot;</span><span class="p">,</span> <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;SERVICE&quot;</span><span class="p">},</span>
+                    <span class="p">],</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">_item</span> <span class="ow">in</span> <span class="n">_account_cost_usage</span><span class="p">[</span><span class="s2">&quot;ResultsByTime&quot;</span><span class="p">]:</span>
+                    <span class="n">time_period</span> <span class="o">=</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;TimePeriod&quot;</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">_group</span> <span class="ow">in</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;Groups&quot;</span><span class="p">]:</span>
+                        <span class="n">ID</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Keys&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="c1"># usage_type = group[&quot;Keys&quot;][1]</span>
+                        <span class="n">cost</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Amount&quot;</span><span class="p">])</span>
+                        <span class="n">currency</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Unit&quot;</span><span class="p">]</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="p">{</span>
+                                <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">:</span> <span class="n">time_period</span><span class="p">,</span>
+                                <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="n">ID</span><span class="p">,</span>
+                                <span class="s2">&quot;GROUPBY_FILTER&quot;</span><span class="p">:</span> <span class="s2">&quot;NONE&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;COST&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="p">}</span>
+                        <span class="p">)</span>
+            <span class="k">if</span> <span class="n">cost_groupby_key_input</span> <span class="o">==</span> <span class="s2">&quot;PURCHASE_TYPE&quot;</span><span class="p">:</span>
+                <span class="n">_account_cost_usage</span> <span class="o">=</span> <span class="n">_ce_client</span><span class="o">.</span><span class="n">get_cost_and_usage</span><span class="p">(</span>
+                    <span class="n">TimePeriod</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;Start&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_date_input</span><span class="p">),</span>
+                        <span class="s2">&quot;End&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">end_date_input</span><span class="p">),</span>
+                    <span class="p">},</span>
+                    <span class="c1"># Granularity=&quot;MONTHLY&quot;,</span>
+                    <span class="n">Granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
+                    <span class="n">Metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">],</span>
+                    <span class="n">GroupBy</span><span class="o">=</span><span class="p">[</span>
+                        <span class="p">{</span><span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;DIMENSION&quot;</span><span class="p">,</span> <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;PURCHASE_TYPE&quot;</span><span class="p">},</span>
+                    <span class="p">],</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">_item</span> <span class="ow">in</span> <span class="n">_account_cost_usage</span><span class="p">[</span><span class="s2">&quot;ResultsByTime&quot;</span><span class="p">]:</span>
+                    <span class="n">time_period</span> <span class="o">=</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;TimePeriod&quot;</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">_group</span> <span class="ow">in</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;Groups&quot;</span><span class="p">]:</span>
+                        <span class="n">ID</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Keys&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="c1"># usage_type = group[&quot;Keys&quot;][1]</span>
+                        <span class="n">cost</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Amount&quot;</span><span class="p">])</span>
+                        <span class="n">currency</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Unit&quot;</span><span class="p">]</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="p">{</span>
+                                <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">:</span> <span class="n">time_period</span><span class="p">,</span>
+                                <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="n">ID</span><span class="p">,</span>
+                                <span class="s2">&quot;GROUPBY_FILTER&quot;</span><span class="p">:</span> <span class="s2">&quot;NONE&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;COST&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="p">}</span>
+                        <span class="p">)</span>
+            <span class="k">if</span> <span class="n">cost_groupby_key_input</span> <span class="o">==</span> <span class="s2">&quot;USAGE_TYPE&quot;</span><span class="p">:</span>
+                <span class="n">_account_cost_usage</span> <span class="o">=</span> <span class="n">_ce_client</span><span class="o">.</span><span class="n">get_cost_and_usage</span><span class="p">(</span>
+                    <span class="n">TimePeriod</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;Start&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_date_input</span><span class="p">),</span>
+                        <span class="s2">&quot;End&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">end_date_input</span><span class="p">),</span>
+                    <span class="p">},</span>
+                    <span class="c1"># Granularity=&quot;MONTHLY&quot;,</span>
+                    <span class="n">Granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
+                    <span class="n">Metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">],</span>
+                    <span class="n">GroupBy</span><span class="o">=</span><span class="p">[</span>
+                        <span class="p">{</span><span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;DIMENSION&quot;</span><span class="p">,</span> <span class="s2">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;USAGE_TYPE&quot;</span><span class="p">},</span>
+                    <span class="p">],</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">_item</span> <span class="ow">in</span> <span class="n">_account_cost_usage</span><span class="p">[</span><span class="s2">&quot;ResultsByTime&quot;</span><span class="p">]:</span>
+                    <span class="n">time_period</span> <span class="o">=</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;TimePeriod&quot;</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">_group</span> <span class="ow">in</span> <span class="n">_item</span><span class="p">[</span><span class="s2">&quot;Groups&quot;</span><span class="p">]:</span>
+                        <span class="n">ID</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Keys&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="c1"># usage_type = group[&quot;Keys&quot;][1]</span>
+                        <span class="n">cost</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Amount&quot;</span><span class="p">])</span>
+                        <span class="n">currency</span> <span class="o">=</span> <span class="n">_group</span><span class="p">[</span><span class="s2">&quot;Metrics&quot;</span><span class="p">][</span><span class="s2">&quot;UnblendedCost&quot;</span><span class="p">][</span><span class="s2">&quot;Unit&quot;</span><span class="p">]</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="p">{</span>
+                                <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">:</span> <span class="n">time_period</span><span class="p">,</span>
+                                <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="n">ID</span><span class="p">,</span>
+                                <span class="s2">&quot;GROUPBY_FILTER&quot;</span><span class="p">:</span> <span class="s2">&quot;NONE&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;COST&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="p">}</span>
+                        <span class="p">)</span>
         <span class="c1"># progress.update(task, advance=1)</span>
-        <span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">fetch_account</span><span class="p">)</span>
-        <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-        <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+        <span class="n">_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">_fetch_account</span><span class="p">)</span>
+        <span class="n">_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">results</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -1801,7 +2175,8 @@ and associated costs.</p>
 by monthly_account_cost_export(). Each dictionary should contain:
 - time_period (dict): With 'Start' and 'End' keys
 - ID : AWS account ID, service name, purchase type name, usage type name.
-- COST (str): Cost amount as string</p>
+- GROUPBY_FILTER (str): Grouping filter used in the query, e.g., 'Account', 'Service', etc.
+- COST (float): The cost associated with the ID for the given time period.</p>
               </div>
             </td>
             <td>
@@ -1892,7 +2267,10 @@ by monthly_account_cost_export(). Each dictionary should contain:
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">csv_export</span><span class="p">(</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">csv_export</span><span class="p">(</span>
     <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
     <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1908,7 +2286,8 @@ by monthly_account_cost_export(). Each dictionary should contain:
 <span class="sd">            by monthly_account_cost_export(). Each dictionary should contain:</span>
 <span class="sd">            - time_period (dict): With &#39;Start&#39; and &#39;End&#39; keys</span>
 <span class="sd">            - ID : AWS account ID, service name, purchase type name, usage type name.</span>
-<span class="sd">            - COST (str): Cost amount as string</span>
+<span class="sd">            - GROUPBY_FILTER (str): Grouping filter used in the query, e.g., &#39;Account&#39;, &#39;Service&#39;, etc.</span>
+<span class="sd">            - COST (float): The cost associated with the ID for the given time period.</span>
 
 <span class="sd">        filename (str, optional): Output filename for the CSV. Defaults to &#39;cost_report.csv&#39;.</span>
 
@@ -1916,21 +2295,23 @@ by monthly_account_cost_export(). Each dictionary should contain:
 <span class="sd">        None: Writes directly to file but doesn&#39;t return any value.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Create a CSV file with write mode</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
-        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">_csvfile</span><span class="p">:</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">_csvfile</span><span class="p">)</span>
         <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="s2">&quot;Start Date&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;End Date&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;ID&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;GROUPBY_FILTER&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;Cost&quot;</span><span class="p">,</span>
             <span class="p">]</span>
         <span class="p">)</span>
-        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-            <span class="n">time_period</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">]</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span>
-            <span class="n">cost</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;COST&quot;</span><span class="p">)</span>
-            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">time_period</span><span class="p">[</span><span class="s2">&quot;Start&quot;</span><span class="p">],</span> <span class="n">time_period</span><span class="p">[</span><span class="s2">&quot;End&quot;</span><span class="p">],</span> <span class="n">name</span><span class="p">,</span> <span class="n">cost</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">_row</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">time_period</span> <span class="o">=</span> <span class="n">_row</span><span class="p">[</span><span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">]</span>
+            <span class="n">ID</span> <span class="o">=</span> <span class="n">_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span>
+            <span class="n">groupby</span> <span class="o">=</span> <span class="n">_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GROUPBY_FILTER&quot;</span><span class="p">)</span>
+            <span class="n">cost</span> <span class="o">=</span> <span class="n">_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;COST&quot;</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">time_period</span><span class="p">[</span><span class="s2">&quot;Start&quot;</span><span class="p">],</span> <span class="n">time_period</span><span class="p">[</span><span class="s2">&quot;End&quot;</span><span class="p">],</span> <span class="n">ID</span><span class="p">,</span> <span class="n">groupby</span><span class="p">,</span> <span class="n">cost</span><span class="p">])</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Data exported to </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2590,7 +2971,7 @@ Azure cost and usage data using Azure CostManagementClient client.</p>
     <span class="n">copyright_notice</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;╔══════════════════════════════════════════════════╗</span>
 <span class="s2">║  © 2025 Mohamed eraki                            ║</span>
 <span class="s2">║  mohamed-ibrahim2021@outlook.com                 ║</span>
-<span class="s2">║  Version: 1.0.0                                  ║</span>
+<span class="s2">║  Version: 3.0.2                                  ║</span>
 <span class="s2">║  eraXplor - Azure Cost exporter Tool             ║</span>
 <span class="s2">╚══════════════════════════════════════════════════╝</span>
 <span class="s2">    &quot;&quot;&quot;</span>
