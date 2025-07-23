@@ -92,7 +92,7 @@ def monthly_account_cost_export(
                             {
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
-                                "GROUPBY": service,
+                                "GROUPBY_FILTER": service,
                                 "COST": f"{cost:.2f} {currency}",
                             }
                         )
@@ -121,7 +121,7 @@ def monthly_account_cost_export(
                             {
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
-                                "GROUPBY": purchase_type,
+                                "GROUPBY_FILTER": purchase_type,
                                 "COST": f"{cost:.2f} {currency}",
                             }
                         )
@@ -150,7 +150,7 @@ def monthly_account_cost_export(
                             {
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
-                                "GROUPBY": usage_type,
+                                "GROUPBY_FILTER": usage_type,
                                 "COST": f"{cost:.2f} {currency}",
                             }
                         )
@@ -178,7 +178,7 @@ def monthly_account_cost_export(
                             {
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
-                                "GROUPBY": "NONE",
+                                "GROUPBY_FILTER": "NONE",
                                 "COST": f"{cost:.2f} {currency}",
                             }
                         )
@@ -206,7 +206,7 @@ def monthly_account_cost_export(
                             {
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
-                                "GROUPBY": "NONE",
+                                "GROUPBY_FILTER": "NONE",
                                 "COST": f"{cost:.2f} {currency}",
                             }
                         )
@@ -234,7 +234,7 @@ def monthly_account_cost_export(
                             {
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
-                                "GROUPBY": "NONE",
+                                "GROUPBY_FILTER": "NONE",
                                 "COST": f"{cost:.2f} {currency}",
                             }
                         )
@@ -262,7 +262,7 @@ def monthly_account_cost_export(
                             {
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
-                                "GROUPBY": "NONE",
+                                "GROUPBY_FILTER": "NONE",
                                 "COST": f"{cost:.2f} {currency}",
                             }
                         )

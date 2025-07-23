@@ -35,14 +35,14 @@ def csv_export(
                 "Start Date",
                 "End Date",
                 "ID",
-                "GROUPBY",
+                "GROUPBY_FILTER",
                 "Cost",
             ]
         )
         for row in results:
             time_period = row["TIME_PERIOD"]
             ID = row.get("ID")
-            groupby = row.get("GROUPBY")
+            groupby = row.get("GROUPBY_FILTER")
             cost = row.get("COST")
             writer.writerow([time_period["Start"], time_period["End"], ID, groupby, cost])
     print(f"\n✅ Data exported to {filename}")
