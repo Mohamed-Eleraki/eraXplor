@@ -93,7 +93,7 @@ def monthly_account_cost_export(
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
                                 "GROUPBY": service,
-                                "COST": f"{cost} {currency}",
+                                "COST": f"{cost:.2f} {currency}",
                             }
                         )
             if cost_groupby_key_input == "LINKED_ACCOUNT-With-PURCHASE_TYPE":
@@ -122,7 +122,7 @@ def monthly_account_cost_export(
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
                                 "GROUPBY": purchase_type,
-                                "COST": f"{cost} {currency}",
+                                "COST": f"{cost:.2f} {currency}",
                             }
                         )
             if cost_groupby_key_input == "LINKED_ACCOUNT-With-USAGE_TYPE":
@@ -151,7 +151,7 @@ def monthly_account_cost_export(
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
                                 "GROUPBY": usage_type,
-                                "COST": f"{cost} {currency}",
+                                "COST": f"{cost:.2f} {currency}",
                             }
                         )
             if cost_groupby_key_input == "LINKED_ACCOUNT":
@@ -179,7 +179,7 @@ def monthly_account_cost_export(
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
                                 "GROUPBY": "NONE",
-                                "COST": f"{cost} {currency}",
+                                "COST": f"{cost:.2f} {currency}",
                             }
                         )
             if cost_groupby_key_input == "SERVICE":
@@ -207,7 +207,7 @@ def monthly_account_cost_export(
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
                                 "GROUPBY": "NONE",
-                                "COST": f"{cost} {currency}",
+                                "COST": f"{cost:.2f} {currency}",
                             }
                         )
             if cost_groupby_key_input == "PURCHASE_TYPE":
@@ -235,7 +235,7 @@ def monthly_account_cost_export(
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
                                 "GROUPBY": "NONE",
-                                "COST": f"{cost} {currency}",
+                                "COST": f"{cost:.2f} {currency}",
                             }
                         )
             if cost_groupby_key_input == "USAGE_TYPE":
@@ -263,7 +263,7 @@ def monthly_account_cost_export(
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
                                 "GROUPBY": "NONE",
-                                "COST": f"{cost} {currency}",
+                                "COST": f"{cost:.2f} {currency}",
                             }
                         )
         # progress.update(task, advance=1)
