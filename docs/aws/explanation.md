@@ -16,6 +16,7 @@ Even in ***a tiny Architectural design***, Manual Comparing the ***current cost*
 - Aggregate cost data per AWS Services. Monthly or Daily.
 - Aggregate cost data per AWS Purchase Type. Monthly or Daily.
 - Aggregate cost data per AWS Usage Type. Monthly or Daily.
+- Aggregate cost data per composite Account + Service + Purchase Type + Usage Type. Monthly or Daily.
 - Export data in reports, CVS format.
 - Suport AWS profile Credintials.
 - Cross-platform CLI interface.
@@ -26,6 +27,7 @@ Even in ***a tiny Architectural design***, Manual Comparing the ***current cost*
 - ✅ **Service-Level Cost Breakdown**: Monthly or daily unblended costs per Services.
 - ✅ **Purchase Type-Level Cost Breakdown**: Monthly or daily unblended costs per Purchase Type.
 - ✅ **Usage Type-Level Cost Breakdown**: Monthly or daily unblended costs per Usage Type.
+- ✅ **Composite Cost Breakdown**: Monthly or daily unblended costs per composite Account.
 - ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
 - ✅ **Multi-Profile Support**: Works with all configured AWS profiles.
 - ✅ **CSV Export**: Ready-to-analyze reports in CSV format.

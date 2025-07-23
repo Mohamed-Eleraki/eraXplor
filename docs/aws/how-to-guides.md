@@ -31,12 +31,12 @@ pip install eraXplor
 
 ## How-To use
 
-`eraXplor` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
+`eraXplor-aws` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
 
 ```bash
-eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
+eraXplor-aws <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
 <--profile [PROFILE-NAME]> \
-<--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE]> \
+<--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE | LINKED_ACCOUNT-With-SERVICE | LINKED_ACCOUNT-With-PURCHASE_TYPE | LINKED_ACCOUNT-With-USAGE_TYPE]> \
 <--out [file.csv]>
 <--granularity [DAILY | MONTHLY]>
 ```
@@ -44,10 +44,10 @@ eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
 For Windows/PowerShell users restart your terminal, and you may need to use the following command:
 
 ```bash
-python3 -m eraXplor
+python3 -m eraXplor-aws
 
 # Or
-python -m eraXplor
+python -m eraXplor-aws
 
 # to avoid using this command, apend the eraXplor to your paths.
 # Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\
@@ -60,13 +60,13 @@ python -m eraXplor
 
 ### Argument Reference
 
-- `--start-date` or `-s`: **_(Not_Required)_** Default value set as six months before.
-- `--end-date` or `-e`: **_(Not_Required)_** Default value set as Today date.
-- `--profile` or `-p`: **_(Not_Required)_** Default value set as default.
-- `--groupby` or `-g`: **_(Not_Required)_** Default value set as LINKED_ACCOUNT.
-    The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`)
-- `--out` or `-o`: **_(Not_Required)_** Default value set as `cost_repot.csv`.
-- `--granularity` or `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
+- `--start-date` or `-s`: **_(Optional)_** Default value set as Three months before.
+- `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
+- `--profile` or `-p`: **_(Optional)_** Default value set as `default`.
+- `--groupby` or `-g`: **_(Optional)_** Default value set as `LINKED_ACCOUNT`.
+    The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`, `LINKED_ACCOUNT-With-SERVICE`, `LINKED_ACCOUNT-With-PURCHASE_TYPE`, `LINKED_ACCOUNT-With-USAGE_TYPE`)
+- `--out` or `-o`: **_(Optional)_** Default value set as `cost_repot.csv`.
+- `--granularity` or `-G`: **_(Optional)_** Default value set as `MONTHLY`.
     The available options are (`MONTHLY`, `DAILY`)
 
 <!-- 
