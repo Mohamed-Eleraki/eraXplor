@@ -85,12 +85,15 @@ def monthly_account_cost_export(
                     time_period = item["TimePeriod"]
                     for group in item["Groups"]:
                         ID = group["Keys"][0]
+                        service = group["Keys"][1]
                         cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
-                                "COST": cost,
+                                "GROUPBY": service,
+                                "COST": f"{cost} {currency}",
                             }
                         )
             if cost_groupby_key_input == "LINKED_ACCOUNT-With-PURCHASE_TYPE":
@@ -111,12 +114,15 @@ def monthly_account_cost_export(
                     time_period = item["TimePeriod"]
                     for group in item["Groups"]:
                         ID = group["Keys"][0]
+                        purchase_type = group["Keys"][1]
                         cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
-                                "COST": cost,
+                                "GROUPBY": purchase_type,
+                                "COST": f"{cost} {currency}",
                             }
                         )
             if cost_groupby_key_input == "LINKED_ACCOUNT-With-USAGE_TYPE":
@@ -137,15 +143,18 @@ def monthly_account_cost_export(
                     time_period = item["TimePeriod"]
                     for group in item["Groups"]:
                         ID = group["Keys"][0]
+                        usage_type = group["Keys"][1]
                         cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
-                                "COST": cost,
+                                "GROUPBY": usage_type,
+                                "COST": f"{cost} {currency}",
                             }
                         )
-            else:
+            if cost_groupby_key_input == "LINKED_ACCOUNT":
                 account_cost_usage = ce_client.get_cost_and_usage(
                     TimePeriod={
                         "Start": str(start_date_input),
@@ -154,23 +163,109 @@ def monthly_account_cost_export(
                     # Granularity="MONTHLY",
                     Granularity=granularity,
                     Metrics=["UnblendedCost"],
-                    GroupBy=[  # group the result based on account ID
-                        {"Type": "DIMENSION", "Key": cost_groupby_key_input}
+                    GroupBy=[
+                        {"Type": "DIMENSION", "Key": "LINKED_ACCOUNT"},
                     ],
                 )
                 for item in account_cost_usage["ResultsByTime"]:
                     time_period = item["TimePeriod"]
                     for group in item["Groups"]:
                         ID = group["Keys"][0]
+                        # usage_type = group["Keys"][1]
                         cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
                         results.append(
                             {
                                 "TIME_PERIOD": time_period,
                                 "ID": ID,
-                                "COST": cost,
+                                "GROUPBY": "NONE",
+                                "COST": f"{cost} {currency}",
                             }
                         )
-
+            if cost_groupby_key_input == "SERVICE":
+                account_cost_usage = ce_client.get_cost_and_usage(
+                    TimePeriod={
+                        "Start": str(start_date_input),
+                        "End": str(end_date_input),
+                    },
+                    # Granularity="MONTHLY",
+                    Granularity=granularity,
+                    Metrics=["UnblendedCost"],
+                    GroupBy=[
+                        {"Type": "DIMENSION", "Key": "SERVICE"},
+                    ],
+                )
+                for item in account_cost_usage["ResultsByTime"]:
+                    time_period = item["TimePeriod"]
+                    for group in item["Groups"]:
+                        ID = group["Keys"][0]
+                        # usage_type = group["Keys"][1]
+                        cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
+                        results.append(
+                            {
+                                "TIME_PERIOD": time_period,
+                                "ID": ID,
+                                "GROUPBY": "NONE",
+                                "COST": f"{cost} {currency}",
+                            }
+                        )
+            if cost_groupby_key_input == "PURCHASE_TYPE":
+                account_cost_usage = ce_client.get_cost_and_usage(
+                    TimePeriod={
+                        "Start": str(start_date_input),
+                        "End": str(end_date_input),
+                    },
+                    # Granularity="MONTHLY",
+                    Granularity=granularity,
+                    Metrics=["UnblendedCost"],
+                    GroupBy=[
+                        {"Type": "DIMENSION", "Key": "PURCHASE_TYPE"},
+                    ],
+                )
+                for item in account_cost_usage["ResultsByTime"]:
+                    time_period = item["TimePeriod"]
+                    for group in item["Groups"]:
+                        ID = group["Keys"][0]
+                        # usage_type = group["Keys"][1]
+                        cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
+                        results.append(
+                            {
+                                "TIME_PERIOD": time_period,
+                                "ID": ID,
+                                "GROUPBY": "NONE",
+                                "COST": f"{cost} {currency}",
+                            }
+                        )
+            if cost_groupby_key_input == "USAGE_TYPE":
+                account_cost_usage = ce_client.get_cost_and_usage(
+                    TimePeriod={
+                        "Start": str(start_date_input),
+                        "End": str(end_date_input),
+                    },
+                    # Granularity="MONTHLY",
+                    Granularity=granularity,
+                    Metrics=["UnblendedCost"],
+                    GroupBy=[
+                        {"Type": "DIMENSION", "Key": "USAGE_TYPE"},
+                    ],
+                )
+                for item in account_cost_usage["ResultsByTime"]:
+                    time_period = item["TimePeriod"]
+                    for group in item["Groups"]:
+                        ID = group["Keys"][0]
+                        # usage_type = group["Keys"][1]
+                        cost = group["Metrics"]["UnblendedCost"]["Amount"]
+                        currency = group["Metrics"]["UnblendedCost"]["Unit"]
+                        results.append(
+                            {
+                                "TIME_PERIOD": time_period,
+                                "ID": ID,
+                                "GROUPBY": "NONE",
+                                "COST": f"{cost} {currency}",
+                            }
+                        )
         # progress.update(task, advance=1)
         thread = threading.Thread(target=fetch_account)
         thread.start()
