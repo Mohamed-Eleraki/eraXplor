@@ -27,6 +27,7 @@ Examples:
 
 """
 
+import json
 import termcolor
 from .utils.csv_export_utils import csv_export
 from .utils.cost_export_utils import monthly_account_cost_export
@@ -75,6 +76,8 @@ def main() -> None:
         aws_profile_name_input,
         cost_groupby_key_input,
         granularity)
+    
+    print(json.dumps(results, indent=4, default=str), end="\n\n\n")
     
     # Export results to CSV
     csv_export(results, filename)
