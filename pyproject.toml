@@ -79,4 +79,4 @@ where = ["src"]
 
 [tool.setuptools.dynamic]
 #version = {attr = "eraXplor.utils.__version__"}
-version = {attr = "eraXplor.utils.__version__"}
+version = {attr = "eraXplor_aws.utils.__version__"}

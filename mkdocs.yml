@@ -16,12 +16,12 @@ markdown_extensions:
 nav:
   # - Welcome to eraXplor - AWS cost Export Toold Docs: index.md
   - Welcome to eraXplor: index.md
-  - AWS (eraXplor):
+  - AWS (eraXplor-aws):
       - Overview: aws/index.md
       - Tutorials: aws/tutorials.md
       - How-to Guides: aws/how-to-guides.md
       - Concepts: aws/explanation.md
-  - Azure (eraXplor_az):
+  - Azure (eraXplor-azure):
       - Overview: azure/index.md
       - Tutorials: azure/tutorials.md
       - How-to Guides: azure/how-to-guides.md

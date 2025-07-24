@@ -1,6 +1,6 @@
 """eraXplor - Azure Cost Export Tool
 
-This is the main entry point for the eraXplor_az CLI tool, which allows users to export
+This is the main entry point for the eraXplor_azure CLI tool, which allows users to export
 Azure cost and usage data using Azure CostManagementClient client.
 
 Args: 
@@ -24,10 +24,10 @@ Examples:
 """
 import json
 import termcolor
-from eraXplor_az.utils.banner_utils import banner as generate_banner
-from eraXplor_az.utils.parser_utils import parser
-from eraXplor_az.utils.cost_export_utils import cost_export
-from eraXplor_az.utils.csv_export_utils import csv_export
+from eraXplor_azure.utils.banner_utils import banner as generate_banner
+from eraXplor_azure.utils.parser_utils import parser
+from eraXplor_azure.utils.cost_export_utils import cost_export
+from eraXplor_azure.utils.csv_export_utils import csv_export
 
 def main() -> None:
     """Orchestrates & Manage depends of cost export workflow."""
