@@ -5,7 +5,7 @@ Provides flexible filtering, grouping, and output options for cost analysis.
 
 Command Line Arguments:
   --start-date, -s DATE    Start date in YYYY-MM-DD format. 
-                           Default: First day of month, 6 months prior
+                           Default: 3 months prior
                            
   --end-date, -e DATE      End date in YYYY-MM-DD format.
                            Default: Current date

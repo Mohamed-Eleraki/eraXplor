@@ -10,10 +10,9 @@ Even in ***a tiny Architectural design***, Manual Comparing the ***current cost*
 
 ## How eraXplor Addresses These Challenges
 
-`eraXplor_az` is a CLI tool deliver an automatic way to aggregate cost data based on user inputs and export these data into CSV format.
+`eraXplor-azure` is a CLI tool deliver an automatic way to aggregate cost data based on user inputs and export these data into CSV format.
 
 - Aggregate cost data per Azure Subscription, Monthly or Daily.
-- Aggregate cost data per AWS resource groups. Monthly or Daily. *will be added soon*
 - Export data in reports, CVS format.
 - Suport Azure CLI credintials.
 - Cross-platform CLI interface.

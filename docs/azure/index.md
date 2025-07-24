@@ -6,7 +6,7 @@ Azure Cost Export Tool for automated cost reporting and analysis.
 
 **eraXplor** is an automated Azure cost reporting tool designed for assest DevOps and FinOps teams fetching and sorting Azure Cost Explorer.
 it extracts detailed cost data by calling natively Azure APIs directly and Transform result into CSVs.
-`eraXplor_az` gives you the ability to sort the cost by Subscription; as well as format and separate the result by Monthly or Daily.
+`eraXplor-azure` gives you the ability to sort the cost by Subscription; as well as format and separate the result by Monthly or Daily.
 
 _azure still under development, more features will be added soon._
 

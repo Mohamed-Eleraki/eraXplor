@@ -2,7 +2,7 @@
 
 # 1. Setup eraXplor for your Azure Authentication
 
-This tutorial walks you through setting up of `eraXplor_az` to start exporting your Azure cost data automatically.
+This tutorial walks you through setting up of `eraXplor-azure` to start exporting your Azure cost data automatically.
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ python3 --version
 
 ## Steps
 
-1. **Install eraXplor_az:**
+1. **Install eraXplor-azure:**
 
 ```bash
 pip install eraXplor
@@ -26,11 +26,11 @@ pip install eraXplor
 2. **Run eraXplor:**
 
 ```bash
-eraXplor_az -S SUBSCRIPTION_ID
+eraXplor-azure -S SUBSCRIPTION_ID
 ```
 
 ```bash
-eraXplor_az <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
+eraXplor-azure <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
 <--subscription_id [SUBSCRIPTION_ID]> \
 <--granularity [DAILY | MONTHLY]> \
 <--output [FILE_NAME.CSV]>
@@ -39,10 +39,10 @@ eraXplor_az <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
 For Windows/PowerShell users restart your terminal, and you may need to use the following command:
 
 ```bash
-python3 -m eraXplor_az
+python3 -m eraXplor-azure
 
 # Or
-python -m eraXplor_az
+python -m eraXplor-azure
 
 # to avoid using this command, apend the eraXplor to your paths.
 # Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\

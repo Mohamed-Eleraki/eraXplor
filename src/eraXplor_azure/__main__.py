@@ -3,25 +3,35 @@
 This is the main entry point for the eraXplor_azure CLI tool, which allows users to export
 Azure cost and usage data using Azure CostManagementClient client.
 
-Args: 
- --start-date, -s: (Optional) Default value set as three months before.
- 
- --end-date, -e: (Optional) Default value set as Today date.
- 
- --subscription-id, -S: (Optional) Default value set as default.
-   
- --out, -o: (Optional) Default value set as `az_cost_report.csv`.
- 
- --granularity, -g: (Optional) Default value set as `Monthly`.
-    The available options are (Monthly, Daily)
-    
+Command Line Arguments:
+  --start-date, -s DATE    Start date in YYYY,MM,DD format. 
+                           Default: 3 months prior
+                           
+  --end-date, -e DATE      End date in YYYY,MM,DD format.
+                           Default: Today date.
+                           
+  --subscription-id, -S SUBSCRIPTION_ID  Azure subscription ID for cost export.
+                           
+  --out, -o FILENAME       Output CSV filename.
+                           Default: `az_cost_report.csv`
+                           
+  --granularity, -G GRANULARITY   Time granularity. Options:
+                           - Monthly (default)
+                           - Daily
+
 Examples:
-    eraXplor --start-date 2025,04,01 --end-date 2025,06,30 \
-             --subscription-id SUBSCRIPTION_ID \
-             --granularity Daily \
-             --out output.csv 
-             
+  1. Basic usage with default settings:
+     eraXplor-azure -S SUBSCRIPTION_ID
+  
+  2. Custom date range and profile:
+     eraXplor-azure -s 2025,01,01 -e 2025,03,30 -S SUBSCRIPTION_ID
+
+Notes:
+    - Ensure that the environment is properly authenticated with Azure using `DefaultAzureCredential`.
+    - Date strings must follow the exact "YYYY,MM,DD" format to avoid parsing errors.
+    - Depending on the size of the date range and granularity, response time may vary.
 """
+
 import json
 import termcolor
 from eraXplor_azure.utils.banner_utils import banner as generate_banner

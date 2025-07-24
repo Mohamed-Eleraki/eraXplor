@@ -38,22 +38,22 @@ pip install eraXplor
 
 ## How-To use
 
-`eraXplor_az` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
+`eraXplor-azure` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
 
 ```bash
-eraXplor <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
+eraXplor-azure <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
 <--subscription_id [SUBSCRIPTION_ID]> \
-<--granularity [DAILY | MONTHLY]> \
+<--granularity [Daily | Monthly]> \
 <--output [FILE_NAME.CSV]>
 ```
 
 For Windows/PowerShell users restart your terminal, and you may need to use the following command:
 
 ```bash
-python3 -m eraXplor_az
+python3 -m eraXplor-azure
 
 # Or
-python -m eraXplor_az
+python -m eraXplor-azure
 
 # to avoid using this command, apend the eraXplor to your paths.
 # Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\

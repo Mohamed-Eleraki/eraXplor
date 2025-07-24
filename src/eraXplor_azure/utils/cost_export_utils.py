@@ -19,22 +19,60 @@ def cost_export(
     subscription_id: str, 
     start_date: str, 
     end_date: str,
-    granularity: str = 'Daily',
+    granularity: str = 'Monthly',
 ) -> List[_CostRecord]:
-    """cost_export function to fetch Azure costs for a given subscription
-
-    Args:
-        subscription_id (str): pass your Azure subscription ID here.
-        start_date (str): start date in YYYY,MM,DD format.
-        end_date (str): end date in YYYY,MM,DD format.
-        granularity (str, optional): pass granularity as 'Daily' or 'Monthly'. Defaults to 'Daily'.
-
-    Returns:
-        List[_CostRecord]: Returns a list of cost records, each containing:
-            - TIME_PERIOD: A dictionary with date strings.
-            - COST: A formatted string representing the cost amount and currency.
     """
+        Retrieve Azure cost data for a given subscription and time range.
 
+        Executes a cost management query using the Azure Cost Management API to 
+        extract cost data for a specific subscription, aggregated by the 
+        selected granularity (Daily or Monthly).
+
+        Args:
+            subscription_id (str): 
+                [REQUIRED] Azure subscription ID to query cost data for.
+            
+            start_date (str): 
+                [REQUIRED] Start date of the report period (inclusive).
+                Format: "YYYY,MM,DD"
+                Default: 3 Months ago from today.
+            
+            end_date (str): 
+                [REQUIRED] End date of the report period (inclusive).
+                Format: "YYYY,MM,DD"
+                Default: Today date.
+            
+            granularity (str): 
+                [OPTIONAL] Level of time granularity for aggregation.
+                Default: "Monthly"
+                Valid values:
+                    - "Daily": Daily cost records
+                    - "Monthly": Monthly aggregated cost records
+
+        Returns:
+            List[_CostRecord]: 
+                A list of structured cost records, where each record contains:
+                    - TIME_PERIOD (Dict[str, str]): Date or date range for the record.
+                    - COST (str): Formatted string representing the total cost and currency (e.g., "123.45 USD").
+
+        Raises:
+            Exception: For any API errors or authentication failures.
+
+        Example:
+            >>> cost_export(
+            ...     subscription_id="SUB_ID",
+            ...     start_date="2025,01,01",
+            ...     end_date="2025,04,30",
+            ...     granularity="Monthly"
+            ... )
+            [{'TIME_PERIOD': {'Start': '2025-01-01', 'End': '2025-01-31'}, 'COST': '456.78 USD'}, ...]
+
+        Notes:
+            - Ensure that the environment is properly authenticated with Azure using `DefaultAzureCredential`.
+            - Date strings must follow the exact "YYYY,MM,DD" format to avoid parsing errors.
+            - Depending on the size of the date range and granularity, response time may vary.
+        """
+    
     credential = DefaultAzureCredential()
     cm_client = CostManagementClient(credential)
 
