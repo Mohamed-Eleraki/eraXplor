@@ -10,7 +10,7 @@ This section provides a structured breakdown of the main application module and 
 
 ### ▶️ Entry Point
 
-::: eraXplor.__main__
+::: eraXplor_aws.__main__
 
 This is the primary script responsible for orchestrating the user workflow. It handles user input, invokes AWS cost data retrieval, and manages data export functionality.
 
@@ -20,7 +20,7 @@ This is the primary script responsible for orchestrating the user workflow. It h
 
 ### 🎨 Banner Utilities
 
-::: eraXplor.utils.banner_utils
+::: eraXplor_aws.utils.banner_utils
 
 Responsible for rendering styled ASCII banners and displaying copyright
 information used in the CLI interface.
@@ -29,7 +29,7 @@ information used in the CLI interface.
 
 ### 📊 Cost Export Utilities
 
-::: eraXplor.utils.cost_export_utils
+::: eraXplor_aws.utils.cost_export_utils
 
 Contains functions for retrieving cost and usage reports from AWS Cost Explorer using `boto3`, grouped by various dimensions such as:
 
@@ -42,7 +42,7 @@ Contains functions for retrieving cost and usage reports from AWS Cost Explorer 
 
 ### 🧾 CSV Export Utilities
 
-::: eraXplor.utils.csv_export_utils
+::: eraXplor_aws.utils.csv_export_utils
 
 Provides functionality to export retrieved cost data into a structured CSV format.
 
@@ -50,7 +50,7 @@ Provides functionality to export retrieved cost data into a structured CSV forma
 
 ### 📅 Date Utilities
 
-::: eraXplor.utils.date_utils
+::: eraXplor_aws.utils.date_utils
 
 Includes interactive functions for prompting and validating date input from users, ensuring format compliance and error handling.
 
@@ -58,9 +58,9 @@ Includes interactive functions for prompting and validating date input from user
 
 # Azure - Reference
 
-This section provides a structured breakdown of the main application module and its supporting utilities used in the `eraXplor_az` project.
+This section provides a structured breakdown of the main application module and its supporting utilities used in the `eraXplor_azure` project.
 
-🌟[eraXplor source code](https://github.com/Mohamed-Eleraki/eraXplor/tree/master/src/eraXplor_az)
+🌟[eraXplor source code](https://github.com/Mohamed-Eleraki/eraXplor/tree/master/src/eraXplor_azure)
 
 ---
 
@@ -68,7 +68,7 @@ This section provides a structured breakdown of the main application module and 
 
 ### ▶️ Entry Point
 
-::: eraXplor_az.__main__
+::: eraXplor_azure.__main__
 
 This is the primary script responsible for orchestrating the user workflow. It handles user input, invokes Azure cost data retrieval, and manages data export functionality.
 
@@ -78,7 +78,7 @@ This is the primary script responsible for orchestrating the user workflow. It h
 
 ### 🎨 Banner Utilities
 
-::: eraXplor_az.utils.banner_utils
+::: eraXplor_azure.utils.banner_utils
 
 Responsible for rendering styled ASCII banners and displaying copyright
 information used in the CLI interface.
@@ -87,7 +87,7 @@ information used in the CLI interface.
 
 ### 📊 Cost Export Utilities
 
-::: eraXplor_az.utils.cost_export_utils
+::: eraXplor_azure.utils.cost_export_utils
 
 Contains functions for retrieving cost and usage reports from Azure Cost Explorer using `CostManagementClient`
 
@@ -95,7 +95,7 @@ Contains functions for retrieving cost and usage reports from Azure Cost Explore
 
 ### 🧾 CSV Export Utilities
 
-::: eraXplor_az.utils.csv_export_utils
+::: eraXplor_azure.utils.csv_export_utils
 
 Provides functionality to export retrieved cost data into a structured CSV format.
 

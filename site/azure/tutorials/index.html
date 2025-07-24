@@ -234,7 +234,7 @@
   
   
   <span class="md-ellipsis">
-    AWS (eraXplor)
+    AWS (eraXplor-aws)
     
   </span>
   
@@ -245,7 +245,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            AWS (eraXplor)
+            AWS (eraXplor-aws)
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -373,7 +373,7 @@
   
   
   <span class="md-ellipsis">
-    Azure (eraXplor_az)
+    Azure (eraXplor-azure)
     
   </span>
   
@@ -384,7 +384,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            Azure (eraXplor_az)
+            Azure (eraXplor-azure)
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -555,7 +555,7 @@
 
 <h1 id="tutorials">Tutorials</h1>
 <h1 id="1-setup-eraxplor-for-your-azure-authentication">1. Setup eraXplor for your Azure Authentication</h1>
-<p>This tutorial walks you through setting up of <code>eraXplor_az</code> to start exporting your Azure cost data automatically.</p>
+<p>This tutorial walks you through setting up of <code>eraXplor-azure</code> to start exporting your Azure cost data automatically.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
 <li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?view=azure-cli-latest&amp;pivots=apt">Azure CLI</a></li>
@@ -568,25 +568,25 @@
 </code></pre>
 <h2 id="steps">Steps</h2>
 <ol>
-<li><strong>Install eraXplor_az:</strong></li>
+<li><strong>Install eraXplor-azure:</strong></li>
 </ol>
 <pre><code class="language-bash">pip install eraXplor
 </code></pre>
 <ol>
 <li><strong>Run eraXplor:</strong></li>
 </ol>
-<pre><code class="language-bash">eraXplor_az -S SUBSCRIPTION_ID
+<pre><code class="language-bash">eraXplor-azure -S SUBSCRIPTION_ID
 </code></pre>
-<pre><code class="language-bash">eraXplor_az &lt;--start-date [yyyy,MM,DD]&gt; &lt;--end-date [yyyy,MM,DD]&gt; \
+<pre><code class="language-bash">eraXplor-azure &lt;--start-date [yyyy,MM,DD]&gt; &lt;--end-date [yyyy,MM,DD]&gt; \
 &lt;--subscription_id [SUBSCRIPTION_ID]&gt; \
 &lt;--granularity [DAILY | MONTHLY]&gt; \
 &lt;--output [FILE_NAME.CSV]&gt;
 </code></pre>
 <p>For Windows/PowerShell users restart your terminal, and you may need to use the following command:</p>
-<pre><code class="language-bash">python3 -m eraXplor_az
+<pre><code class="language-bash">python3 -m eraXplor-azure
 
 # Or
-python -m eraXplor_az
+python -m eraXplor-azure
 
 # to avoid using this command, apend the eraXplor to your paths.
 # Normaly its under: C:\Users\&lt;YourUser&gt;\AppData\Local\Programs\Python\Python&lt;version&gt;\Scripts\

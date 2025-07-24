@@ -70,8 +70,8 @@ python -m eraXplor-azure
 - `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
 - `--subscription_id` or `-S`: **_(Required)_** subscription id.
 - `--out` or `-o`: **_(Optional)_** Default value set as `az_cost_report.csv`.
-- `--granularity` or `-g`: **_(Optional)_** Default value set as `MONTHLY`.
-    The available options are (`MONTHLY`, `DAILY`)
+- `--granularity` or `-g`: **_(Optional)_** Default value set as `Monthly`.
+    The available options are (`Monthly`, `Daily`)
 
 <!-- 
 

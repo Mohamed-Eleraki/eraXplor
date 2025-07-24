@@ -234,7 +234,7 @@
   
   
   <span class="md-ellipsis">
-    AWS (eraXplor)
+    AWS (eraXplor-aws)
     
   </span>
   
@@ -245,7 +245,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            AWS (eraXplor)
+            AWS (eraXplor-aws)
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -373,7 +373,7 @@
   
   
   <span class="md-ellipsis">
-    Azure (eraXplor_az)
+    Azure (eraXplor-azure)
     
   </span>
   
@@ -384,7 +384,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            Azure (eraXplor_az)
+            Azure (eraXplor-azure)
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -725,17 +725,17 @@
 <pre><code class="language-bash">pip install eraXplor
 </code></pre>
 <h2 id="how-to-use">How-To use</h2>
-<p><code>eraXplor_az</code> have multiple arguments set with a default values <em>-explained below-</em>, Adjsut these arguments as required.</p>
-<pre><code class="language-bash">eraXplor &lt;--start-date [yyyy,MM,DD]&gt; &lt;--end-date [yyyy,MM,DD]&gt; \
+<p><code>eraXplor-azure</code> have multiple arguments set with a default values <em>-explained below-</em>, Adjsut these arguments as required.</p>
+<pre><code class="language-bash">eraXplor-azure &lt;--start-date [yyyy,MM,DD]&gt; &lt;--end-date [yyyy,MM,DD]&gt; \
 &lt;--subscription_id [SUBSCRIPTION_ID]&gt; \
-&lt;--granularity [DAILY | MONTHLY]&gt; \
+&lt;--granularity [Daily | Monthly]&gt; \
 &lt;--output [FILE_NAME.CSV]&gt;
 </code></pre>
 <p>For Windows/PowerShell users restart your terminal, and you may need to use the following command:</p>
-<pre><code class="language-bash">python3 -m eraXplor_az
+<pre><code class="language-bash">python3 -m eraXplor-azure
 
 # Or
-python -m eraXplor_az
+python -m eraXplor-azure
 
 # to avoid using this command, apend the eraXplor to your paths.
 # Normaly its under: C:\Users\&lt;YourUser&gt;\AppData\Local\Programs\Python\Python&lt;version&gt;\Scripts\

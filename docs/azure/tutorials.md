@@ -32,7 +32,7 @@ eraXplor-azure -S SUBSCRIPTION_ID
 ```bash
 eraXplor-azure <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
 <--subscription_id [SUBSCRIPTION_ID]> \
-<--granularity [DAILY | MONTHLY]> \
+<--granularity [Daily | Monthly]> \
 <--output [FILE_NAME.CSV]>
 ```
 
@@ -59,8 +59,8 @@ python -m eraXplor-azure
 - `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
 - `--subscription_id` or `-S`: **_(Required)_** subscription id.
 - `--out` or `-o`: **_(Optional)_** Default value set as `az_cost_report.csv`.
-- `--granularity` or `-g`: **_(Optional)_** Default value set as `MONTHLY`.
-    The available options are (`MONTHLY`, `DAILY`)
+- `--granularity` or `-g`: **_(Optional)_** Default value set as `Monthly`.
+    The available options are (`Monthly`, `Daily`)
 
 <!-- This part of the project documentation focuses on a
 **learning-oriented** approach. You'll learn how to
