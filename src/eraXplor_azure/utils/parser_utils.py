@@ -34,7 +34,7 @@ def parser():
     arg_parser.add_argument(
         "-S", "--subscription-id",
         type=str,
-        required=True,
+        required=False,
         help="Azure subscription ID for cost export.",
     )
     arg_parser.add_argument(

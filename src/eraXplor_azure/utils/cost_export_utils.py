@@ -2,9 +2,11 @@
 
 import datetime
 import threading
-from typing import Dict, List, TypedDict
+from typing import Dict, List, TypedDict, Any
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.costmanagement import CostManagementClient, models
+from azure.mgmt.costmanagement.models import QueryDefinition, QueryTimePeriod
+from azure.mgmt.resource import SubscriptionClient
 from rich.live import Live
 from rich.spinner import Spinner
 
@@ -16,9 +18,10 @@ class _CostRecord(TypedDict):
     COST: str
 
 def cost_export(
-    subscription_id: str, 
-    start_date: str, 
-    end_date: str,
+    subscription_id: str | None = None, 
+    subscriptions_list_detailed: List[dict[str, Any]] = None, 
+    start_date: str = None, 
+    end_date: str = None,
     granularity: str = 'Monthly',
 ) -> List[_CostRecord]:
     """
@@ -75,66 +78,157 @@ def cost_export(
     
     credential = DefaultAzureCredential()
     cm_client = CostManagementClient(credential)
-
-    start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
-    end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
-    scope = f"/subscriptions/{subscription_id}"
-    # scope = f"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}"
-    # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}"
-    # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}"
-    # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}"
-    # scope = f"/providers/Microsoft.Management/managementGroups/{managementGroupId}"
-    # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}"
-    # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}"
-    # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}"
     
-    cm_client_query_results = []
-    with Live(Spinner
-              ("bouncingBar", text=f"Fetching Azure costs of subscriptions:{subscription_id}...\n\n"),
-                refresh_per_second=10):
-        def _sub_cost_export():
-            """Internal function to handle the cost export query."""
-            
-            try:
-                cm_client_query = cm_client.query.usage(
-                    scope=scope,
-                    parameters=models.QueryDefinition(
-                        type='Usage',
-                        timeframe='Custom',
-                        time_period=models.QueryTimePeriod(
-                            from_property=start_date,
-                            to=end_date,
-                        ),
-                        dataset=models.QueryDataset(
-                            granularity=granularity,
-                            aggregation={
-                                'totalcost': models.QueryAggregation(name='PreTaxCost', function='Sum')
-                            }
+    if subscription_id is not None:
+        start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
+        end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
+        scope = f"/subscriptions/{subscription_id}"
+        # scope = f"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}"
+        # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}"
+        # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}"
+        # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}"
+        # scope = f"/providers/Microsoft.Management/managementGroups/{managementGroupId}"
+        # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}"
+        # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}"
+        # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}"
+        
+        cm_client_query_results = []
+        with Live(Spinner
+                ("bouncingBar", text=f"Fetching Azure costs of subscriptions: {subscription_id}...\n\n"),
+                    refresh_per_second=10):
+            def _sub_cost_export():
+                """Internal function to handle the cost export query."""
+                
+                try:
+                    cm_client_query = cm_client.query.usage(
+                        scope=scope,
+                        parameters=models.QueryDefinition(
+                            type='Usage',
+                            timeframe='Custom',
+                            time_period=models.QueryTimePeriod(
+                                from_property=start_date,
+                                to=end_date,
+                            ),
+                            dataset=models.QueryDataset(
+                                granularity=granularity,
+                                aggregation={
+                                    'totalcost': models.QueryAggregation(name='PreTaxCost', function='Sum')
+                                }
+                            )
                         )
                     )
-                )
-                cm_client_query_rows = cm_client_query.rows
-                for row in cm_client_query_rows:
-                    time_period = row[1]
-                    cost = row[0]
-                    currency = row[2]
-                    
-                    cm_client_query_results.append(
-                        {
-                            "TIME_PERIOD": time_period,
-                            "COST": f"{cost:.2f} {currency}",
-                        }
-                    )
-                    
-            except Exception as e:
-                print(f"An error occurred: {e}")
-                return {"error": str(e)}
+                    cm_client_query_rows = cm_client_query.rows
+                    for row in cm_client_query_rows:
+                        time_period = row[1]
+                        cost = row[0]
+                        currency = row[2]
+                        
+                        cm_client_query_results.append(
+                            {
+                                "TIME_PERIOD": time_period,
+                                "COST": f"{cost:.2f} {currency}",
+                            }
+                        )
+                except Exception as e:
+                    print(f"An error occurred: {e}")
+                    return {"error": str(e)}
 
-        # progress.update(task, advance=1)
-        thread = threading.Thread(target=_sub_cost_export)
-        thread.start()
-        thread.join()
+            # progress.update(task, advance=1)
+            thread = threading.Thread(target=_sub_cost_export)
+            thread.start()
+            thread.join()
+            
+    if subscription_id is None:
+        start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
+        end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
+        
+        for sub in subscriptions_list_detailed:
+            subscription_id = sub['Subscription_ID']
+            subscription_name = sub['Display_Name']
+            scope = f"/subscriptions/{subscription_id}"
+            
+            cm_client_query_results = []
+            with Live(Spinner
+                    ("bouncingBar", text=f"Fetching Azure costs of subscriptions: {subscription_name}:{subscription_id}...\n\n"),
+                        refresh_per_second=10):
+                def _sub_cost_export():
+                    """Internal function to handle the cost export query."""
+                    
+                    try:
+                        cm_client_query = cm_client.query.usage(
+                            scope=scope,
+                            parameters=models.QueryDefinition(
+                                type='Usage',
+                                timeframe='Custom',
+                                time_period=models.QueryTimePeriod(
+                                    from_property=start_date,
+                                    to=end_date,
+                                ),
+                                dataset=models.QueryDataset(
+                                    granularity=granularity,
+                                    aggregation={
+                                        'totalcost': models.QueryAggregation(name='PreTaxCost', function='Sum')
+                                    }
+                                )
+                            )
+                        )
+                        print(cm_client_query)
+                        print(cm_client_query.rows)
+                        cm_client_query_rows = cm_client_query.rows
+                        for row in cm_client_query_rows:
+                            time_period = row[1]
+                            cost = row[0]
+                            currency = row[2]
+                            
+                            cm_client_query_results.append(
+                                {
+                                    "TIME_PERIOD": time_period,
+                                    "COST": f"{cost:.2f} {currency}",
+                                }
+                            )
+                    except Exception as e:
+                        print(f"An error occurred: {e}")
+                        return {"error": str(e)}
+
+                # progress.update(task, advance=1)
+                thread = threading.Thread(target=_sub_cost_export)
+                thread.start()
+                thread.join()
+            
     return cm_client_query_results
 
 # cm_client_query_results = cost_export("856880af-e2ac-41b2-b5fb-e7ebfe4d97bc", "2025,1,1", "2025,4,30", "monthly")
 # print(cm_client_query_results)
+
+def subs_cost_export():
+    """Function to retrieve Azure subscription details"""
+    _credential = DefaultAzureCredential()
+    _subscription_client = SubscriptionClient(_credential)
+    _subscriptions = list(_subscription_client.subscriptions.list())
+    
+    subscriptions_list_detailed = []
+    subscriptions_with_tags_list = []
+    
+    for sub in _subscriptions:
+        subscriptions_list_detailed.append(
+            {
+                "Subscription_ID": sub.subscription_id,
+                "Display_Name": sub.display_name,
+                "Tenant_ID": sub.tenant_id,
+                "Tags": sub.tags,
+            }
+        )
+        subscriptions_with_tags_list.append(
+            {
+                "Subscription_ID": sub.subscription_id,
+                "Display_Name": sub.display_name,
+                "Tags": sub.tags,
+            }
+        )
+    return subscriptions_list_detailed, subscriptions_with_tags_list
+
+# import json
+# subscriptions_list_detailed, subscriptions_with_tags_list = subs_cost_export()
+# cm_client_query_results = cost_export(subscription_id="856880af-e2ac-41b2-b5fb-e7ebfe4d97bc", subscriptions_list_detailed=subscriptions_list_detailed, start_date="2025,5,1", end_date="2025,6,30", granularity="Monthly")
+# # print(json.dumps(cm_client_query_results, indent=4, default=str))
+
