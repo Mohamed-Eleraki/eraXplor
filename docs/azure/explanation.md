@@ -20,6 +20,7 @@ Even in ***a tiny Architectural design***, Manual Comparing the ***current cost*
 ## Key Features
 
 - ✅ **subscription-Level Cost Breakdown** : eraXplor provides a detailed breakdown of costs by subscription, allowing you to identify areas where costs.
+- ✅ **Multi-Subscription Support**: Works to list all configured Azure subscriptions.
 - ✅ **Daily/Monthly Cost Breakdown** : eraXplor allows you to view costs on a daily or monthly basis, giving you a clear.
 - ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
 - ✅ **Support secure authentication**: By fetching Azure credentials configured within terminal.

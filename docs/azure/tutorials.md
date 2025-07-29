@@ -23,7 +23,23 @@ python3 --version
 pip install eraXplor
 ```
 
-2. **Run eraXplor:**
+2. **Azure login**
+The Tool support multiple authentication _e.g. Azure CLI login, Managed Identity, etc_. You can login by running the following command:
+_it's require to install azure cli first form the link above_
+
+```bash
+az login
+```
+
+3. **Run eraXplor:**
+
+List all subscription costs
+
+```bash
+eraXplor-azure
+```
+
+Run for specific subscription:
 
 ```bash
 eraXplor-azure -S SUBSCRIPTION_ID
@@ -57,7 +73,7 @@ python -m eraXplor-azure
 
 - `--start-date` or `-s`: **_(Optional)_** Default value set as three months before.
 - `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
-- `--subscription_id` or `-S`: **_(Required)_** subscription id.
+- `--subscription_id` or `-S`: **_(Optional)_** subscription id, Default value set to list all subscriptions with tags.
 - `--out` or `-o`: **_(Optional)_** Default value set as `az_cost_report.csv`.
 - `--granularity` or `-g`: **_(Optional)_** Default value set as `Monthly`.
     The available options are (`Monthly`, `Daily`)

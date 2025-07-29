@@ -14,9 +14,10 @@ _azure still under development, more features will be added soon._
 
 ## Key Features
 
-- ✅ **Cloud provider Separated tools**: Separated tool for each cloud provider (AWS and Azure) avoiding complexty.
+- ✅ **Cloud provider Separated tools**: Separated tool for each cloud provider _(e.g. AWS and Azure)_ avoiding complexty.
 - ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
 - ✅ **Multi-Profile Support**: Works with all configured AWS profiles.
+- ✅ **Multi-Subscription Support**: Works to list all configured Azure subscriptions.
 - ✅ **CSV Export**: Ready-to-analyze reports in CSV format.
 - ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
 - ✅ **Documentation Ready**: Well explained documentations assest you kick start rapidly.
@@ -79,7 +80,7 @@ aws configure <--profile [PROFILE_NAME]>
 
 ### How-To use - AWS
 
-`eraXplor` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
+`eraXplor-aws` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
 
 ```bash
 eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
@@ -99,6 +100,12 @@ eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
 - `--out`, `-o`: **_(Not_Required)_** Default value set as `cost_repot.csv`.
 - `--granularity`, `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
     The available options are (`MONTHLY`, `DAILY`)
+
+## Example Usage - AWS
+
+```bash
+eraXplor-aws
+```
 
 ---
 
@@ -124,7 +131,7 @@ This will open the portal in your default browser to authenticate.
 
 ### How-To use - Azure
 
-`eraXplor_az` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
+`eraXplor-azure` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
 
 ```bash
 eraXplor_az <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
@@ -137,20 +144,26 @@ eraXplor_az <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
 
 - `--start-date` or `-s`: **_(Optional)_** Default value set as three months before.
 - `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
-- `--subscription_id` or `-S`: **_(Required)_** subscription id.
+- `--subscription_id` or `-S`: **_(Optional)_** Default value set to list all subscriptions with tags.
 - `--out` or `-o`: **_(Optional)_** Default value set as `az_cost_report.csv`.
 - `--granularity` or `-g`: **_(Optional)_** Default value set as `MONTHLY`.
     The available options are (`MONTHLY`, `DAILY`)
+
+### Example Usage - Azure
+
+```bash
+eraXplor-azure
+```
 
 ---
 
 For Windows/PowerShell users restart your terminal, and you may need to use the following command:
 
 ```bash
-python -m eraXplor
+python -m eraXplor-aws
 
 # Or
-python -m eraXplor_az  # for auzre
+python -m eraXplor-azure
 
 # to avoid using this command, apend the eraXplor to your paths.
 # Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\
