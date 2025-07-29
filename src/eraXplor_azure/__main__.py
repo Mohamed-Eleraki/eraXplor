@@ -54,6 +54,7 @@ def main() -> None:
     end_date_input = arg_parser.end_date
     subscription_id_input = arg_parser.subscription_id
     granularity_input = arg_parser.granularity
+    filename_input = arg_parser.out
 
     subscriptions_list_detailed, subscriptions_with_tags_list = subs_cost_export()
     
@@ -68,7 +69,7 @@ def main() -> None:
 
     # print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
 
-    csv_export(cm_client_query_results)
+    csv_export(cm_client_query_results, filename=filename_input)
 
 if __name__ == "__main__":
     main()

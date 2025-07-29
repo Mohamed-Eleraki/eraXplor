@@ -79,6 +79,7 @@ def cost_export(
     
     credential = DefaultAzureCredential()
     cm_client = CostManagementClient(credential)
+    cm_client_query_results = []
     
     if subscription_id is not None:
         start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
@@ -93,7 +94,6 @@ def cost_export(
         # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}"
         # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}"
         
-        cm_client_query_results = []
         with Live(Spinner
                 ("bouncingBar", text=f"Fetching Azure costs of subscriptions: {subscription_id}...\n\n"),
                     refresh_per_second=10):
@@ -127,6 +127,8 @@ def cost_export(
                         cm_client_query_results.append(
                             {
                                 "TIME_PERIOD": time_period,
+                                "SUBSCRIPTION_ID": subscription_id,
+                                "DISPLAY_NAME": "NONE",
                                 "COST": f"{cost:.2f} {currency}",
                             }
                         )
@@ -136,14 +138,13 @@ def cost_export(
                     return {"error": str(e)}
 
             # progress.update(task, advance=1)
-            thread = threading.Thread(target=_sub_cost_export)
-            thread.start()
-            thread.join()
+            _thread = threading.Thread(target=_sub_cost_export)
+            _thread.start()
+            _thread.join()
             
     if subscription_id is None:
         start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
         end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
-        cm_client_query_results = []
         
         for sub in subscriptions_list_detailed:
             subscription_id = sub['Subscription_ID']
@@ -183,18 +184,30 @@ def cost_export(
                             cm_client_query_results.append(
                                 {
                                     "TIME_PERIOD": time_period,
+                                    "SUBSCRIPTION_ID": subscription_id,
+                                    "DISPLAY_NAME": subscription_name,
                                     "COST": f"{cost:.2f} {currency}",
                                 }
                             )
-                        print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
+                            # print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
+                        # Combine results of for loop and print
+                        print(json.dumps([
+                            {
+                                "TIME_PERIOD": row[1],
+                                "SUBSCRIPTION_ID": subscription_id,
+                                "DISPLAY_NAME": subscription_name,
+                                "COST": f"{row[0]:.2f} {row[2]}"
+                            } for row in cm_client_query_rows
+                        ], indent=4, default=str), end="\n\n\n")
+
                     except Exception as e:
                         print(f"An error occurred: {e}")
                         return {"error": str(e)}
 
                 # progress.update(task, advance=1)
-                thread = threading.Thread(target=_sub_cost_export)
-                thread.start()
-                thread.join()
+                _thread = threading.Thread(target=_sub_cost_export)
+                _thread.start()
+                _thread.join()
             
     return cm_client_query_results
 
