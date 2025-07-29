@@ -55,7 +55,7 @@ def main() -> None:
     subscription_id_input = arg_parser.subscription_id
     granularity_input = arg_parser.granularity
 
-    subscriptions_list_detailed = subs_cost_export()
+    subscriptions_list_detailed, subscriptions_with_tags_list = subs_cost_export()
     
     # Parsing data to cost export func
     cm_client_query_results = cost_export(
@@ -66,7 +66,7 @@ def main() -> None:
         granularity=granularity_input,
     )
 
-    print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
+    # print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
 
     csv_export(cm_client_query_results)
 

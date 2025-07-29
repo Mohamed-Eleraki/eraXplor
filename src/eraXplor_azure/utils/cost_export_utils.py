@@ -1,5 +1,6 @@
 """Module for exporting Azure cost data using the Azure Cost Management API."""
 
+import json
 import datetime
 import threading
 from typing import Dict, List, TypedDict, Any
@@ -129,6 +130,7 @@ def cost_export(
                                 "COST": f"{cost:.2f} {currency}",
                             }
                         )
+                    print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
                 except Exception as e:
                     print(f"An error occurred: {e}")
                     return {"error": str(e)}
@@ -141,15 +143,15 @@ def cost_export(
     if subscription_id is None:
         start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
         end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
+        cm_client_query_results = []
         
         for sub in subscriptions_list_detailed:
             subscription_id = sub['Subscription_ID']
             subscription_name = sub['Display_Name']
             scope = f"/subscriptions/{subscription_id}"
             
-            cm_client_query_results = []
             with Live(Spinner
-                    ("bouncingBar", text=f"Fetching Azure costs of subscriptions: {subscription_name}:{subscription_id}...\n\n"),
+                    ("bouncingBar", text=f"Fetching Azure costs of subscriptions: {subscription_name}({subscription_id})...\n\n"),
                         refresh_per_second=10):
                 def _sub_cost_export():
                     """Internal function to handle the cost export query."""
@@ -172,8 +174,6 @@ def cost_export(
                                 )
                             )
                         )
-                        print(cm_client_query)
-                        print(cm_client_query.rows)
                         cm_client_query_rows = cm_client_query.rows
                         for row in cm_client_query_rows:
                             time_period = row[1]
@@ -186,6 +186,7 @@ def cost_export(
                                     "COST": f"{cost:.2f} {currency}",
                                 }
                             )
+                        print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
                     except Exception as e:
                         print(f"An error occurred: {e}")
                         return {"error": str(e)}
