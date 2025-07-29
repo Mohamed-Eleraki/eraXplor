@@ -34,6 +34,7 @@ def csv_export(
                 "SUBSCRIPTION_ID",
                 "DISPLAY_NAME",
                 "COST",
+                "TAGS",
             ]
         )
         for row in cm_client_query_results:
@@ -41,5 +42,6 @@ def csv_export(
             sub_id = row["SUBSCRIPTION_ID"]
             display_name = row["DISPLAY_NAME"]
             cost = row.get("COST")
-            writer.writerow([time_period, sub_id, display_name, cost])
+            tags = row.get("TAGS", {})
+            writer.writerow([time_period, sub_id, display_name, cost, tags])
     print(f"\n✅ Data exported to {filename}")

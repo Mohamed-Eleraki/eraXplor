@@ -130,6 +130,7 @@ def cost_export(
                                 "SUBSCRIPTION_ID": subscription_id,
                                 "DISPLAY_NAME": "NONE",
                                 "COST": f"{cost:.2f} {currency}",
+                                "TAGS": "None"
                             }
                         )
                     print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
@@ -149,6 +150,7 @@ def cost_export(
         for sub in subscriptions_list_detailed:
             subscription_id = sub['Subscription_ID']
             subscription_name = sub['Display_Name']
+            subscription_tags = sub.get('Tags', {})
             scope = f"/subscriptions/{subscription_id}"
             
             with Live(Spinner
@@ -187,6 +189,7 @@ def cost_export(
                                     "SUBSCRIPTION_ID": subscription_id,
                                     "DISPLAY_NAME": subscription_name,
                                     "COST": f"{cost:.2f} {currency}",
+                                    "TAGS": subscription_tags if subscription_tags else "None"
                                 }
                             )
                             # print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
@@ -196,7 +199,8 @@ def cost_export(
                                 "TIME_PERIOD": row[1],
                                 "SUBSCRIPTION_ID": subscription_id,
                                 "DISPLAY_NAME": subscription_name,
-                                "COST": f"{row[0]:.2f} {row[2]}"
+                                "COST": f"{row[0]:.2f} {row[2]}",
+                                "TAGS": subscription_tags if subscription_tags else "None",
                             } for row in cm_client_query_rows
                         ], indent=4, default=str), end="\n\n\n")
 
