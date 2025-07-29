@@ -6,7 +6,7 @@ from typing import Any, Dict, List
 
 def csv_export(
     cm_client_query_results: List[Dict[str, Any]],
-    filename: str = "az_cost_report.csv",
+    filename: str,
     ) -> None:
     """Exports Azure cost data to a CSV file with standardized formatting.
 
@@ -31,11 +31,15 @@ def csv_export(
         writer.writerow(
             [
                 "TIME_PERIOD",
+                "SUBSCRIPTION_ID",
+                "DISPLAY_NAME",
                 "COST",
             ]
         )
         for row in cm_client_query_results:
             time_period = row["TIME_PERIOD"]
+            sub_id = row["SUBSCRIPTION_ID"]
+            display_name = row["DISPLAY_NAME"]
             cost = row.get("COST")
-            writer.writerow([time_period, cost])
+            writer.writerow([time_period, sub_id, display_name, cost])
     print(f"\n✅ Data exported to {filename}")

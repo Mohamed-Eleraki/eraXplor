@@ -35,7 +35,7 @@ def parser():
         "-S", "--subscription-id",
         type=str,
         required=False,
-        help="Azure subscription ID for cost export.",
+        help="Azure subscription ID for cost export.  Default: List all subscriptions.",
     )
     arg_parser.add_argument(
         "-g", "--granularity",
