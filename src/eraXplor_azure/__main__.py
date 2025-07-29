@@ -69,7 +69,7 @@ def main() -> None:
 
     # print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
 
-    csv_export(cm_client_query_results, filename=filename_input)
+    csv_export(cm_client_query_results=cm_client_query_results, filename=filename_input)
 
 if __name__ == "__main__":
     main()
