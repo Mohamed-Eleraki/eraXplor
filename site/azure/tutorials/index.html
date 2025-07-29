@@ -573,8 +573,19 @@
 <pre><code class="language-bash">pip install eraXplor
 </code></pre>
 <ol>
+<li><strong>Azure login</strong>
+The Tool support multiple authentication <em>e.g. Azure CLI login, Managed Identity, etc</em>. You can login by running the following command:
+<em>it's require to install azure cli first form the link above</em></li>
+</ol>
+<pre><code class="language-bash">az login
+</code></pre>
+<ol>
 <li><strong>Run eraXplor:</strong></li>
 </ol>
+<p>List all subscription costs</p>
+<pre><code class="language-bash">eraXplor-azure
+</code></pre>
+<p>Run for specific subscription:</p>
 <pre><code class="language-bash">eraXplor-azure -S SUBSCRIPTION_ID
 </code></pre>
 <pre><code class="language-bash">eraXplor-azure &lt;--start-date [yyyy,MM,DD]&gt; &lt;--end-date [yyyy,MM,DD]&gt; \
@@ -600,7 +611,7 @@ python -m eraXplor-azure
 <ul>
 <li><code>--start-date</code> or <code>-s</code>: <strong><em>(Optional)</em></strong> Default value set as three months before.</li>
 <li><code>--end-date</code> or <code>-e</code>: <strong><em>(Optional)</em></strong> Default value set as Today date.</li>
-<li><code>--subscription_id</code> or <code>-S</code>: <strong><em>(Required)</em></strong> subscription id.</li>
+<li><code>--subscription_id</code> or <code>-S</code>: <strong><em>(Optional)</em></strong> subscription id, Default value set to list all subscriptions with tags.</li>
 <li><code>--out</code> or <code>-o</code>: <strong><em>(Optional)</em></strong> Default value set as <code>az_cost_report.csv</code>.</li>
 <li><code>--granularity</code> or <code>-g</code>: <strong><em>(Optional)</em></strong> Default value set as <code>Monthly</code>.
     The available options are (<code>Monthly</code>, <code>Daily</code>)</li>

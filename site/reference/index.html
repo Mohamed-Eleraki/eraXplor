@@ -1234,7 +1234,7 @@ Provides flexible filtering, grouping, and output options for cost analysis.</p>
     <span class="n">copyright_notice</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;╔══════════════════════════════════════════════════╗</span>
 <span class="s2">║  © 2025 Mohamed eraki                            ║</span>
 <span class="s2">║  mohamed-ibrahim2021@outlook.com                 ║</span>
-<span class="s2">║  Version: 3.0.2                                  ║</span>
+<span class="s2">║  Version: 3.2.0                                  ║</span>
 <span class="s2">║  eraXplor - AWS Cost exporter Tool               ║</span>
 <span class="s2">╚══════════════════════════════════════════════════╝</span>
 <span class="s2">    &quot;&quot;&quot;</span>
@@ -2778,8 +2778,7 @@ Azure cost and usage data using Azure CostManagementClient client.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/eraXplor_azure/__main__.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
-<span class="normal">43</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
 <span class="normal">46</span>
@@ -2803,7 +2802,12 @@ Azure cost and usage data using Azure CostManagementClient client.</p>
 <span class="normal">64</span>
 <span class="normal">65</span>
 <span class="normal">66</span>
-<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Orchestrates &amp; Manage depends of cost export workflow.&quot;&quot;&quot;</span>
 
     <span class="c1"># Banner</span>
@@ -2817,18 +2821,22 @@ Azure cost and usage data using Azure CostManagementClient client.</p>
     <span class="n">end_date_input</span> <span class="o">=</span> <span class="n">arg_parser</span><span class="o">.</span><span class="n">end_date</span>
     <span class="n">subscription_id_input</span> <span class="o">=</span> <span class="n">arg_parser</span><span class="o">.</span><span class="n">subscription_id</span>
     <span class="n">granularity_input</span> <span class="o">=</span> <span class="n">arg_parser</span><span class="o">.</span><span class="n">granularity</span>
+    <span class="n">filename_input</span> <span class="o">=</span> <span class="n">arg_parser</span><span class="o">.</span><span class="n">out</span>
+
+    <span class="n">subscriptions_list_detailed</span><span class="p">,</span> <span class="n">subscriptions_with_tags_list</span> <span class="o">=</span> <span class="n">subs_cost_export</span><span class="p">()</span>
 
     <span class="c1"># Parsing data to cost export func</span>
     <span class="n">cm_client_query_results</span> <span class="o">=</span> <span class="n">cost_export</span><span class="p">(</span>
         <span class="n">subscription_id</span><span class="o">=</span><span class="n">subscription_id_input</span><span class="p">,</span>
+        <span class="n">subscriptions_list_detailed</span><span class="o">=</span><span class="n">subscriptions_list_detailed</span><span class="p">,</span>
         <span class="n">start_date</span><span class="o">=</span><span class="n">start_date_input</span><span class="p">,</span>
         <span class="n">end_date</span><span class="o">=</span><span class="n">end_date_input</span><span class="p">,</span>
         <span class="n">granularity</span><span class="o">=</span><span class="n">granularity_input</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">cm_client_query_results</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># print(json.dumps(cm_client_query_results, indent=4, default=str), end=&quot;\n\n\n&quot;)</span>
 
-    <span class="n">csv_export</span><span class="p">(</span><span class="n">cm_client_query_results</span><span class="p">)</span>
+    <span class="n">csv_export</span><span class="p">(</span><span class="n">cm_client_query_results</span><span class="o">=</span><span class="n">cm_client_query_results</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename_input</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2907,7 +2915,7 @@ Azure cost and usage data using Azure CostManagementClient client.</p>
     <span class="n">copyright_notice</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;╔══════════════════════════════════════════════════╗</span>
 <span class="s2">║  © 2025 Mohamed eraki                            ║</span>
 <span class="s2">║  mohamed-ibrahim2021@outlook.com                 ║</span>
-<span class="s2">║  Version: 3.0.2                                  ║</span>
+<span class="s2">║  Version: 3.2.0                                  ║</span>
 <span class="s2">║  eraXplor - Azure Cost exporter Tool             ║</span>
 <span class="s2">╚══════════════════════════════════════════════════╝</span>
 <span class="s2">    &quot;&quot;&quot;</span>
@@ -2962,7 +2970,7 @@ information used in the CLI interface.</p>
 
 
 <h2 id="eraXplor_azure.utils.cost_export_utils.cost_export" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">cost_export</span><span class="p">(</span><span class="n">subscription_id</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;Monthly&#39;</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">cost_export</span><span class="p">(</span><span class="n">subscription_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subscriptions_list_detailed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;Monthly&#39;</span><span class="p">)</span></code>
 
 </h2>
 
@@ -2999,7 +3007,7 @@ selected granularity (Daily or Monthly).</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code>None</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -3017,7 +3025,7 @@ Default: 3 Months ago from today.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code>None</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -3035,7 +3043,7 @@ Default: Today date.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code>None</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -3139,10 +3147,7 @@ A list of structured cost records, where each record contains:
 
             <details class="quote">
               <summary>Source code in <code>src/eraXplor_azure/utils/cost_export_utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 18</span>
-<span class="normal"> 19</span>
-<span class="normal"> 20</span>
-<span class="normal"> 21</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 21</span>
 <span class="normal"> 22</span>
 <span class="normal"> 23</span>
 <span class="normal"> 24</span>
@@ -3258,10 +3263,90 @@ A list of structured cost records, where each record contains:
 <span class="normal">134</span>
 <span class="normal">135</span>
 <span class="normal">136</span>
-<span class="normal">137</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">cost_export</span><span class="p">(</span>
-    <span class="n">subscription_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
-    <span class="n">start_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
-    <span class="n">end_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">cost_export</span><span class="p">(</span>
+    <span class="n">subscription_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="n">subscriptions_list_detailed</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="n">start_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="n">end_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">granularity</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Monthly&#39;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">_CostRecord</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -3318,66 +3403,214 @@ A list of structured cost records, where each record contains:
 
     <span class="n">credential</span> <span class="o">=</span> <span class="n">DefaultAzureCredential</span><span class="p">()</span>
     <span class="n">cm_client</span> <span class="o">=</span> <span class="n">CostManagementClient</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
-
-    <span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="s2">&quot;%Y,%m,</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="s2">&quot;%Y,%m,</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">scope</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/subscriptions/</span><span class="si">{</span><span class="n">subscription_id</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="c1"># scope = f&quot;/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}&quot;</span>
-    <span class="c1"># scope = f&quot;/providers/Microsoft.Billing/billingAccounts/{billingAccountId}&quot;</span>
-    <span class="c1"># scope = f&quot;/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}&quot;</span>
-    <span class="c1"># scope = f&quot;/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}&quot;</span>
-    <span class="c1"># scope = f&quot;/providers/Microsoft.Management/managementGroups/{managementGroupId}&quot;</span>
-    <span class="c1"># scope = f&quot;/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}&quot;</span>
-    <span class="c1"># scope = f&quot;/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}&quot;</span>
-    <span class="c1"># scope = f&quot;/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}&quot;</span>
-
     <span class="n">cm_client_query_results</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">with</span> <span class="n">Live</span><span class="p">(</span><span class="n">Spinner</span>
-              <span class="p">(</span><span class="s2">&quot;bouncingBar&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Fetching Azure costs of subscriptions:</span><span class="si">{</span><span class="n">subscription_id</span><span class="si">}</span><span class="s2">...</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">),</span>
-                <span class="n">refresh_per_second</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">_sub_cost_export</span><span class="p">():</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;Internal function to handle the cost export query.&quot;&quot;&quot;</span>
 
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">cm_client_query</span> <span class="o">=</span> <span class="n">cm_client</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">usage</span><span class="p">(</span>
-                    <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span>
-                    <span class="n">parameters</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">QueryDefinition</span><span class="p">(</span>
-                        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;Usage&#39;</span><span class="p">,</span>
-                        <span class="n">timeframe</span><span class="o">=</span><span class="s1">&#39;Custom&#39;</span><span class="p">,</span>
-                        <span class="n">time_period</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">QueryTimePeriod</span><span class="p">(</span>
-                            <span class="n">from_property</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
-                            <span class="n">to</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
-                        <span class="p">),</span>
-                        <span class="n">dataset</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">QueryDataset</span><span class="p">(</span>
-                            <span class="n">granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
-                            <span class="n">aggregation</span><span class="o">=</span><span class="p">{</span>
-                                <span class="s1">&#39;totalcost&#39;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">QueryAggregation</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;PreTaxCost&#39;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="s1">&#39;Sum&#39;</span><span class="p">)</span>
-                            <span class="p">}</span>
+    <span class="k">if</span> <span class="n">subscription_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="s2">&quot;%Y,%m,</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="s2">&quot;%Y,%m,</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">scope</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/subscriptions/</span><span class="si">{</span><span class="n">subscription_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="c1"># scope = f&quot;/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}&quot;</span>
+        <span class="c1"># scope = f&quot;/providers/Microsoft.Billing/billingAccounts/{billingAccountId}&quot;</span>
+        <span class="c1"># scope = f&quot;/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}&quot;</span>
+        <span class="c1"># scope = f&quot;/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}&quot;</span>
+        <span class="c1"># scope = f&quot;/providers/Microsoft.Management/managementGroups/{managementGroupId}&quot;</span>
+        <span class="c1"># scope = f&quot;/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}&quot;</span>
+        <span class="c1"># scope = f&quot;/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}&quot;</span>
+        <span class="c1"># scope = f&quot;/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}&quot;</span>
+
+        <span class="k">with</span> <span class="n">Live</span><span class="p">(</span><span class="n">Spinner</span>
+                <span class="p">(</span><span class="s2">&quot;bouncingBar&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Fetching Azure costs of subscriptions: </span><span class="si">{</span><span class="n">subscription_id</span><span class="si">}</span><span class="s2">...</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">),</span>
+                    <span class="n">refresh_per_second</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+            <span class="k">def</span> <span class="nf">_sub_cost_export</span><span class="p">():</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;Internal function to handle the cost export query.&quot;&quot;&quot;</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">cm_client_query</span> <span class="o">=</span> <span class="n">cm_client</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">usage</span><span class="p">(</span>
+                        <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span>
+                        <span class="n">parameters</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">QueryDefinition</span><span class="p">(</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;Usage&#39;</span><span class="p">,</span>
+                            <span class="n">timeframe</span><span class="o">=</span><span class="s1">&#39;Custom&#39;</span><span class="p">,</span>
+                            <span class="n">time_period</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">QueryTimePeriod</span><span class="p">(</span>
+                                <span class="n">from_property</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
+                                <span class="n">to</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
+                            <span class="p">),</span>
+                            <span class="n">dataset</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">QueryDataset</span><span class="p">(</span>
+                                <span class="n">granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
+                                <span class="n">aggregation</span><span class="o">=</span><span class="p">{</span>
+                                    <span class="s1">&#39;totalcost&#39;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">QueryAggregation</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;PreTaxCost&#39;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="s1">&#39;Sum&#39;</span><span class="p">)</span>
+                                <span class="p">}</span>
+                            <span class="p">)</span>
                         <span class="p">)</span>
                     <span class="p">)</span>
-                <span class="p">)</span>
-                <span class="n">cm_client_query_rows</span> <span class="o">=</span> <span class="n">cm_client_query</span><span class="o">.</span><span class="n">rows</span>
-                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cm_client_query_rows</span><span class="p">:</span>
-                    <span class="n">time_period</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="n">cost</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                    <span class="n">currency</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="n">cm_client_query_rows</span> <span class="o">=</span> <span class="n">cm_client_query</span><span class="o">.</span><span class="n">rows</span>
+                    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cm_client_query_rows</span><span class="p">:</span>
+                        <span class="n">time_period</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">cost</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">currency</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
-                    <span class="n">cm_client_query_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="p">{</span>
-                            <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">:</span> <span class="n">time_period</span><span class="p">,</span>
-                            <span class="s2">&quot;COST&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-                        <span class="p">}</span>
-                    <span class="p">)</span>
+                        <span class="n">cm_client_query_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="p">{</span>
+                                <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">:</span> <span class="n">time_period</span><span class="p">,</span>
+                                <span class="s2">&quot;SUBSCRIPTION_ID&quot;</span><span class="p">:</span> <span class="n">subscription_id</span><span class="p">,</span>
+                                <span class="s2">&quot;DISPLAY_NAME&quot;</span><span class="p">:</span> <span class="s2">&quot;NONE&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;COST&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;TAGS&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span>
+                            <span class="p">}</span>
+                        <span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">cm_client_query_results</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span>
 
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span>
+            <span class="c1"># progress.update(task, advance=1)</span>
+            <span class="n">_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">_sub_cost_export</span><span class="p">)</span>
+            <span class="n">_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="n">_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
 
-        <span class="c1"># progress.update(task, advance=1)</span>
-        <span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">_sub_cost_export</span><span class="p">)</span>
-        <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-        <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">subscription_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="s2">&quot;%Y,%m,</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="s2">&quot;%Y,%m,</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">subscriptions_list_detailed</span><span class="p">:</span>
+            <span class="n">subscription_id</span> <span class="o">=</span> <span class="n">sub</span><span class="p">[</span><span class="s1">&#39;Subscription_ID&#39;</span><span class="p">]</span>
+            <span class="n">subscription_name</span> <span class="o">=</span> <span class="n">sub</span><span class="p">[</span><span class="s1">&#39;Display_Name&#39;</span><span class="p">]</span>
+            <span class="n">subscription_tags</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Tags&#39;</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">scope</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/subscriptions/</span><span class="si">{</span><span class="n">subscription_id</span><span class="si">}</span><span class="s2">&quot;</span>
+
+            <span class="k">with</span> <span class="n">Live</span><span class="p">(</span><span class="n">Spinner</span>
+                    <span class="p">(</span><span class="s2">&quot;bouncingBar&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Fetching Azure costs of subscriptions: </span><span class="si">{</span><span class="n">subscription_name</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">subscription_id</span><span class="si">}</span><span class="s2">)...</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">),</span>
+                        <span class="n">refresh_per_second</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+                <span class="k">def</span> <span class="nf">_sub_cost_export</span><span class="p">():</span>
+<span class="w">                    </span><span class="sd">&quot;&quot;&quot;Internal function to handle the cost export query.&quot;&quot;&quot;</span>
+
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">cm_client_query</span> <span class="o">=</span> <span class="n">cm_client</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">usage</span><span class="p">(</span>
+                            <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span>
+                            <span class="n">parameters</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">QueryDefinition</span><span class="p">(</span>
+                                <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;Usage&#39;</span><span class="p">,</span>
+                                <span class="n">timeframe</span><span class="o">=</span><span class="s1">&#39;Custom&#39;</span><span class="p">,</span>
+                                <span class="n">time_period</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">QueryTimePeriod</span><span class="p">(</span>
+                                    <span class="n">from_property</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
+                                    <span class="n">to</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
+                                <span class="p">),</span>
+                                <span class="n">dataset</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">QueryDataset</span><span class="p">(</span>
+                                    <span class="n">granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
+                                    <span class="n">aggregation</span><span class="o">=</span><span class="p">{</span>
+                                        <span class="s1">&#39;totalcost&#39;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">QueryAggregation</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;PreTaxCost&#39;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="s1">&#39;Sum&#39;</span><span class="p">)</span>
+                                    <span class="p">}</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+                        <span class="n">cm_client_query_rows</span> <span class="o">=</span> <span class="n">cm_client_query</span><span class="o">.</span><span class="n">rows</span>
+                        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cm_client_query_rows</span><span class="p">:</span>
+                            <span class="n">time_period</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                            <span class="n">cost</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                            <span class="n">currency</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+                            <span class="n">cm_client_query_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="p">{</span>
+                                    <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">:</span> <span class="n">time_period</span><span class="p">,</span>
+                                    <span class="s2">&quot;SUBSCRIPTION_ID&quot;</span><span class="p">:</span> <span class="n">subscription_id</span><span class="p">,</span>
+                                    <span class="s2">&quot;DISPLAY_NAME&quot;</span><span class="p">:</span> <span class="n">subscription_name</span><span class="p">,</span>
+                                    <span class="s2">&quot;COST&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;TAGS&quot;</span><span class="p">:</span> <span class="n">subscription_tags</span> <span class="k">if</span> <span class="n">subscription_tags</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
+                                <span class="p">}</span>
+                            <span class="p">)</span>
+                            <span class="c1"># print(json.dumps(cm_client_query_results, indent=4, default=str), end=&quot;\n\n\n&quot;)</span>
+                        <span class="c1"># Combine results of for loop and print</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">([</span>
+                            <span class="p">{</span>
+                                <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                <span class="s2">&quot;SUBSCRIPTION_ID&quot;</span><span class="p">:</span> <span class="n">subscription_id</span><span class="p">,</span>
+                                <span class="s2">&quot;DISPLAY_NAME&quot;</span><span class="p">:</span> <span class="n">subscription_name</span><span class="p">,</span>
+                                <span class="s2">&quot;COST&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;TAGS&quot;</span><span class="p">:</span> <span class="n">subscription_tags</span> <span class="k">if</span> <span class="n">subscription_tags</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+                            <span class="p">}</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cm_client_query_rows</span>
+                        <span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span>
+
+                <span class="c1"># progress.update(task, advance=1)</span>
+                <span class="n">_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">_sub_cost_export</span><span class="p">)</span>
+                <span class="n">_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                <span class="n">_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
     <span class="k">return</span> <span class="n">cm_client_query_results</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eraXplor_azure.utils.cost_export_utils.subs_cost_export" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">subs_cost_export</span><span class="p">()</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Function to retrieve Azure subscription details</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>src/eraXplor_azure/utils/cost_export_utils.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">subs_cost_export</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function to retrieve Azure subscription details&quot;&quot;&quot;</span>
+    <span class="n">_credential</span> <span class="o">=</span> <span class="n">DefaultAzureCredential</span><span class="p">()</span>
+    <span class="n">_subscription_client</span> <span class="o">=</span> <span class="n">SubscriptionClient</span><span class="p">(</span><span class="n">_credential</span><span class="p">)</span>
+    <span class="n">_subscriptions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_subscription_client</span><span class="o">.</span><span class="n">subscriptions</span><span class="o">.</span><span class="n">list</span><span class="p">())</span>
+
+    <span class="n">subscriptions_list_detailed</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">subscriptions_with_tags_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">_subscriptions</span><span class="p">:</span>
+        <span class="n">subscriptions_list_detailed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;Subscription_ID&quot;</span><span class="p">:</span> <span class="n">sub</span><span class="o">.</span><span class="n">subscription_id</span><span class="p">,</span>
+                <span class="s2">&quot;Display_Name&quot;</span><span class="p">:</span> <span class="n">sub</span><span class="o">.</span><span class="n">display_name</span><span class="p">,</span>
+                <span class="s2">&quot;Tenant_ID&quot;</span><span class="p">:</span> <span class="n">sub</span><span class="o">.</span><span class="n">tenant_id</span><span class="p">,</span>
+                <span class="s2">&quot;Tags&quot;</span><span class="p">:</span> <span class="n">sub</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">subscriptions_with_tags_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;Subscription_ID&quot;</span><span class="p">:</span> <span class="n">sub</span><span class="o">.</span><span class="n">subscription_id</span><span class="p">,</span>
+                <span class="s2">&quot;Display_Name&quot;</span><span class="p">:</span> <span class="n">sub</span><span class="o">.</span><span class="n">display_name</span><span class="p">,</span>
+                <span class="s2">&quot;Tags&quot;</span><span class="p">:</span> <span class="n">sub</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">subscriptions_list_detailed</span><span class="p">,</span> <span class="n">subscriptions_with_tags_list</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -3426,7 +3659,7 @@ A list of structured cost records, where each record contains:
 
 
 <h2 id="eraXplor_azure.utils.csv_export_utils.csv_export" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">csv_export</span><span class="p">(</span><span class="n">cm_client_query_results</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;az_cost_report.csv&#39;</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">csv_export</span><span class="p">(</span><span class="n">cm_client_query_results</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span></code>
 
 </h2>
 
@@ -3482,7 +3715,7 @@ by cost_export(). Each dictionary should contain:
               </div>
             </td>
             <td>
-                  <code>&#39;az_cost_report.csv&#39;</code>
+                <em>required</em>
             </td>
           </tr>
       </tbody>
@@ -3548,9 +3781,15 @@ by cost_export(). Each dictionary should contain:
 <span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
-<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">csv_export</span><span class="p">(</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">csv_export</span><span class="p">(</span>
     <span class="n">cm_client_query_results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
-    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;az_cost_report.csv&quot;</span><span class="p">,</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exports Azure cost data to a CSV file with standardized formatting.</span>
 
@@ -3575,13 +3814,19 @@ by cost_export(). Each dictionary should contain:
         <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;SUBSCRIPTION_ID&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;DISPLAY_NAME&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;COST&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;TAGS&quot;</span><span class="p">,</span>
             <span class="p">]</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cm_client_query_results</span><span class="p">:</span>
             <span class="n">time_period</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;TIME_PERIOD&quot;</span><span class="p">]</span>
+            <span class="n">sub_id</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;SUBSCRIPTION_ID&quot;</span><span class="p">]</span>
+            <span class="n">display_name</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;DISPLAY_NAME&quot;</span><span class="p">]</span>
             <span class="n">cost</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;COST&quot;</span><span class="p">)</span>
-            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">time_period</span><span class="p">,</span> <span class="n">cost</span><span class="p">])</span>
+            <span class="n">tags</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TAGS&quot;</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">time_period</span><span class="p">,</span> <span class="n">sub_id</span><span class="p">,</span> <span class="n">display_name</span><span class="p">,</span> <span class="n">cost</span><span class="p">,</span> <span class="n">tags</span><span class="p">])</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Data exported to </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
