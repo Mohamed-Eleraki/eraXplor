@@ -7,7 +7,7 @@ def banner():
     copyright_notice = """╔══════════════════════════════════════════════════╗
 ║  © 2025 Mohamed eraki                            ║
 ║  mohamed-ibrahim2021@outlook.com                 ║
-║  Version: 3.1.0                                  ║
+║  Version: 3.2.0                                  ║
 ║  eraXplor - AWS Cost exporter Tool               ║
 ╚══════════════════════════════════════════════════╝
     """
