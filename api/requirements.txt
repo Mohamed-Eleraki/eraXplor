@@ -9,3 +9,8 @@ pyfiglet>=1.0.2
 python-dateutil>=2.9.0
 termcolor>=3.0.1
 rich>=13.7.1
+
+# Azure SDK dependencies for Azure cost export functionality
+azure-identity>=1.15.0
+azure-mgmt-costmanagement>=1.0.0
+azure-mgmt-resource>=23.0.0
