@@ -1,0 +1,152 @@
+
+import sys
+import os
+from datetime import datetime, timedelta
+
+# Use FastAPI but without Pydantic models - just basic endpoints
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+
+# Import settings from config
+from app.core.config import settings
+
+# Add the src directory to Python path to import eraXplor modules
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+
+from eraXplor_aws.utils.cost_export_utils import monthly_account_cost_export
+
+# Create FastAPI app instance (no Pydantic models)
+app = FastAPI(
+    title=settings.PROJECT_NAME,
+    description=settings.PROJECT_DESCRIPTION,
+    version=settings.API_VERSION,
+)
+
+
+@app.get("/")
+async def root():
+    """Root endpoint"""
+    return {"message": "Welcome to the eraXplor API"}
+
+
+@app.post("/aws/cost/export")
+async def export_aws_costs_post(request: Request):
+    """
+    Export AWS cost data using POST request with JSON body.
+    
+    Assumes AWS credentials are already configured in the user's terminal.
+    """
+    try:
+        # Parse JSON body if present
+        try:
+            body = await request.json()
+        except Exception:
+            body = {}
+        
+        # Extract parameters with defaults
+        start_date = body.get('start_date')
+        end_date = body.get('end_date')
+        profile = body.get('profile', 'default')
+        group_by = body.get('group_by', 'LINKED_ACCOUNT')
+        granularity = body.get('granularity', 'MONTHLY')
+        
+        # Set default dates if not provided
+        if not start_date:
+            start_date = (datetime.now() - timedelta(days=90)).strftime('%Y-%m-%d')
+        
+        if not end_date:
+            end_date = datetime.now().strftime('%Y-%m-%d')
+        
+        print(f"Fetching AWS cost data from {start_date} to {end_date}")
+        print(f"Using profile: {profile}, Group by: {group_by}")
+        
+        # Call the existing eraXplor AWS function
+        cost_data = monthly_account_cost_export(
+            start_date_input=start_date,
+            end_date_input=end_date,
+            aws_profile_name_input=profile,
+            cost_groupby_key_input=group_by,
+            granularity=granularity
+        )
+        
+        print(f"Retrieved {len(cost_data)} cost records")
+        
+        response_data = {
+            "success": True,
+            "message": "AWS cost data exported successfully",
+            "total_records": len(cost_data),
+            "cost_data": cost_data,
+            "request_parameters": {
+                "start_date": start_date,
+                "end_date": end_date,
+                "profile": profile,
+                "group_by": group_by,
+                "granularity": granularity
+            }
+        }
+        
+        return response_data
+        
+    except Exception as e:
+        print(f"Error exporting AWS costs: {str(e)}")
+        return JSONResponse(
+            {"error": True, "message": f"Error exporting AWS costs: {str(e)}"}, 
+            status_code=500
+        )
+
+
+@app.get("/aws/cost/export")
+async def export_aws_costs_get(
+    start_date: str = None,
+    end_date: str = None,
+    profile: str = "default",
+    group_by: str = "LINKED_ACCOUNT",
+    granularity: str = "MONTHLY"
+):
+    """
+    Export AWS cost data using GET request with query parameters.
+    """
+    try:
+        # Set default dates if not provided
+        if not start_date:
+            start_date = (datetime.now() - timedelta(days=90)).strftime('%Y-%m-%d')
+        
+        if not end_date:
+            end_date = datetime.now().strftime('%Y-%m-%d')
+        
+        print(f"Fetching AWS cost data from {start_date} to {end_date}")
+        print(f"Using profile: {profile}, Group by: {group_by}")
+        
+        # Call the existing eraXplor AWS function
+        cost_data = monthly_account_cost_export(
+            start_date_input=start_date,
+            end_date_input=end_date,
+            aws_profile_name_input=profile,
+            cost_groupby_key_input=group_by,
+            granularity=granularity
+        )
+        
+        print(f"Retrieved {len(cost_data)} cost records")
+        
+        response_data = {
+            "success": True,
+            "message": "AWS cost data exported successfully",
+            "total_records": len(cost_data),
+            "cost_data": cost_data,
+            "request_parameters": {
+                "start_date": start_date,
+                "end_date": end_date,
+                "profile": profile,
+                "group_by": group_by,
+                "granularity": granularity
+            }
+        }
+        
+        return response_data
+        
+    except Exception as e:
+        print(f"Error exporting AWS costs: {str(e)}")
+        return JSONResponse(
+            {"error": True, "message": f"Error exporting AWS costs: {str(e)}"}, 
+            status_code=500
+        )

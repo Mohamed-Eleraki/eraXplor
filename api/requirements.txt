@@ -1,0 +1,11 @@
+# Ultra-simple requirements without Pydantic
+fastapi==0.68.0
+uvicorn==0.15.0
+starlette==0.14.2
+
+# Existing eraXplor dependencies (inherited from main project)
+boto3>=1.37.0
+pyfiglet>=1.0.2
+python-dateutil>=2.9.0
+termcolor>=3.0.1
+rich>=13.7.1
