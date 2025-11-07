@@ -34,6 +34,13 @@ async def export_aws_costs_post(request: Request):
     """
     Export AWS cost data using POST request with JSON body.
     
+    Request Body Parameters:
+    - start_date (str, optional): Start date in YYYY-MM-DD format
+    - end_date (str, optional): End date in YYYY-MM-DD format  
+    - profile (str, optional): AWS profile name (default: "default")
+    - group_by (str, optional): Cost grouping dimension (default: "LINKED_ACCOUNT")
+    - granularity (str, optional): Time granularity - "MONTHLY" or "DAILY" (default: "MONTHLY")
+    
     Assumes AWS credentials are already configured in the user's terminal.
     """
     try:
@@ -105,6 +112,15 @@ async def export_aws_costs_get(
 ):
     """
     Export AWS cost data using GET request with query parameters.
+    
+    Query Parameters:
+    - start_date (str, optional): Start date in YYYY-MM-DD format
+    - end_date (str, optional): End date in YYYY-MM-DD format
+    - profile (str, optional): AWS profile name (default: "default")
+    - group_by (str, optional): Cost grouping dimension (default: "LINKED_ACCOUNT")
+    - granularity (str, optional): Time granularity - "MONTHLY" or "DAILY" (default: "MONTHLY")
+    
+    Assumes AWS credentials are already configured in the user's terminal.
     """
     try:
         # Set default dates if not provided
