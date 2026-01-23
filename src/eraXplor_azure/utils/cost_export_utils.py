@@ -19,9 +19,9 @@ class _CostRecord(TypedDict):
     COST: str
 
 def cost_export(
-    subscription_id: str | None = None, 
-    subscriptions_list_detailed: List[dict[str, Any]] = None, 
-    start_date: str = None, 
+    subscription_id: str | None = None,
+    subscriptions_list_detailed: List[dict[str, Any]] = None,
+    start_date: str = None,
     end_date: str = None,
     granularity: str = 'Monthly',
 ) -> List[_CostRecord]:
