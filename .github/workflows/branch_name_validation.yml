@@ -19,15 +19,13 @@ jobs:
           # -------------------------------------------------------
           # Allowed patterns:
           #   1. feat|fix|chore|refactor|docs|test/<workItemID>-description
-          #      - Work item = 5–7 digits
+          #      - Work item = 1–7 digits
           #      - Description = lowercase letters, numbers, dot, underscore, hyphen
           #      Example: feat/332200-add_new_pipeline
           #
           #   2. release/x.y.z
           # -------------------------------------------------------
 
-          # REGEX='^(feature|bugfix|hotfix|release)\/([A-Z]+-[0-9]+|NOJIRA)-[a-z0-9-]+$'
-          # REGEX="^(feat|fix|chore|refactor|docs|test)/#?[0-9]{5,7}-[a-z0-9._-]+$|^release/[0-9]+\.[0-9]+\.[0-9]+$"
           REGEX='^((feat|fix|chore|refactor|docs|test)/#?[0-9]{1,7}-[a-z0-9._-]+|release/[0-9]+\.[0-9]+\.[0-9]+)$'
 
 
