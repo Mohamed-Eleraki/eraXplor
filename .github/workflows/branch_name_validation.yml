@@ -1,13 +1,10 @@
 name: Validate branch name
-
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
-
 jobs:
   validate-branch-name:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check branch name
         run: |
