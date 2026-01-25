@@ -46,4 +46,4 @@ def csv_export(
             cost = row.get("COST")
             tags = row.get("TAGS", {})
             writer.writerow([time_period, group_by, subscription_id, display_name, cost, tags])
-    print(f"\n✅ Data exported to {filename}")
+    print(f"\n Data exported to {filename}")

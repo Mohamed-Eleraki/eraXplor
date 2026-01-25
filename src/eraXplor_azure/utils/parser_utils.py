@@ -31,12 +31,6 @@ def parser():
         help="End date for cost export in YYYY,MM,DD format.",
         default=datetime.today().strftime("%Y,%m,%d"),
     )
-    # arg_parser.add_argument(
-    #     "-S", "--subscription-id",
-    #     type=str,
-    #     required=False,
-    #     help="Azure subscription ID for cost export.  Default: List all subscriptions.",
-    # )
     arg_parser.add_argument(
         "-g", "--group-by",
         type=str,
