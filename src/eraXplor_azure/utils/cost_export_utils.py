@@ -118,7 +118,7 @@ def cost_export(
                         cm_client_query_rows = cm_client_query.rows
                         for row in cm_client_query_rows:
                             time_period = row[1]
-                            cost = row[0]
+                            PreTaxCost = row[0]
                             currency = row[2]
                             
                             cm_client_query_results.append(
@@ -127,7 +127,7 @@ def cost_export(
                                     "GROUP_BY": "SUBSCRIPTION_ID",
                                     "SUBSCRIPTION_ID": subscription_id,
                                     "DISPLAY_NAME": subscription_name,
-                                    "COST": f"{cost:.2f} {currency}",
+                                    "PreTaxCost": f"{PreTaxCost:.2f} {currency}",
                                     "TAGS": subscription_tags if subscription_tags else "None"
                                 }
                             )
@@ -140,7 +140,7 @@ def cost_export(
                                 "GROUP_BY": "SUBSCRIPTION_ID",
                                 "SUBSCRIPTION_ID": subscription_id,
                                 "DISPLAY_NAME": subscription_name,
-                                "COST": f"{row[0]:.2f} {row[2]}",
+                                "PreTaxCost": f"{row[0]:.2f} {row[2]}",
                                 "TAGS": subscription_tags if subscription_tags else "None",
                             } for row in cm_client_query_rows
                         ], indent=4, default=str), end="\n\n\n")
@@ -194,7 +194,7 @@ def cost_export(
                         cm_client_query_rows = cm_client_query.rows
                         for row in cm_client_query_rows:
                             time_period = row[1]
-                            cost = row[0]
+                            PreTaxCost = row[0]
                             currency = row[2]
                             
                             cm_client_query_results.append(
@@ -203,7 +203,7 @@ def cost_export(
                                     "GROUP_BY": currency,
                                     "SUBSCRIPTION_ID": subscription_id,
                                     "DISPLAY_NAME": subscription_name,
-                                    "COST": f"{cost:.2f}",
+                                    "PreTaxCost": f"{PreTaxCost:.2f}",
                                     "TAGS": subscription_tags if subscription_tags else "None"
                                 }
                             )
@@ -216,7 +216,7 @@ def cost_export(
                                 "GROUP_BY": currency,
                                 "SUBSCRIPTION_ID": subscription_id,
                                 "DISPLAY_NAME": subscription_name,
-                                "COST": f"{row[0]:.2f}",
+                                "PreTaxCost": f"{row[0]:.2f}",
                                 "TAGS": subscription_tags if subscription_tags else "None",
                             } for row in cm_client_query_rows
                         ], indent=4, default=str), end="\n\n\n")
