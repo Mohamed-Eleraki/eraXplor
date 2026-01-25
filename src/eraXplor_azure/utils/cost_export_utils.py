@@ -18,7 +18,7 @@ class _CostRecord(TypedDict):
     TIME_PERIOD: Dict[str, str]
     COST: str
 
-def cost_export(
+def subscription_cost_export(
     subscription_id: str | None = None,
     subscriptions_list_detailed: List[dict[str, Any]] = None,
     start_date: str = None,
