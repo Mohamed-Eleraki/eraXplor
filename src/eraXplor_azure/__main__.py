@@ -38,6 +38,7 @@ from eraXplor_azure.utils.banner_utils import banner as generate_banner
 from eraXplor_azure.utils.parser_utils import parser
 from eraXplor_azure.utils.cost_export_utils import cost_export
 from eraXplor_azure.utils.cost_export_utils import subs_cost_export
+# from eraXplor_azure.utils.cost_export_utils import service_cost_export
 from eraXplor_azure.utils.csv_export_utils import csv_export
 
 def main() -> None:
@@ -52,21 +53,22 @@ def main() -> None:
     arg_parser = parser().parse_args()
     start_date_input = arg_parser.start_date
     end_date_input = arg_parser.end_date
-    subscription_id_input = arg_parser.subscription_id
+    group_by = arg_parser.group_by
     granularity_input = arg_parser.granularity
     filename_input = arg_parser.out
 
-    subscriptions_list_detailed, subscriptions_with_tags_list = subs_cost_export()
+    # Fetch detailed subscriptions list
+    subscriptions_list_detailed = subs_cost_export()
     
-    # Parsing data to cost export func
+    # Parsing data to subscription cost export func
     cm_client_query_results = cost_export(
-        subscription_id=subscription_id_input,
+        group_by=group_by,
         subscriptions_list_detailed=subscriptions_list_detailed,
         start_date=start_date_input,
         end_date=end_date_input,
         granularity=granularity_input,
     )
-
+    
     # print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
 
     csv_export(cm_client_query_results=cm_client_query_results, filename=filename_input)

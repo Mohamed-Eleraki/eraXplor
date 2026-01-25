@@ -19,9 +19,9 @@ class _CostRecord(TypedDict):
     COST: str
 
 def cost_export(
-    subscription_id: str | None = None, 
-    subscriptions_list_detailed: List[dict[str, Any]] = None, 
-    start_date: str = None, 
+    group_by: str = 'subscription',
+    subscriptions_list_detailed: List[dict[str, Any]] = None,
+    start_date: str = None,
     end_date: str = None,
     granularity: str = 'Monthly',
 ) -> List[_CostRecord]:
@@ -80,70 +80,8 @@ def cost_export(
     credential = DefaultAzureCredential()
     cm_client = CostManagementClient(credential)
     cm_client_query_results = []
-    
-    if subscription_id is not None:
-        start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
-        end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
-        scope = f"/subscriptions/{subscription_id}"
-        # scope = f"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}"
-        # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}"
-        # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}"
-        # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}"
-        # scope = f"/providers/Microsoft.Management/managementGroups/{managementGroupId}"
-        # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}"
-        # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}"
-        # scope = f"/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}"
-        
-        with Live(Spinner
-                ("bouncingBar", text=f"Fetching Azure costs of subscriptions: {subscription_id}...\n\n"),
-                    refresh_per_second=10):
-            def _sub_cost_export():
-                """Internal function to handle the cost export query."""
-                
-                try:
-                    cm_client_query = cm_client.query.usage(
-                        scope=scope,
-                        parameters=models.QueryDefinition(
-                            type='Usage',
-                            timeframe='Custom',
-                            time_period=models.QueryTimePeriod(
-                                from_property=start_date,
-                                to=end_date,
-                            ),
-                            dataset=models.QueryDataset(
-                                granularity=granularity,
-                                aggregation={
-                                    'totalcost': models.QueryAggregation(name='PreTaxCost', function='Sum')
-                                }
-                            )
-                        )
-                    )
-                    cm_client_query_rows = cm_client_query.rows
-                    for row in cm_client_query_rows:
-                        time_period = row[1]
-                        cost = row[0]
-                        currency = row[2]
-                        
-                        cm_client_query_results.append(
-                            {
-                                "TIME_PERIOD": time_period,
-                                "SUBSCRIPTION_ID": subscription_id,
-                                "DISPLAY_NAME": "NONE",
-                                "COST": f"{cost:.2f} {currency}",
-                                "TAGS": "None"
-                            }
-                        )
-                    print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
-                except Exception as e:
-                    print(f"An error occurred: {e}")
-                    return {"error": str(e)}
 
-            # progress.update(task, advance=1)
-            _thread = threading.Thread(target=_sub_cost_export)
-            _thread.start()
-            _thread.join()
-            
-    if subscription_id is None:
+    if group_by == 'subscription':
         start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
         end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
         
@@ -180,26 +118,29 @@ def cost_export(
                         cm_client_query_rows = cm_client_query.rows
                         for row in cm_client_query_rows:
                             time_period = row[1]
-                            cost = row[0]
+                            PreTaxCost = row[0]
                             currency = row[2]
                             
                             cm_client_query_results.append(
                                 {
                                     "TIME_PERIOD": time_period,
+                                    "GROUP_BY": "SUBSCRIPTION_ID",
                                     "SUBSCRIPTION_ID": subscription_id,
                                     "DISPLAY_NAME": subscription_name,
-                                    "COST": f"{cost:.2f} {currency}",
+                                    "PreTaxCost": f"{PreTaxCost:.2f} {currency}",
                                     "TAGS": subscription_tags if subscription_tags else "None"
                                 }
                             )
                             # print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
+
                         # Combine results of for loop and print
                         print(json.dumps([
                             {
                                 "TIME_PERIOD": row[1],
+                                "GROUP_BY": "SUBSCRIPTION_ID",
                                 "SUBSCRIPTION_ID": subscription_id,
                                 "DISPLAY_NAME": subscription_name,
-                                "COST": f"{row[0]:.2f} {row[2]}",
+                                "PreTaxCost": f"{row[0]:.2f} {row[2]}",
                                 "TAGS": subscription_tags if subscription_tags else "None",
                             } for row in cm_client_query_rows
                         ], indent=4, default=str), end="\n\n\n")
@@ -212,11 +153,89 @@ def cost_export(
                 _thread = threading.Thread(target=_sub_cost_export)
                 _thread.start()
                 _thread.join()
+
+    if group_by == 'service':
+        start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
+        end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
+        
+        for sub in subscriptions_list_detailed:
+            subscription_id = sub['Subscription_ID']
+            subscription_name = sub['Display_Name']
+            subscription_tags = sub.get('Tags', {})
+            scope = f"/subscriptions/{subscription_id}"
             
+            with Live(Spinner
+                    ("bouncingBar", text=f"Fetching Azure costs of subscriptions: {subscription_name}({subscription_id})...\n\n"),
+                        refresh_per_second=10):
+                def _srv_cost_export():
+                    """Internal function to handle the cost export query."""
+
+                    try:
+                        cm_client_query = cm_client.query.usage(
+                            scope=scope,
+                            parameters=models.QueryDefinition(
+                                type='Usage',
+                                timeframe='Custom',
+                                time_period=models.QueryTimePeriod(
+                                    from_property=start_date,
+                                    to=end_date,
+                                ),
+                                dataset=models.QueryDataset(
+                                    granularity=granularity,
+                                    aggregation={
+                                        'totalcost': models.QueryAggregation(name='PreTaxCost', function='Sum')
+                                    },
+                                    grouping=[
+                                        models.QueryGrouping(type='Dimension', name='ServiceName')
+                                    ]                                    
+                                )
+                            )
+                        )
+                        cm_client_query_rows = cm_client_query.rows
+                        for row in cm_client_query_rows:
+                            time_period = row[1]
+                            PreTaxCost = row[0]
+                            currency = row[2]
+                            
+                            cm_client_query_results.append(
+                                {
+                                    "TIME_PERIOD": time_period,
+                                    "GROUP_BY": currency,
+                                    "SUBSCRIPTION_ID": subscription_id,
+                                    "DISPLAY_NAME": subscription_name,
+                                    "PreTaxCost": f"{PreTaxCost:.2f}",
+                                    "TAGS": subscription_tags if subscription_tags else "None"
+                                }
+                            )
+                            # print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
+
+                        # Combine results of for loop and print
+                        print(json.dumps([
+                            {
+                                "TIME_PERIOD": row[1],
+                                "GROUP_BY": currency,
+                                "SUBSCRIPTION_ID": subscription_id,
+                                "DISPLAY_NAME": subscription_name,
+                                "PreTaxCost": f"{row[0]:.2f}",
+                                "TAGS": subscription_tags if subscription_tags else "None",
+                            } for row in cm_client_query_rows
+                        ], indent=4, default=str), end="\n\n\n")
+
+                    except Exception as e:
+                        print(f"An error occurred: {e}")
+                        return {"error": str(e)}
+
+                # progress.update(task, advance=1)
+                _thread = threading.Thread(target=_srv_cost_export)
+                _thread.start()
+                _thread.join()
+
+
+                    
     return cm_client_query_results
 
-# cm_client_query_results = cost_export("856880af-e2ac-41b2-b5fb-e7ebfe4d97bc", "2025,1,1", "2025,4,30", "monthly")
-# print(cm_client_query_results)
+
+
 
 def subs_cost_export():
     """Function to retrieve Azure subscription details"""
@@ -225,7 +244,7 @@ def subs_cost_export():
     _subscriptions = list(_subscription_client.subscriptions.list())
     
     subscriptions_list_detailed = []
-    subscriptions_with_tags_list = []
+    # subscriptions_with_tags_list = []
     
     for sub in _subscriptions:
         subscriptions_list_detailed.append(
@@ -236,17 +255,4 @@ def subs_cost_export():
                 "Tags": sub.tags,
             }
         )
-        subscriptions_with_tags_list.append(
-            {
-                "Subscription_ID": sub.subscription_id,
-                "Display_Name": sub.display_name,
-                "Tags": sub.tags,
-            }
-        )
-    return subscriptions_list_detailed, subscriptions_with_tags_list
-
-# import json
-# subscriptions_list_detailed, subscriptions_with_tags_list = subs_cost_export()
-# cm_client_query_results = cost_export(subscription_id="856880af-e2ac-41b2-b5fb-e7ebfe4d97bc", subscriptions_list_detailed=subscriptions_list_detailed, start_date="2025,5,1", end_date="2025,6,30", granularity="Monthly")
-# # print(json.dumps(cm_client_query_results, indent=4, default=str))
-
+    return subscriptions_list_detailed

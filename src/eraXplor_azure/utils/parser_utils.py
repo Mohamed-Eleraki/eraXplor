@@ -32,13 +32,15 @@ def parser():
         default=datetime.today().strftime("%Y,%m,%d"),
     )
     arg_parser.add_argument(
-        "-S", "--subscription-id",
+        "-g", "--group-by",
         type=str,
+        choices=['service', "subscription"],
         required=False,
-        help="Azure subscription ID for cost export.  Default: List all subscriptions.",
+        default='subscription',
+        help="Cost grouping dimension (service or subscription). Default is subscription.",
     )
     arg_parser.add_argument(
-        "-g", "--granularity",
+        "-G", "--granularity",
         type=str,
         choices=['Daily', 'Monthly'],
         default='Monthly',
