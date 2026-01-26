@@ -3,7 +3,7 @@
 import json
 import datetime
 import threading
-from typing import Dict, List, TypedDict, Any
+from typing import List, TypedDict, Any
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.costmanagement import CostManagementClient, models
 from azure.mgmt.costmanagement.models import QueryDefinition, QueryTimePeriod
@@ -153,11 +153,14 @@ def _subs_cost_export(
     granularity: str = 'Monthly',
     cm_client: CostManagementClient = None,
     cm_client_query_results = None,
-): 
+):
     """Function to fetch cost by subscription"""
     start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
     end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
-    
+    subscription_id = ""
+    subscription_name = ""
+    subscription_tags = ""
+
     for sub in subscriptions_list_detailed:
         subscription_id = sub['Subscription_ID']
         subscription_name = sub['Display_Name']
@@ -237,11 +240,15 @@ def _cost_export_subfunc(
     granularity: str = 'Monthly',
     cm_client: CostManagementClient = None,
     cm_client_query_results = None,
-): 
+):
     """Function to fetch cost based on group_by parameter"""
     start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
     end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
-    
+    subscription_id = ""
+    subscription_name = ""
+    subscription_tags = ""
+    scope = ""
+
     for sub in subscriptions_list_detailed:
         subscription_id = sub['Subscription_ID']
         subscription_name = sub['Display_Name']
@@ -271,7 +278,7 @@ def _cost_export_subfunc(
                                 },
                                 grouping=[
                                     models.QueryGrouping(type='Dimension', name=group_by)
-                                ]                                    
+                                ]                                 
                             )
                         )
                     )

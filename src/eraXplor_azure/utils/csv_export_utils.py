@@ -31,7 +31,7 @@ def csv_export(
         writer.writerow(
             [
                 "TIME_PERIOD",
-                "GROUB_BY",
+                "GROUP_BY",
                 "SUBSCRIPTION_ID",
                 "DISPLAY_NAME",
                 "PreTaxCost",
