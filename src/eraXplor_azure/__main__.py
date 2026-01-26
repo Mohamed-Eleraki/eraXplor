@@ -37,7 +37,7 @@ import termcolor
 from eraXplor_azure.utils.banner_utils import banner as generate_banner
 from eraXplor_azure.utils.parser_utils import parser
 from eraXplor_azure.utils.cost_export_utils import cost_export
-from eraXplor_azure.utils.cost_export_utils import subs_cost_export
+from eraXplor_azure.utils.cost_export_utils import list_subs
 # from eraXplor_azure.utils.cost_export_utils import service_cost_export
 from eraXplor_azure.utils.csv_export_utils import csv_export
 
@@ -58,7 +58,7 @@ def main() -> None:
     filename_input = arg_parser.out
 
     # Fetch detailed subscriptions list
-    subscriptions_list_detailed = subs_cost_export()
+    subscriptions_list_detailed = list_subs()
     
     # Parsing data to subscription cost export func
     cm_client_query_results = cost_export(

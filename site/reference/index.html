@@ -2823,7 +2823,7 @@ Azure cost and usage data using Azure CostManagementClient client.</p>
     <span class="n">granularity_input</span> <span class="o">=</span> <span class="n">arg_parser</span><span class="o">.</span><span class="n">granularity</span>
     <span class="n">filename_input</span> <span class="o">=</span> <span class="n">arg_parser</span><span class="o">.</span><span class="n">out</span>
 
-    <span class="n">subscriptions_list_detailed</span><span class="p">,</span> <span class="n">subscriptions_with_tags_list</span> <span class="o">=</span> <span class="n">subs_cost_export</span><span class="p">()</span>
+    <span class="n">subscriptions_list_detailed</span><span class="p">,</span> <span class="n">subscriptions_with_tags_list</span> <span class="o">=</span> <span class="n">list_subs</span><span class="p">()</span>
 
     <span class="c1"># Parsing data to cost export func</span>
     <span class="n">cm_client_query_results</span> <span class="o">=</span> <span class="n">cost_export</span><span class="p">(</span>
@@ -3547,8 +3547,8 @@ A list of structured cost records, where each record contains:
 <div class="doc doc-object doc-function">
 
 
-<h2 id="eraXplor_azure.utils.cost_export_utils.subs_cost_export" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">subs_cost_export</span><span class="p">()</span></code>
+<h2 id="eraXplor_azure.utils.cost_export_utils.list_subs" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">list_subs</span><span class="p">()</span></code>
 
 </h2>
 
@@ -3585,7 +3585,7 @@ A list of structured cost records, where each record contains:
 <span class="normal">243</span>
 <span class="normal">244</span>
 <span class="normal">245</span>
-<span class="normal">246</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">subs_cost_export</span><span class="p">():</span>
+<span class="normal">246</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">list_subs</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Function to retrieve Azure subscription details&quot;&quot;&quot;</span>
     <span class="n">_credential</span> <span class="o">=</span> <span class="n">DefaultAzureCredential</span><span class="p">()</span>
     <span class="n">_subscription_client</span> <span class="o">=</span> <span class="n">SubscriptionClient</span><span class="p">(</span><span class="n">_credential</span><span class="p">)</span>
