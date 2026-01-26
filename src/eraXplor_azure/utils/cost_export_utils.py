@@ -237,7 +237,7 @@ def cost_export(
 
 
 
-def subs_cost_export():
+def list_subs():
     """Function to retrieve Azure subscription details"""
     _credential = DefaultAzureCredential()
     _subscription_client = SubscriptionClient(_credential)
@@ -256,3 +256,4 @@ def subs_cost_export():
             }
         )
     return subscriptions_list_detailed
+
