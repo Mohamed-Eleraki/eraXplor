@@ -94,8 +94,8 @@ def cost_export(
         return cm_client_query_results
 
 
-    if group_by == 'service':
-        _srv_cost_export(
+    if group_by == 'ServiceName':
+        _cost_export_subfunc(
             group_by=group_by,
             subscriptions_list_detailed=subscriptions_list_detailed,
             start_date=start_date,
@@ -104,10 +104,10 @@ def cost_export(
             cm_client=cm_client,
             cm_client_query_results=cm_client_query_results,
         )
-        return cm_client_query_results
+        return cm_client_query_results    
     
-    if group_by == 'resource_group':
-        _rg_cost_export(
+    if group_by == 'ResourceGroupName':
+        _cost_export_subfunc(
             group_by=group_by,
             subscriptions_list_detailed=subscriptions_list_detailed,
             start_date=start_date,
@@ -116,8 +116,7 @@ def cost_export(
             cm_client=cm_client,
             cm_client_query_results=cm_client_query_results,
         )
-        return cm_client_query_results
-
+        return cm_client_query_results   
 
 
 
@@ -226,8 +225,8 @@ def _subs_cost_export(
 
     return cm_client_query_results
 
-def _srv_cost_export(
-    group_by: str = 'subscription',
+def _cost_export_subfunc(
+    group_by: str = 'service',
     subscriptions_list_detailed: List[dict[str, Any]] = None,
     start_date: str = None,
     end_date: str = None,
@@ -235,7 +234,7 @@ def _srv_cost_export(
     cm_client: CostManagementClient = None,
     cm_client_query_results = None,
 ): 
-    """Function to fetch cost by service"""
+    """Function to fetch cost based on group_by parameter"""
     start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
     end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
     
@@ -267,94 +266,7 @@ def _srv_cost_export(
                                     'totalcost': models.QueryAggregation(name='PreTaxCost', function='Sum')
                                 },
                                 grouping=[
-                                    models.QueryGrouping(type='Dimension', name='ServiceName')
-                                ]                                    
-                            )
-                        )
-                    )
-                    cm_client_query_rows = cm_client_query.rows
-                    for row in cm_client_query_rows:
-                        time_period = row[1]
-                        PreTaxCost = row[0]
-                        currency = row[2]
-                        
-                        cm_client_query_results.append(
-                            {
-                                "TIME_PERIOD": time_period,
-                                "GROUP_BY": currency,
-                                "SUBSCRIPTION_ID": subscription_id,
-                                "DISPLAY_NAME": subscription_name,
-                                "PreTaxCost": f"{PreTaxCost:.2f}",
-                                "TAGS": subscription_tags if subscription_tags else "None"
-                            }
-                        )
-                        # print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
-
-                    # Combine results of for loop and print
-                    print(json.dumps([
-                        {
-                            "TIME_PERIOD": row[1],
-                            "GROUP_BY": currency,
-                            "SUBSCRIPTION_ID": subscription_id,
-                            "DISPLAY_NAME": subscription_name,
-                            "PreTaxCost": f"{row[0]:.2f}",
-                            "TAGS": subscription_tags if subscription_tags else "None",
-                        } for row in cm_client_query_rows
-                    ], indent=4, default=str), end="\n\n\n")
-
-                except Exception as e:
-                    print(f"An error occurred: {e}")
-                    return {"error": str(e)}
-
-            # progress.update(task, advance=1)
-            _thread = threading.Thread(target=_srv_cost_export)
-            _thread.start()
-            _thread.join()
-    return cm_client_query_results
-
-
-def _rg_cost_export(
-    group_by: str = 'subscription',
-    subscriptions_list_detailed: List[dict[str, Any]] = None,
-    start_date: str = None,
-    end_date: str = None,
-    granularity: str = 'Monthly',
-    cm_client: CostManagementClient = None,
-    cm_client_query_results = None,
-): 
-    """Function to fetch cost by resource group"""
-    start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
-    end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
-    
-    for sub in subscriptions_list_detailed:
-        subscription_id = sub['Subscription_ID']
-        subscription_name = sub['Display_Name']
-        subscription_tags = sub.get('Tags', {})
-        scope = f"/subscriptions/{subscription_id}"
-        
-        with Live(Spinner
-                ("bouncingBar", text=f"Fetching Azure costs of subscriptions: {subscription_name}({subscription_id})...\n\n"),
-                    refresh_per_second=10):
-            def _srv_cost_export():
-                """Internal function to handle the cost export query."""
-
-                try:
-                    cm_client_query = cm_client.query.usage(
-                        scope=scope,
-                        parameters=models.QueryDefinition(
-                            type='Usage',
-                            timeframe='Custom',
-                            time_period=models.QueryTimePeriod(
-                                from_property=start_date,
-                                to=end_date,
-                            ),
-                            dataset=models.QueryDataset(
-                                granularity=granularity,
-                                aggregation={
-                                    'totalcost': models.QueryAggregation(name='PreTaxCost', function='Sum')
-                                },
-                                grouping=[
-                                    models.QueryGrouping(type='Dimension', name='ResourceGroupName')
+                                    models.QueryGrouping(type='Dimension', name=group_by)
                                 ]                                    
                             )
                         )

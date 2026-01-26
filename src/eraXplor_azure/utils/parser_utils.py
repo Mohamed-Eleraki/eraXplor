@@ -34,10 +34,10 @@ def parser():
     arg_parser.add_argument(
         "-g", "--group-by",
         type=str,
-        choices=['service', "subscription", "resource_group"],
+        choices=['ServiceName', "subscription", "ResourceGroupName"],
         required=False,
         default='subscription',
-        help="Cost grouping dimension (service, subscription or resource_group). Default is subscription.",
+        help="Cost grouping dimension (ServiceName, subscription or ResourceGroupName). Default is subscription.",
     )
     arg_parser.add_argument(
         "-G", "--granularity",
