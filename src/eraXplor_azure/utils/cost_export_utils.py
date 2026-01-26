@@ -12,11 +12,15 @@ from rich.live import Live
 from rich.spinner import Spinner
 
 class _CostRecord(TypedDict):
-    """Class type annotation tool dettermining the List Schema.
+    """Class type annotation tool determining the List Schema.
     Type definition for a single cost record.
     """
-    TIME_PERIOD: Dict[str, str]
-    COST: str
+    TIME_PERIOD: Any
+    GROUP_BY: str
+    SUBSCRIPTION_ID: str
+    DISPLAY_NAME: str
+    PreTaxCost: str
+    TAGS: dict[str, Any] | str
 
 def cost_export(
     group_by: str = 'subscription',
