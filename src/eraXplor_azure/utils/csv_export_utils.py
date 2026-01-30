@@ -45,5 +45,7 @@ def csv_export(
             display_name = row["DISPLAY_NAME"]
             PreTaxCost = row.get("PreTaxCost")
             tags = row.get("TAGS", {})
-            writer.writerow([time_period, group_by, subscription_id, display_name, PreTaxCost, tags])
+            writer.writerow(
+                [time_period, group_by, subscription_id, display_name, PreTaxCost, tags]
+                )
     print(f"\n Data exported to {filename}")

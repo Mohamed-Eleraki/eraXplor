@@ -1,11 +1,10 @@
 """AWS cost management data models."""
 
-from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
-from datetime import datetime
+from pydantic import BaseModel  # Pylint: disable=import-error
 
 
-class AWSCostRequest(BaseModel):
+class AWSCostRequest(BaseModel):  # Pylint: disable=too-few-public-methods
     """Request model for AWS cost export."""
     start_date: Optional[str] = None
     end_date: Optional[str] = None
@@ -14,7 +13,7 @@ class AWSCostRequest(BaseModel):
     granularity: str = "MONTHLY"
 
 
-class AWSCostResponse(BaseModel):
+class AWSCostResponse(BaseModel):  # Pylint: disable=too-few-public-methods
     """Response model for AWS cost export."""
     success: bool
     message: str

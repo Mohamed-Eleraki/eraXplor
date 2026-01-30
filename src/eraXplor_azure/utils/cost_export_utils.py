@@ -6,7 +6,7 @@ import threading
 from typing import List, TypedDict, Any
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.costmanagement import CostManagementClient, models
-from azure.mgmt.costmanagement.models import QueryDefinition, QueryTimePeriod
+from azure.mgmt.costmanagement.models import QueryDefinition, QueryTimePeriod  # Pylint: disable=unused-import
 from azure.mgmt.resource import SubscriptionClient
 from rich.live import Live
 from rich.spinner import Spinner
@@ -61,7 +61,8 @@ def cost_export(
             List[_CostRecord]: 
                 A list of structured cost records, where each record contains:
                     - TIME_PERIOD (Dict[str, str]): Date or date range for the record.
-                    - COST (str): Formatted string representing the total cost and currency (e.g., "123.45 USD").
+                    - COST (str): Formatted string representing the total cost and 
+                        currency (e.g., "123.45 USD").
 
         Raises:
             Exception: For any API errors or authentication failures.
@@ -73,10 +74,12 @@ def cost_export(
             ...     end_date="2025,04,30",
             ...     granularity="Monthly"
             ... )
-            [{'TIME_PERIOD': {'Start': '2025-01-01', 'End': '2025-01-31'}, 'COST': '456.78 USD'}, ...]
+            [{'TIME_PERIOD': {'Start': '2025-01-01', 'End': '2025-01-31'}, 
+                              'COST': '456.78 USD'}, ...]
 
         Notes:
-            - Ensure that the environment is properly authenticated with Azure using `DefaultAzureCredential`.
+            - Ensure that the environment is properly authenticated with Azure using 
+                `DefaultAzureCredential`.
             - Date strings must follow the exact "YYYY,MM,DD" format to avoid parsing errors.
             - Depending on the size of the date range and granularity, response time may vary.
         """
@@ -146,7 +149,7 @@ def list_subs():
 
 
 def _subs_cost_export(
-    group_by: str = 'subscription',
+    group_by: str = 'subscription',  # Pylint: disable=unused-argument
     subscriptions_list_detailed: List[dict[str, Any]] = None,
     start_date: str = None,
     end_date: str = None,
@@ -168,7 +171,8 @@ def _subs_cost_export(
         scope = f"/subscriptions/{subscription_id}"
         
         with Live(Spinner
-                ("bouncingBar", text=f"Fetching Azure costs of subscriptions: {subscription_name}({subscription_id})...\n\n"),
+                ("bouncingBar", text=f"Fetching Azure costs of subscriptions: "
+                 f"{subscription_name}({subscription_id})...\n\n"),
                     refresh_per_second=10):
             def _sub_cost_export():
                 """Internal function to handle the cost export query."""
@@ -186,7 +190,9 @@ def _subs_cost_export(
                             dataset=models.QueryDataset(
                                 granularity=granularity,
                                 aggregation={
-                                    'totalcost': models.QueryAggregation(name='PreTaxCost', function='Sum')
+                                    'totalcost': models.QueryAggregation(
+                                        name='PreTaxCost',
+                                        function='Sum')
                                 }
                             )
                         )
@@ -207,7 +213,6 @@ def _subs_cost_export(
                                 "TAGS": subscription_tags if subscription_tags else "None"
                             }
                         )
-                        # print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
 
                     # Combine results of for loop and print
                     print(json.dumps([
@@ -225,13 +230,14 @@ def _subs_cost_export(
                     print(f"An error occurred: {e}")
                     return {"error": str(e)}
 
-            # progress.update(task, advance=1)
             _thread = threading.Thread(target=_sub_cost_export)
             _thread.start()
             _thread.join()
 
     return cm_client_query_results
 
+
+# Pylint: disable=too-many-positional-arguments
 def _cost_export_subfunc(
     group_by: str = 'service',
     subscriptions_list_detailed: List[dict[str, Any]] = None,
@@ -240,7 +246,7 @@ def _cost_export_subfunc(
     granularity: str = 'Monthly',
     cm_client: CostManagementClient = None,
     cm_client_query_results = None,
-):
+):  # Pylint: disable=too-many-arguments 
     """Function to fetch cost based on group_by parameter"""
     start_date = datetime.datetime.strptime(start_date, "%Y,%m,%d")
     end_date = datetime.datetime.strptime(end_date, "%Y,%m,%d")
@@ -298,7 +304,6 @@ def _cost_export_subfunc(
                                 "TAGS": subscription_tags if subscription_tags else "None"
                             }
                         )
-                        # print(json.dumps(cm_client_query_results, indent=4, default=str), end="\n\n\n")
 
                     # Combine results of for loop and print
                     print(json.dumps([

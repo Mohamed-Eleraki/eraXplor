@@ -1,10 +1,9 @@
 """Application configuration settings."""
 
-import os
 from typing import List
 
 
-class Settings:
+class Settings:  # pylint: disable=too-few-public-methods
     """Application settings configuration."""
     
     # Project Information
