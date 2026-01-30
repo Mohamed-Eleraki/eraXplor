@@ -1,6 +1,6 @@
 """Module to display a banner and copyright notice."""
 
-import pyfiglet
+import pyfiglet  # Pylint: disable=import-error
 def banner():
     """Generates a banner and copyright notice for the application."""
 

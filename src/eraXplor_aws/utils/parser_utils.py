@@ -98,7 +98,7 @@ def parser_start_date_handler(arg_parser: list[argparse.ArgumentParser]) -> date
     except ValueError as e:
         print(f"Error parsing start date: {e}")
         return
-    except Exception as e:
+    except Exception as e:  # Pylint: disable=broad-except
         print(f"Unexpected error: {e}")
         return
 
@@ -124,10 +124,10 @@ def parser_end_date_handler(arg_parser: list[argparse.ArgumentParser]) -> date |
             return end_date_input
     except ValueError as e:
         print(f"Error parsing end date: {e}")
-        return
-    except Exception as e:
+        return None
+    except Exception as e:  # Pylint: disable=broad-except
         print(f"Unexpected error: {e}")
-        return
+        return None
 
 
 def parser_profile_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
@@ -152,10 +152,10 @@ def parser_profile_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
 
     except ValueError as e:
         print(f"Error parsing AWS profile: {e}")
-        return
-    except Exception as e:
+        return None
+    except Exception as e:  # Pylint: disable=broad-except
         print(f"Unexpected error: {e}")
-        return
+        return None
 
 
 def parser_groupby_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
@@ -178,10 +178,10 @@ def parser_groupby_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
             return cost_groupby_key_input
     except ValueError as e:
         print(f"Error parsing cost group by key: {e}")
-        return
-    except Exception as e:
+        return None
+    except Exception as e:  # Pylint: disable=broad-except
         print(f"Unexpected error: {e}")
-        return
+        return None
 
 
 def parser_filename_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
@@ -204,10 +204,10 @@ def parser_filename_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
             return filename
     except ValueError as e:
         print(f"Error parsing output filename: {e}")
-        return
-    except Exception as e:
+        return None
+    except Exception as e:  # Pylint: disable=broad-except
         print(f"Unexpected error: {e}")
-        return
+        return None
 
 
 def parser_granularity_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
@@ -230,7 +230,7 @@ def parser_granularity_handler(arg_parser: list[argparse.ArgumentParser]) -> str
             return granularity
     except ValueError as e:
         print(f"Error parsing granularity: {e}")
-        return
-    except Exception as e:
+        return None
+    except Exception as e:  # Pylint: disable=broad-except
         print(f"Unexpected error: {e}")
-        return
+        return None

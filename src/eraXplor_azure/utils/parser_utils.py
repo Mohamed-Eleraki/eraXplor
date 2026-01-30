@@ -37,7 +37,8 @@ def parser():
         choices=['ServiceName', "subscription", "ResourceGroupName"],
         required=False,
         default='subscription',
-        help="Cost grouping dimension (ServiceName, subscription or ResourceGroupName). Default is subscription.",
+        help="Cost grouping dimension (ServiceName, subscription or ResourceGroupName). " \
+        "Default is subscription.",
     )
     arg_parser.add_argument(
         "-G", "--granularity",

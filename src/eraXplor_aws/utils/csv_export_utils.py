@@ -20,7 +20,8 @@ def csv_export(
             by monthly_account_cost_export(). Each dictionary should contain:
             - time_period (dict): With 'Start' and 'End' keys
             - ID : AWS account ID, service name, purchase type name, usage type name.
-            - GROUPBY_FILTER (str): Grouping filter used in the query, e.g., 'Account', 'Service', etc.
+            - GROUPBY_FILTER (str): 
+                Grouping filter used in the query, e.g., 'Account', 'Service', etc.
             - COST (float): The cost associated with the ID for the given time period.
             
         filename (str, optional): Output filename for the CSV. Defaults to 'cost_report.csv'.
@@ -46,5 +47,5 @@ def csv_export(
             groupby = _row.get("GROUPBY_FILTER")
             cost = _row.get("COST")
             writer.writerow([time_period["Start"], time_period["End"], ID, groupby, cost])
-    print(f"\n✅ Data exported to {filename}")
+    print(f"\n Data exported to {filename}")
     
