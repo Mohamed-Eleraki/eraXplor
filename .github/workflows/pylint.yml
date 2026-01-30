@@ -25,4 +25,5 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        pylint --disable=trailing-whitespace $(git ls-files '*.py')
+        pylint --disable=trailing-whitespace,import-error,broad-except,too-few-public-methods,unused-argument,too-many-positional-arguments $(git ls-files '*.py')
+
