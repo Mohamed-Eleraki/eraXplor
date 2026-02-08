@@ -18,6 +18,10 @@ Command Line Arguments:
   --granularity, -G GRANULARITY   Time granularity. Options:
                            - Monthly (default)
                            - Daily
+  --group-by, -g GROUPBY Cost grouping dimension. Options:
+                           - subscription
+                           - ServiceName
+                           - ResourceGroupName 
 
 Examples:
   1. Basic usage with default settings:
