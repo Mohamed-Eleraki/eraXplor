@@ -44,7 +44,7 @@ jobs:
 
       - name: Build MkDocs site
         run: |
-          mkdocs build
+          # mkdocs build
           mkdocs gh-deploy --force --clean
 
       - name: Upload artifact
