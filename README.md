@@ -18,6 +18,8 @@ _azure still under development, more features will be added soon._
 - ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
 - ✅ **Multi-Profile Support**: Works with all configured AWS profiles.
 - ✅ **Multi-Subscription Support**: Works to list all configured Azure subscriptions.
+- ✅ **Enhanced Grouping Options**: Advanced grouping for AWS (Account+Service, Account+Purchase Type, Account+Usage Type) and Azure (ServiceName, ResourceGroupName).
+- ✅ **REST API Support**: FastAPI-based REST API for programmatic cost data access with JSON responses.
 - ✅ **CSV Export**: Ready-to-analyze reports in CSV format.
 - ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
 - ✅ **Documentation Ready**: Well explained documentations assest you kick start rapidly.
@@ -45,6 +47,8 @@ your use case by looking at the different pages.
 
 - [Reference](https://mohamed-eleraki.github.io/eraXplor/reference/)
 
+- [REST API Documentation](https://mohamed-eleraki.github.io/eraXplor/api/)
+
 # How-To Guides
 
 ## Check installed Python version
@@ -64,6 +68,90 @@ python --version
 ```bash
 pip install eraXplor
 ```
+
+## REST API
+
+eraXplor includes a FastAPI-based REST API that allows you to programmatically export cost data from both AWS and Azure.
+
+
+### Start the API Server
+
+```bash
+# From the api directory
+cd api
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+The API will be available at `http://localhost:8000`
+
+### API Endpoints
+
+#### AWS Cost Export
+
+**POST /aws/cost/export**
+
+```bash
+curl -X POST "http://localhost:8000/aws/cost/export" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "start_date": "2025-01-01",
+    "end_date": "2025-03-30",
+    "profile": "default",
+    "group_by": "LINKED_ACCOUNT",
+    "granularity": "MONTHLY"
+  }'
+```
+
+**GET /aws/cost/export**
+
+```bash
+curl "http://localhost:8000/aws/cost/export?start_date=2025-01-01&end_date=2025-03-30&profile=default&group_by=LINKED_ACCOUNT&granularity=MONTHLY"
+```
+
+#### Azure Cost Export
+
+**POST /azure/cost/export**
+
+```bash
+curl -X POST "http://localhost:8000/azure/cost/export" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "start_date": "2025-01-01",
+    "end_date": "2025-03-30",
+    "granularity": "Monthly",
+    "group_by": "subscription"
+  }'
+```
+
+**GET /azure/cost/export**
+
+```bash
+curl "http://localhost:8000/azure/cost/export?start_date=2025-01-01&end_date=2025-03-30&granularity=Monthly&group_by=subscription"
+```
+
+### API Response Format
+
+```json
+{
+  "success": true,
+  "message": "AWS cost data exported successfully",
+  "total_records": 5,
+  "cost_data": [...],
+  "request_parameters": {
+    "start_date": "2025-01-01",
+    "end_date": "2025-03-30",
+    "profile": "default",
+    "group_by": "LINKED_ACCOUNT",
+    "granularity": "MONTHLY"
+  }
+}
+```
+
+### API Documentation (Swagger UI)
+
+Visit `http://localhost:8000/docs` for interactive API documentation.
+
+---
 
 ## How-To-Guide - AWS
 
@@ -85,23 +173,23 @@ aws configure <--profile [PROFILE_NAME]>
 ```bash
 eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
 <--profile [PROFILE-NAME]> \
-<--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE]> \
+<--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE | LINKED_ACCOUNT-With-SERVICE | LINKED_ACCOUNT-With-PURCHASE_TYPE | LINKED_ACCOUNT-With-USAGE_TYPE]> \
 <--out [file.csv]>
 <--granularity [DAILY | MONTHLY]>
 ```
 
 ### Argument Reference - AWS
 
-- `--start-date`, `-s`: **_(Not_Required)_** Default value set as six months before.
+- `--start-date`, `-s`: **_(Not_Required)_** Default value set as three months before.
 - `--end-date`, `-e`: **_(Not_Required)_** Default value set as Today date.
 - `--profile`, `-p`: **_(Not_Required)_** Default value set as `default`.
 - `--groupby`, `-g`: **_(Not_Required)_** Default value set as LINKED_ACCOUNT.
-    The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`)
+    The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`, `LINKED_ACCOUNT-With-SERVICE`, `LINKED_ACCOUNT-With-PURCHASE_TYPE`, `LINKED_ACCOUNT-With-USAGE_TYPE`)
 - `--out`, `-o`: **_(Not_Required)_** Default value set as `cost_repot.csv`.
 - `--granularity`, `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
     The available options are (`MONTHLY`, `DAILY`)
 
-## Example Usage - AWS
+### Example Usage - AWS
 
 ```bash
 eraXplor-aws
@@ -136,6 +224,7 @@ This will open the portal in your default browser to authenticate.
 ```bash
 eraXplor_az <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
 <--subscription_id [SUBSCRIPTION_ID]> \
+<--group-by [subscription | ServiceName | ResourceGroupName]> \
 <--granularity [DAILY | MONTHLY]> \
 <--output [FILE_NAME.CSV]>
 ```
@@ -145,9 +234,13 @@ eraXplor_az <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
 - `--start-date` or `-s`: **_(Optional)_** Default value set as three months before.
 - `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
 - `--subscription_id` or `-S`: **_(Optional)_** Default value set to list all subscriptions with tags.
+- `--group-by` or `-g`: **_(Optional)_** Default value set as `subscription`.
+    Available options: (`subscription`, `ServiceName`, `ResourceGroupName`)
 - `--out` or `-o`: **_(Optional)_** Default value set as `az_cost_report.csv`.
-- `--granularity` or `-g`: **_(Optional)_** Default value set as `MONTHLY`.
+- `--granularity` or `-G`: **_(Optional)_** Default value set as `MONTHLY`.
     The available options are (`MONTHLY`, `DAILY`)
+
+### Azure Commands
 
 ### Example Usage - Azure
 
@@ -186,3 +279,4 @@ _Cloud & DevOps Engineer_
 > "I built eraXplor to solve real-world cloud cost visibility challenges — the same pain points I encounter daily in enterprise environments. This tool embodies my belief that financial accountability should be accessible to every technical team."
 
 </details>
+

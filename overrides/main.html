@@ -64,6 +64,24 @@
   .md-sidebar--secondary .md-nav__toggle[aria-expanded="true"]::after {
     transform: rotate(90deg);
   }
+  
+  /* Dark mode toggle label styling */
+  .md-header__theme-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--md-default-fg-color);
+    margin-left: 0.25rem;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Hide label on small screens */
+  @media (max-width: 768px) {
+    .md-header__theme-label {
+      display: none;
+    }
+  }
 </style>
 {% endblock %}
 
@@ -103,6 +121,67 @@
         }
       });
     }, 100);
+  });
+  
+  /* JavaScript to add and update theme mode label */
+  document.addEventListener('DOMContentLoaded', function() {
+    // Wait for Material theme to be fully loaded
+    setTimeout(function() {
+      // Find the theme toggle button in the header
+      var themeToggle = document.querySelector('.md-header__theme-select');
+      
+      if (themeToggle) {
+        // Create the mode label span
+        var labelSpan = document.createElement('span');
+        labelSpan.className = 'md-header__theme-label';
+        
+        // Function to determine current mode based on data-theme attribute or class
+        function getCurrentMode() {
+          var dataTheme = themeToggle.getAttribute('data-md-color-scheme');
+          var htmlElement = document.documentElement;
+          
+          if (htmlElement.classList.contains('ts-light') || dataTheme === 'default') {
+            return 'Light';
+          } else if (htmlElement.classList.contains('ts-dark') || dataTheme === 'slate') {
+            return 'Dark';
+          } else {
+            return 'System';
+          }
+        }
+        
+        // Set initial label
+        labelSpan.textContent = getCurrentMode();
+        
+        // Insert the label after the toggle
+        themeToggle.parentNode.insertBefore(labelSpan, themeToggle.nextSibling);
+        
+        // Create an observer to watch for theme changes
+        var observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && (mutation.attributeName === 'class' || mutation.attributeName === 'data-md-color-scheme')) {
+              labelSpan.textContent = getCurrentMode();
+            }
+          });
+        });
+        
+        // Observe the HTML element for class changes (theme changes)
+        observer.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['class', 'data-md-color-scheme']
+        });
+        
+        // Also observe the toggle for changes
+        observer.observe(themeToggle, {
+          attributes: true,
+          attributeFilter: ['data-md-color-scheme']
+        });
+        
+        // Listen for theme change events from Material theme
+        document.addEventListener('md-color-scheme-change', function() {
+          labelSpan.textContent = getCurrentMode();
+        });
+      }
+    }, 200);
   });
 </script>
 {% endblock %}
