@@ -40,11 +40,11 @@ nav:
       - Overview: aws/index.md
       - Tutorials: aws/tutorials.md
       - How-to Guides: aws/how-to-guides.md
-      - Concepts: aws/explanation.md
+      - Explanation: aws/explanation.md
       - Reference: aws/reference.md
   - Azure (eraXplor-azure):
       - Overview: azure/index.md
       - Tutorials: azure/tutorials.md
       - How-to Guides: azure/how-to-guides.md
-      - Concepts: azure/explanation.md
+      - Explanation: azure/explanation.md
       - Reference: azure/reference.md
