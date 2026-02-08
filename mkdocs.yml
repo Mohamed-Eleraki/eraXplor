@@ -33,6 +33,9 @@ markdown_extensions:
 nav:
   # - Welcome to eraXplor - AWS cost Export Toold Docs: index.md
   - Welcome to eraXplor: index.md
+  - API Documentation:
+      - AWS API: docs/api/aws.md
+      - Azure API: docs/api/azure.md
   - AWS (eraXplor-aws):
       - Overview: aws/index.md
       - Tutorials: aws/tutorials.md
