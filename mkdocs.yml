@@ -35,6 +35,7 @@ theme:
   features:
     - navigation.sections
     - navigation.sidebar
+    - navigation.autoCollapsed
     - navigation.top
     - navigation.tracking
     - search.suggest
