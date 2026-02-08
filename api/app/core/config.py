@@ -9,10 +9,10 @@ class Settings:  # pylint: disable=too-few-public-methods
     # Project Information
     PROJECT_NAME: str = "eraXplor API"
     PROJECT_DESCRIPTION: str = "A RESTful API for AWS and Azure cost data export"
-    API_VERSION: str = "1.0.0"
+    API_VERSION: str = "2.0.0"
     
     # API Configuration
-    API_V1_STR: str = "/api/v1"
+    API_V1_STR: str = "/api/v2"
     HOST: str = "0.0.0.0"
     PORT: int = 8000
     DEBUG: bool = False
