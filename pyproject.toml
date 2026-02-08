@@ -38,6 +38,7 @@ classifiers = [
 [project.urls]
 Repository = "https://github.com/Mohamed-Eleraki/eraXplor.git"
 Issues = "https://github.com/Mohamed-Eleraki/eraXplor/issues"
+Documentation = "https://mohamed-eleraki.github.io/eraXplor"
 
 [project.optional-dependencies]
 dev = [
@@ -80,3 +81,4 @@ where = ["src"]
 [tool.setuptools.dynamic]
 #version = {attr = "eraXplor.utils.__version__"}
 version = {attr = "eraXplor_aws.utils.__version__"}
+
