@@ -20,9 +20,10 @@ azure.mgmt.costmanagement>=4.0.1
 # pytest-cov>=4.1.0
 
 # Documentation (Modern toolchain)
-# mkdocs>=1.5.3
-# mkdocs-material>=9.5.3  # Dark/light mode support
-# mkdocstrings[python]>=0.24.0  # Async processing
+mkdocs>=1.5.3
+mkdocs-material>=9.5.3  # Dark/light mode support
+mkdocstrings[python]>=0.24.0  # Async processing
+mike>=2.1.0  # Version management for mkdocs
 
 # Formatting (3.12+ optimized formatters)
 # black>=24.0.0  # Python 3.12+ style

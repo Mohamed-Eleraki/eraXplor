@@ -10,14 +10,52 @@ repo_name: Mohamed-Eleraki/eraXplor
 theme:
   name: "material"
   palette:
-    primary: green
-    accent: light green
+    - media: "(prefers-color-scheme)"
+      primary: green
+      accent: light green
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      primary: green
+      accent: light green
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      primary: green
+      accent: light green
+      scheme: slate
+      toggle:
+        icon: material/brightness-5
+        name: Switch to system preference
+  icon:
+    repo: fontawesome/brands/github
   features:
     - navigation.sections
     - navigation.sidebar
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
     - search.suggest
     - search.highlight
     - header.autohide
+    - content.code.copy
+    - content.tabs.link
+    - toc.follow
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Mohamed-Eleraki/eraXplor
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/eraXplor/
+  version:
+    provider: mike
 
 # fetch date from docstring
 plugins:
