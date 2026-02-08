@@ -17,12 +17,14 @@ from eraXplor_aws.utils.cost_export_utils import monthly_account_cost_export
 # Try to import Azure module - make it optional
 try:
     from eraXplor_azure.utils.cost_export_utils import cost_export as azure_cost_export
+    from eraXplor_azure.utils.cost_export_utils import list_subs
 
     AZURE_AVAILABLE = True
 except ImportError as e:
     print(f"Azure module not available: {e}")
     print("Azure endpoints will return an error message")
     azure_cost_export = None
+    list_subs = None
     AZURE_AVAILABLE = False
 
 # Create FastAPI app instance (no Pydantic models)
@@ -184,10 +186,10 @@ async def export_azure_costs_post(request: Request):
     Export Azure cost data using POST request with JSON body.
 
     Request Body Parameters:
-    - subscription_id (str, optional): Azure subscription ID
     - start_date (str, optional): Start date in YYYY-MM-DD format
     - end_date (str, optional): End date in YYYY-MM-DD format
     - granularity (str, optional): Time granularity - "Monthly" or "Daily" (default: "Monthly")
+    - group_by (str, optional): Group by dimension - "subscription", "ServiceName", or "ResourceGroupName" (default: "subscription")
 
     Assumes Azure credentials are already configured in the environment.
     """
@@ -209,10 +211,10 @@ async def export_azure_costs_post(request: Request):
             body = {}
 
         # Extract parameters with defaults
-        subscription_id = body.get("subscription_id")
         start_date = body.get("start_date")
         end_date = body.get("end_date")
         granularity = body.get("granularity", "Monthly")
+        group_by = body.get("group_by", "subscription")
 
         # Set default dates if not provided (Azure format: YYYY,MM,DD)
         if not start_date:
@@ -230,17 +232,20 @@ async def export_azure_costs_post(request: Request):
             end_date = end_date.replace("-", ",")
 
         print(f"Fetching Azure cost data from {start_date} to {end_date}")
-        if subscription_id:
-            print(f"Subscription ID: {subscription_id}, Granularity: {granularity}")
-        else:
-            print(
-                f"No subscription ID provided - fetching all subscriptions, Granularity: {granularity}"
+        print(f"Granularity: {granularity}, Group by: {group_by}")
+
+        # Fetch subscriptions first (required because eraXplor_azure doesn't handle None)
+        subscriptions_list_detailed = list_subs()
+        if not subscriptions_list_detailed:
+            return JSONResponse(
+                {"error": True, "message": "No Azure subscriptions found or accessible"},
+                status_code=404,
             )
 
-        # Call the existing eraXplor Azure function
+        # Call eraXplor Azure cost_export function
         cost_data = azure_cost_export(
-            subscription_id=subscription_id,  # Can be None to get all subscriptions
-            subscriptions_list_detailed=None,  # Function will fetch if needed
+            group_by=group_by,
+            subscriptions_list_detailed=subscriptions_list_detailed,
             start_date=start_date,
             end_date=end_date,
             granularity=granularity,
@@ -259,10 +264,10 @@ async def export_azure_costs_post(request: Request):
             "total_records": len(cost_data),
             "cost_data": cost_data,
             "request_parameters": {
-                "subscription_id": subscription_id,
                 "start_date": start_date.replace(",", "-"),  # Convert back for response
                 "end_date": end_date.replace(",", "-"),  # Convert back for response
                 "granularity": granularity,
+                "group_by": group_by,
             },
         }
 
@@ -278,19 +283,19 @@ async def export_azure_costs_post(request: Request):
 
 @app.get("/azure/cost/export")
 async def export_azure_costs_get(
-    subscription_id: str = None,
     start_date: str = None,
     end_date: str = None,
     granularity: str = "Monthly",
+    group_by: str = "subscription",
 ):
     """
     Export Azure cost data using GET request with query parameters.
 
     Query Parameters:
-    - subscription_id (str, optional): Azure subscription ID
     - start_date (str, optional): Start date in YYYY-MM-DD format
     - end_date (str, optional): End date in YYYY-MM-DD format
     - granularity (str, optional): Time granularity - "Monthly" or "Daily" (default: "Monthly")
+    - group_by (str, optional): Group by dimension - "subscription", "ServiceName", or "ResourceGroupName" (default: "subscription")
 
     Assumes Azure credentials are already configured in the environment.
     """
@@ -321,16 +326,20 @@ async def export_azure_costs_get(
             end_date = end_date.replace("-", ",")
 
         print(f"Fetching Azure cost data from {start_date} to {end_date}")
-        if subscription_id:
-            print(f"Subscription ID: {subscription_id}, Granularity: {granularity}")
-        else:
-            print(f"No subscription ID provided - fetching all subscriptions, "
-                  f"Granularity: {granularity}")
+        print(f"Granularity: {granularity}, Group by: {group_by}")
 
-        # Call the existing eraXplor Azure function
+        # Fetch subscriptions first (required because eraXplor_azure doesn't handle None)
+        subscriptions_list_detailed = list_subs()
+        if not subscriptions_list_detailed:
+            return JSONResponse(
+                {"error": True, "message": "No Azure subscriptions found or accessible"},
+                status_code=404,
+            )
+
+        # Call eraXplor Azure cost_export function
         cost_data = azure_cost_export(
-            subscription_id=subscription_id,  # Can be None to get all subscriptions
-            subscriptions_list_detailed=None,  # Function will fetch if needed
+            group_by=group_by,
+            subscriptions_list_detailed=subscriptions_list_detailed,
             start_date=start_date,
             end_date=end_date,
             granularity=granularity,
@@ -349,10 +358,10 @@ async def export_azure_costs_get(
             "total_records": len(cost_data),
             "cost_data": cost_data,
             "request_parameters": {
-                "subscription_id": subscription_id,
                 "start_date": start_date.replace(",", "-"),  # Convert back for response
                 "end_date": end_date.replace(",", "-"),  # Convert back for response
                 "granularity": granularity,
+                "group_by": group_by,
             },
         }
 
@@ -364,3 +373,4 @@ async def export_azure_costs_get(
             {"error": True, "message": f"Error exporting Azure costs: {str(e)}"},
             status_code=500,
         )
+

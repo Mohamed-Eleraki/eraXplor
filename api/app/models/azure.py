@@ -1,23 +1,22 @@
 """Azure cost management data models."""
 
 from typing import Optional, List, Dict, Any
+from pydantic import BaseModel  # Pylint: disable=import-error
 
 
-# Azure cost request structure (without Pydantic for simplicity)
-class AzureCostRequestStructure:  # Pylint: disable=too-few-public-methods
-    """Structure documentation for Azure cost export request."""
-    subscription_id: Optional[str] = None  # Azure subscription ID
-    start_date: Optional[str] = None       # YYYY-MM-DD format
+class AzureCostRequest(BaseModel):  # Pylint: disable=too-few-public-methods
+    """Request model for Azure cost export."""
+    start_date: Optional[str] = None        # YYYY-MM-DD format
     end_date: Optional[str] = None         # YYYY-MM-DD format
     granularity: str = "Monthly"           # Monthly or Daily
+    group_by: str = "subscription"         # Group by dimension: subscription, ServiceName, ResourceGroupName
 
 
-# Azure cost response structure (without Pydantic for simplicity)
-class AzureCostResponseStructure:  # Pylint: disable=too-few-public-methods
-    """Structure documentation for Azure cost export response."""
+class AzureCostResponse(BaseModel):  # Pylint: disable=too-few-public-methods
+    """Response model for Azure cost export."""
     success: bool
     message: str
     total_records: int
     cost_data: List[Dict[str, Any]]
     request_parameters: Dict[str, str]
-    
+
