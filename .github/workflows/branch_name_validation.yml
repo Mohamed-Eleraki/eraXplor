@@ -10,11 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check branch name
+        env:
+            BRANCH_NAME: ${{ github.head_ref }}
         run: |
+          set -euo pipefail
+
           echo "Validating PR source branch..."
           BRANCH_NAME="${{ github.head_ref }}"
 
-          echo "Detected branch name: $BRANCH_NAME"
+          echo "Detected branch name: ${BRANCH_NAME}"
 
           # -------------------------------------------------------
           # Allowed patterns:
