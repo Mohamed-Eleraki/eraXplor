@@ -45,11 +45,6 @@ Export Azure cost data using JSON request body.
 - `granularity` (string, optional): "Monthly" or "Daily". Default: "Monthly"
 - `group_by` (string, optional): Group by dimension. Options: "subscription", "ServiceName", "ResourceGroupName". Default: "subscription"
 
-!!! note
-    If no subscription_id is provided, the API will fetch cost data for all available Azure subscriptions.
-
----
-
 ### GET `/azure/cost/export`
 
 Export Azure cost data using query parameters.
