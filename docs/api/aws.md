@@ -1,10 +1,10 @@
-# 🟠 AWS Cost Export API
+# AWS Cost Export API
 
 This section documents the AWS cost export endpoints for the eraXplor API.
 
 ---
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 ### Prerequisites
 
@@ -59,7 +59,7 @@ docker run -p 8000:8000 eraxplor-api
 
 ---
 
-## 📋 API Information
+## API Information
 
 - **API Name**: eraXplor API
 - **Version**: 2.0.0
@@ -67,20 +67,20 @@ docker run -p 8000:8000 eraxplor-api
 
 ---
 
-## 🏠 Root Endpoint
+## Root Endpoint
 
 - **GET** `/` - Welcome message
 
 ---
 
-## 📖 Interactive Documentation
+## Interactive Documentation
 
 - **GET** `/docs` - Swagger UI
 - **GET** `/redoc` - ReDoc
 
 ---
 
-## 🟠 AWS Cost Export Endpoints
+## AWS Cost Export Endpoints
 
 ### POST `/aws/cost/export`
 
@@ -133,7 +133,7 @@ curl "http://localhost:8000/aws/cost/export?start_date=2025-08-01&end_date=2025-
 
 ---
 
-## 📊 Response Format
+## Response Format
 
 ```json
 {
@@ -160,7 +160,7 @@ curl "http://localhost:8000/aws/cost/export?start_date=2025-08-01&end_date=2025-
 
 ---
 
-## ⚠️ Error Responses
+## Error Responses
 
 ### General Error (500 Internal Server Error)
 ```json
@@ -172,7 +172,7 @@ curl "http://localhost:8000/aws/cost/export?start_date=2025-08-01&end_date=2025-
 
 ---
 
-## 🔧 Testing AWS Endpoint
+## Testing AWS Endpoint
 
 ```bash
 curl -X POST "http://localhost:8000/aws/cost/export" \
@@ -186,7 +186,7 @@ curl -X POST "http://localhost:8000/aws/cost/export" \
 
 ---
 
-## 🔐 Authentication Requirements
+## Authentication Requirements
 
 - AWS CLI configured with profiles
 - Valid AWS credentials in `~/.aws/credentials`
@@ -194,7 +194,7 @@ curl -X POST "http://localhost:8000/aws/cost/export" \
 
 ---
 
-## 📝 Dependencies
+## Dependencies
 
 ```
 fastapi>=0.68.0
@@ -204,10 +204,10 @@ boto3>=1.37.0
 
 ---
 
-## ✅ Features
+## Features
 
-✅ AWS Cost Export - Full functionality with granularity support  
-✅ Multiple grouping dimensions  
-✅ Flexible date ranges  
-✅ Support for AWS profiles
+- AWS Cost Export - Full functionality with granularity support
+- Multiple grouping dimensions
+- Flexible date ranges
+- Support for AWS profiles
 

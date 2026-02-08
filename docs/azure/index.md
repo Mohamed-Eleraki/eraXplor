@@ -10,17 +10,17 @@ it extracts detailed cost data by calling natively Azure APIs directly and Trans
 
 ## Key Features
 
-- ✅ **Subscription-Level Cost Breakdown**: Detailed breakdown of costs by Azure subscription with tags support.
-- ✅ **Service-Level Cost Breakdown**: Group costs by Azure service name (e.g., Virtual Machines, Storage, SQL Database).
-- ✅ **Resource Group Cost Breakdown**: Group costs by Azure Resource Group for FinOps tagging strategies.
-- ✅ **Multi-Subscription Support**: Automatically detects and queries all accessible Azure subscriptions.
-- ✅ **Daily/Monthly Cost Breakdown**: View costs aggregated by day or month based on your reporting needs.
-- ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
-- ✅ **Secure Authentication**: Uses Azure DefaultAzureCredential (supports Azure CLI, Managed Identity, Service Principal).
-- ✅ **CSV Export**: Ready-to-analyze reports in CSV format with currency and tags.
-- ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
-- ✅ **Documentation Ready**: Well explained documentations assest you kick start rapidly.
-- ✅ **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
+- **Subscription-Level Cost Breakdown**: Detailed breakdown of costs by Azure subscription with tags support.
+- **Service-Level Cost Breakdown**: Group costs by Azure service name (e.g., Virtual Machines, Storage, SQL Database).
+- **Resource Group Cost Breakdown**: Group costs by Azure Resource Group for FinOps tagging strategies.
+- **Multi-Subscription Support**: Automatically detects and queries all accessible Azure subscriptions.
+- **Daily/Monthly Cost Breakdown**: View costs aggregated by day or month based on your reporting needs.
+- **Flexible Date Ranges**: Custom start/end dates with validation.
+- **Secure Authentication**: Uses Azure DefaultAzureCredential (supports Azure CLI, Managed Identity, Service Principal).
+- **CSV Export**: Ready-to-analyze reports in CSV format with currency and tags.
+- **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
+- **Documentation Ready**: Well explained documentations assest you kick start rapidly.
+- **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
 
 ## Why eraXplor?
 

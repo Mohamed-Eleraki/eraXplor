@@ -2,13 +2,13 @@
 
 This section provides a structured breakdown of the main application module and its supporting utilities used in the `eraXplor_azure` project.
 
-🌟[eraXplor source code](https://github.com/Mohamed-Eleraki/eraXplor/tree/master/src/eraXplor_azure)
+[eraXplor source code](https://github.com/Mohamed-Eleraki/eraXplor/tree/master/src/eraXplor_azure)
 
 ---
 
-## 🔹Main Application Module
+## Main Application Module
 
-### ▶️ Entry Point
+### Entry Point
 
 ::: eraXplor_azure.__main__
 
@@ -16,9 +16,9 @@ This is the primary script responsible for orchestrating the user workflow. It h
 
 ---
 
-## 🛠 Utility Modules
+## Utility Modules
 
-### 🎨 Banner Utilities
+### Banner Utilities
 
 ::: eraXplor_azure.utils.banner_utils
 
@@ -27,7 +27,7 @@ information used in the CLI interface.
 
 ---
 
-### 📊 Cost Export Utilities
+### Cost Export Utilities
 
 ::: eraXplor_azure.utils.cost_export_utils
 
@@ -35,7 +35,7 @@ Contains functions for retrieving cost and usage reports from Azure Cost Explore
 
 ---
 
-### 🧾 CSV Export Utilities
+### CSV Export Utilities
 
 ::: eraXplor_azure.utils.csv_export_utils
 

@@ -2,13 +2,13 @@
 
 This section provides a structured breakdown of the main application module and its supporting utilities used in the `eraXplor_aws` project.
 
-🌟[eraXplor source code](https://github.com/Mohamed-Eleraki/eraXplor/tree/master/src/eraXplor_aws)
+[eraXplor source code](https://github.com/Mohamed-Eleraki/eraXplor/tree/master/src/eraXplor_aws)
 
 ---
 
-## 🔹Main Application Module
+## Main Application Module
 
-### ▶️ Entry Point
+### Entry Point
 
 ::: eraXplor_aws.__main__
 
@@ -16,9 +16,9 @@ This is the primary script responsible for orchestrating the user workflow. It h
 
 ---
 
-## 🛠 Utility Modules
+## Utility Modules
 
-### 🎨 Banner Utilities
+### Banner Utilities
 
 ::: eraXplor_aws.utils.banner_utils
 
@@ -27,7 +27,7 @@ information used in the CLI interface.
 
 ---
 
-### 📊 Cost Export Utilities
+### Cost Export Utilities
 
 ::: eraXplor_aws.utils.cost_export_utils
 
@@ -40,7 +40,7 @@ Contains functions for retrieving cost and usage reports from AWS Cost Explorer 
 
 ---
 
-### 🧾 CSV Export Utilities
+### CSV Export Utilities
 
 ::: eraXplor_aws.utils.csv_export_utils
 
@@ -48,7 +48,7 @@ Provides functionality to export retrieved cost data into a structured CSV forma
 
 ---
 
-### 📅 Date Utilities
+### Date Utilities
 
 ::: eraXplor_aws.utils.date_utils
 

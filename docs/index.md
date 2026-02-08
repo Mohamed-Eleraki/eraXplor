@@ -16,14 +16,14 @@ _azure still under development, more features will be added soon._
 
 ## Key Features
 
-- ✅ **Cloud provider Separated tools**: Separated tool for each cloud provider (AWS and Azure) avoiding complexty.
-- ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
-- ✅ **Multi-Profile Support**: Works with all configured AWS profiles.
-- ✅ **Multi-Subscription Support**: Works to list all configured Azure subscriptions.
-- ✅ **CSV Export**: Ready-to-analyze reports in CSV format.
-- ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
-- ✅ **Documentation Ready**: Well explained documentations assest you kick start rapidly.
-- ✅ **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
+- **Cloud provider Separated tools**: Separated tool for each cloud provider (AWS and Azure) avoiding complexty.
+- **Flexible Date Ranges**: Custom start/end dates with validation.
+- **Multi-Profile Support**: Works with all configured AWS profiles.
+- **Multi-Subscription Support**: Works to list all configured Azure subscriptions.
+- **CSV Export**: Ready-to-analyze reports in CSV format.
+- **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
+- **Documentation Ready**: Well explained documentations assest you kick start rapidly.
+- **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
 
 ## Why eraXplor?
 

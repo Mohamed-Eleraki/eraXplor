@@ -23,17 +23,17 @@ Even in ***a tiny Architectural design***, Manual Comparing the ***current cost*
 
 ## Key Features
 
-- ✅ **Account-Level Cost Breakdown**: Monthly or daily unblended costs per linked account.
-- ✅ **Service-Level Cost Breakdown**: Monthly or daily unblended costs per Services.
-- ✅ **Purchase Type-Level Cost Breakdown**: Monthly or daily unblended costs per Purchase Type.
-- ✅ **Usage Type-Level Cost Breakdown**: Monthly or daily unblended costs per Usage Type.
-- ✅ **Composite Cost Breakdown**: Monthly or daily unblended costs per composite Account.
-- ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
-- ✅ **Multi-Profile Support**: Works with all configured AWS profiles.
-- ✅ **CSV Export**: Ready-to-analyze reports in CSV format.
-- ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
-- ✅ **Documentation Ready**: Well explained documentations assest you kick start rapidly.
-- ✅ **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
+- **Account-Level Cost Breakdown**: Monthly or daily unblended costs per linked account.
+- **Service-Level Cost Breakdown**: Monthly or daily unblended costs per Services.
+- **Purchase Type-Level Cost Breakdown**: Monthly or daily unblended costs per Purchase Type.
+- **Usage Type-Level Cost Breakdown**: Monthly or daily unblended costs per Usage Type.
+- **Composite Cost Breakdown**: Monthly or daily unblended costs per composite Account.
+- **Flexible Date Ranges**: Custom start/end dates with validation.
+- **Multi-Profile Support**: Works with all configured AWS profiles.
+- **CSV Export**: Ready-to-analyze reports in CSV format.
+- **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
+- **Documentation Ready**: Well explained documentations assest you kick start rapidly.
+- **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
 
 ## Why eraXplor?
 

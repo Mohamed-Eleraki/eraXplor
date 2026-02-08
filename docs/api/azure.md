@@ -1,10 +1,10 @@
-# 🔷 Azure Cost Export API
+# Azure Cost Export API
 
 This section documents the Azure cost export endpoints for the eraXplor API.
 
 ---
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 ### Prerequisites
 
@@ -58,7 +58,7 @@ docker run -p 8000:8000 eraxplor-api
 
 ---
 
-## 📋 API Information
+## API Information
 
 - **API Name**: eraXplor API
 - **Version**: 2.0.0
@@ -66,20 +66,20 @@ docker run -p 8000:8000 eraxplor-api
 
 ---
 
-## 🏠 Root Endpoint
+## Root Endpoint
 
 - **GET** `/` - Welcome message
 
 ---
 
-## 📖 Interactive Documentation
+## Interactive Documentation
 
 - **GET** `/docs` - Swagger UI
 - **GET** `/redoc` - ReDoc
 
 ---
 
-## 🔷 Azure Cost Export Endpoints
+## Azure Cost Export Endpoints
 
 ### POST `/azure/cost/export`
 
@@ -123,7 +123,7 @@ curl "http://localhost:8000/azure/cost/export?granularity=Monthly"
 
 ---
 
-## 📊 Response Format
+## Response Format
 
 ```json
 {
@@ -151,7 +151,7 @@ curl "http://localhost:8000/azure/cost/export?granularity=Monthly"
 
 ---
 
-## ⚠️ Error Responses
+## Error Responses
 
 ### Azure Module Not Available (503 Service Unavailable)
 ```json
@@ -179,7 +179,7 @@ curl "http://localhost:8000/azure/cost/export?granularity=Monthly"
 
 ---
 
-## 🔧 Testing Azure Endpoint
+## Testing Azure Endpoint
 
 ### Test Azure Endpoint (Specific Subscription)
 ```bash
@@ -206,7 +206,7 @@ curl -X POST "http://localhost:8000/azure/cost/export" \
 
 ---
 
-## 🔐 Authentication Requirements
+## Authentication Requirements
 
 - Azure CLI logged in (`az login`)
 - Or environment variables:
@@ -217,7 +217,7 @@ curl -X POST "http://localhost:8000/azure/cost/export" \
 
 ---
 
-## 📝 Dependencies
+## Dependencies
 
 ```
 fastapi>=0.68.0
@@ -229,11 +229,11 @@ azure-mgmt-resource>=23.0.0
 
 ---
 
-## ✅ Features
+## Features
 
-✅ Azure Cost Export - Subscription-based cost analysis  
-✅ Multi-subscription support  
-✅ Multiple grouping dimensions (subscription, ServiceName, ResourceGroupName)  
-✅ Flexible date ranges  
-✅ Subscription tags support
+- Azure Cost Export - Subscription-based cost analysis
+- Multi-subscription support
+- Multiple grouping dimensions (subscription, ServiceName, ResourceGroupName)
+- Flexible date ranges
+- Subscription tags support
 
