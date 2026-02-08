@@ -2,6 +2,62 @@
 
 This section documents the Azure cost export endpoints for the eraXplor API.
 
+---
+
+## 🚀 How to Run Locally
+
+### Prerequisites
+
+- Python 3.12+
+- pip
+- Git
+- Azure CLI
+
+### Setup Instructions
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/Mohamed-Eleraki/eraXplor.git
+cd eraXplor
+```
+
+2. **Create a virtual environment:**
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. **Install dependencies:**
+```bash
+cd api
+pip install -r requirements.txt
+```
+
+4. **Configure Azure credentials:**
+```bash
+az login
+```
+
+5. **Run the API server:**
+```bash
+cd api
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+6. **Access the API:**
+   - Swagger UI: http://localhost:8000/docs
+   - ReDoc: http://localhost:8000/redoc
+   - Health check: http://localhost:8000/
+
+### Docker (Optional)
+
+```bash
+docker build -t eraxplor-api ./api
+docker run -p 8000:8000 eraxplor-api
+```
+
+---
+
 ## 📋 API Information
 
 - **API Name**: eraXplor API
