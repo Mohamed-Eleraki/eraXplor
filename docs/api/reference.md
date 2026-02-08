@@ -1,6 +1,6 @@
 # API Reference
 
-This section provides auto-generated API reference documentation for the eraXplor API.
+This section provides auto-generated API reference documentation for the eraXplor API, extracted directly from the FastAPI application docstrings.
 
 ## Interactive Documentation
 
@@ -20,19 +20,18 @@ An alternative documentation interface with a clean, three-panel layout.
 - **URL**: `/redoc`
 - **Features**: Sidebar navigation, easy endpoint discovery, schema references
 
-## OpenAPI Schema
+## Auto-Generated Reference
 
-The API is built on the OpenAPI 3.0 specification and provides:
-
-- Complete endpoint documentation
-- Request/response schemas
-- Parameter definitions
-- Error response examples
-
-## API Version
-
-- **Current Version**: 2.0.0
-- **Base Path**: `/api/v1`
+::: api.main
+    options:
+        heading_level: 2
+        show_root_heading: true
+        members:
+            - root
+            - export_aws_costs_post
+            - export_aws_costs_get
+            - export_azure_costs_post
+            - export_azure_costs_get
 
 ## Authentication
 
@@ -46,5 +45,4 @@ The eraXplor API uses AWS and Azure CLI credentials for authentication:
 - No built-in rate limiting (relies on underlying cloud provider limits)
 - AWS Cost Explorer has its own quotas
 - Azure Cost Management has its own quotas
-
 

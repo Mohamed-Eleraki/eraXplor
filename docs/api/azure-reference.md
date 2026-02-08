@@ -1,6 +1,6 @@
 # Azure API Reference
 
-This section provides the API reference documentation for Azure cost export endpoints.
+This section provides the API reference documentation for Azure cost export endpoints, auto-generated from docstrings.
 
 ## Interactive Documentation
 
@@ -14,21 +14,17 @@ This section provides the API reference documentation for Azure cost export endp
 - **URL**: `/redoc`
 - **Features**: Sidebar navigation, endpoint discovery
 
-## API Version
+## Azure Endpoints Reference
 
-- **Version**: 2.0.0
-- **Base Path**: `/api/v2`
+::: api.main.export_azure_costs_post
+    options:
+        heading_level: 3
+        show_root_heading: false
 
-## Azure Endpoints
-
-### Root
-
-- `GET /` - Welcome message
-
-### Cost Export
-
-- `POST /azure/cost/export` - Export Azure costs with JSON body
-- `GET /azure/cost/export` - Export Azure costs with query parameters
+::: api.main.export_azure_costs_get
+    options:
+        heading_level: 3
+        show_root_heading: false
 
 ## Authentication
 
@@ -39,5 +35,4 @@ This section provides the API reference documentation for Azure cost export endp
 ## Rate Limiting
 
 Azure Cost Management has its own quotas - no built-in limiting.
-
 

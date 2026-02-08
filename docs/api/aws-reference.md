@@ -1,6 +1,6 @@
 # AWS API Reference
 
-This section provides the API reference documentation for AWS cost export endpoints.
+This section provides the API reference documentation for AWS cost export endpoints, auto-generated from docstrings.
 
 ## Interactive Documentation
 
@@ -14,21 +14,17 @@ This section provides the API reference documentation for AWS cost export endpoi
 - **URL**: `/redoc`
 - **Features**: Sidebar navigation, endpoint discovery
 
-## API Version
+## AWS Endpoints Reference
 
-- **Version**: 2.0.0
-- **Base Path**: `/api/v2`
+::: api.main.export_aws_costs_post
+    options:
+        heading_level: 3
+        show_root_heading: false
 
-## AWS Endpoints
-
-### Root
-
-- `GET /` - Welcome message
-
-### Cost Export
-
-- `POST /aws/cost/export` - Export AWS costs with JSON body
-- `GET /aws/cost/export` - Export AWS costs with query parameters
+::: api.main.export_aws_costs_get
+    options:
+        heading_level: 3
+        show_root_heading: false
 
 ## Authentication
 
@@ -39,5 +35,4 @@ This section provides the API reference documentation for AWS cost export endpoi
 ## Rate Limiting
 
 AWS Cost Explorer has its own quotas - no built-in limiting.
-
 
