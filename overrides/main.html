@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block styles %}
+{{ super() }}
+<style>
+  /* Left sidebar border */
+  .md-sidebar--primary {
+    border-right: 1px solid var(--md-default-fg-color--lightest);
+  }
+  
+  /* Left sidebar section borders */
+  .md-sidebar--primary .md-nav__item {
+    border-left: 3px solid transparent;
+  }
+  
+  .md-sidebar--primary .md-nav__item--active {
+    border-left-color: var(--md-accent-fg-color);
+    background-color: var(--md-accent-fg-color--transparent);
+  }
+  
+  /* Navigation section headers */
+  .md-sidebar--primary .md-nav__title {
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
+    font-weight: bold;
+  }
+  
+  /* Sub-navigation items */
+  .md-sidebar--primary .md-nav__list .md-nav__item {
+    border-left: 2px solid transparent;
+    margin-left: 4px;
+  }
+  
+  .md-sidebar--primary .md-nav__list .md-nav__item--active {
+    border-left-color: var(--md-primary-fg-color);
+    background-color: var(--md-primary-fg-color--transparent);
+  }
+  
+  /* Hover effect for sidebar items */
+  .md-sidebar--primary .md-nav__item:hover {
+    background-color: var(--md-default-fg-color--lightest);
+  }
+  
+  /* Right sidebar (TOC) border */
+  .md-sidebar--secondary {
+    border-left: 1px solid var(--md-default-fg-color--lightest);
+  }
+  
+  /* Card-like effect for navigation sections */
+  .md-sidebar--primary .md-nav__section {
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 4px;
+    margin: 8px;
+    padding: 4px;
+  }
+  
+  /* Active state indicator */
+  .md-nav__item--active > .md-nav__link {
+    font-weight: bold;
+    color: var(--md-primary-fg-color);
+  }
+</style>
+{% endblock %}
+

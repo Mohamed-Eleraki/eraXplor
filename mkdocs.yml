@@ -35,7 +35,6 @@ theme:
   features:
     - navigation.sections
     - navigation.sidebar
-    - navigation.tabs
     - navigation.top
     - navigation.tracking
     - search.suggest
@@ -47,6 +46,7 @@ theme:
   font:
     text: Roboto
     code: Roboto Mono
+  custom_dir: overrides
 
 extra:
   social:
