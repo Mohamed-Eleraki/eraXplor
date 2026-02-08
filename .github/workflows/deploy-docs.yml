@@ -43,7 +43,7 @@ jobs:
           pip install -e ${{ github.workspace }}
 
       - name: Build MkDocs site
-        run: mkdocs build --strict
+        run: mkdocs gh-deploy --force --clean
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
