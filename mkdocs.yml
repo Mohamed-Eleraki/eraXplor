@@ -13,8 +13,8 @@ theme:
     primary: green
     accent: light green
   features:
-    - navigation.tabs
     - navigation.sections
+    - navigation.sidebar
     - search.suggest
     - search.highlight
     - header.autohide
@@ -38,9 +38,10 @@ nav:
       - Tutorials: aws/tutorials.md
       - How-to Guides: aws/how-to-guides.md
       - Concepts: aws/explanation.md
+      - Reference: aws/reference.md
   - Azure (eraXplor-azure):
       - Overview: azure/index.md
       - Tutorials: azure/tutorials.md
       - How-to Guides: azure/how-to-guides.md
       - Concepts: azure/explanation.md
-  - Reference: reference.md
+      - Reference: azure/reference.md
