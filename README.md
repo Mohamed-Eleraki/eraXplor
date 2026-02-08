@@ -30,14 +30,14 @@ _azure still under development, more features will be added soon._
 Quickly find what you're looking for depending on
 your use case by looking at the different pages.
 
-### AWS (eraXplor)
+### AWS
 
 1. [Overview](https://mohamed-eleraki.github.io/eraXplor/aws/)
 2. [Tutorials](https://mohamed-eleraki.github.io/eraXplor/aws/tutorials/)
 3. [How-To Guides](https://mohamed-eleraki.github.io/eraXplor/aws/how-to-guides/)
 5. [Concepts & Explanation](https://mohamed-eleraki.github.io/eraXplor/aws/explanation/)
 
-### Azure (eraXplor_az)
+### Azure
 
 1. [Overview](https://mohamed-eleraki.github.io/eraXplor/azure/)
 2. [Tutorials](https://mohamed-eleraki.github.io/eraXplor/azure/tutorials/)
