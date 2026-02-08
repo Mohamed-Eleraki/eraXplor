@@ -42,7 +42,7 @@ pip install eraXplor
 
 ```bash
 eraXplor-azure <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
-<--subscription_id [SUBSCRIPTION_ID]> \
+<--group-by [subscription | ServiceName | ResourceGroupName]> \
 <--granularity [Daily | Monthly]> \
 <--output [FILE_NAME.CSV]>
 ```
@@ -59,19 +59,57 @@ python -m eraXplor-azure
 # Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\
 ```
 
+### Argument Reference
+
+| Argument | Short | Description | Default |
+|----------|-------|-------------|---------|
+| `--start-date` | `-s` | Start date (YYYY,MM,DD format) | 3 months ago |
+| `--end-date` | `-e` | End date (YYYY,MM,DD format) | Today |
+| `--group-by` | `-g` | Grouping dimension | `subscription` |
+| `--granularity` | `-G` | Time aggregation | `Monthly` |
+| `--out` | `-o` | Output CSV filename | `az_cost_report.csv` |
+
+### Group By Options
+
+- **`subscription`**: Group costs by Azure subscription (default)
+- **`ServiceName`**: Group costs by Azure service name (e.g., Virtual Machines, Storage)
+- **`ResourceGroupName`**: Group costs by Resource Group
+
+### Granularity Options
+
+- **`Monthly`**: Aggregate costs by month (default)
+- **`Daily`**: Show daily cost breakdown
+
+## Advanced Usage Examples
+
+### Export Costs by Service Name
+
+Identify which Azure services are driving costs across all subscriptions:
+
+```bash
+eraXplor-azure -g ServiceName -G Monthly -o service_costs.csv
+```
+
+### Export Costs by Resource Group
+
+Analyze costs by Resource Group for tagging compliance and FinOps:
+
+```bash
+eraXplor-azure -g ResourceGroupName -G Monthly -o resourcegroup_costs.csv
+```
+
+### Daily Cost Breakdown
+
+Get granular daily cost data for the last 30 days:
+
+```bash
+eraXplor-azure -s 2025,02,01 -e 2025,03,01 -G Daily -o daily_costs.csv
+```
+
 ???+ info "Note"
 
     Ensure you run the command in a place you have sufficient permission to replace file.
     *The eraXport tool sorting cost reult into a CSV file, by default The CSV will replace for next run.*
-
-### Argument Reference
-
-- `--start-date` or `-s`: **_(Optional)_** Default value set as three months before.
-- `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
-- `--subscription_id` or `-S`: **_(Optional)_** subscription id, Default value set to list all subscriptions with tags.
-- `--out` or `-o`: **_(Optional)_** Default value set as `az_cost_report.csv`.
-- `--granularity` or `-g`: **_(Optional)_** Default value set as `Monthly`.
-    The available options are (`Monthly`, `Daily`)
 
 <!-- 
 

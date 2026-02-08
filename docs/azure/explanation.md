@@ -12,22 +12,34 @@ Even in ***a tiny Architectural design***, Manual Comparing the ***current cost*
 
 `eraXplor-azure` is a CLI tool deliver an automatic way to aggregate cost data based on user inputs and export these data into CSV format.
 
-- Aggregate cost data per Azure Subscription, Monthly or Daily.
-- Export data in reports, CVS format.
-- Suport Azure CLI credintials.
-- Cross-platform CLI interface.
+### Cost Grouping Dimensions
+
+eraXplor-azure provides three powerful grouping dimensions for cost analysis:
+
+| Dimension | Description | Use Case |
+|-----------|-------------|----------|
+| **Subscription** | Group costs by Azure subscription | Multi-subscription cost allocation and chargebacks |
+| **ServiceName** | Group costs by Azure service type | Identify cost drivers (VMs, Storage, SQL, etc.) |
+| **ResourceGroupName** | Group costs by Resource Group | FinOps tagging compliance and team-based costing |
+
+### Key Capabilities
+
+- Aggregate cost data per Azure Subscription, Service, or Resource Group
+- Monthly or Daily cost aggregation
+- CSV export with currency and tags metadata
+- Support for Azure CLI credentials and Managed Identity
+- Cross-platform CLI interface
 
 ## Key Features
 
-- ✅ **subscription-Level Cost Breakdown** : eraXplor provides a detailed breakdown of costs by subscription, allowing you to identify areas where costs.
-- ✅ **Multi-Subscription Support**: Works to list all configured Azure subscriptions.
-- ✅ **Daily/Monthly Cost Breakdown** : eraXplor allows you to view costs on a daily or monthly basis, giving you a clear.
+- ✅ **Subscription-Level Cost Breakdown**: Detailed breakdown of costs by Azure subscription with tags support.
+- ✅ **Service-Level Cost Breakdown**: Group costs by Azure service name (e.g., Virtual Machines, Storage, SQL Database).
+- ✅ **Resource Group Cost Breakdown**: Group costs by Azure Resource Group for FinOps tagging strategies.
+- ✅ **Multi-Subscription Support**: Automatically detects and queries all accessible Azure subscriptions.
+- ✅ **Daily/Monthly Cost Breakdown**: View costs aggregated by day or month based on your reporting needs.
 - ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
-- ✅ **Support secure authentication**: By fetching Azure credentials configured within terminal.
-- ✅ **CSV Export**: Ready-to-analyze reports in CSV format.
-- ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
-- ✅ **Documentation Ready**: Well explained documentations assest you kick start rapidly.
-- ✅ **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
+- ✅ **Secure Authentication**: Uses Azure DefaultAzureCredential (supports Azure CLI, Managed Identity, Service Principal).
+- ✅ **CSV Export**: Ready-to-analyze reports in CSV format with currency and tags.
 
 ## Why eraXplor?
 

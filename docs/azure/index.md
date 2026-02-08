@@ -6,18 +6,18 @@ Azure Cost Export Tool for automated cost reporting and analysis.
 
 **eraXplor** is an automated Azure cost reporting tool designed for assest DevOps and FinOps teams fetching and sorting Azure Cost Explorer.
 it extracts detailed cost data by calling natively Azure APIs directly and Transform result into CSVs.
-`eraXplor-azure` gives you the ability to sort the cost by Subscription; as well as format and separate the result by Monthly or Daily.
-
-_azure still under development, more features will be added soon._
+`eraXplor-azure` gives you the ability to sort the cost by Subscription, Service Name, or Resource Group; as well as format and separate the result by Monthly or Daily.
 
 ## Key Features
 
-- ✅ **subscription-Level Cost Breakdown** : eraXplor provides a detailed breakdown of costs by subscription, allowing you to identify areas where costs.
-- ✅ **Multi-Subscription Support**: Works to list all configured Azure subscriptions.
-- ✅ **Daily/Monthly Cost Breakdown** : eraXplor allows you to view costs on a daily or monthly basis, giving you a clear.
+- ✅ **Subscription-Level Cost Breakdown**: Detailed breakdown of costs by Azure subscription with tags support.
+- ✅ **Service-Level Cost Breakdown**: Group costs by Azure service name (e.g., Virtual Machines, Storage, SQL Database).
+- ✅ **Resource Group Cost Breakdown**: Group costs by Azure Resource Group for FinOps tagging strategies.
+- ✅ **Multi-Subscription Support**: Automatically detects and queries all accessible Azure subscriptions.
+- ✅ **Daily/Monthly Cost Breakdown**: View costs aggregated by day or month based on your reporting needs.
 - ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
-- ✅ **Support secure authentication**: By fetching Azure credentials configured within terminal.
-- ✅ **CSV Export**: Ready-to-analyze reports in CSV format.
+- ✅ **Secure Authentication**: Uses Azure DefaultAzureCredential (supports Azure CLI, Managed Identity, Service Principal).
+- ✅ **CSV Export**: Ready-to-analyze reports in CSV format with currency and tags.
 - ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
 - ✅ **Documentation Ready**: Well explained documentations assest you kick start rapidly.
 - ✅ **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.

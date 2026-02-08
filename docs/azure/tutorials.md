@@ -1,10 +1,10 @@
 # Tutorials
 
-# 1. Setup eraXplor for your Azure Authentication
+## 1. Setup eraXplor for your Azure Authentication
 
 This tutorial walks you through setting up of `eraXplor-azure` to start exporting your Azure cost data automatically.
 
-## Prerequisites
+### Prerequisites
 
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?view=azure-cli-latest&pivots=apt)
 - [Python version >= 3.12.3](https://www.python.org/downloads/)
@@ -15,7 +15,7 @@ This tutorial walks you through setting up of `eraXplor-azure` to start exportin
 python3 --version
 ```
 
-## Steps
+### Steps
 
 1. **Install eraXplor-azure:**
 
@@ -33,21 +33,53 @@ az login
 
 3. **Run eraXplor:**
 
-List all subscription costs
+---
+
+## 2. Usage Examples
+
+### Basic Usage - List All Subscription Costs
 
 ```bash
 eraXplor-azure
 ```
 
-Run for specific subscription:
+This will export costs for all accessible subscriptions grouped by subscription.
+
+### Group by Azure Service Name
+
+View costs breakdown by Azure service (e.g., Virtual Machines, Storage, SQL Database):
 
 ```bash
-eraXplor-azure -S SUBSCRIPTION_ID
+eraXplor-azure -g ServiceName -G Monthly
 ```
+
+### Group by Resource Group
+
+View costs breakdown by Resource Group for FinOps tagging analysis:
+
+```bash
+eraXplor-azure -g ResourceGroupName -G Monthly
+```
+
+### Custom Date Range
+
+```bash
+eraXplor-azure -s 2025,01,01 -e 2025,03,30
+```
+
+### Custom Output Filename
+
+```bash
+eraXplor-azure -o my_cost_report.csv
+```
+
+---
+
+## 3. Command Reference
 
 ```bash
 eraXplor-azure <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
-<--subscription_id [SUBSCRIPTION_ID]> \
+<--group-by [subscription | ServiceName | ResourceGroupName]> \
 <--granularity [Daily | Monthly]> \
 <--output [FILE_NAME.CSV]>
 ```
@@ -64,19 +96,31 @@ python -m eraXplor-azure
 # Normaly its under: C:\Users\<YourUser>\AppData\Local\Programs\Python\Python<version>\Scripts\
 ```
 
+### Argument Reference
+
+| Argument | Short | Description | Default |
+|----------|-------|-------------|---------|
+| `--start-date` | `-s` | Start date (YYYY,MM,DD format) | 3 months ago |
+| `--end-date` | `-e` | End date (YYYY,MM,DD format) | Today |
+| `--group-by` | `-g` | Grouping dimension | `subscription` |
+| `--granularity` | `-G` | Time aggregation | `Monthly` |
+| `--out` | `-o` | Output CSV filename | `az_cost_report.csv` |
+
+### Group By Options
+
+- **`subscription`**: Group costs by Azure subscription (default)
+- **`ServiceName`**: Group costs by Azure service name
+- **`ResourceGroupName`**: Group costs by Resource Group
+
+### Granularity Options
+
+- **`Monthly`**: Aggregate costs by month (default)
+- **`Daily`**: Show daily cost breakdown
+
 ???+ info "Note"
 
     Ensure you run the command in a place you have sufficient permission to replace file.
     *The eraXport tool sorting cost reult into a CSV file, by default The CSV will replace for next run.*
-
-### Argument Reference
-
-- `--start-date` or `-s`: **_(Optional)_** Default value set as three months before.
-- `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
-- `--subscription_id` or `-S`: **_(Optional)_** subscription id, Default value set to list all subscriptions with tags.
-- `--out` or `-o`: **_(Optional)_** Default value set as `az_cost_report.csv`.
-- `--granularity` or `-g`: **_(Optional)_** Default value set as `Monthly`.
-    The available options are (`Monthly`, `Daily`)
 
 <!-- This part of the project documentation focuses on a
 **learning-oriented** approach. You'll learn how to

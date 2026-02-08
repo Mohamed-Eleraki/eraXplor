@@ -10,7 +10,7 @@ The module includes:
     - parser: Parses command-line arguments for the cost export tool
     - cost_export: Fetches Azure cost data using the Cost Management API
 
-Version: 3.2.0
+Version: 3.3.0
 
 Example:
     >>> from eraXplor_azure.utils import banner, parser, cost_export
@@ -23,7 +23,7 @@ from .cost_export_utils import cost_export
 from .cost_export_utils import list_subs
 
 
-__version__ = "3.2.0"
+__version__ = "3.3.0"
 
 __all__ = [
     'banner',

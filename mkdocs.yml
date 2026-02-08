@@ -1,13 +1,30 @@
 site_name: eraXplor - Cost Export Tool
+site_url: https://mohamed-eleraki.github.io/eraXplor
+site_description: A Python CLI tool for exporting cost reports over Multi-providers AWS/Azure.
+copyright: Copyright &copy; 2025 Mohamed eraki
+
+repo_url: https://github.com/Mohamed-Eleraki/eraXplor
+edit_uri: edit/main/docs/
+repo_name: Mohamed-Eleraki/eraXplor
 
 theme:
   name: "material"
+  palette:
+    primary: green
+    accent: light green
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - search.suggest
+    - search.highlight
+    - header.autohide
 
 # fetch date from docstring
 plugins:
   - mkdocstrings # must install mkdocstrings first
   - mermaid2
   - search
+  - autorefs
 
 markdown_extensions:
   - admonition
