@@ -28,13 +28,18 @@
     margin: 0;
   }
   
-  /* Subtle hover effect */
+  /* DISABLE hover highlight effect on navigation items */
   .md-sidebar--primary .md-nav__item:hover {
-    background-color: transparent;
+    background-color: transparent !important;
   }
   
   .md-sidebar--primary .md-nav__item:hover > .md-nav__link {
-    background-color: var(--md-default-fg-color--lightest);
+    background-color: transparent !important;
+  }
+  
+  /* Remove any hover backgrounds on nav links */
+  .md-sidebar--primary .md-nav__link:hover {
+    background-color: transparent !important;
   }
   
   /* Active link styling */
@@ -60,5 +65,45 @@
     transform: rotate(90deg);
   }
 </style>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+  /* JavaScript to collapse AWS and Azure sections on page load */
+  document.addEventListener('DOMContentLoaded', function() {
+    // Wait for Material theme to initialize
+    setTimeout(function() {
+      // Find all navigation sections in the primary sidebar
+      var navSections = document.querySelectorAll('.md-sidebar--primary .md-nav__item--section');
+      
+      navSections.forEach(function(section) {
+        var link = section.querySelector('.md-nav__link');
+        var toggle = section.querySelector('.md-nav__toggle');
+        
+        // Check if this section is for AWS or Azure
+        var sectionTitle = link ? link.textContent.trim() : '';
+        if (sectionTitle === 'AWS' || sectionTitle === 'Azure') {
+          // Force collapse the section
+          if (toggle) {
+            toggle.checked = false;
+            toggle.setAttribute('aria-expanded', 'false');
+          }
+          
+          // Hide the nested nav
+          var nestedNav = section.querySelector('.md-nav');
+          if (nestedNav) {
+            nestedNav.hidden = true;
+            nestedNav.setAttribute('aria-labelledby', link.id);
+            link.setAttribute('aria-expanded', 'false');
+          }
+          
+          // Add visual indicator that section is collapsed
+          section.classList.add('md-nav__item--collapsed');
+        }
+      });
+    }, 100);
+  });
+</script>
 {% endblock %}
 
