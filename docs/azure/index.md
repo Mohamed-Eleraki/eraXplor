@@ -4,7 +4,7 @@
 
 Azure Cost Export Tool for automated cost reporting and analysis.
 
-**eraXplor** is an automated Azure cost reporting tool designed for assest DevOps and FinOps teams fetching and sorting Azure Cost Explorer.
+**eraXplor** is an automated Azure cost reporting tool designed for assist DevOps and FinOps teams fetching and sorting Azure Cost Explorer.
 it extracts detailed cost data by calling natively Azure APIs directly and Transform result into CSVs.
 `eraXplor-azure` gives you the ability to sort the cost by Subscription, Service Name, or Resource Group; as well as format and separate the result by Monthly or Daily.
 
@@ -19,7 +19,7 @@ it extracts detailed cost data by calling natively Azure APIs directly and Trans
 - **Secure Authentication**: Uses Azure DefaultAzureCredential (supports Azure CLI, Managed Identity, Service Principal).
 - **CSV Export**: Ready-to-analyze reports in CSV format with currency and tags.
 - **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
-- **Documentation Ready**: Well explained documentations assest you kick start rapidly.
+- **Documentation Ready**: Well explained documentations assist you kick start rapidly.
 - **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
 
 ## Why eraXplor?
@@ -47,7 +47,7 @@ your use case by looking at the different pages.
 ???+ info "Show/Hide Author Details"
 
     **Mohamed eraki**  
-    *Cloud & DevOps Engineer*
+    *Cloud & DevOps Consultant*
 
     [![Email](https://img.shields.io/badge/Contact-mohamed--ibrahim2021@outlook.com-blue?style=flat&logo=mail.ru)](mailto:mohamed-ibrahim2021@outlook.com)  
     [![LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-informational?style=flat&logo=linkedin)](https://www.linkedin.com/in/mohamed-el-eraki-8bb5111aa/)  

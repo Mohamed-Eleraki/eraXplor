@@ -4,15 +4,13 @@
 
 Cost Export Tool for automated cost reporting and analysis.
 
-**eraXplor** is an automated cost reporting tool designed for assest DevOps and FinOps teams fetching and sorting AWS and Azure Cost Explorer.
+**eraXplor** is an automated cost reporting tool designed for assist DevOps and FinOps teams fetching and sorting AWS and Azure Cost Explorer.
 it extracts detailed cost data by calling nativly cloud provider APIs directly and Transform result into CSV file.
 `eraXplor` gives you the ability to sort the cost with wide range of options:
 
 - For **AWS** you able to sort cost by Account, Service, Usage Type or even By Purchase Type; as well as format and separate the result by Monthly or Daily.
 - For **Azure** you able to sort cost by Subscription, as well as format and separate the result by Monthly or Daily.
 </br>
-
-_azure still under development, more features will be added soon._
 
 ## Key Features
 
@@ -22,7 +20,7 @@ _azure still under development, more features will be added soon._
 - **Multi-Subscription Support**: Works to list all configured Azure subscriptions.
 - **CSV Export**: Ready-to-analyze reports in CSV format.
 - **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
-- **Documentation Ready**: Well explained documentations assest you kick start rapidly.
+- **Documentation Ready**: Well explained documentations assist you kick start rapidly.
 - **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
 
 ## Why eraXplor?
@@ -63,7 +61,7 @@ your use case by looking at the different pages.
 ???+ info "Show/Hide Author Details"
 
     **Mohamed eraki**  
-    *Cloud & DevOps Engineer*
+    *Cloud & DevOps Consultant*
 
     [![Email](https://img.shields.io/badge/Contact-mohamed--ibrahim2021@outlook.com-blue?style=flat&logo=mail.ru)](mailto:mohamed-ibrahim2021@outlook.com)  
     [![LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-informational?style=flat&logo=linkedin)](https://www.linkedin.com/in/mohamed-el-eraki-8bb5111aa/)   

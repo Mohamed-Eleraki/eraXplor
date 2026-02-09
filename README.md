@@ -2,28 +2,27 @@
 
 Cost Export Tool for automated cost reporting and analysis.
 
-**eraXplor** is an automated cost reporting tool designed for assest DevOps and FinOps teams fetching and sorting AWS and Azure Cost Explorer.
-it extracts detailed cost data by calling nativly cloud provider APIs directly and Transform result into CSV file.
+**eraXplor** is an automated cost reporting tool designed for assist DevOps and FinOps teams fetching and sorting AWS and Azure Cost Explorer.
+it extracts detailed cost data by calling natively cloud provider APIs directly and Transform result into CSV file.
 `eraXplor` gives you the ability to sort the cost with wide range of options:
 
 - For **AWS** you able to sort cost by Account, Service, Usage Type or even By Purchase Type; as well as format and separate the result by Monthly or Daily.
 - For **Azure** you able to sort cost by Subscription, as well as format and separate the result by Monthly or Daily.
 </br>
 
-_azure still under development, more features will be added soon._
 
 ## Key Features
 
-- ✅ **Cloud provider Separated tools**: Separated tool for each cloud provider _(e.g. AWS and Azure)_ avoiding complexty.
-- ✅ **Flexible Date Ranges**: Custom start/end dates with validation.
-- ✅ **Multi-Profile Support**: Works with all configured AWS profiles.
-- ✅ **Multi-Subscription Support**: Works to list all configured Azure subscriptions.
-- ✅ **Enhanced Grouping Options**: Advanced grouping for AWS (Account+Service, Account+Purchase Type, Account+Usage Type) and Azure (ServiceName, ResourceGroupName).
-- ✅ **REST API Support**: FastAPI-based REST API for programmatic cost data access with JSON responses.
-- ✅ **CSV Export**: Ready-to-analyze reports in CSV format.
-- ✅ **Cross-platform CLI Interface**: Simple terminal-based workflow, and **Cross OS** platform.
-- ✅ **Documentation Ready**: Well explained documentations assest you kick start rapidly.
-- ✅ **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
+- **Cloud provider Separated tools**: Separated tool for each cloud provider _(e.g. AWS and Azure)_ avoiding complexity.
+- **Flexible Date Ranges**: Custom start/end dates with validation.
+- **Multi-Profile Support**: Works with all configured AWS profiles.
+- **Multi-Subscription Support**: Works to list all configured Azure subscriptions.
+- **Enhanced Grouping Options**: Advanced grouping for AWS (Account+Service, Account+Purchase Type, Account+Usage Type) and Azure (Subscriptions, Services, Resource groups).
+- **REST API Support**: FastAPI-based REST API for programmatic cost data access with JSON responses.
+- **CSV Export**: Ready-to-analyze reports in CSV format.
+- **Cross-platform CLI Interface**: Simple terminal-based command-line, and **Cross OS** platform.
+- **Documentation Ready**: Well explained documentations assist you kick start rapidly.
+- **Open-Source**: the tool is open-source under Apache 2.0 license, which enables your to enhance it for your purpose.
 
 ## Table Of Contents
 
@@ -36,6 +35,9 @@ your use case by looking at the different pages.
 2. [Tutorials](https://mohamed-eleraki.github.io/eraXplor/aws/tutorials/)
 3. [How-To Guides](https://mohamed-eleraki.github.io/eraXplor/aws/how-to-guides/)
 5. [Concepts & Explanation](https://mohamed-eleraki.github.io/eraXplor/aws/explanation/)
+6. [Refrence]()
+7. [API](https://mohamed-eleraki.github.io/eraXplor/api/aws/)
+8. [API Refrence](https://mohamed-eleraki.github.io/eraXplor/api/aws-reference/)
 
 ### Azure
 
@@ -43,11 +45,10 @@ your use case by looking at the different pages.
 2. [Tutorials](https://mohamed-eleraki.github.io/eraXplor/azure/tutorials/)
 3. [How-To Guides](https://mohamed-eleraki.github.io/eraXplor/azure/how-to-guides/)
 5. [Concepts & Explanation](https://mohamed-eleraki.github.io/eraXplor/azure/explanation/)
+6. [Refrence](https://mohamed-eleraki.github.io/eraXplor/azure/reference/)
+7. [API](https://mohamed-eleraki.github.io/eraXplor/api/azure/)
+8. [API Refrence](https://mohamed-eleraki.github.io/eraXplor/api/azure-reference/)
 </br>
-
-- [Reference](https://mohamed-eleraki.github.io/eraXplor/reference/)
-
-- [REST API Documentation](https://mohamed-eleraki.github.io/eraXplor/api/)
 
 # How-To Guides
 
@@ -63,7 +64,7 @@ python --version
 
 ## Install eraXplor
 
-- Install eraxplor too by:
+- Install eraXplor too by:
 
 ```bash
 pip install eraXplor
@@ -83,6 +84,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at `http://localhost:8000`
+Interactive API test `Swagger UI` under `http://localhost:8000/docs`
 
 ### API Endpoints
 
@@ -233,7 +235,6 @@ eraXplor_az <--start-date [yyyy,MM,DD]> <--end-date [yyyy,MM,DD]> \
 
 - `--start-date` or `-s`: **_(Optional)_** Default value set as three months before.
 - `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
-- `--subscription_id` or `-S`: **_(Optional)_** Default value set to list all subscriptions with tags.
 - `--group-by` or `-g`: **_(Optional)_** Default value set as `subscription`.
     Available options: (`subscription`, `ServiceName`, `ResourceGroupName`)
 - `--out` or `-o`: **_(Optional)_** Default value set as `az_cost_report.csv`.
@@ -268,7 +269,7 @@ python -m eraXplor-azure
 <summary><strong>👋Show/Hide Author Details👋</strong></summary>
 
 **Mohamed eraki**  
-_Cloud & DevOps Engineer_
+_Cloud & DevOps Consultant_
 
 [![Email](https://img.shields.io/badge/Contact-mohamed--ibrahim2021@outlook.com-blue?style=flat&logo=mail.ru)](mailto:mohamed-ibrahim2021@outlook.com)  
 [![LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-informational?style=flat&logo=linkedin)](https://www.linkedin.com/in/mohamed-el-eraki-8bb5111aa/)  
