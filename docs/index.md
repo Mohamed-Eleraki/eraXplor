@@ -38,14 +38,14 @@ graph LR
 Quickly find what you're looking for depending on
 your use case by looking at the different pages.
 
-### AWS (eraXplor)
+### AWS
 
 1. [Overview](aws/index.md)
 2. [Tutorials](aws/tutorials.md)
 3. [How-To Guides](aws/how-to-guides.md)
 5. [Concepts & Explanation](aws/explanation.md)
 
-### Azure (eraXplor_az)
+### Azure
 
 1. [Overview](azure/index.md)
 2. [Tutorials](azure/tutorials.md)

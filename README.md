@@ -173,7 +173,7 @@ aws configure <--profile [PROFILE_NAME]>
 `eraXplor-aws` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
 
 ```bash
-eraXplor <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
+eraXplor-aws <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
 <--profile [PROFILE-NAME]> \
 <--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE | LINKED_ACCOUNT-With-SERVICE | LINKED_ACCOUNT-With-PURCHASE_TYPE | LINKED_ACCOUNT-With-USAGE_TYPE]> \
 <--out [file.csv]>
