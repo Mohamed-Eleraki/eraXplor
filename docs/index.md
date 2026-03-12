@@ -5,7 +5,7 @@
 Cost Export Tool for automated cost reporting and analysis.
 
 **eraXplor** is an automated cost reporting tool designed for assist DevOps and FinOps teams fetching and sorting AWS and Azure Cost Explorer.
-it extracts detailed cost data by calling nativly cloud provider APIs directly and Transform result into CSV file.
+it extracts detailed cost data by calling natively cloud provider APIs directly and Transform result into CSV file.
 `eraXplor` gives you the ability to sort the cost with wide range of options:
 
 - For **AWS** you able to sort cost by Account, Service, Usage Type or even By Purchase Type; as well as format and separate the result by Monthly or Daily.
