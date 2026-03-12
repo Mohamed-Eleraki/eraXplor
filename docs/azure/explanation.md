@@ -33,7 +33,7 @@ eraXplor-azure provides three powerful grouping dimensions for cost analysis:
 ## Key Features
 
 - **Subscription-Level Cost Breakdown**: Detailed breakdown of costs by Azure subscription with tags support.
-- **Service-Level Cost Breakdown**: Group costs by Azure service name (e.g., Virtual Machines, Storage, SQL Database).
+- **Service-Level Cost Breakdown**: Group costs by Azure service name e.g. Virtual Machines, Storage, SQL Database.
 - **Resource Group Cost Breakdown**: Group costs by Azure Resource Group for FinOps tagging strategies.
 - **Multi-Subscription Support**: Automatically detects and queries all accessible Azure subscriptions.
 - **Daily/Monthly Cost Breakdown**: View costs aggregated by day or month based on your reporting needs.

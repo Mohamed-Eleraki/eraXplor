@@ -15,7 +15,6 @@ as well as format and separate the result by Monthly or Daily cost.
 - **Service-Level Cost Breakdown**: Monthly or daily unblended costs per Services.
 - **Purchase Type-Level Cost Breakdown**: Monthly or daily unblended costs per Purchase Type.
 - **Usage Type-Level Cost Breakdown**: Monthly or daily unblended costs per Usage Type.
-- **Composite Cost Breakdown**: Monthly or daily unblended costs per composite Account.
 - **Flexible Date Ranges**: Custom start/end dates with validation.
 - **Multi-Profile Support**: Works with all configured AWS profiles.
 - **CSV Export**: Ready-to-analyze reports in CSV format.

@@ -7,7 +7,7 @@ cost_export() function to persist cost data for further analysis or reporting.
 
 The CSV output includes the following columns:
     - TIME_PERIOD: Date or date range for the cost record
-    - GROUP_BY: The grouping dimension used (e.g., 'SUBSCRIPTION_ID', currency)
+    - GROUP_BY: The grouping dimension used (e.g. 'SUBSCRIPTION_ID', currency)
     - SUBSCRIPTION_ID: The Azure subscription ID
     - DISPLAY_NAME: The subscription display name
     - PreTaxCost: The cost amount with currency

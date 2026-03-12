@@ -21,7 +21,7 @@ def csv_export(
             - time_period (dict): With 'Start' and 'End' keys
             - ID : AWS account ID, service name, purchase type name, usage type name.
             - GROUPBY_FILTER (str): 
-                Grouping filter used in the query, e.g., 'Account', 'Service', etc.
+                Grouping filter used in the query, e.g. 'Account', 'Service', etc.
             - COST (float): The cost associated with the ID for the given time period.
             
         filename (str, optional): Output filename for the CSV. Defaults to 'cost_report.csv'.

@@ -52,10 +52,10 @@ class _CostRecord(TypedDict):
         TIME_PERIOD: Date or date range for the cost record.
                      For monthly granularity: {'Start': 'YYYY-MM-DD', 'End': 'YYYY-MM-DD'}
                      For daily granularity: date string in 'YYYY-MM-DD' format
-        GROUP_BY: The grouping dimension used (e.g., 'SUBSCRIPTION_ID', 'ServiceName')
+        GROUP_BY: The grouping dimension used (e.g. 'SUBSCRIPTION_ID', 'ServiceName')
         SUBSCRIPTION_ID: The Azure subscription ID associated with the cost
         DISPLAY_NAME: The subscription display name
-        PreTaxCost: Cost amount formatted as string with currency (e.g., "123.45 USD")
+        PreTaxCost: Cost amount formatted as string with currency (e.g. "123.45 USD")
         TAGS: Dictionary of subscription tags or "None" if no tags exist
     """
     TIME_PERIOD: Any
@@ -120,7 +120,7 @@ def cost_export(
             - GROUP_BY: The grouping dimension used
             - SUBSCRIPTION_ID: Azure subscription ID
             - DISPLAY_NAME: Subscription display name
-            - PreTaxCost: Formatted cost string with currency (e.g., "123.45 USD")
+            - PreTaxCost: Formatted cost string with currency (e.g. "123.45 USD")
             - TAGS: Dictionary of subscription tags or "None"
 
     Raises:

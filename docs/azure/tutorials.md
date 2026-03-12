@@ -47,7 +47,7 @@ This will export costs for all accessible subscriptions grouped by subscription.
 
 ### Group by Azure Service Name
 
-View costs breakdown by Azure service (e.g., Virtual Machines, Storage, SQL Database):
+View costs breakdown by Azure service (e.g. Virtual Machines, Storage, SQL Database):
 
 ```bash
 eraXplor-azure -g ServiceName -G Monthly

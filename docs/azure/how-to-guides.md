@@ -72,7 +72,7 @@ python -m eraXplor-azure
 ### Group By Options
 
 - **`subscription`**: Group costs by Azure subscription (default)
-- **`ServiceName`**: Group costs by Azure service name (e.g., Virtual Machines, Storage)
+- **`ServiceName`**: Group costs by Azure service name (e.g. Virtual Machines, Storage)
 - **`ResourceGroupName`**: Group costs by Resource Group
 
 ### Granularity Options
