@@ -1,14 +1,19 @@
-# utils/focus_export_utils.py
+"""
+Utility functions for configuring Azure FOCUS exports.
+
+This module contains helper functions for:
+- Azure authentication
+- Building Azure Cost Management export payloads
+- Creating scheduled FOCUS exports in Parquet format
+"""
+
 
 from datetime import UTC, datetime, timedelta
 from typing import Any
-
 import requests
 from azure.identity import DefaultAzureCredential
+from api.config import settings
 
-API_VERSION = "2023-07-01-preview"
-AZURE_SCOPE = "https://management.azure.com/.default"
-BASE_URL = "https://management.azure.com"
 
 
 def get_access_token() -> str:
@@ -25,7 +30,7 @@ def get_access_token() -> str:
         Exception: If authentication fails.
     """
     credential = DefaultAzureCredential()
-    token = credential.get_token(AZURE_SCOPE)
+    token = credential.get_token(settings.AZURE_MANAGEMENT_SCOPE)
     return token.token
 
 
@@ -201,10 +206,10 @@ def create_focus_export(
     )
 
     url = (
-        f"{BASE_URL}{scope}"
+        f"{settings.AZURE_MANAGEMENT_BASE_URL}{scope}"
         f"/providers/Microsoft.CostManagement/"
         f"exports/{export_name}"
-        f"?api-version={API_VERSION}"
+        f"?api-version={settings.AZURE_COST_API_VERSION}"
     )
 
     print("Creating FOCUS export...")
