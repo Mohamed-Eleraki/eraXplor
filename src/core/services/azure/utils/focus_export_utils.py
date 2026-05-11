@@ -7,31 +7,14 @@ This module contains helper functions for:
 - Creating scheduled FOCUS exports in Parquet format
 """
 
-
 from datetime import UTC, datetime, timedelta
 from typing import Any
 import requests
 from azure.identity import DefaultAzureCredential
 from api.config import settings
-
-
-
-def get_access_token() -> str:
-    """
-    Retrieve an Azure access token using DefaultAzureCredential.
-
-    This function authenticates against Azure Active Directory and
-    requests a token for Azure Resource Manager APIs.
-
-    Returns:
-        str: Bearer token string used for Azure REST API requests.
-
-    Raises:
-        Exception: If authentication fails.
-    """
-    credential = DefaultAzureCredential()
-    token = credential.get_token(settings.AZURE_MANAGEMENT_SCOPE)
-    return token.token
+from src.core.services.utils.common_shared_utils import (
+    get_access_token,
+)
 
 
 def build_scope(
