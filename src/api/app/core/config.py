@@ -37,6 +37,12 @@ class Settings:  # pylint: disable=too-few-public-methods
     MAX_DATE_RANGE_MONTHS: int = 14  # AWS limitation
     REQUEST_TIMEOUT_SECONDS: int = 300  # 5 minutes
 
+    # Azure Cost Management / FOCUS Configuration
+    AZURE_MANAGEMENT_BASE_URL: str = "https://management.azure.com"
+    AZURE_MANAGEMENT_SCOPE: str = (
+    "https://management.azure.com/.default"
+    )
+    AZURE_COST_API_VERSION: str = "2023-07-01-preview"
 
 # Create settings instance
 settings = Settings()
