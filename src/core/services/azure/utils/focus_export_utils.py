@@ -10,14 +10,13 @@ This module contains helper functions for:
 from datetime import UTC, datetime, timedelta
 from typing import Any
 import requests
-from azure.identity import DefaultAzureCredential
 from api.config import settings
 from src.core.services.utils.common_shared_utils import (
     get_access_token,
 )
 
 
-def build_scope(
+def _build_scope(
     billing_account_id: str,
     billing_profile_id: str,
 ) -> str:
@@ -38,7 +37,7 @@ def build_scope(
     )
 
 
-def build_storage_resource_id(
+def _build_storage_resource_id(
     subscription_id: str,
     resource_group_name: str,
     storage_account_name: str,
@@ -60,6 +59,86 @@ def build_storage_resource_id(
         f"/providers/Microsoft.Storage/"
         f"storageAccounts/{storage_account_name}"
     )
+
+
+def _get_arm_headers(token: str) -> dict[str, str]:
+    """Build headers for Azure Resource Manager API calls."""
+    return {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+    }
+
+
+def _fetch_arm_json(url: str, headers: dict[str, str]) -> dict[str, Any]:
+    """Send a GET request to Azure ARM and return parsed JSON."""
+    response = requests.get(url=url, headers=headers, timeout=60)
+    if not response.ok:
+        raise RuntimeError(
+            f"Azure ARM request failed: {response.status_code} - {response.text}"
+        )
+
+    try:
+        return response.json()
+    except ValueError as exc:
+        raise RuntimeError("Azure ARM response returned invalid JSON.") from exc
+
+
+def get_billing_accounts() -> list[dict[str, Any]]:
+    """Return billing accounts available to the authenticated Azure identity."""
+    token = get_access_token()
+    url = (
+        f"{settings.AZURE_MANAGEMENT_BASE_URL}"
+        "/providers/Microsoft.Billing/billingAccounts"
+        "?api-version=2020-05-01"
+    )
+    data = _fetch_arm_json(url, _get_arm_headers(token))
+    return data.get("value", [])
+
+
+def get_billing_profiles(billing_account_id: str) -> list[dict[str, Any]]:
+    """Return billing profiles for a given Azure billing account."""
+    token = get_access_token()
+    url = (
+        f"{settings.AZURE_MANAGEMENT_BASE_URL}"
+        f"/providers/Microsoft.Billing/billingAccounts/{billing_account_id}"
+        "/billingProfiles?api-version=2020-05-01"
+    )
+    data = _fetch_arm_json(url, _get_arm_headers(token))
+    return data.get("value", [])
+
+
+def get_default_billing_account_and_profile_ids() -> dict[str, str]:
+    """Fetch the first available billing account and profile IDs for the authenticated credential."""
+    accounts = get_billing_accounts()
+    if not accounts:
+        raise RuntimeError(
+            "No Azure billing accounts were found for the authenticated identity."
+        )
+
+    billing_account = accounts[0]
+    billing_account_id = billing_account.get("name")
+    if not billing_account_id:
+        raise RuntimeError(
+            "Billing account response missing required 'name' field."
+        )
+
+    profiles = get_billing_profiles(billing_account_id)
+    if not profiles:
+        raise RuntimeError(
+            f"No billing profiles found for billing account '{billing_account_id}'."
+        )
+
+    billing_profile = profiles[0]
+    billing_profile_id = billing_profile.get("name")
+    if not billing_profile_id:
+        raise RuntimeError(
+            "Billing profile response missing required 'name' field."
+        )
+
+    return {
+        "billing_account_id": billing_account_id,
+        "billing_profile_id": billing_profile_id,
+    }
 
 
 def build_export_payload(
@@ -171,12 +250,12 @@ def create_focus_export(
         "Content-Type": "application/json",
     }
 
-    scope = build_scope(
+    scope = _build_scope(
         billing_account_id,
         billing_profile_id,
     )
 
-    storage_resource_id = build_storage_resource_id(
+    storage_resource_id = _build_storage_resource_id(
         subscription_id,
         resource_group_name,
         storage_account_name,

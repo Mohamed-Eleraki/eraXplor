@@ -46,17 +46,12 @@ Notes:
     - The tool queries all subscriptions accessible by the authenticated principal.
 """
 
-from os import name
-from tokenize import group
-
-from core.services.azure.utils.focus_depends import create_resource_group, create_storage_account_container_folder
 import termcolor
-# from eraXplor_azure.utils.banner_utils import banner as generate_banner  # pylint: disable=import-error
+from eraXplor_azure.utils.banner_utils import banner as generate_banner  # pylint: disable=import-error
 from eraXplor_azure.utils.parser_utils import parser  # pylint: disable=import-error
 from eraXplor_azure.utils.cost_export_utils import cost_export  # pylint: disable=import-error
 from eraXplor_azure.utils.cost_export_utils import list_subs  # pylint: disable=import-error
 from eraXplor_azure.utils.csv_export_utils import csv_export  # pylint: disable=import-error
-from src.core.services.utils.banner_utils import banner as generate_banner
 
 def main() -> None:
     """
@@ -102,34 +97,15 @@ def main() -> None:
 
     # Fetch Parsed parameters by command line
     arg_parser = parser().parse_args()
-    rg_name_input = arg_parser.resource-group-name
-    location_input = arg_parser.location
-    storage_account_name_input = arg_parser.storage-account-name
-    container_name_input = arg_parser.container-name
-    folder_name_input = arg_parser.folder-name
-
-    # Run dependencies to create Azure resources for FOCUS export
-    create_resource_group(
-        resource_group_name=rg_name_input,
-        location=location_input,
-    )
-    create_storage_account_container_folder(
-        resource_group_name=rg_name_input,
-        location=location_input,
-        storage_account_name=storage_account_name_input,
-        container_name=container_name_input,
-        folder_name=folder_name_input,
-     )
-
-    
+    start_date_input = arg_parser.start_date
+    end_date_input = arg_parser.end_date
+    group_by = arg_parser.group_by
+    granularity_input = arg_parser.granularity
+    filename_input = arg_parser.out
 
     # Fetch detailed subscriptions list
     subscriptions_list_detailed = list_subs()
-
-
-
-
-
+    
     # Parsing data to subscription cost export func
     cm_client_query_results = cost_export(
         group_by=group_by,
