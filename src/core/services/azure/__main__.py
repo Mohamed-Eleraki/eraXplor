@@ -46,16 +46,16 @@ Notes:
     - The tool queries all subscriptions accessible by the authenticated principal.
 """
 
-from os import name
-from tokenize import group
-
-from core.services.azure.utils.focus_depends import create_resource_group, create_storage_account_container_folder
 import termcolor
-# from eraXplor_azure.utils.banner_utils import banner as generate_banner  # pylint: disable=import-error
-from eraXplor_azure.utils.parser_utils import parser  # pylint: disable=import-error
-from eraXplor_azure.utils.cost_export_utils import cost_export  # pylint: disable=import-error
-from eraXplor_azure.utils.cost_export_utils import list_subs  # pylint: disable=import-error
-from eraXplor_azure.utils.csv_export_utils import csv_export  # pylint: disable=import-error
+
+from core.services.azure.utils.cost_export_utils import cost_export, list_subs
+from core.services.azure.utils.csv_export_utils import csv_export
+from core.services.azure.utils.focus_depends import create_resource_group, create_storage_account_container_folder
+from core.services.azure.utils.focus_export_utils import (
+    create_focus_export,
+    get_default_billing_account_and_profile_ids,
+)
+from core.services.azure.utils.focus_parser_utils import parser
 from src.core.services.utils.banner_utils import banner as generate_banner
 
 def main() -> None:
@@ -102,11 +102,19 @@ def main() -> None:
 
     # Fetch Parsed parameters by command line
     arg_parser = parser().parse_args()
-    rg_name_input = arg_parser.resource-group-name
+    rg_name_input = arg_parser.resource_group_name
     location_input = arg_parser.location
-    storage_account_name_input = arg_parser.storage-account-name
-    container_name_input = arg_parser.container-name
-    folder_name_input = arg_parser.folder-name
+    storage_account_name_input = arg_parser.storage_account_name
+    container_name_input = arg_parser.container_name
+    folder_name_input = arg_parser.folder_name
+
+    # Determine subscription id from the authenticated account list
+    subscriptions_list_detailed = list_subs()
+    if not subscriptions_list_detailed:
+        raise RuntimeError(
+            "No Azure subscriptions were found for the authenticated identity."
+        )
+    subscription_id_input = subscriptions_list_detailed[0]["Subscription_ID"]
 
     # Run dependencies to create Azure resources for FOCUS export
     create_resource_group(
@@ -121,26 +129,16 @@ def main() -> None:
         folder_name=folder_name_input,
      )
 
-    
-
-    # Fetch detailed subscriptions list
-    subscriptions_list_detailed = list_subs()
-
-
-
-
-
-    # Parsing data to subscription cost export func
-    cm_client_query_results = cost_export(
-        group_by=group_by,
-        subscriptions_list_detailed=subscriptions_list_detailed,
-        start_date=start_date_input,
-        end_date=end_date_input,
-        granularity=granularity_input,
+    billing_ids = get_default_billing_account_and_profile_ids()
+    create_focus_export(
+        billing_account_id=billing_ids["billing_account_id"],
+        billing_profile_id=billing_ids["billing_profile_id"],
+        subscription_id=subscription_id_input,
+        resource_group_name=rg_name_input,
+        storage_account_name=storage_account_name_input,
+        container_name=container_name_input,
+        folder_name=folder_name_input,
     )
-
-    # Parsing date to csv_export func
-    csv_export(cm_client_query_results=cm_client_query_results, filename=filename_input)
 
 if __name__ == "__main__":
     main()
