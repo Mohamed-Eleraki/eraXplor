@@ -32,7 +32,7 @@ from azure.core.exceptions import ResourceExistsError
 def create_resource_group(
         # subscription_id: str,
         resource_group_name: str = "focus-data-export-rg",
-        location: str,
+        location: str = "eastus",
         ) -> None:
     """
     Creates a resource group if it does not exist.
@@ -52,7 +52,7 @@ def create_resource_group(
 def create_storage_account_container_folder(
     # subscription_id: str,
     resource_group_name: str = "focus-data-export-rg",
-    location: str,
+    location: str = "eastus",
     storage_account_name: str = "focusdataexportstorage",
     container_name: str = "focus-data",
     folder_name: str = "focus-exports",

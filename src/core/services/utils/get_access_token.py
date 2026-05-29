@@ -6,7 +6,7 @@ This module provides reusable authentication helpers for Azure services.
 
 from azure.identity import DefaultAzureCredential
 
-from api.config import settings
+from api.app.core.config import settings
 
 
 def get_access_token() -> str:

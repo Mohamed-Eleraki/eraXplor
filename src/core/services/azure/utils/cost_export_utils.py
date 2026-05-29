@@ -37,9 +37,14 @@ from typing import List, TypedDict, Any
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.costmanagement import CostManagementClient, models
 from azure.mgmt.costmanagement.models import QueryDefinition, QueryTimePeriod  # Pylint: disable=unused-import
-from azure.mgmt.resource import SubscriptionClient
 from rich.live import Live
 from rich.spinner import Spinner
+
+try:
+    from azure.mgmt.resource import SubscriptionClient
+    HAS_SUBSCRIPTION_CLIENT = True
+except ImportError:
+    HAS_SUBSCRIPTION_CLIENT = False
 
 class _CostRecord(TypedDict):
     """
@@ -195,9 +200,8 @@ def list_subs():
     """
     Retrieve details of all Azure subscriptions accessible by the authenticated principal.
 
-    Uses the Azure SubscriptionClient to list all subscriptions available to the
-    current authentication context (DefaultAzureCredential). Returns detailed
-    information including subscription ID, display name, tenant ID, and tags.
+    Uses the Azure SubscriptionClient if available, otherwise falls back to the ARM REST API.
+    Returns detailed information including subscription ID, display name, tenant ID, and tags.
 
     Returns:
         List[dict[str, Any]]:
@@ -224,21 +228,52 @@ def list_subs():
         - Tags are optional and may be None for subscriptions without tags.
     """
     _credential = DefaultAzureCredential()
-    _subscription_client = SubscriptionClient(_credential)
-    _subscriptions = list(_subscription_client.subscriptions.list())
-    
     subscriptions_list_detailed = []
-    # subscriptions_with_tags_list = []
     
-    for sub in _subscriptions:
+    # Try using SubscriptionClient if available
+    if HAS_SUBSCRIPTION_CLIENT:
+        try:
+            _subscription_client = SubscriptionClient(_credential)
+            _subscriptions = list(_subscription_client.subscriptions.list())
+            
+            for sub in _subscriptions:
+                subscriptions_list_detailed.append(
+                    {
+                        "Subscription_ID": sub.subscription_id,
+                        "Display_Name": sub.display_name,
+                        "Tenant_ID": sub.tenant_id,
+                        "Tags": sub.tags,
+                    }
+                )
+            return subscriptions_list_detailed
+        except Exception:
+            pass  # Fall through to REST API fallback
+    
+    # Fallback to ARM REST API
+    from core.services.utils.get_access_token import get_access_token
+    import requests
+    
+    token = get_access_token()
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+    }
+    
+    url = "https://management.azure.com/subscriptions?api-version=2020-01-01"
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    
+    data = response.json()
+    for sub in data.get("value", []):
         subscriptions_list_detailed.append(
             {
-                "Subscription_ID": sub.subscription_id,
-                "Display_Name": sub.display_name,
-                "Tenant_ID": sub.tenant_id,
-                "Tags": sub.tags,
+                "Subscription_ID": sub.get("subscriptionId"),
+                "Display_Name": sub.get("displayName"),
+                "Tenant_ID": sub.get("tenantId"),
+                "Tags": sub.get("tags"),
             }
         )
+    
     return subscriptions_list_detailed
 
 

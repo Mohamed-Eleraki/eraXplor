@@ -19,7 +19,7 @@ dependencies = [
     "azure.mgmt.costmanagement>=4.0.1",
     "azure.mgmt.resource>=23.0.0",
     "azure.mgmt.storage>=23.0.0",
-    "azure-storage-blob>=13.0.0",
+    "azure-storage-blob>=12.0.0",
 ]
 authors = [{name = "Mohamed eraki", email = "mohamed-ibrahim2021@outlook.com"}]
 keywords = ["CLI", "ASCII Art"]  # CLI + Text-based Art
@@ -86,5 +86,5 @@ where = ["src"]
 
 [tool.setuptools.dynamic]
 #version = {attr = "eraXplor.utils.__version__"}
-version = {attr = "eraXplor_aws.utils.__version__"}
+version = {attr = "core.services.eraXplor_aws.utils.__version__"}
 

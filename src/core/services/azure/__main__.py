@@ -48,15 +48,14 @@ Notes:
 
 import termcolor
 
-from core.services.azure.utils.cost_export_utils import cost_export, list_subs
-from core.services.azure.utils.csv_export_utils import csv_export
+from core.services.azure.utils.cost_export_utils import list_subs
 from core.services.azure.utils.focus_depends import create_resource_group, create_storage_account_container_folder
 from core.services.azure.utils.focus_export_utils import (
     create_focus_export,
     get_default_billing_account_and_profile_ids,
 )
 from core.services.azure.utils.focus_parser_utils import parser
-from src.core.services.utils.banner_utils import banner as generate_banner
+from core.services.utils.banner_utils import banner as generate_banner
 
 def main() -> None:
     """

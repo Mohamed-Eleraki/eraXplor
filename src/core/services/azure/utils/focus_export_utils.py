@@ -10,10 +10,8 @@ This module contains helper functions for:
 from datetime import UTC, datetime, timedelta
 from typing import Any
 import requests
-from api.config import settings
-from src.core.services.utils.common_shared_utils import (
-    get_access_token,
-)
+from api.app.core.config import settings
+from core.services.utils.get_access_token import get_access_token
 
 
 def _build_scope(
