@@ -54,6 +54,7 @@ from core.services.azure.utils.focus_export_utils import (
     create_focus_export,
     get_default_billing_account_and_profile_ids,
 )
+from core.services.azure.utils.focus_fetch import download_parquet_files
 from core.services.azure.utils.focus_parser_utils import parser
 from core.services.utils.banner_utils import banner as generate_banner
 
@@ -108,34 +109,49 @@ def main() -> None:
     folder_name_input = arg_parser.folder_name
     subscription_id_input = arg_parser.subscription_id
 
-    # Determine subscription id from the authenticated account list
-    # subscriptions_list_detailed = list_subs()
+    run_backend = arg_parser.all or arg_parser.backend
+    run_export = arg_parser.all or arg_parser.export
+    run_fetch = arg_parser.all or arg_parser.fetch
 
-    # Run dependencies to create Azure resources for FOCUS export
-    create_resource_group(
-        resource_group_name=rg_name_input,
-        location=location_input,
-        subscription_id=subscription_id_input,
-    )
-    create_storage_account_container_folder(
-        resource_group_name=rg_name_input,
-        location=location_input,
-        storage_account_name=storage_account_name_input,
-        container_name=container_name_input,
-        folder_name=folder_name_input,
-        subscription_id=subscription_id_input,
-    )
+    if not (run_backend or run_export or run_fetch):
+        run_backend = run_export = run_fetch = True
 
-    billing_ids = get_default_billing_account_and_profile_ids()
-    create_focus_export(
-        billing_account_id=billing_ids["billing_account_id"],
-        billing_profile_id=billing_ids["billing_profile_id"],
-        subscription_id=subscription_id_input,
-        resource_group_name=rg_name_input,
-        storage_account_name=storage_account_name_input,
-        container_name=container_name_input,
-        folder_name=folder_name_input,
-    )
+    if run_backend:
+        print("\n=== Running backend provisioning stage ===")
+        create_resource_group(
+            resource_group_name=rg_name_input,
+            location=location_input,
+            subscription_id=subscription_id_input,
+        )
+        create_storage_account_container_folder(
+            resource_group_name=rg_name_input,
+            location=location_input,
+            storage_account_name=storage_account_name_input,
+            container_name=container_name_input,
+            folder_name=folder_name_input,
+            subscription_id=subscription_id_input,
+        )
+
+    if run_export:
+        print("\n=== Running FOCUS export creation stage ===")
+        billing_ids = get_default_billing_account_and_profile_ids()
+        create_focus_export(
+            billing_account_id=billing_ids["billing_account_id"],
+            billing_profile_id=billing_ids["billing_profile_id"],
+            subscription_id=subscription_id_input,
+            resource_group_name=rg_name_input,
+            storage_account_name=storage_account_name_input,
+            container_name=container_name_input,
+            folder_name=folder_name_input,
+        )
+
+    if run_fetch:
+        print("\n=== Running fetch stage for Parquet files ===")
+        download_parquet_files(
+            storage_account_name=storage_account_name_input,
+            container_name=container_name_input,
+            folder_name=folder_name_input,
+        )
 
 if __name__ == "__main__":
     main()

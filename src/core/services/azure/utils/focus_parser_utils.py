@@ -130,4 +130,30 @@ def parser():
         required=False,
         help="Azure Subscription ID.",
     )
+
+    action_group = arg_parser.add_argument_group(
+        title="workflow actions",
+        description="Select one or more FOCUS workflow stages to execute.",
+    )
+    action_group.add_argument(
+        "--backend",
+        action="store_true",
+        help="Run backend provisioning steps (resource group, storage account, container, folder).",
+    )
+    action_group.add_argument(
+        "--export",
+        action="store_true",
+        help="Run FOCUS export creation using Azure Cost Management.",
+    )
+    action_group.add_argument(
+        "--fetch",
+        action="store_true",
+        help="Fetch Parquet files from the export folder in Blob Storage.",
+    )
+    action_group.add_argument(
+        "--all",
+        action="store_true",
+        help="Run backend, export, and fetch stages sequentially.",
+    )
+
     return arg_parser
