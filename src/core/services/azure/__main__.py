@@ -119,6 +119,7 @@ def main() -> None:
     create_resource_group(
         resource_group_name=rg_name_input,
         location=location_input,
+        subscription_id=subscription_id_input,
     )
     create_storage_account_container_folder(
         resource_group_name=rg_name_input,
@@ -126,7 +127,8 @@ def main() -> None:
         storage_account_name=storage_account_name_input,
         container_name=container_name_input,
         folder_name=folder_name_input,
-     )
+        subscription_id=subscription_id_input,
+    )
 
     billing_ids = get_default_billing_account_and_profile_ids()
     create_focus_export(

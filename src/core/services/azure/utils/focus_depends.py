@@ -30,7 +30,7 @@ from azure.storage.blob import BlobServiceClient
 from azure.core.exceptions import ResourceExistsError
 
 def create_resource_group(
-        # subscription_id: str,
+        subscription_id: str,
         resource_group_name: str = "focus-data-export-rg",
         location: str = "eastus",
         ) -> None:
@@ -39,8 +39,7 @@ def create_resource_group(
     """
 
     credential = DefaultAzureCredential()
-    # resource_client = ResourceManagementClient(credential, subscription_id)
-    resource_client = ResourceManagementClient(credential)
+    resource_client = ResourceManagementClient(credential, subscription_id)
     
     resource_client.resource_groups.create_or_update(
         resource_group_name,
@@ -50,7 +49,7 @@ def create_resource_group(
 
 
 def create_storage_account_container_folder(
-    # subscription_id: str,
+    subscription_id: str,
     resource_group_name: str = "focus-data-export-rg",
     location: str = "eastus",
     storage_account_name: str = "focusdataexportstorage",
@@ -63,8 +62,7 @@ def create_storage_account_container_folder(
 
     credential = DefaultAzureCredential()
     account_name = storage_account_name.lower()
-    # storage_client = StorageManagementClient(credential, subscription_id)
-    storage_client = StorageManagementClient(credential)
+    storage_client = StorageManagementClient(credential, subscription_id)
 
     # Create Storage Account
     print(f"Creating storage account '{account_name}'...")
