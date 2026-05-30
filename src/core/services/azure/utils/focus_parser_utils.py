@@ -141,7 +141,7 @@ def parser():
         help="Run backend provisioning steps (resource group, storage account, container, folder).",
     )
     action_group.add_argument(
-        "--export",
+        "--export-config",
         action="store_true",
         help="Run FOCUS export creation using Azure Cost Management.",
     )

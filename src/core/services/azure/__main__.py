@@ -110,7 +110,7 @@ def main() -> None:
     subscription_id_input = arg_parser.subscription_id
 
     run_backend = arg_parser.all or arg_parser.backend
-    run_export = arg_parser.all or arg_parser.export
+    run_export = arg_parser.all or arg_parser.export_config
     run_fetch = arg_parser.all or arg_parser.fetch
 
     if not (run_backend or run_export or run_fetch):
