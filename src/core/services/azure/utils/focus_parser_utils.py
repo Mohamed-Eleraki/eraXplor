@@ -124,4 +124,10 @@ def parser():
         help="Name of the folder to create.",
         default="focusdataexportfolder",
     )    
+    arg_parser.add_argument(
+        "-s", "--subscription-id",
+        type=str,
+        required=False,
+        help="Azure Subscription ID.",
+    )
     return arg_parser

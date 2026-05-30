@@ -106,14 +106,10 @@ def main() -> None:
     storage_account_name_input = arg_parser.storage_account_name
     container_name_input = arg_parser.container_name
     folder_name_input = arg_parser.folder_name
+    subscription_id_input = arg_parser.subscription_id
 
     # Determine subscription id from the authenticated account list
-    subscriptions_list_detailed = list_subs()
-    if not subscriptions_list_detailed:
-        raise RuntimeError(
-            "No Azure subscriptions were found for the authenticated identity."
-        )
-    subscription_id_input = subscriptions_list_detailed[0]["Subscription_ID"]
+    # subscriptions_list_detailed = list_subs()
 
     # Run dependencies to create Azure resources for FOCUS export
     create_resource_group(
