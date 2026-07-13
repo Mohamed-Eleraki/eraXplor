@@ -20,7 +20,7 @@ This is the primary script responsible for orchestrating the user workflow. It h
 
 ### Banner Utilities
 
-::: core.services.utils.banner_utils
+::: core.services.utils
 
 Responsible for rendering styled ASCII banners and displaying copyright
 information used in the CLI interface.
