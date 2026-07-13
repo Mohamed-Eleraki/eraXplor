@@ -1634,8 +1634,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 <ol>
 <li><strong>Install dependencies:</strong></li>
 </ol>
-<pre><code class="language-bash">cd src/api
-pip install -r requirements.txt
+<pre><code class="language-bash">pip install -r src/api/requirements.txt
 </code></pre>
 <ol>
 <li><strong>Configure Azure credentials:</strong></li>
@@ -1645,8 +1644,7 @@ pip install -r requirements.txt
 <ol>
 <li><strong>Run the API server:</strong></li>
 </ol>
-<pre><code class="language-bash">cd src/api
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+<pre><code class="language-bash">uvicorn api.main:app --app-dir src --host 0.0.0.0 --port 8000 --reload
 </code></pre>
 <ol>
 <li><strong>Access the API:</strong></li>
