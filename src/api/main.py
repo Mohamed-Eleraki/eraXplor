@@ -10,15 +10,15 @@ from fastapi.responses import JSONResponse
 from app.core.config import settings
 
 # Add the src directory to Python path to import eraXplor modules
-sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from core.services.aws.utils.aws_focus_export_stack_utils import deploy_focus_stack
 from core.services.aws.utils.aws_focus_fetch import download_parquet_files
 
 # Try to import Azure module - make it optional
 try:
-    from eraXplor_azure.utils.cost_export_utils import cost_export as azure_cost_export
-    from eraXplor_azure.utils.cost_export_utils import list_subs
+    from core.services.azure.utils.cost_export_utils import cost_export as azure_cost_export
+    from core.services.azure.utils.cost_export_utils import list_subs
 
     AZURE_AVAILABLE = True
 except ImportError as e:
@@ -238,7 +238,7 @@ async def export_azure_costs_post(request: Request):
         print(f"Fetching Azure cost data from {start_date} to {end_date}")
         print(f"Granularity: {granularity}, Group by: {group_by}")
 
-        # Fetch subscriptions first (required because eraXplor_azure doesn't handle None)
+        # Fetch subscriptions first because the Azure export helper expects them.
         subscriptions_list_detailed = list_subs()
         if not subscriptions_list_detailed:
             return JSONResponse(
@@ -332,7 +332,7 @@ async def export_azure_costs_get(
         print(f"Fetching Azure cost data from {start_date} to {end_date}")
         print(f"Granularity: {granularity}, Group by: {group_by}")
 
-        # Fetch subscriptions first (required because eraXplor_azure doesn't handle None)
+        # Fetch subscriptions first because the Azure export helper expects them.
         subscriptions_list_detailed = list_subs()
         if not subscriptions_list_detailed:
             return JSONResponse(

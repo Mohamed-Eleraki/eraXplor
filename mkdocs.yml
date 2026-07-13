@@ -61,7 +61,11 @@ extra:
 
 # fetch date from docstring
 plugins:
-  - mkdocstrings # must install mkdocstrings first
+  - mkdocstrings:
+      handlers:
+        python:
+          paths:
+            - src
   - mermaid2
   - search
   - autorefs
@@ -73,6 +77,7 @@ markdown_extensions:
 nav:
   # - Welcome to eraXplor - AWS cost Export Toold Docs: index.md
   - Welcome to eraXplor: index.md
+  - Reference Overview: reference.md
   - Cloud Providers:
       - AWS:
           - Overview: aws/index.md
@@ -90,3 +95,4 @@ nav:
           - Reference: azure/reference.md
           - API: api/azure.md
           - API Reference: api/azure-reference.md
+  - API Reference: api/reference.md
