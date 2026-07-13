@@ -15,6 +15,7 @@ from .parser_utils import (
     parser_filename_handler,
     parser_granularity_handler,
 )
+from .aws_focus_fetch import download_parquet_files
 
 __version__ = "3.3.0"
 
@@ -31,7 +32,8 @@ __all__=[
     'parser_profile_handler',
     'parser_groupby_handler',
     'parser_filename_handler',
-    'parser_granularity_handler'
+    'parser_granularity_handler',
+    'download_parquet_files',
 ]
 
 # Add module-level type hints for MkDocs
@@ -48,6 +50,7 @@ parser_profile_handler: callable
 parser_groupby_handler: callable
 parser_filename_handler: callable
 parser_granularity_handler: callable
+download_parquet_files: callable
 
 def __dir__():
     """For autocomplete and documentation tools"""
