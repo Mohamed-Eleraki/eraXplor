@@ -1,22 +1,23 @@
-"""AWS cost management data models."""
+"""AWS FOCUS workflow data models."""
 
 from typing import Optional, List, Dict, Any
 from pydantic import BaseModel  # Pylint: disable=import-error
 
 
-class AWSCostRequest(BaseModel):  # Pylint: disable=too-few-public-methods
-    """Request model for AWS cost export."""
-    start_date: Optional[str] = None
-    end_date: Optional[str] = None
+class AWSFocusRequest(BaseModel):  # Pylint: disable=too-few-public-methods
+    """Request model for AWS FOCUS workflow."""
+    command: str = "configure"
     profile: str = "default"
-    group_by: str = "LINKED_ACCOUNT"
+    region: str = "us-east-1"
+    stack_name: str = "CID-DataExports-Source"
     granularity: str = "MONTHLY"
 
 
-class AWSCostResponse(BaseModel):  # Pylint: disable=too-few-public-methods
-    """Response model for AWS cost export."""
+class AWSFocusResponse(BaseModel):  # Pylint: disable=too-few-public-methods
+    """Response model for AWS FOCUS workflow."""
     success: bool
+    command: str
     message: str
-    total_records: int
-    cost_data: List[Dict[str, Any]]
-    request_parameters: Dict[str, str]
+    result: Optional[Dict[str, Any]] = None
+    total_files: Optional[int] = None
+    files: Optional[List[str]] = None

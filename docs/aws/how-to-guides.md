@@ -31,14 +31,14 @@ pip install eraXplor
 
 ## How-To use
 
-`eraXplor-aws` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
+`eraXplor-aws` supports two separate AWS FOCUS commands:
 
 ```bash
-eraXplor-aws <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
-<--profile [PROFILE-NAME]> \
-<--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE | LINKED_ACCOUNT-With-SERVICE | LINKED_ACCOUNT-With-PURCHASE_TYPE | LINKED_ACCOUNT-With-USAGE_TYPE]> \
-<--out [file.csv]>
-<--granularity [DAILY | MONTHLY]>
+# Configure FOCUS export stack
+eraXplor-aws --command configure --profile default --region us-east-1 --stack-name CID-DataExports-Source --granularity MONTHLY
+
+# Download parquet files later (after export data is available)
+eraXplor-aws --command download --profile default --region us-east-1 --stack-name CID-DataExports-Source
 ```
 
 For Windows/PowerShell users restart your terminal, and you may need to use the following command:
@@ -60,14 +60,13 @@ python -m eraXplor-aws
 
 ### Argument Reference
 
-- `--start-date` or `-s`: **_(Optional)_** Default value set as Three months before.
-- `--end-date` or `-e`: **_(Optional)_** Default value set as Today date.
-- `--profile` or `-p`: **_(Optional)_** Default value set as `default`.
-- `--groupby` or `-g`: **_(Optional)_** Default value set as `LINKED_ACCOUNT`.
-    The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`, `LINKED_ACCOUNT-With-SERVICE`, `LINKED_ACCOUNT-With-PURCHASE_TYPE`, `LINKED_ACCOUNT-With-USAGE_TYPE`)
-- `--out` or `-o`: **_(Optional)_** Default value set as `cost_repot.csv`.
-- `--granularity` or `-G`: **_(Optional)_** Default value set as `MONTHLY`.
-    The available options are (`MONTHLY`, `DAILY`)
+- `--command` or `-c`: **_(Optional)_** Default value `configure`.
+    Available options: `configure`, `download`
+- `--profile` or `-p`: **_(Optional)_** Default value `default`.
+- `--region` or `-r`: **_(Optional)_** Default value `us-east-1`.
+- `--stack-name` or `-s`: **_(Optional)_** Default value `CID-DataExports-Source`.
+- `--granularity` or `-g`: **_(Optional)_** Default value `MONTHLY`.
+    Available options: `HOURLY`, `DAILY`, `MONTHLY`
 
 <!-- 
 

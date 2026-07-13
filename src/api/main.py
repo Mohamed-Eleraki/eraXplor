@@ -12,7 +12,8 @@ from app.core.config import settings
 # Add the src directory to Python path to import eraXplor modules
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from eraXplor_aws.utils.cost_export_utils import monthly_account_cost_export
+from core.services.aws.utils.aws_focus_export_stack_utils import deploy_focus_stack
+from core.services.aws.utils.aws_focus_fetch import download_parquet_files
 
 # Try to import Azure module - make it optional
 try:
@@ -41,141 +42,144 @@ async def root():
     return {"message": "Welcome to the eraXplor API"}
 
 
-@app.post("/aws/cost/export")
-async def export_aws_costs_post(request: Request):
+@app.post("/aws/focus/run")
+async def aws_focus_run_post(request: Request):
     """
-    Export AWS cost data using POST request with JSON body.
+    Run AWS FOCUS workflow using POST body.
 
     Request Body Parameters:
-    - start_date (str, optional): Start date in YYYY-MM-DD format
-    - end_date (str, optional): End date in YYYY-MM-DD format
+    - command (str, optional): "configure" or "download" (default: "configure")
     - profile (str, optional): AWS profile name (default: "default")
-    - group_by (str, optional): Cost grouping dimension (default: "LINKED_ACCOUNT")
-    - granularity (str, optional): Time granularity - "MONTHLY" or "DAILY" (default: "MONTHLY")
-
-    Assumes AWS credentials are already configured in the user's terminal.
+    - region (str, optional): AWS region (default: "us-east-1")
+    - stack_name (str, optional): CloudFormation stack name (default: "CID-DataExports-Source")
+    - granularity (str, optional): FOCUS time granularity for configure only
+      ("HOURLY", "DAILY", "MONTHLY"; default: "MONTHLY")
     """
     try:
-        # Parse JSON body if present
         try:
             body = await request.json()
         except Exception:
             body = {}
 
-        # Extract parameters with defaults
-        start_date = body.get("start_date")
-        end_date = body.get("end_date")
+        command = body.get("command", "configure")
         profile = body.get("profile", "default")
-        group_by = body.get("group_by", "LINKED_ACCOUNT")
+        region = body.get("region", "us-east-1")
+        stack_name = body.get("stack_name", "CID-DataExports-Source")
         granularity = body.get("granularity", "MONTHLY")
 
-        # Set default dates if not provided
-        if not start_date:
-            start_date = (datetime.now() - timedelta(days=90)).strftime("%Y-%m-%d")
+        if command == "configure":
+            stack_result = deploy_focus_stack(
+                stack_name=stack_name,
+                profile_name=profile,
+                region=region,
+                focus_time_granularity=granularity,
+            )
+            return {
+                "success": True,
+                "command": command,
+                "message": "AWS FOCUS stack configured successfully",
+                "result": stack_result,
+            }
 
-        if not end_date:
-            end_date = datetime.now().strftime("%Y-%m-%d")
+        if command == "download":
+            files = download_parquet_files(
+                profile_name=profile,
+                region=region,
+                stack_name=stack_name,
+            )
+            return {
+                "success": True,
+                "command": command,
+                "message": "AWS FOCUS parquet files downloaded successfully",
+                "total_files": len(files),
+                "files": files,
+            }
 
-        print(f"Fetching AWS cost data from {start_date} to {end_date}")
-        print(f"Using profile: {profile}, Group by: {group_by}")
-
-        # Call the existing eraXplor AWS function
-        cost_data = monthly_account_cost_export(
-            start_date_input=start_date,
-            end_date_input=end_date,
-            aws_profile_name_input=profile,
-            cost_groupby_key_input=group_by,
-            granularity=granularity,
+        return JSONResponse(
+            {
+                "error": True,
+                "message": "Invalid command. Use 'configure' or 'download'.",
+            },
+            status_code=400,
         )
 
-        print(f"Retrieved {len(cost_data)} cost records")
-
-        response_data = {
-            "success": True,
-            "message": "AWS cost data exported successfully",
-            "total_records": len(cost_data),
-            "cost_data": cost_data,
-            "request_parameters": {
-                "start_date": start_date,
-                "end_date": end_date,
-                "profile": profile,
-                "group_by": group_by,
-                "granularity": granularity,
-            },
-        }
-
-        return response_data
-
-    except Exception as e:
-        print(f"Error exporting AWS costs: {str(e)}")
+    except ValueError as e:
         return JSONResponse(
-            {"error": True, "message": f"Error exporting AWS costs: {str(e)}"},
+            {"error": True, "message": str(e)},
+            status_code=400,
+        )
+    except Exception as e:
+        print(f"Error running AWS FOCUS command: {str(e)}")
+        return JSONResponse(
+            {"error": True, "message": f"Error running AWS FOCUS command: {str(e)}"},
             status_code=500,
         )
 
 
-@app.get("/aws/cost/export")
-async def export_aws_costs_get(
-    start_date: str = None,
-    end_date: str = None,
+@app.get("/aws/focus/run")
+async def aws_focus_run_get(
+    command: str = "configure",
     profile: str = "default",
-    group_by: str = "LINKED_ACCOUNT",
+    region: str = "us-east-1",
+    stack_name: str = "CID-DataExports-Source",
     granularity: str = "MONTHLY",
 ):
     """
-    Export AWS cost data using GET request with query parameters.
+    Run AWS FOCUS workflow using query parameters.
 
     Query Parameters:
-    - start_date (str, optional): Start date in YYYY-MM-DD format
-    - end_date (str, optional): End date in YYYY-MM-DD format
-    - profile (str, optional): AWS profile name (default: "default")
-    - group_by (str, optional): Cost grouping dimension (default: "LINKED_ACCOUNT")
-    - granularity (str, optional): Time granularity - "MONTHLY" or "DAILY" (default: "MONTHLY")
-
-    Assumes AWS credentials are already configured in the user's terminal.
+    - command (str): "configure" or "download"
+    - profile (str): AWS profile name
+    - region (str): AWS region
+    - stack_name (str): CloudFormation stack name
+    - granularity (str): FOCUS time granularity for configure only
     """
     try:
-        # Set default dates if not provided
-        if not start_date:
-            start_date = (datetime.now() - timedelta(days=90)).strftime("%Y-%m-%d")
+        if command == "configure":
+            stack_result = deploy_focus_stack(
+                stack_name=stack_name,
+                profile_name=profile,
+                region=region,
+                focus_time_granularity=granularity,
+            )
+            return {
+                "success": True,
+                "command": command,
+                "message": "AWS FOCUS stack configured successfully",
+                "result": stack_result,
+            }
 
-        if not end_date:
-            end_date = datetime.now().strftime("%Y-%m-%d")
+        if command == "download":
+            files = download_parquet_files(
+                profile_name=profile,
+                region=region,
+                stack_name=stack_name,
+            )
+            return {
+                "success": True,
+                "command": command,
+                "message": "AWS FOCUS parquet files downloaded successfully",
+                "total_files": len(files),
+                "files": files,
+            }
 
-        print(f"Fetching AWS cost data from {start_date} to {end_date}")
-        print(f"Using profile: {profile}, Group by: {group_by}")
-
-        # Call the existing eraXplor AWS function
-        cost_data = monthly_account_cost_export(
-            start_date_input=start_date,
-            end_date_input=end_date,
-            aws_profile_name_input=profile,
-            cost_groupby_key_input=group_by,
-            granularity=granularity,
+        return JSONResponse(
+            {
+                "error": True,
+                "message": "Invalid command. Use 'configure' or 'download'.",
+            },
+            status_code=400,
         )
 
-        print(f"Retrieved {len(cost_data)} cost records")
-
-        response_data = {
-            "success": True,
-            "message": "AWS cost data exported successfully",
-            "total_records": len(cost_data),
-            "cost_data": cost_data,
-            "request_parameters": {
-                "start_date": start_date,
-                "end_date": end_date,
-                "profile": profile,
-                "group_by": group_by,
-                "granularity": granularity,
-            },
-        }
-
-        return response_data
-
-    except Exception as e:
-        print(f"Error exporting AWS costs: {str(e)}")
+    except ValueError as e:
         return JSONResponse(
-            {"error": True, "message": f"Error exporting AWS costs: {str(e)}"},
+            {"error": True, "message": str(e)},
+            status_code=400,
+        )
+    except Exception as e:
+        print(f"Error running AWS FOCUS command: {str(e)}")
+        return JSONResponse(
+            {"error": True, "message": f"Error running AWS FOCUS command: {str(e)}"},
             status_code=500,
         )
 

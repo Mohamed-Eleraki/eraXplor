@@ -1,6 +1,6 @@
-# AWS Cost Export API
+# AWS FOCUS API
 
-This section documents the AWS cost export endpoints for the eraXplor API.
+This section documents the AWS FOCUS workflow endpoints for the eraXplor API.
 
 ---
 
@@ -80,55 +80,46 @@ docker run -p 8000:8000 eraxplor-api
 
 ---
 
-## AWS Cost Export Endpoints
+## AWS FOCUS Endpoints
 
-### POST `/aws/cost/export`
+### POST `/aws/focus/run`
 
-Export AWS cost data using JSON request body.
+Run AWS FOCUS workflow using JSON request body.
 
 **Request Body:**
 ```json
 {
-  "start_date": "2025-08-01",
-  "end_date": "2025-10-30",
+  "command": "configure",
   "profile": "default",
-  "group_by": "LINKED_ACCOUNT",
+  "region": "us-east-1",
+  "stack_name": "CID-DataExports-Source",
   "granularity": "MONTHLY"
 }
 ```
 
 **Parameters:**
-- `start_date` (string, optional): Start date in YYYY-MM-DD format. Defaults to 90 days ago.
-- `end_date` (string, optional): End date in YYYY-MM-DD format. Defaults to today.
+- `command` (string, optional): `configure` or `download`. Default: `configure`
 - `profile` (string, optional): AWS profile name. Default: "default"
-- `group_by` (string, optional): Cost grouping dimension. Default: "LINKED_ACCOUNT"
-- `granularity` (string, optional): "MONTHLY" or "DAILY". Default: "MONTHLY"
-
-**Group By Options:**
-- `LINKED_ACCOUNT` (default)
-- `SERVICE`
-- `PURCHASE_TYPE`
-- `USAGE_TYPE`
-- `LINKED_ACCOUNT-With-SERVICE`
-- `LINKED_ACCOUNT-With-PURCHASE_TYPE`
-- `LINKED_ACCOUNT-With-USAGE_TYPE`
+- `region` (string, optional): AWS region. Default: "us-east-1"
+- `stack_name` (string, optional): CloudFormation stack name. Default: "CID-DataExports-Source"
+- `granularity` (string, optional): "HOURLY", "DAILY", or "MONTHLY" (used in `configure` mode)
 
 ---
 
-### GET `/aws/cost/export`
+### GET `/aws/focus/run`
 
-Export AWS cost data using query parameters.
+Run AWS FOCUS workflow using query parameters.
 
 **Query Parameters:**
-- `start_date` (optional): YYYY-MM-DD format
-- `end_date` (optional): YYYY-MM-DD format
+- `command` (optional): `configure` or `download`
 - `profile` (optional): AWS profile name
-- `group_by` (optional): Cost grouping dimension
-- `granularity` (optional): MONTHLY or DAILY
+- `region` (optional): AWS region
+- `stack_name` (optional): CloudFormation stack name
+- `granularity` (optional): HOURLY/DAILY/MONTHLY (configure mode)
 
 **Example:**
 ```bash
-curl "http://localhost:8000/aws/cost/export?start_date=2025-08-01&end_date=2025-10-30&granularity=DAILY"
+curl "http://localhost:8000/aws/focus/run?command=download&profile=default&region=us-east-1&stack_name=CID-DataExports-Source"
 ```
 
 ---
@@ -138,23 +129,10 @@ curl "http://localhost:8000/aws/cost/export?start_date=2025-08-01&end_date=2025-
 ```json
 {
   "success": true,
-  "message": "AWS cost data exported successfully",
-  "total_records": 31,
-  "cost_data": [
-    {
-      "TIME_PERIOD": {"start": "2025-08-01", "end": "2025-09-01"},
-      "ID": "891377122503",
-      "GROUPBY_FILTER": "Amazon QuickSight",
-      "COST": "3.97 USD"
-    }
-  ],
-  "request_parameters": {
-    "start_date": "2025-08-01",
-    "end_date": "2025-10-30",
-    "profile": "default",
-    "group_by": "LINKED_ACCOUNT",
-    "granularity": "MONTHLY"
-  }
+  "command": "download",
+  "message": "AWS FOCUS parquet files downloaded successfully",
+  "total_files": 2,
+  "files": ["./downloaded_parquet_files/file1.parquet", "./downloaded_parquet_files/file2.parquet"]
 }
 ```
 
@@ -166,7 +144,7 @@ curl "http://localhost:8000/aws/cost/export?start_date=2025-08-01&end_date=2025-
 ```json
 {
   "error": true,
-  "message": "Error exporting AWS costs: [detailed error message]"
+  "message": "Error running AWS FOCUS command: [detailed error message]"
 }
 ```
 
@@ -175,11 +153,13 @@ curl "http://localhost:8000/aws/cost/export?start_date=2025-08-01&end_date=2025-
 ## Testing AWS Endpoint
 
 ```bash
-curl -X POST "http://localhost:8000/aws/cost/export" \
+curl -X POST "http://localhost:8000/aws/focus/run" \
   -H "Content-Type: application/json" \
   -d '{
-    "start_date": "2025-08-01",
-    "end_date": "2025-10-30",
+    "command": "configure",
+    "profile": "default",
+    "region": "us-east-1",
+    "stack_name": "CID-DataExports-Source",
     "granularity": "DAILY"
   }'
 ```
@@ -190,7 +170,7 @@ curl -X POST "http://localhost:8000/aws/cost/export" \
 
 - AWS CLI configured with profiles
 - Valid AWS credentials in `~/.aws/credentials`
-- Appropriate IAM permissions for Cost Explorer API
+- Appropriate IAM permissions for CloudFormation, S3, and FOCUS-related resources
 
 ---
 
@@ -206,8 +186,8 @@ boto3>=1.37.0
 
 ## Features
 
-- AWS Cost Export - Full functionality with granularity support
-- Multiple grouping dimensions
-- Flexible date ranges
-- Support for AWS profiles
+- AWS FOCUS stack configure command
+- AWS FOCUS parquet download command
+- Separate configure/download execution model
+- Support for AWS profiles and regions
 

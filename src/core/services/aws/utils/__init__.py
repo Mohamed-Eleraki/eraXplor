@@ -1,57 +1,43 @@
-""" eraXport Utility Module
+"""eraXplor AWS utility exports for FOCUS workflow."""
 
-Exports all untility functions with type annotations for documentation.
-"""
-
-from .csv_export_utils import csv_export
-from .cost_export_utils import monthly_account_cost_export
-from .banner_utils import banner
-from .parser_utils import (
+from core.services.utils.banner_utils import banner
+from .focus_parser_utils import (
     parser,
-    parser_start_date_handler,
-    parser_end_date_handler,
+    parser_command_handler,
     parser_profile_handler,
-    parser_groupby_handler,
-    parser_filename_handler,
+    parser_region_handler,
+    parser_stack_name_handler,
     parser_granularity_handler,
 )
+from .aws_focus_export_stack_utils import deploy_focus_stack
 from .aws_focus_fetch import download_parquet_files
+
 
 __version__ = "4.0.0"
 
-__all__=[
-    'banner',
-    'monthly_account_cost_export',
-    'get_cost_groupby_key',
-    'csv_export',
-    'get_start_date_from_user',
-    'get_end_date_from_user',
-    'parser',
-    'parser_start_date_handler',
-    'parser_end_date_handler',
-    'parser_profile_handler',
-    'parser_groupby_handler',
-    'parser_filename_handler',
-    'parser_granularity_handler',
-    'download_parquet_files',
+__all__ = [
+    "banner",
+    "parser",
+    "parser_command_handler",
+    "parser_profile_handler",
+    "parser_region_handler",
+    "parser_stack_name_handler",
+    "parser_granularity_handler",
+    "deploy_focus_stack",
+    "download_parquet_files",
 ]
 
-# Add module-level type hints for MkDocs
 banner: callable
-monthly_account_cost_export: callable
-get_cost_groupby_key: callable
-csv_export:callable
-get_start_date_from_user: callable
-get_end_date_from_user: callable
 parser: callable
-parser_start_date_handler: callable
-parser_end_date_handler: callable
+parser_command_handler: callable
 parser_profile_handler: callable
-parser_groupby_handler: callable
-parser_filename_handler: callable
+parser_region_handler: callable
+parser_stack_name_handler: callable
 parser_granularity_handler: callable
+deploy_focus_stack: callable
 download_parquet_files: callable
 
+
 def __dir__():
-    """For autocomplete and documentation tools"""
+    """For autocomplete and documentation tools."""
     return __all__
