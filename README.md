@@ -88,26 +88,26 @@ Interactive API test `Swagger UI` under `http://localhost:8000/docs`
 
 ### API Endpoints
 
-#### AWS Cost Export
+#### AWS FOCUS Workflow
 
-**POST /aws/cost/export**
+**POST /aws/focus/run**
 
 ```bash
-curl -X POST "http://localhost:8000/aws/cost/export" \
+curl -X POST "http://localhost:8000/aws/focus/run" \
   -H "Content-Type: application/json" \
   -d '{
-    "start_date": "2025-01-01",
-    "end_date": "2025-03-30",
+    "command": "configure",
     "profile": "default",
-    "group_by": "LINKED_ACCOUNT",
+    "region": "us-east-1",
+    "stack_name": "CID-DataExports-Source",
     "granularity": "MONTHLY"
   }'
 ```
 
-**GET /aws/cost/export**
+**GET /aws/focus/run**
 
 ```bash
-curl "http://localhost:8000/aws/cost/export?start_date=2025-01-01&end_date=2025-03-30&profile=default&group_by=LINKED_ACCOUNT&granularity=MONTHLY"
+curl "http://localhost:8000/aws/focus/run?command=download&profile=default&region=us-east-1&stack_name=CID-DataExports-Source"
 ```
 
 #### Azure Cost Export
@@ -170,26 +170,25 @@ aws configure <--profile [PROFILE_NAME]>
 
 ### How-To use - AWS
 
-`eraXplor-aws` have multiple arguments set with a default values _-explained below-_, Adjsut these arguments as required.
+`eraXplor-aws` now supports two separate commands for AWS FOCUS workflow.
 
 ```bash
-eraXplor-aws <--start-date [yyyy-MM-DD]> <--end-date [yyyy-MM-DD]> \
-<--profile [PROFILE-NAME]> \
-<--groupby [LINKED_ACCOUNT | SERVICE | PURCHASE_TYPE | USAGE_TYPE | LINKED_ACCOUNT-With-SERVICE | LINKED_ACCOUNT-With-PURCHASE_TYPE | LINKED_ACCOUNT-With-USAGE_TYPE]> \
-<--out [file.csv]>
-<--granularity [DAILY | MONTHLY]>
+# Step 1: Configure data export stack
+eraXplor-aws --command configure --profile default --region us-east-1 --stack-name CID-DataExports-Source --granularity MONTHLY
+
+# Step 2: Download parquet files later (after export data is available)
+eraXplor-aws --command download --profile default --region us-east-1 --stack-name CID-DataExports-Source
 ```
 
 ### Argument Reference - AWS
 
-- `--start-date`, `-s`: **_(Not_Required)_** Default value set as three months before.
-- `--end-date`, `-e`: **_(Not_Required)_** Default value set as Today date.
-- `--profile`, `-p`: **_(Not_Required)_** Default value set as `default`.
-- `--groupby`, `-g`: **_(Not_Required)_** Default value set as LINKED_ACCOUNT.
-    The available options are (`LINKED_ACCOUNT`, `SERVICE`, `PURCHASE_TYPE`, `USAGE_TYPE`, `LINKED_ACCOUNT-With-SERVICE`, `LINKED_ACCOUNT-With-PURCHASE_TYPE`, `LINKED_ACCOUNT-With-USAGE_TYPE`)
-- `--out`, `-o`: **_(Not_Required)_** Default value set as `cost_repot.csv`.
-- `--granularity`, `-G`: **_(Not_Required)_** Default value set as `MONTHLY`.
-    The available options are (`MONTHLY`, `DAILY`)
+- `--command`, `-c`: **_(Not Required)_** Default value is `configure`.
+  Available options: `configure`, `download`
+- `--profile`, `-p`: **_(Not Required)_** Default value is `default`.
+- `--region`, `-r`: **_(Not Required)_** Default value is `us-east-1`.
+- `--stack-name`, `-s`: **_(Not Required)_** Default value is `CID-DataExports-Source`.
+- `--granularity`, `-g`: **_(Not Required)_** Default value is `MONTHLY`.
+  Available options: `HOURLY`, `DAILY`, `MONTHLY`
 
 ### Example Usage - AWS
 

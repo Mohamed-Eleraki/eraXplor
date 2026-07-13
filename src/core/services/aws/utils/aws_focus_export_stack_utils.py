@@ -3,7 +3,7 @@
 from typing import Any
 import re
 import boto3
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError, WaiterError
 
 
 CID_DATA_EXPORTS_TEMPLATE_URL = (
@@ -26,6 +26,36 @@ def _validate_stack_name(stack_name: str) -> None:
 def _get_current_account_id(session: boto3.Session) -> str:
 	"""Get AWS account ID from current boto3 session credentials."""
 	return session.client("sts").get_caller_identity()["Account"]
+
+
+def _is_bucket_name_in_use(session: boto3.Session, region: str, bucket_name: str) -> bool:
+	"""Return True when an S3 bucket name is already in use."""
+	s3_client = session.client("s3", region_name=region)
+	try:
+		s3_client.head_bucket(Bucket=bucket_name)
+		return True
+	except ClientError as exc:
+		error_code = str(exc.response.get("Error", {}).get("Code", ""))
+		if error_code in {"404", "NoSuchBucket", "NotFound"}:
+			return False
+		if error_code in {"403", "AccessDenied", "301", "PermanentRedirect"}:
+			return True
+		return True
+
+
+def _get_stack_failure_reason(cloudformation: Any, stack_name: str) -> str:
+	"""Best-effort extraction of the most relevant stack failure reason."""
+	try:
+		events = cloudformation.describe_stack_events(StackName=stack_name)["StackEvents"]
+		for event in events:
+			status = event.get("ResourceStatus", "")
+			if status.endswith("_FAILED") or status in {"ROLLBACK_IN_PROGRESS", "ROLLBACK_COMPLETE"}:
+				logical_id = event.get("LogicalResourceId", "UnknownResource")
+				reason = event.get("ResourceStatusReason", "Unknown failure reason")
+				return f"{logical_id}: {reason}"
+	except Exception:
+		pass
+	return "No detailed stack event failure reason was returned by CloudFormation."
 
 
 def build_focus_stack_parameters(
@@ -135,6 +165,17 @@ def deploy_focus_stack(
 			raise
 
 	if not stack_exists:
+		destination_bucket_name = f"{resource_prefix}-{account_id}-data-exports"
+		if _is_bucket_name_in_use(session, region, destination_bucket_name):
+			raise ValueError(
+				f"Resource conflict: AWS::S3::Bucket '{destination_bucket_name}' "
+				"already exists. "
+				f"Stack '{stack_name}' does not exist, so this run is in create mode "
+				"(not update mode). "
+				"Use the existing stack name to update, choose a different "
+				"resource_prefix, or delete/empty old retained resources first."
+			)
+
 		print(f"Creating CloudFormation stack '{stack_name}' for FOCUS export automation...")
 		response = cloudformation.create_stack(
 			StackName=stack_name,
@@ -170,7 +211,19 @@ def deploy_focus_stack(
 
 	if wait:
 		waiter_name = "stack_create_complete" if action == "create" else "stack_update_complete"
-		cloudformation.get_waiter(waiter_name).wait(StackName=stack_name)
+		try:
+			cloudformation.get_waiter(waiter_name).wait(StackName=stack_name)
+		except WaiterError as exc:
+			stack = cloudformation.describe_stacks(StackName=stack_name)["Stacks"][0]
+			stack_status = stack.get("StackStatus", "UNKNOWN")
+			stack_status_reason = stack.get("StackStatusReason", "")
+			failure_reason = _get_stack_failure_reason(cloudformation, stack_name)
+			raise ValueError(
+				f"CloudFormation stack '{stack_name}' {action} failed with status "
+				f"'{stack_status}'. "
+				f"Reason: {stack_status_reason or failure_reason}. "
+				"Review stack events in AWS Console, fix the issue, then rerun configure."
+			) from exc
 
 	stack = cloudformation.describe_stacks(StackName=stack_name)["Stacks"][0]
 	return {
@@ -181,10 +234,3 @@ def deploy_focus_stack(
 		"parameters": parameters,
 	}
 
-
-if __name__ == "__main__":
-	result = deploy_focus_stack()
-	print(
-		f"FOCUS stack {result['action']} completed. "
-		f"Stack: {result['stack_name']} | Status: {result['stack_status']}"
-	)

@@ -1,6 +1,6 @@
 # AWS API Reference
 
-This section provides the API reference documentation for AWS cost export endpoints, auto-generated from docstrings.
+This section provides the API reference documentation for AWS FOCUS workflow endpoints, auto-generated from docstrings.
 
 ## Interactive Documentation
 
@@ -16,12 +16,12 @@ This section provides the API reference documentation for AWS cost export endpoi
 
 ## AWS Endpoints Reference
 
-::: api.main.export_aws_costs_post
+::: api.main.aws_focus_run_post
     options:
         heading_level: 3
         show_root_heading: false
 
-::: api.main.export_aws_costs_get
+::: api.main.aws_focus_run_get
     options:
         heading_level: 3
         show_root_heading: false
@@ -30,9 +30,9 @@ This section provides the API reference documentation for AWS cost export endpoi
 
 - AWS CLI configured with profiles
 - Credentials in `~/.aws/credentials`
-- IAM permissions for Cost Explorer API
+- IAM permissions for CloudFormation, S3, and FOCUS export resources
 
 ## Rate Limiting
 
-AWS Cost Explorer has its own quotas - no built-in limiting.
+AWS service quotas apply (CloudFormation, S3, and billing data export services).
 
