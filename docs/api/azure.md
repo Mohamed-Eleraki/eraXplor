@@ -29,8 +29,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 3. **Install dependencies:**
 ```bash
-cd src/api
-pip install -r requirements.txt
+pip install -r src/api/requirements.txt
 ```
 
 4. **Configure Azure credentials:**
@@ -40,8 +39,7 @@ az login
 
 5. **Run the API server:**
 ```bash
-cd src/api
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn api.main:app --app-dir src --host 0.0.0.0 --port 8000 --reload
 ```
 
 6. **Access the API:**

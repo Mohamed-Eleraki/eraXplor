@@ -78,9 +78,8 @@ eraXplor includes a FastAPI-based REST API that allows you to programmatically e
 ### Start the API Server
 
 ```bash
-# From the src/api directory
-cd src/api
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+# From the repository root
+uvicorn api.main:app --app-dir src --reload --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at `http://localhost:8000`
