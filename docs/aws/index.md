@@ -42,6 +42,10 @@ your use case by looking at the different pages.
 3. [Reference](reference.md)
 4. [Explanation](explanation.md)
 
+## Main File
+
+The AWS CLI entry point is `src/core/services/aws/__main__.py`.
+
 ## About the Author
 
 ???+ info "Show/Hide Author Details"
@@ -84,7 +88,8 @@ your use case by looking at the different pages.
 
 ## Project Overview
 
-::: main
+The AWS workflow configures the infrastructure needed for FOCUS exports and can
+later download the generated Parquet files for local analysis.
 
 ## Acknowledgements
 

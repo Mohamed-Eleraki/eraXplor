@@ -42,6 +42,10 @@ your use case by looking at the different pages.
 3. [Azure - Reference](reference.md)
 4. [Azure - Explanation](explanation.md)
 
+## Main File
+
+The Azure CLI entry point is `src/core/services/azure/__main__.py`.
+
 ## About the Author
 
 ???+ info "Show/Hide Author Details"
@@ -84,7 +88,8 @@ your use case by looking at the different pages.
 
 ## Project Overview
 
-::: main
+The Azure workflow provisions supporting storage resources, creates the export
+configuration, and downloads generated Parquet files for further processing.
 
 ## Acknowledgements
 
