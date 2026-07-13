@@ -37,6 +37,14 @@ def parser():
         default="MONTHLY",
         help="Time granularity of the cost data.",
     )
+    arg_parser.add_argument(
+        "-s",
+        "--stack-name",
+        type=str,
+        required=False,
+        default="CID-DataExports-Source",
+        help="CloudFormation stack name for the CID Data Exports deployment.",
+    )
     return arg_parser
 
 
@@ -66,6 +74,33 @@ def parser_profile_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
     except Exception as e:  # Pylint: disable=broad-except
         print(f"Unexpected error: {e}")
         return None
+
+def parser_stack_name_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
+    """parser_stack_name_handler
+
+    Handles the stack name input from the user or sets a default value to
+    "CID-DataExports-Source".
+
+    Args:
+        arg_parser (list[argparse.ArgumentParser]): The parser objects.
+
+    Returns:
+        str: Returns a `stack_name` object holds the CloudFormation stack name.
+    """
+    try:
+        if arg_parser.stack_name:
+            stack_name = arg_parser.stack_name
+            return stack_name
+        if arg_parser.stack_name is None:  # set default value
+            stack_name = "CID-DataExports-Source"
+            return stack_name
+    except ValueError as e:
+        print(f"Error parsing stack name: {e}")
+        return None
+    except Exception as e:  # Pylint: disable=broad-except
+        print(f"Unexpected error: {e}")
+        return None
+
 
 def parser_region_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
     """parser_region_handler
