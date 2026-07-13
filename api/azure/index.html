@@ -1634,7 +1634,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 <ol>
 <li><strong>Install dependencies:</strong></li>
 </ol>
-<pre><code class="language-bash">cd api
+<pre><code class="language-bash">cd src/api
 pip install -r requirements.txt
 </code></pre>
 <ol>
@@ -1645,7 +1645,7 @@ pip install -r requirements.txt
 <ol>
 <li><strong>Run the API server:</strong></li>
 </ol>
-<pre><code class="language-bash">cd api
+<pre><code class="language-bash">cd src/api
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 </code></pre>
 <ol>
@@ -1655,7 +1655,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 <li>Health check: http://localhost:8000/</li>
 </ol>
 <h3 id="docker-optional">Docker (Optional)</h3>
-<pre><code class="language-bash">docker build -t eraxplor-api ./api
+<pre><code class="language-bash">docker build -t eraxplor-api ./src/api
 docker run -p 8000:8000 eraxplor-api
 </code></pre>
 <hr />
