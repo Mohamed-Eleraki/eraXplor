@@ -20,7 +20,7 @@ This is the primary CLI entry point for configuring and downloading AWS FOCUS ex
 
 ### Banner Utilities
 
-::: core.services.utils.banner_utils
+::: core.services.utils
 
 Responsible for rendering styled ASCII banners and displaying copyright
 information used in the CLI interface.
