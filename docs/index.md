@@ -52,6 +52,12 @@ your use case by looking at the different pages.
 3. [How-To Guides](azure/how-to-guides.md)
 5. [Concepts & Explanation](azure/explanation.md)
 
+## Main Files
+
+- API entry point: `src/api/main.py`
+- AWS CLI entry point: `src/core/services/aws/__main__.py`
+- Azure CLI entry point: `src/core/services/azure/__main__.py`
+
 ---
 
 
@@ -97,7 +103,10 @@ your use case by looking at the different pages.
 
 ## Project Overview
 
-::: main
+`eraXplor` is a multi-provider cost export toolkit with separate AWS and Azure
+workflows, plus a FastAPI surface for automation scenarios. The project focuses
+on configuring export pipelines and retrieving generated billing data in a
+portable format.
 
 ## Acknowledgements
 

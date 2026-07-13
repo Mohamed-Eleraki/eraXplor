@@ -1,102 +1,29 @@
-# AWS - Reference
+# Reference
 
-This section provides a structured breakdown of the main application module and its supporting utilities used in the `eraXplor` project.
+This page is a lightweight reference index for the current provider-specific
+modules in `eraXplor`.
 
-🌟[eraXplor source code](https://github.com/Mohamed-Eleraki/eraXplor/tree/master/src/eraXplor)
+## AWS modules
 
----
+- CLI entry point: `core.services.aws.__main__`
+- Shared banner utilities: `core.services.utils.banner_utils`
+- Parser helpers: `core.services.aws.utils.focus_parser_utils`
+- CloudFormation export stack helpers: `core.services.aws.utils.aws_focus_export_stack_utils`
+- Parquet download helpers: `core.services.aws.utils.aws_focus_fetch`
 
-## 🔹Main Application Module
+See the full AWS reference page for auto-generated API details.
 
-### ▶️ Entry Point
+## Azure modules
 
-::: eraXplor_aws.__main__
+- CLI entry point: `core.services.azure.__main__`
+- Shared banner utilities: `core.services.utils.banner_utils`
+- Parser helpers: `core.services.azure.utils.focus_parser_utils`
+- Resource provisioning helpers: `core.services.azure.utils.focus_depends`
+- Export configuration helpers: `core.services.azure.utils.focus_export_utils`
+- Cost query helpers: `core.services.azure.utils.cost_export_utils`
+- CSV export helpers: `core.services.azure.utils.csv_export_utils`
+- Parquet download helpers: `core.services.azure.utils.focus_fetch`
 
-This is the primary script responsible for orchestrating the user workflow. It handles user input, invokes AWS cost data retrieval, and manages data export functionality.
-
----
-
-## 🛠 Utility Modules
-
-### 🎨 Banner Utilities
-
-::: eraXplor_aws.utils.banner_utils
-
-Responsible for rendering styled ASCII banners and displaying copyright
-information used in the CLI interface.
-
----
-
-### 📊 Cost Export Utilities
-
-::: eraXplor_aws.utils.cost_export_utils
-
-Contains functions for retrieving cost and usage reports from AWS Cost Explorer using `boto3`, grouped by various dimensions such as:
-
-- Linked AWS accounts
-- AWS services
-- Purchase types
-- Usage types
-
----
-
-### 🧾 CSV Export Utilities
-
-::: eraXplor_aws.utils.csv_export_utils
-
-Provides functionality to export retrieved cost data into a structured CSV format.
-
----
-
-### 📅 Date Utilities
-
-::: eraXplor_aws.utils.date_utils
-
-Includes interactive functions for prompting and validating date input from users, ensuring format compliance and error handling.
-
----
-
-# Azure - Reference
-
-This section provides a structured breakdown of the main application module and its supporting utilities used in the `eraXplor_azure` project.
-
-🌟[eraXplor source code](https://github.com/Mohamed-Eleraki/eraXplor/tree/master/src/eraXplor_azure)
-
----
-
-## 🔹Main Application Module
-
-### ▶️ Entry Point
-
-::: eraXplor_azure.__main__
-
-This is the primary script responsible for orchestrating the user workflow. It handles user input, invokes Azure cost data retrieval, and manages data export functionality.
-
----
-
-## 🛠 Utility Modules
-
-### 🎨 Banner Utilities
-
-::: eraXplor_azure.utils.banner_utils
-
-Responsible for rendering styled ASCII banners and displaying copyright
-information used in the CLI interface.
-
----
-
-### 📊 Cost Export Utilities
-
-::: eraXplor_azure.utils.cost_export_utils
-
-Contains functions for retrieving cost and usage reports from Azure Cost Explorer using `CostManagementClient`
-
----
-
-### 🧾 CSV Export Utilities
-
-::: eraXplor_azure.utils.csv_export_utils
-
-Provides functionality to export retrieved cost data into a structured CSV format.
+See the full Azure reference page for auto-generated API details.
 
 ---

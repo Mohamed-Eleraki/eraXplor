@@ -1,8 +1,8 @@
 # Azure - Reference
 
-This section provides a structured breakdown of the main application module and its supporting utilities used in the `eraXplor_azure` project.
+This section documents the current Azure FOCUS workflow modules used by `eraXplor`.
 
-[eraXplor source code](https://github.com/Mohamed-Eleraki/eraXplor/tree/master/src/eraXplor_azure)
+[eraXplor source code](https://github.com/Mohamed-Eleraki/eraXplor/tree/master/src/core/services/azure)
 
 ---
 
@@ -10,7 +10,7 @@ This section provides a structured breakdown of the main application module and 
 
 ### Entry Point
 
-::: eraXplor_azure.__main__
+::: core.services.azure.__main__
 
 This is the primary script responsible for orchestrating the user workflow. It handles user input, invokes Azure cost data retrieval, and manages data export functionality.
 
@@ -20,7 +20,7 @@ This is the primary script responsible for orchestrating the user workflow. It h
 
 ### Banner Utilities
 
-::: eraXplor_azure.utils.banner_utils
+::: core.services.utils.banner_utils
 
 Responsible for rendering styled ASCII banners and displaying copyright
 information used in the CLI interface.
@@ -29,7 +29,7 @@ information used in the CLI interface.
 
 ### Cost Export Utilities
 
-::: eraXplor_azure.utils.cost_export_utils
+::: core.services.azure.utils.cost_export_utils
 
 Contains functions for retrieving cost and usage reports from Azure Cost Explorer using `CostManagementClient`
 
@@ -37,7 +37,34 @@ Contains functions for retrieving cost and usage reports from Azure Cost Explore
 
 ### CSV Export Utilities
 
-::: eraXplor_azure.utils.csv_export_utils
+::: core.services.azure.utils.csv_export_utils
 
 Provides functionality to export retrieved cost data into a structured CSV format.
+
+---
+
+### Resource Provisioning Utilities
+
+::: core.services.azure.utils.focus_depends
+
+Creates the Azure resource group, storage account, container, and folder
+required by the export workflow.
+
+---
+
+### Export Configuration Utilities
+
+::: core.services.azure.utils.focus_export_utils
+
+Contains the helpers that discover billing identifiers and create Azure FOCUS
+export definitions.
+
+---
+
+### Fetch Utilities
+
+::: core.services.azure.utils.focus_fetch
+
+Provides functionality for downloading generated Parquet export files from the
+configured Azure Storage container.
 
