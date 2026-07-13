@@ -29,7 +29,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 3. **Install dependencies:**
 ```bash
-cd api
+cd src/api
 pip install -r requirements.txt
 ```
 
@@ -40,7 +40,7 @@ az login
 
 5. **Run the API server:**
 ```bash
-cd api
+cd src/api
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
@@ -52,7 +52,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ### Docker (Optional)
 
 ```bash
-docker build -t eraxplor-api ./api
+docker build -t eraxplor-api ./src/api
 docker run -p 8000:8000 eraxplor-api
 ```
 

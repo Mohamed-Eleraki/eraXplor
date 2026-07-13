@@ -6,11 +6,11 @@ from datetime import datetime, timedelta
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
+# Add the src directory to Python path to import eraXplor modules
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 # Import settings from config
 from app.core.config import settings
-
-# Add the src directory to Python path to import eraXplor modules
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from core.services.aws.utils.aws_focus_export_stack_utils import deploy_focus_stack
 from core.services.aws.utils.aws_focus_fetch import download_parquet_files
