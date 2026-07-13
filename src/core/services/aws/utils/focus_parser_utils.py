@@ -45,6 +45,15 @@ def parser():
         default="CID-DataExports-Source",
         help="CloudFormation stack name for the CID Data Exports deployment.",
     )
+    arg_parser.add_argument(
+        "-c",
+        "--command",
+        type=str,
+        required=False,
+        choices=["configure", "download"],
+        default="configure",
+        help="Run mode: configure stack or download parquet files.",
+    )
     return arg_parser
 
 
@@ -148,6 +157,33 @@ def parser_granularity_handler(arg_parser: list[argparse.ArgumentParser]) -> str
             return granularity
     except ValueError as e:
         print(f"Error parsing granularity: {e}")
+        return None
+    except Exception as e:  # Pylint: disable=broad-except
+        print(f"Unexpected error: {e}")
+        return None
+
+
+def parser_command_handler(arg_parser: list[argparse.ArgumentParser]) -> str:
+    """parser_command_handler
+
+    Handles command mode input from the user or sets a default value to
+    "configure".
+
+    Args:
+        arg_parser (list[argparse.ArgumentParser]): The parser objects.
+
+    Returns:
+        str: Return a `command_mode` object holds the selected command mode.
+    """
+    try:
+        if arg_parser.command:
+            command_mode = arg_parser.command
+            return command_mode
+        if arg_parser.command is None:  # set default value
+            command_mode = "configure"
+            return command_mode
+    except ValueError as e:
+        print(f"Error parsing command mode: {e}")
         return None
     except Exception as e:  # Pylint: disable=broad-except
         print(f"Unexpected error: {e}")

@@ -74,7 +74,7 @@ dev = [
 ]
 
 [project.scripts]
-eraXplor-aws = "core.services.eraXplor_aws.__main__:main"
+eraXplor-aws = "core.services.aws.__main__:main"
 eraXplor-azure = "core.services.azure.__main__:main"
 
 [tool.setuptools]
@@ -86,5 +86,5 @@ where = ["src"]
 
 [tool.setuptools.dynamic]
 #version = {attr = "eraXplor.utils.__version__"}
-version = {attr = "core.services.eraXplor_aws.utils.__version__"}
+version = {attr = "core.services.aws.utils.__version__"}
 

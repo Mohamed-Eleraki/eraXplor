@@ -17,7 +17,7 @@ from .parser_utils import (
 )
 from .aws_focus_fetch import download_parquet_files
 
-__version__ = "3.3.0"
+__version__ = "4.0.0"
 
 __all__=[
     'banner',

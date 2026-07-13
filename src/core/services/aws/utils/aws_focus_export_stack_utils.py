@@ -181,10 +181,3 @@ def deploy_focus_stack(
 		"parameters": parameters,
 	}
 
-
-if __name__ == "__main__":
-	result = deploy_focus_stack()
-	print(
-		f"FOCUS stack {result['action']} completed. "
-		f"Stack: {result['stack_name']} | Status: {result['stack_status']}"
-	)

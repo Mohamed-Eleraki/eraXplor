@@ -1,35 +1,27 @@
-"""
-Module for fetching Parquet files from AWS S3 for FOCUS data export.
-This module provides a function to download Parquet files from a specified folder
-(prefix) within an S3 bucket.
-
-ARGS:
-- profile_name: AWS profile name (hardcoded)
-- region: AWS region (hardcoded)
-- stack_name: CloudFormation stack name created by aws_focus_export_stack_utils (hardcoded)
-
-Dependencies:
-- boto3
-"""
+"""Module for fetching FOCUS Parquet files from AWS S3."""
 
 import os
 import boto3
 from botocore.exceptions import ClientError
-
-
-PROFILE_NAME = "default"
-REGION = "us-east-1"
-STACK_NAME = "CID-DataExports-Source"
-
 
 def _resolve_focus_bucket_name(
 	session: boto3.Session,
 	stack_name: str,
 	region: str,
 ) -> str:
-	"""Resolve destination S3 bucket from the FOCUS CloudFormation stack resources."""
+	"""Resolve destination S3 bucket from stack outputs."""
 	cloudformation = session.client("cloudformation", region_name=region)
-	resources = cloudformation.describe_stack_resources(StackName=stack_name)["StackResources"]
+	try:
+		resources = cloudformation.describe_stack_resources(StackName=stack_name)["StackResources"]
+	except ClientError as exc:
+		error_code = exc.response.get("Error", {}).get("Code", "")
+		message = str(exc)
+		if error_code == "ValidationError" and "does not exist" in message:
+			raise ValueError(
+				f"CloudFormation stack '{stack_name}' was not found in region '{region}'. "
+				"Run '--command configure' first or pass '--stack-name' with an existing stack."
+			) from exc
+		raise
 
 	bucket_resources = [
 		resource
@@ -52,7 +44,17 @@ def _resolve_focus_prefix(
 ) -> str:
 	"""Resolve FOCUS object prefix from stack parameters using ResourcePrefix."""
 	cloudformation = session.client("cloudformation", region_name=region)
-	stack = cloudformation.describe_stacks(StackName=stack_name)["Stacks"][0]
+	try:
+		stack = cloudformation.describe_stacks(StackName=stack_name)["Stacks"][0]
+	except ClientError as exc:
+		error_code = exc.response.get("Error", {}).get("Code", "")
+		message = str(exc)
+		if error_code == "ValidationError" and "does not exist" in message:
+			raise ValueError(
+				f"CloudFormation stack '{stack_name}' was not found in region '{region}'. "
+				"Run '--command configure' first or pass '--stack-name' with an existing stack."
+			) from exc
+		raise
 	parameters = {
 		parameter["ParameterKey"]: parameter["ParameterValue"]
 		for parameter in stack.get("Parameters", [])
@@ -62,32 +64,38 @@ def _resolve_focus_prefix(
 	return f"{resource_prefix}/focus"
 
 
-def download_parquet_files() -> list:
+def download_parquet_files(
+	profile_name: str = "default",
+	region: str = "us-east-1",
+	stack_name: str = "CID-DataExports-Source",
+) -> list[str]:
 	"""
 	Downloads FOCUS Parquet files from AWS S3.
 
 	Args:
-		- Uses hardcoded profile/region/stack values from module constants.
+		profile_name: AWS profile name.
+		region: AWS region where the stack is deployed.
+		stack_name: CloudFormation stack name that owns FOCUS resources.
 
 	Returns:
-		- List of paths to the downloaded Parquet files
+		List of paths to the downloaded Parquet files.
 	"""
 
 	local_download_path = "./downloaded_parquet_files"
 	os.makedirs(local_download_path, exist_ok=True)
 
-	session = boto3.Session(profile_name=PROFILE_NAME, region_name=REGION)
-	s3_client = session.client("s3", region_name=REGION)
+	session = boto3.Session(profile_name=profile_name, region_name=region)
+	s3_client = session.client("s3", region_name=region)
 
 	resolved_bucket_name = _resolve_focus_bucket_name(
 		session=session,
-		stack_name=STACK_NAME,
-		region=REGION,
+		stack_name=stack_name,
+		region=region,
 	)
 	resolved_folder_name = _resolve_focus_prefix(
 		session=session,
-		stack_name=STACK_NAME,
-		region=REGION,
+		stack_name=stack_name,
+		region=region,
 	)
 	prefix = resolved_folder_name.rstrip("/") + "/"
 
@@ -117,10 +125,3 @@ def download_parquet_files() -> list:
 
 	return downloaded_files
 
-
-if __name__ == "__main__":
-	try:
-		files = download_parquet_files()
-		print(f"Downloaded {len(files)} Parquet file(s).")
-	except (ClientError, ValueError, FileNotFoundError) as exc:
-		print(f"Failed to download FOCUS Parquet files: {exc}")

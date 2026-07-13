@@ -45,10 +45,10 @@ def banner():
     """
 
     copyright_notice = """╔══════════════════════════════════════════════════╗
-║  © 2025 Mohamed eraki                            ║
+║  © 2026 Mohamed Eraki                            ║
 ║  mohamed-ibrahim2021@outlook.com                 ║
-║  Version: 3.3.0                                  ║
-║  eraXplor - Azure Cost exporter Tool             ║
+║  Version: 4.0.0                                  ║
+║  eraXplor - FinOps Cost exporter Tool            ║
 ╚══════════════════════════════════════════════════╝
     """
     banner_format = pyfiglet.figlet_format("eraXplor", font='slant')
