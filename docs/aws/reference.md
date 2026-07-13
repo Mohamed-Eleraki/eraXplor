@@ -10,7 +10,7 @@ This section documents the current AWS FOCUS workflow modules used by `eraXplor`
 
 ### Entry Point
 
-::: core.services.aws.__main__
+::: core.services.aws
 
 This is the primary CLI entry point for configuring and downloading AWS FOCUS exports.
 

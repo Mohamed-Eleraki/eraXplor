@@ -10,7 +10,7 @@ This section documents the current Azure FOCUS workflow modules used by `eraXplo
 
 ### Entry Point
 
-::: core.services.azure.__main__
+::: core.services.azure
 
 This is the primary script responsible for orchestrating the user workflow. It handles user input, invokes Azure cost data retrieval, and manages data export functionality.
 
