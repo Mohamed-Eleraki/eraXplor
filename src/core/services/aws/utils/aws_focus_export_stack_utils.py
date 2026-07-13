@@ -32,8 +32,18 @@ def build_focus_stack_parameters(
 	destination_account_id: str,
 	source_account_ids: list[str] | None = None,
 	resource_prefix: str = "cid",
+	focus_time_granularity: str = "DAILY",
 ) -> list[dict[str, str]]:
-	"""Build CloudFormation parameters for CID Data Exports stack (FOCUS only)."""
+	"""Build CloudFormation parameters for CID Data Exports stack (FOCUS only).
+
+	Args:
+		destination_account_id: AWS account ID where exports are delivered.
+		source_account_ids: AWS account IDs to collect exports from.
+		resource_prefix: Prefix for all CID-created AWS resources.
+		focus_time_granularity: Export time granularity. One of HOURLY, DAILY,
+			MONTHLY. Changing this after initial deployment requires a full stack
+			redeployment and data purge. Defaults to MONTHLY.
+	"""
 	parameters = [
 		{"ParameterKey": "DestinationAccountId", "ParameterValue": destination_account_id},
 		{"ParameterKey": "ResourcePrefix", "ParameterValue": resource_prefix},
@@ -41,7 +51,8 @@ def build_focus_stack_parameters(
 		{"ParameterKey": "ManageFOCUS", "ParameterValue": "yes"},
 		{"ParameterKey": "ManageCOH", "ParameterValue": "no"},
 		{"ParameterKey": "ManageCarbon", "ParameterValue": "no"},
-		{"ParameterKey": "LegacyLocalBucket", "ParameterValue": "yes"},
+		{"ParameterKey": "LegacyLocalBucket", "ParameterValue": "no"},
+		{"ParameterKey": "FOCUSTimeGranularity", "ParameterValue": focus_time_granularity},
 	]
 
 	if source_account_ids:
@@ -62,6 +73,7 @@ def deploy_focus_stack(
 	destination_account_id: str | None = None,
 	source_account_ids: list[str] | None = None,
 	resource_prefix: str = "cid",
+	focus_time_granularity: str = "MONTHLY",
 	wait: bool = True,
 ) -> dict[str, Any]:
 	"""
@@ -69,6 +81,33 @@ def deploy_focus_stack(
 
 	This uses the AWS-managed CloudFormation template from the Cloud Intelligence
 	Dashboards guidance and enables only FOCUS export management.
+
+	Full list of CloudFormation template parameters and their defaults:
+
+	Parameter                  | Template default        | This utility
+	---------------------------|-------------------------|------------------------------
+	DestinationAccountId       | (required)              | current account or arg
+	ResourcePrefix             | "cid"                   | "cid"
+	ManageCUR2                 | (required) yes/no       | "no"  (FOCUS only)
+	ManageFOCUS                | (required) yes/no       | "yes"
+	ManageCOH                  | (required) yes/no       | "no"
+	ManageCarbon               | (required) yes/no       | "no"
+	SourceAccountIds           | (optional, comma list)  | current account or arg
+	FOCUSTimeGranularity       | "HOURLY"                | "MONTHLY" (configurable)
+	CUR2TimeGranularity        | "HOURLY"                | not passed (not used)
+	LegacyLocalBucket          | "yes"                   | "no"  (fresh deployments)
+	SecondaryDestinationBucket | ""                      | not passed (not used)
+	LakeFormationEnabled       | "no"                    | not passed (template default)
+	EnableSCAD                 | yes/no                  | not passed (template default)
+	EnableIAMPrincipalData     | yes/no                  | not passed (template default)
+	RolePath                   | "/"                     | not passed (template default)
+	AddScheduleForBlockingWrite| "no"                    | not passed (template default)
+	DisableWriteCronSchedule   | "0 1 * * ? *"           | not passed (template default)
+	EnableWriteCronSchedule    | "0 3 * * ? *"           | not passed (template default)
+
+	Note: changing focus_time_granularity on an existing stack requires a full
+	stack redeployment, data purge in the destination bucket, and a backfill
+	request to AWS. Do not change it lightly after initial deployment.
 	"""
 	_validate_stack_name(stack_name)
 
@@ -83,6 +122,7 @@ def deploy_focus_stack(
 		destination_account_id=account_id,
 		source_account_ids=source_account_ids,
 		resource_prefix=resource_prefix,
+		focus_time_granularity=focus_time_granularity,
 	)
 
 	stack_exists = True
