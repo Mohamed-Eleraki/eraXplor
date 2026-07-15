@@ -10,9 +10,6 @@ The module includes:
     - parser: Parses command-line arguments for the FOCUS export tool
     - FOCUS Export: Functions for creating and managing Azure FOCUS cost exports
     - Resource Management: Functions for creating required Azure resources
-    - Cost Export: Functions for fetching Azure cost data using Cost Management API
-    - CSV Export: Functions for exporting cost data to CSV format
-
 Version: 3.3.0
 
 Example:
@@ -35,8 +32,6 @@ from .azure_focus_depends import (
     create_resource_group,
     create_storage_account_container_folder,
 )
-from .cost_export_utils import cost_export, list_subs
-from .csv_export_utils import csv_export
 from .azure_focus_fetch import download_parquet_files
 
 
@@ -54,11 +49,6 @@ __all__ = [
     # Resource Management Functions
     'create_resource_group',
     'create_storage_account_container_folder',
-    # Cost Export Functions
-    'cost_export',
-    'list_subs',
-    # CSV Export Functions
-    'csv_export',
     # Fetch Functions
     'download_parquet_files',
 ]
@@ -73,9 +63,6 @@ build_export_payload: callable
 create_focus_export: callable
 create_resource_group: callable
 create_storage_account_container_folder: callable
-cost_export: callable
-list_subs: callable
-csv_export: callable
 download_parquet_files: callable
 
 
