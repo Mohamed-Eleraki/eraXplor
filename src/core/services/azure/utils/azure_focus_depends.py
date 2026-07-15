@@ -25,7 +25,10 @@ Dependencies:
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.storage import StorageManagementClient
 from azure.mgmt.storage.models import StorageAccountCreateParameters, Sku
-from azure.mgmt.resource import ResourceManagementClient
+try:
+    from azure.mgmt.resource import ResourceManagementClient
+except ImportError:
+    from azure.mgmt.resource.resources import ResourceManagementClient
 from azure.storage.blob import BlobServiceClient
 from azure.core.exceptions import ResourceExistsError
 

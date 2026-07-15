@@ -6,8 +6,11 @@ termcolor>=3.0.1
 rich>=13.7.1
 
 # Core dependencies (Azure + Utilities)
-azure.identity>=1.23.0
-azure.mgmt.costmanagement>=4.0.1
+azure-identity>=1.23.0
+azure-mgmt-costmanagement>=4.0.1
+azure-mgmt-resource>=23.0.0
+azure-mgmt-storage>=23.0.0
+azure-storage-blob>=12.0.0
 
 
 # typehints & static checking 

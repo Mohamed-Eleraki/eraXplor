@@ -143,13 +143,14 @@ def build_export_payload(
     storage_resource_id: str,
     container_name: str,
     folder_name: str,
+    granularity: str = "Monthly",
 ) -> dict[str, Any]:
     """
     Build the request payload for Azure FOCUS export creation.
 
     The payload configures:
     - FOCUS cost dataset
-    - Daily export schedule
+    - Scheduled export (recurrence matches granularity)
     - Parquet output format
     - Destination storage container and folder
 
@@ -157,6 +158,8 @@ def build_export_payload(
         storage_resource_id (str): Azure Storage Account resource ID.
         container_name (str): Blob container name.
         folder_name (str): Root folder path for exported files.
+        granularity (str): Dataset granularity. One of "Hourly", "Daily", or "Monthly".
+                           Defaults to "Monthly".
 
     Returns:
         dict[str, Any]: JSON payload for Azure export API request.
@@ -177,7 +180,7 @@ def build_export_payload(
                 "type": "FocusCost",
                 "timeframe": "MonthToDate",
                 "dataset": {
-                    "granularity": "Daily",
+                    "granularity": granularity,
                     "configuration": {
                         "dataVersion": "1.0",
                     },
@@ -194,7 +197,7 @@ def build_export_payload(
             "partitionData": True,
             "schedule": {
                 "status": "Active",
-                "recurrence": "Daily",
+                "recurrence": granularity,  # "Daily" or "Monthly"
                 "recurrencePeriod": {
                     "from": start_date,
                     "to": end_date,
@@ -212,6 +215,7 @@ def create_focus_export(
     storage_account_name: str,
     container_name: str,
     folder_name: str,
+    granularity: str = "Monthly",
     export_name: str = "focus-cost-export",
 ) -> dict[str, Any]:
     """
@@ -263,6 +267,7 @@ def create_focus_export(
         storage_resource_id,
         container_name,
         folder_name,
+        granularity=granularity,
     )
 
     url = (
