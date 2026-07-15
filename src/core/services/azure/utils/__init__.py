@@ -23,21 +23,21 @@ Example:
 """
 
 from core.services.utils.banner_utils import banner
-from .focus_parser_utils import parser
-from .focus_export_utils import (
+from .azure_focus_parser_utils import parser
+from .azure_focus_export_utils import (
     get_billing_accounts,
     get_billing_profiles,
     get_default_billing_account_and_profile_ids,
     build_export_payload,
     create_focus_export,
 )
-from .focus_depends import (
+from .azure_focus_depends import (
     create_resource_group,
     create_storage_account_container_folder,
 )
 from .cost_export_utils import cost_export, list_subs
 from .csv_export_utils import csv_export
-from .focus_fetch import download_parquet_files
+from .azure_focus_fetch import download_parquet_files
 
 
 __version__ = "3.3.0"

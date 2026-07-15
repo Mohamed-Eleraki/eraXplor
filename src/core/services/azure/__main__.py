@@ -1,157 +1,140 @@
-"""
-eraXplor - Azure Cost Export Tool
+"""eraXplor - Azure FOCUS Export Tool
 
-This is the main entry point for the eraXplor_azure CLI tool, which enables users to export
-Azure cost and usage data using the Azure Cost Management API.
+The official CLI interface for deploying and managing Azure FOCUS data export flow.
+Provides a single entrypoint that handles dependencies and parameter passing
+between the Azure FOCUS components.
 
-The tool supports multiple grouping dimensions (subscription, ServiceName, ResourceGroupName)
-and provides both daily and monthly cost aggregation granularity.
+Flow Order:
+    1. Render banner from shared utils (../utils/banner_utils)
+    2. Parse input parameters via azure_focus_parser_utils
+    3. Provision backend resources and create FOCUS export via azure_focus_depends
+       and azure_focus_export_utils
+    4. Download generated parquet files via azure_focus_fetch
 
-Command Line Arguments:
-  --start-date, -s DATE    Start date in YYYY,MM,DD format.
-                           Default: 3 months prior
+Command Line Arguments (from azure_focus_parser_utils):
+    --command, -c MODE              Operation mode. Options:
+                                    - configure (default)
+                                    - download
 
-  --end-date, -e DATE      End date in YYYY,MM,DD format.
-                           Default: Today date.
+    --resource-group-name, -rn NAME Resource group name.
+                                    Default: 'focus-data-export-rg'
 
-  --group-by, -g GROUPBY   Cost grouping dimension. Options:
-                           - subscription (default)
-                           - ServiceName
-                           - ResourceGroupName
+    --location, -l LOCATION         Azure region for the resources.
+                                    Default: 'eastus'
 
-  --granularity, -G GRANULARITY   Time granularity. Options:
-                           - Monthly (default)
-                           - Daily
+    --storage-account-name, -sn NAME  Storage Account name.
+                                    Default: 'focusdataexportstorage'
 
-  --out, -o FILENAME       Output CSV filename.
-                           Default: `az_cost_report.csv`
+    --container-name, -cn NAME      Blob container name.
+                                    Default: 'focusdataexportcontainer'
 
-Examples:
-  1. Basic usage with default settings:
-     eraXplor-azure
+    --folder-name, -fn NAME         Folder name inside container.
+                                    Default: 'focusdataexportfolder'
 
-  2. Custom date range:
-     eraXplor-azure -s 2025,01,01 -e 2025,03,30
+    --subscription-id, -s ID        Azure Subscription ID.
 
-  3. Group by service name with daily granularity:
-     eraXplor-azure -g ServiceName -G Daily
-
-  4. Export to custom filename:
-     eraXplor-azure -o my_cost_report.csv
-
-Notes:
-    - Ensure that the environment is properly authenticated with Azure using `DefaultAzureCredential`.
-    - Date strings must follow the exact "YYYY,MM,DD" format to avoid parsing errors.
-    - Depending on the size of the date range and granularity, response time may vary.
-    - The tool queries all subscriptions accessible by the authenticated principal.
+    --granularity, -g GRAN          Export time granularity. Options:
+                                    - Hourly
+                                    - Daily
+                                    - Monthly (default)
 """
 
+import sys
 import termcolor
 
-from core.services.azure.utils.cost_export_utils import list_subs
-from core.services.azure.utils.focus_depends import create_resource_group, create_storage_account_container_folder
-from core.services.azure.utils.focus_export_utils import (
+from core.services.azure.utils.azure_focus_depends import create_resource_group, create_storage_account_container_folder
+from core.services.azure.utils.azure_focus_export_utils import (
     create_focus_export,
     get_default_billing_account_and_profile_ids,
 )
-from core.services.azure.utils.focus_fetch import download_parquet_files
-from core.services.azure.utils.focus_parser_utils import parser
+from core.services.azure.utils.azure_focus_fetch import download_parquet_files
+from core.services.azure.utils.azure_focus_parser_utils import (
+    parser,
+    parser_resource_group_name_handler,
+    parser_location_handler,
+    parser_storage_account_name_handler,
+    parser_container_name_handler,
+    parser_folder_name_handler,
+    parser_subscription_id_handler,
+    parser_granularity_handler,
+    parser_command_handler,
+)
 from core.services.utils.banner_utils import banner as generate_banner
 
 def main() -> None:
-    """
-    Orchestrates and manage the cost export workflow.
+    """Orchestrates and manages dependencies of Azure FOCUS export workflow."""
+    try:
+        # Banner
+        _banner_format, _copyright_notice = generate_banner()
+        print(f"\n\n {termcolor.colored(_banner_format, color='green')}")
+        print(f"{termcolor.colored(_copyright_notice, color='green')}", end="\n\n")
 
-    This function serves as the main entry point for the eraXplor_azure CLI tool.
-    It coordinates the entire cost export process by:
-    1. Displaying the application banner with version information
-    2. Parsing command-line arguments for configuration
-    3. Retrieving all accessible Azure subscriptions
-    4. Fetching cost data using the Azure Cost Management API
-    5. Exporting the results to a CSV file
+        # Parse CLI args
+        arg_parser = parser().parse_args()
 
-    The function uses the following workflow:
-        - generate_banner(): Displays the eraXplor banner
-        - parser(): Parses CLI arguments
-        - list_subs(): Retrieves subscription details
-        - cost_export(): Fetches cost data for all subscriptions
-        - csv_export(): Writes results to CSV format
+        # Resolve parser-managed values
+        rg_name_input = parser_resource_group_name_handler(arg_parser)
+        location_input = parser_location_handler(arg_parser)
+        storage_account_name_input = parser_storage_account_name_handler(arg_parser)
+        container_name_input = parser_container_name_handler(arg_parser)
+        folder_name_input = parser_folder_name_handler(arg_parser)
+        subscription_id_input = parser_subscription_id_handler(arg_parser)
+        granularity_input = parser_granularity_handler(arg_parser)
+        command_mode = parser_command_handler(arg_parser)
 
-    Returns:
-        None: This function does not return a value. It prints output directly
-              to the console and writes the cost report to a CSV file.
+        if command_mode == "configure":
+            print("\n=== Running backend provisioning stage ===")
+            create_resource_group(
+                resource_group_name=rg_name_input,
+                location=location_input,
+                subscription_id=subscription_id_input,
+            )
+            create_storage_account_container_folder(
+                resource_group_name=rg_name_input,
+                location=location_input,
+                storage_account_name=storage_account_name_input,
+                container_name=container_name_input,
+                folder_name=folder_name_input,
+                subscription_id=subscription_id_input,
+            )
+            print("\n=== Running FOCUS export creation stage ===")
+            billing_ids = get_default_billing_account_and_profile_ids()
+            create_focus_export(
+                billing_account_id=billing_ids["billing_account_id"],
+                billing_profile_id=billing_ids["billing_profile_id"],
+                subscription_id=subscription_id_input,
+                resource_group_name=rg_name_input,
+                storage_account_name=storage_account_name_input,
+                container_name=container_name_input,
+                folder_name=folder_name_input,
+                granularity=granularity_input,
+            )
+            print(
+                "FOCUS export configured successfully. "
+                "Run again with '--command download' after data is available.",
+                end="\n\n",
+            )
+            return
 
-    Raises:
-        Any exceptions raised by the underlying Azure SDK calls or file I/O
-        operations are propagated to the caller.
+        if command_mode == "download":
+            print("\n=== Running fetch stage for Parquet files ===")
+            download_parquet_files(
+                storage_account_name=storage_account_name_input,
+                container_name=container_name_input,
+                folder_name=folder_name_input,
+            )
+            return
 
-    Example:
-        >>> if __name__ == "__main__":
-        ...     main()
-
-    Note:
-        This function is typically called from the command line and should
-        not be imported directly for programmatic use. For programmatic use,
-        import and call the individual utility functions directly.
-    """
-
-    # Banner
-    banner_format, copyright_notice = generate_banner()
-    print(f"\n\n {termcolor.colored(banner_format, color="green")}")
-    print(f"{termcolor.colored(copyright_notice, color="green")}", end="\n\n")
-
-    # Fetch Parsed parameters by command line
-    arg_parser = parser().parse_args()
-    rg_name_input = arg_parser.resource_group_name
-    location_input = arg_parser.location
-    storage_account_name_input = arg_parser.storage_account_name
-    container_name_input = arg_parser.container_name
-    folder_name_input = arg_parser.folder_name
-    subscription_id_input = arg_parser.subscription_id
-
-    run_backend = arg_parser.all or arg_parser.backend
-    run_export = arg_parser.all or arg_parser.export_config
-    run_fetch = arg_parser.all or arg_parser.fetch
-
-    if not (run_backend or run_export or run_fetch):
-        run_backend = run_export = run_fetch = True
-
-    if run_backend:
-        print("\n=== Running backend provisioning stage ===")
-        create_resource_group(
-            resource_group_name=rg_name_input,
-            location=location_input,
-            subscription_id=subscription_id_input,
+        raise ValueError(
+            f"Unsupported command mode '{command_mode}'. "
+            "Use '--command configure' or '--command download'."
         )
-        create_storage_account_container_folder(
-            resource_group_name=rg_name_input,
-            location=location_input,
-            storage_account_name=storage_account_name_input,
-            container_name=container_name_input,
-            folder_name=folder_name_input,
-            subscription_id=subscription_id_input,
-        )
-
-    if run_export:
-        print("\n=== Running FOCUS export creation stage ===")
-        billing_ids = get_default_billing_account_and_profile_ids()
-        create_focus_export(
-            billing_account_id=billing_ids["billing_account_id"],
-            billing_profile_id=billing_ids["billing_profile_id"],
-            subscription_id=subscription_id_input,
-            resource_group_name=rg_name_input,
-            storage_account_name=storage_account_name_input,
-            container_name=container_name_input,
-            folder_name=folder_name_input,
-        )
-
-    if run_fetch:
-        print("\n=== Running fetch stage for Parquet files ===")
-        download_parquet_files(
-            storage_account_name=storage_account_name_input,
-            container_name=container_name_input,
-            folder_name=folder_name_input,
-        )
+    except ValueError as exc:
+        print(f"Error: {exc}")
+        sys.exit(2)
+    except Exception as exc:
+        print(f"Unexpected error: {exc}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
