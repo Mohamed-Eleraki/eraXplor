@@ -52,6 +52,10 @@ your use case by looking at the different pages.
 3. [How-To Guides](azure/how-to-guides.md)
 5. [Concepts & Explanation](azure/explanation.md)
 
+### MCP
+
+1. [MCP Interface](api/mcp.md)
+
 ## Main Files
 
 - API entry point: `src/api/main.py`
@@ -59,7 +63,6 @@ your use case by looking at the different pages.
 - Azure CLI entry point: `src/core/services/azure/__main__.py`
 
 ---
-
 
 ## About the Author
 

@@ -29,9 +29,9 @@ information used in the CLI interface.
 
 ### Cost Export Utilities
 
-::: core.services.azure.utils.cost_export_utils
+::: core.services.azure.utils.azure_focus_export_utils
 
-Contains functions for retrieving cost and usage reports from Azure Cost Explorer using `CostManagementClient`
+Contains helpers for discovering Azure billing identifiers and creating Azure FOCUS export definitions.
 
 ---
 
@@ -45,7 +45,7 @@ Provides functionality to export retrieved cost data into a structured CSV forma
 
 ### Resource Provisioning Utilities
 
-::: core.services.azure.utils.focus_depends
+::: core.services.azure.utils.azure_focus_depends
 
 Creates the Azure resource group, storage account, container, and folder
 required by the export workflow.
@@ -54,7 +54,7 @@ required by the export workflow.
 
 ### Export Configuration Utilities
 
-::: core.services.azure.utils.focus_export_utils
+::: core.services.azure.utils.azure_focus_export_utils
 
 Contains the helpers that discover billing identifiers and create Azure FOCUS
 export definitions.
@@ -63,7 +63,7 @@ export definitions.
 
 ### Fetch Utilities
 
-::: core.services.azure.utils.focus_fetch
+::: core.services.azure.utils.azure_focus_fetch
 
 Provides functionality for downloading generated Parquet export files from the
 configured Azure Storage container.

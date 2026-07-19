@@ -96,3 +96,4 @@ nav:
           - API: api/azure.md
           - API Reference: api/azure-reference.md
   - API Reference: api/reference.md
+  - MCP: api/mcp.md
