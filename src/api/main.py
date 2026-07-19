@@ -1,10 +1,10 @@
-import sys
-import os
 from datetime import datetime, timedelta
 
 # Use FastAPI but without Pydantic models - just basic endpoints
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+
+from api import mcp_server
 
 # Import settings from config
 from api.app.core.config import settings
@@ -12,17 +12,16 @@ from api.app.core.config import settings
 from core.services.aws.utils.aws_focus_export_stack_utils import deploy_focus_stack
 from core.services.aws.utils.aws_focus_fetch import download_parquet_files
 
-# Try to import Azure module - make it optional
 try:
-    from core.services.azure.utils.cost_export_utils import cost_export as azure_cost_export
-    from core.services.azure.utils.cost_export_utils import list_subs
+    from core.services.azure.utils.azure_focus_export_utils import (
+        create_focus_export,
+        get_default_billing_account_and_profile_ids,
+    )
 
     AZURE_AVAILABLE = True
-except ImportError as e:
-    print(f"Azure module not available: {e}")
-    print("Azure endpoints will return an error message")
-    azure_cost_export = None
-    list_subs = None
+except ImportError:  # pragma: no cover - import fallback
+    create_focus_export = None
+    get_default_billing_account_and_profile_ids = None
     AZURE_AVAILABLE = False
 
 # Create FastAPI app instance (no Pydantic models)
@@ -37,6 +36,32 @@ app = FastAPI(
 async def root():
     """Root endpoint"""
     return {"message": "Welcome to the eraXplor API"}
+
+
+@app.get("/mcp/tools")
+async def list_mcp_tools():
+    """Expose MCP tool metadata for the portal and agent clients."""
+    return mcp_server.registry.list_tools()
+
+
+@app.post("/mcp/invoke")
+async def invoke_mcp_tool(request: Request):
+    """Invoke an MCP tool through an HTTP endpoint for portal integrations."""
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+
+    tool_name = body.get("tool")
+    arguments = body.get("arguments", {})
+    if not tool_name:
+        return JSONResponse(
+            {"error": True, "message": "Missing required field 'tool'"},
+            status_code=400,
+        )
+
+    result = await mcp_server.registry.invoke(tool_name, **arguments)
+    return result
 
 
 @app.post("/aws/focus/run")
@@ -232,38 +257,28 @@ async def export_azure_costs_post(request: Request):
             # Convert from YYYY-MM-DD to YYYY,MM,DD format for Azure
             end_date = end_date.replace("-", ",")
 
-        print(f"Fetching Azure cost data from {start_date} to {end_date}")
-        print(f"Granularity: {granularity}, Group by: {group_by}")
-
-        # Fetch subscriptions first because the Azure export helper expects them.
-        subscriptions_list_detailed = list_subs()
-        if not subscriptions_list_detailed:
+        if create_focus_export is None or get_default_billing_account_and_profile_ids is None:
             return JSONResponse(
-                {"error": True, "message": "No Azure subscriptions found or accessible"},
-                status_code=404,
+                {"error": True, "message": "Azure export utilities are not available in this environment."},
+                status_code=503,
             )
 
-        # Call eraXplor Azure cost_export function
-        cost_data = azure_cost_export(
-            group_by=group_by,
-            subscriptions_list_detailed=subscriptions_list_detailed,
-            start_date=start_date,
-            end_date=end_date,
+        billing_ids = get_default_billing_account_and_profile_ids()
+        export_result = create_focus_export(
+            billing_account_id=billing_ids["billing_account_id"],
+            billing_profile_id=billing_ids["billing_profile_id"],
+            subscription_id="",
+            resource_group_name="focus-data-export-rg",
+            storage_account_name="focusdataexportstorage",
+            container_name="focusdataexportcontainer",
+            folder_name="focusdataexportfolder",
             granularity=granularity,
         )
 
-        # Handle case where Azure function returns None
-        if cost_data is None:
-            cost_data = []
-            print("No cost data returned from Azure function")
-
-        print(f"Retrieved {len(cost_data)} cost records")
-
         response_data = {
             "success": True,
-            "message": "Azure cost data exported successfully",
-            "total_records": len(cost_data),
-            "cost_data": cost_data,
+            "message": "Azure FOCUS export flow has been triggered through the existing Azure workflow utilities.",
+            "result": export_result,
             "request_parameters": {
                 "start_date": start_date.replace(",", "-"),  # Convert back for response
                 "end_date": end_date.replace(",", "-"),  # Convert back for response
@@ -326,38 +341,28 @@ async def export_azure_costs_get(
             # Convert from YYYY-MM-DD to YYYY,MM,DD format for Azure
             end_date = end_date.replace("-", ",")
 
-        print(f"Fetching Azure cost data from {start_date} to {end_date}")
-        print(f"Granularity: {granularity}, Group by: {group_by}")
-
-        # Fetch subscriptions first because the Azure export helper expects them.
-        subscriptions_list_detailed = list_subs()
-        if not subscriptions_list_detailed:
+        if create_focus_export is None or get_default_billing_account_and_profile_ids is None:
             return JSONResponse(
-                {"error": True, "message": "No Azure subscriptions found or accessible"},
-                status_code=404,
+                {"error": True, "message": "Azure export utilities are not available in this environment."},
+                status_code=503,
             )
 
-        # Call eraXplor Azure cost_export function
-        cost_data = azure_cost_export(
-            group_by=group_by,
-            subscriptions_list_detailed=subscriptions_list_detailed,
-            start_date=start_date,
-            end_date=end_date,
+        billing_ids = get_default_billing_account_and_profile_ids()
+        export_result = create_focus_export(
+            billing_account_id=billing_ids["billing_account_id"],
+            billing_profile_id=billing_ids["billing_profile_id"],
+            subscription_id="",
+            resource_group_name="focus-data-export-rg",
+            storage_account_name="focusdataexportstorage",
+            container_name="focusdataexportcontainer",
+            folder_name="focusdataexportfolder",
             granularity=granularity,
         )
 
-        # Handle case where Azure function returns None
-        if cost_data is None:
-            cost_data = []
-            print("No cost data returned from Azure function")
-
-        print(f"Retrieved {len(cost_data)} cost records")
-
         response_data = {
             "success": True,
-            "message": "Azure cost data exported successfully",
-            "total_records": len(cost_data),
-            "cost_data": cost_data,
+            "message": "Azure FOCUS export flow has been triggered through the existing Azure workflow utilities.",
+            "result": export_result,
             "request_parameters": {
                 "start_date": start_date.replace(",", "-"),  # Convert back for response
                 "end_date": end_date.replace(",", "-"),  # Convert back for response
