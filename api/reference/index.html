@@ -16,12 +16,14 @@
         <link rel="prev" href="../azure-reference/">
       
       
+        <link rel="next" href="../mcp/">
+      
       
         
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -30,7 +32,7 @@
     
     
 
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1167,6 +1169,33 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1407,10 +1436,10 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/api/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
+<span class="normal">36</span>
 <span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">root</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Root endpoint&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Welcome to the eraXplor API&quot;</span><span class="p">}</span>
@@ -1446,32 +1475,7 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/api/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">209</span>
 <span class="normal">210</span>
 <span class="normal">211</span>
 <span class="normal">212</span>
@@ -1544,7 +1548,22 @@
 <span class="normal">279</span>
 <span class="normal">280</span>
 <span class="normal">281</span>
-<span class="normal">282</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/azure/cost/export&quot;</span><span class="p">)</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/azure/cost/export&quot;</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">export_azure_costs_post</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Export Azure cost data using POST request with JSON body.</span>
@@ -1595,38 +1614,28 @@
             <span class="c1"># Convert from YYYY-MM-DD to YYYY,MM,DD format for Azure</span>
             <span class="n">end_date</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fetching Azure cost data from </span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Granularity: </span><span class="si">{</span><span class="n">granularity</span><span class="si">}</span><span class="s2">, Group by: </span><span class="si">{</span><span class="n">group_by</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Fetch subscriptions first because the Azure export helper expects them.</span>
-        <span class="n">subscriptions_list_detailed</span> <span class="o">=</span> <span class="n">list_subs</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">subscriptions_list_detailed</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">create_focus_export</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">get_default_billing_account_and_profile_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">JSONResponse</span><span class="p">(</span>
-                <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;No Azure subscriptions found or accessible&quot;</span><span class="p">},</span>
-                <span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span>
+                <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Azure export utilities are not available in this environment.&quot;</span><span class="p">},</span>
+                <span class="n">status_code</span><span class="o">=</span><span class="mi">503</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="c1"># Call eraXplor Azure cost_export function</span>
-        <span class="n">cost_data</span> <span class="o">=</span> <span class="n">azure_cost_export</span><span class="p">(</span>
-            <span class="n">group_by</span><span class="o">=</span><span class="n">group_by</span><span class="p">,</span>
-            <span class="n">subscriptions_list_detailed</span><span class="o">=</span><span class="n">subscriptions_list_detailed</span><span class="p">,</span>
-            <span class="n">start_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
-            <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
+        <span class="n">billing_ids</span> <span class="o">=</span> <span class="n">get_default_billing_account_and_profile_ids</span><span class="p">()</span>
+        <span class="n">export_result</span> <span class="o">=</span> <span class="n">create_focus_export</span><span class="p">(</span>
+            <span class="n">billing_account_id</span><span class="o">=</span><span class="n">billing_ids</span><span class="p">[</span><span class="s2">&quot;billing_account_id&quot;</span><span class="p">],</span>
+            <span class="n">billing_profile_id</span><span class="o">=</span><span class="n">billing_ids</span><span class="p">[</span><span class="s2">&quot;billing_profile_id&quot;</span><span class="p">],</span>
+            <span class="n">subscription_id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">resource_group_name</span><span class="o">=</span><span class="s2">&quot;focus-data-export-rg&quot;</span><span class="p">,</span>
+            <span class="n">storage_account_name</span><span class="o">=</span><span class="s2">&quot;focusdataexportstorage&quot;</span><span class="p">,</span>
+            <span class="n">container_name</span><span class="o">=</span><span class="s2">&quot;focusdataexportcontainer&quot;</span><span class="p">,</span>
+            <span class="n">folder_name</span><span class="o">=</span><span class="s2">&quot;focusdataexportfolder&quot;</span><span class="p">,</span>
             <span class="n">granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="c1"># Handle case where Azure function returns None</span>
-        <span class="k">if</span> <span class="n">cost_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cost_data</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No cost data returned from Azure function&quot;</span><span class="p">)</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cost_data</span><span class="p">)</span><span class="si">}</span><span class="s2"> cost records&quot;</span><span class="p">)</span>
-
         <span class="n">response_data</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Azure cost data exported successfully&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;total_records&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">cost_data</span><span class="p">),</span>
-            <span class="s2">&quot;cost_data&quot;</span><span class="p">:</span> <span class="n">cost_data</span><span class="p">,</span>
+            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Azure FOCUS export flow has been triggered through the existing Azure workflow utilities.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="n">export_result</span><span class="p">,</span>
             <span class="s2">&quot;request_parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;start_date&quot;</span><span class="p">:</span> <span class="n">start_date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">),</span>  <span class="c1"># Convert back for response</span>
                 <span class="s2">&quot;end_date&quot;</span><span class="p">:</span> <span class="n">end_date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">),</span>  <span class="c1"># Convert back for response</span>
@@ -1675,22 +1684,7 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/api/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span>
-<span class="normal">297</span>
-<span class="normal">298</span>
-<span class="normal">299</span>
-<span class="normal">300</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">300</span>
 <span class="normal">301</span>
 <span class="normal">302</span>
 <span class="normal">303</span>
@@ -1766,7 +1760,12 @@
 <span class="normal">373</span>
 <span class="normal">374</span>
 <span class="normal">375</span>
-<span class="normal">376</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/azure/cost/export&quot;</span><span class="p">)</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/azure/cost/export&quot;</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">export_azure_costs_get</span><span class="p">(</span>
     <span class="n">start_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">end_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1810,38 +1809,28 @@
             <span class="c1"># Convert from YYYY-MM-DD to YYYY,MM,DD format for Azure</span>
             <span class="n">end_date</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fetching Azure cost data from </span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Granularity: </span><span class="si">{</span><span class="n">granularity</span><span class="si">}</span><span class="s2">, Group by: </span><span class="si">{</span><span class="n">group_by</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Fetch subscriptions first because the Azure export helper expects them.</span>
-        <span class="n">subscriptions_list_detailed</span> <span class="o">=</span> <span class="n">list_subs</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">subscriptions_list_detailed</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">create_focus_export</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">get_default_billing_account_and_profile_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">JSONResponse</span><span class="p">(</span>
-                <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;No Azure subscriptions found or accessible&quot;</span><span class="p">},</span>
-                <span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span>
+                <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Azure export utilities are not available in this environment.&quot;</span><span class="p">},</span>
+                <span class="n">status_code</span><span class="o">=</span><span class="mi">503</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="c1"># Call eraXplor Azure cost_export function</span>
-        <span class="n">cost_data</span> <span class="o">=</span> <span class="n">azure_cost_export</span><span class="p">(</span>
-            <span class="n">group_by</span><span class="o">=</span><span class="n">group_by</span><span class="p">,</span>
-            <span class="n">subscriptions_list_detailed</span><span class="o">=</span><span class="n">subscriptions_list_detailed</span><span class="p">,</span>
-            <span class="n">start_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span>
-            <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
+        <span class="n">billing_ids</span> <span class="o">=</span> <span class="n">get_default_billing_account_and_profile_ids</span><span class="p">()</span>
+        <span class="n">export_result</span> <span class="o">=</span> <span class="n">create_focus_export</span><span class="p">(</span>
+            <span class="n">billing_account_id</span><span class="o">=</span><span class="n">billing_ids</span><span class="p">[</span><span class="s2">&quot;billing_account_id&quot;</span><span class="p">],</span>
+            <span class="n">billing_profile_id</span><span class="o">=</span><span class="n">billing_ids</span><span class="p">[</span><span class="s2">&quot;billing_profile_id&quot;</span><span class="p">],</span>
+            <span class="n">subscription_id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">resource_group_name</span><span class="o">=</span><span class="s2">&quot;focus-data-export-rg&quot;</span><span class="p">,</span>
+            <span class="n">storage_account_name</span><span class="o">=</span><span class="s2">&quot;focusdataexportstorage&quot;</span><span class="p">,</span>
+            <span class="n">container_name</span><span class="o">=</span><span class="s2">&quot;focusdataexportcontainer&quot;</span><span class="p">,</span>
+            <span class="n">folder_name</span><span class="o">=</span><span class="s2">&quot;focusdataexportfolder&quot;</span><span class="p">,</span>
             <span class="n">granularity</span><span class="o">=</span><span class="n">granularity</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="c1"># Handle case where Azure function returns None</span>
-        <span class="k">if</span> <span class="n">cost_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cost_data</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No cost data returned from Azure function&quot;</span><span class="p">)</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cost_data</span><span class="p">)</span><span class="si">}</span><span class="s2"> cost records&quot;</span><span class="p">)</span>
-
         <span class="n">response_data</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Azure cost data exported successfully&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;total_records&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">cost_data</span><span class="p">),</span>
-            <span class="s2">&quot;cost_data&quot;</span><span class="p">:</span> <span class="n">cost_data</span><span class="p">,</span>
+            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Azure FOCUS export flow has been triggered through the existing Azure workflow utilities.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="n">export_result</span><span class="p">,</span>
             <span class="s2">&quot;request_parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;start_date&quot;</span><span class="p">:</span> <span class="n">start_date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">),</span>  <span class="c1"># Convert back for response</span>
                 <span class="s2">&quot;end_date&quot;</span><span class="p">:</span> <span class="n">end_date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">),</span>  <span class="c1"># Convert back for response</span>
@@ -1974,7 +1963,7 @@
     
     
 
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
 <script>
