@@ -8,6 +8,28 @@ This section documents the HTTP-based MCP endpoints exposed by eraXplor for port
 
 The MCP surface is designed to make the existing AWS and Azure workflows available through lightweight tool discovery and invocation routes. It is intended for clients that want to interact with eraXplor without directly calling the CLI or bespoke API routes.
 
+## Run locally
+
+From the repository root, run the following commands to test the MCP endpoints on your machine:
+
+```bash
+python -m pip install -e .
+python -m uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+If you prefer to run it without installing the package, export the source directory first:
+
+```bash
+export PYTHONPATH=src
+python -m uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Once the server is running, verify it responds:
+
+```bash
+curl http://localhost:8000/mcp/tools
+```
+
 ## Available Endpoints
 
 ### Discover tools
