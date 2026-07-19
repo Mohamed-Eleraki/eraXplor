@@ -20,7 +20,6 @@ See the full AWS reference page for auto-generated API details.
 - Parser helpers: `core.services.azure.utils.azure_focus_parser_utils`
 - Resource provisioning helpers: `core.services.azure.utils.azure_focus_depends`
 - Export configuration helpers: `core.services.azure.utils.azure_focus_export_utils`
-- CSV export helpers: `core.services.azure.utils.csv_export_utils`
 - Parquet download helpers: `core.services.azure.utils.azure_focus_fetch`
 
 See the full Azure reference page for auto-generated API details.
