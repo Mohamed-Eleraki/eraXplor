@@ -1076,6 +1076,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#run-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run locally
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#available-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1232,6 +1243,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#run-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run locally
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#available-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1367,6 +1389,18 @@
 <hr />
 <h2 id="overview">Overview</h2>
 <p>The MCP surface is designed to make the existing AWS and Azure workflows available through lightweight tool discovery and invocation routes. It is intended for clients that want to interact with eraXplor without directly calling the CLI or bespoke API routes.</p>
+<h2 id="run-locally">Run locally</h2>
+<p>From the repository root, run the following commands to test the MCP endpoints on your machine:</p>
+<pre><code class="language-bash">python -m pip install -e .
+python -m uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
+</code></pre>
+<p>If you prefer to run it without installing the package, export the source directory first:</p>
+<pre><code class="language-bash">export PYTHONPATH=src
+python -m uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
+</code></pre>
+<p>Once the server is running, verify it responds:</p>
+<pre><code class="language-bash">curl http://localhost:8000/mcp/tools
+</code></pre>
 <h2 id="available-endpoints">Available Endpoints</h2>
 <h3 id="discover-tools">Discover tools</h3>
 <ul>
