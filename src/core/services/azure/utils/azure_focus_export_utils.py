@@ -144,6 +144,7 @@ def build_export_payload(
     container_name: str,
     folder_name: str,
     granularity: str = "Monthly",
+    export_format: str = "parquet",
 ) -> dict[str, Any]:
     """
     Build the request payload for Azure FOCUS export creation.
@@ -164,6 +165,7 @@ def build_export_payload(
     Returns:
         dict[str, Any]: JSON payload for Azure export API request.
     """
+    normalized_format = "Parquet" if export_format.lower() == "parquet" else "Csv"
     start_date = (
         datetime.now(UTC) + timedelta(days=1)
     ).strftime("%Y-%m-%dT00:00:00Z")
@@ -193,7 +195,7 @@ def build_export_payload(
                     "rootFolderPath": folder_name,
                 }
             },
-            "format": "Parquet",
+            "format": normalized_format,
             "partitionData": True,
             "schedule": {
                 "status": "Active",
@@ -216,6 +218,7 @@ def create_focus_export(
     container_name: str,
     folder_name: str,
     granularity: str = "Monthly",
+    export_format: str = "parquet",
     export_name: str = "focus-cost-export",
 ) -> dict[str, Any]:
     """
@@ -268,6 +271,7 @@ def create_focus_export(
         container_name,
         folder_name,
         granularity=granularity,
+        export_format=export_format,
     )
 
     url = (

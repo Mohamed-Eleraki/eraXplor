@@ -37,6 +37,10 @@ Command Line Arguments (from azure_focus_parser_utils):
                                     - Hourly
                                     - Daily
                                     - Monthly (default)
+
+    --export-format, -ef FORMAT     Export file format. Options:
+                                    - parquet (default)
+                                    - csv
 """
 
 import sys
@@ -57,6 +61,7 @@ from core.services.azure.utils.azure_focus_parser_utils import (
     parser_folder_name_handler,
     parser_subscription_id_handler,
     parser_granularity_handler,
+    parser_export_format_handler,
     parser_command_handler,
 )
 from core.services.utils.banner_utils import banner as generate_banner
@@ -80,6 +85,7 @@ def main() -> None:
         folder_name_input = parser_folder_name_handler(arg_parser)
         subscription_id_input = parser_subscription_id_handler(arg_parser)
         granularity_input = parser_granularity_handler(arg_parser)
+        export_format_input = parser_export_format_handler(arg_parser)
         command_mode = parser_command_handler(arg_parser)
 
         if command_mode == "configure":
@@ -108,9 +114,10 @@ def main() -> None:
                 container_name=container_name_input,
                 folder_name=folder_name_input,
                 granularity=granularity_input,
+                export_format=export_format_input,
             )
             print(
-                "FOCUS export configured successfully. "
+                f"FOCUS export configured successfully as {export_format_input.upper()}. "
                 "Run again with '--command download' after data is available.",
                 end="\n\n",
             )
@@ -122,6 +129,7 @@ def main() -> None:
                 storage_account_name=storage_account_name_input,
                 container_name=container_name_input,
                 folder_name=folder_name_input,
+                export_format=export_format_input,
             )
             return
 

@@ -22,6 +22,7 @@ def download_parquet_files(
     storage_account_name: str,
     container_name: str,
     folder_name: str,
+    export_format: str = "parquet",
     ) -> list:
     """
     Downloads Parquet files from Azure Blob Storage
@@ -35,6 +36,7 @@ def download_parquet_files(
         - List of paths to the downloaded Parquet files 
     """
 
+    normalized_format = export_format.lower() if export_format else "parquet"
     local_download_path = "./downloaded_parquet_files"
     os.makedirs(local_download_path, exist_ok=True)
 
@@ -48,9 +50,12 @@ def download_parquet_files(
     print(f"Listing blobs in container '{container_name}' under folder '{folder_name}'...")
     blob_list = container_client.list_blobs(name_starts_with=f"{folder_name}/")
 
+    extension = "parquet" if normalized_format == "parquet" else "csv"
     downloaded_files = []
     for blob in blob_list:
         blob_name = blob.name
+        if not blob_name.lower().endswith(f".{extension}"):
+            continue
         download_file_path = os.path.join(local_download_path, os.path.basename(blob_name))
         with open(download_file_path, "wb") as f:
             f.write(container_client.download_blob(blob_name).readall())

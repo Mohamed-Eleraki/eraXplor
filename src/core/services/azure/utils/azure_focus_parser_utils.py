@@ -30,6 +30,16 @@ Example:
 import argparse
 
 
+def _normalize_export_format(value: str) -> str:
+    """Normalize supported export formats for Azure FOCUS exports."""
+    normalized_value = value.lower()
+    if normalized_value not in {"parquet", "csv"}:
+        raise argparse.ArgumentTypeError(
+            "export format must be one of: parquet, csv"
+        )
+    return normalized_value
+
+
 def parser():
     """
     Create and return an ArgumentParser for Azure FOCUS export resource provisioning.
@@ -126,6 +136,16 @@ def parser():
         choices=["Hourly", "Daily", "Monthly"],
         default="Monthly",
         help="Time granularity of the exported cost data.",
+    )
+    arg_parser.add_argument(
+        "-ef",
+        "--export-format",
+        type=_normalize_export_format,
+        choices=["parquet", "csv"],
+        required=False,
+        default="parquet",
+        metavar="{parquet,csv}",
+        help="Export file format for the FOCUS data. Supported values: parquet, csv.",
     )
     arg_parser.add_argument(
         "-c",
@@ -320,6 +340,21 @@ def parser_subscription_id_handler(arg_parser: argparse.Namespace) -> str:
         return None
     except ValueError as e:
         print(f"Error parsing subscription ID: {e}")
+        return None
+    except Exception as e:  # Pylint: disable=broad-except
+        print(f"Unexpected error: {e}")
+        return None
+
+
+def parser_export_format_handler(arg_parser: argparse.Namespace) -> str:
+    """Normalize the export-format argument to a supported value."""
+    try:
+        export_format = getattr(arg_parser, "export_format", None)
+        if export_format is None:
+            return "parquet"
+        return export_format.lower()
+    except ValueError as e:
+        print(f"Error parsing export format: {e}")
         return None
     except Exception as e:  # Pylint: disable=broad-except
         print(f"Unexpected error: {e}")
