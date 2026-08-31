@@ -86,7 +86,10 @@ def create_storage_account_container_folder(
         resource_group_name,
         account_name,
     )
-    account_key = keys.keys[0].value
+
+    keys_dict = keys.as_dict()
+
+    account_key = keys_dict["keys"][0]["value"]
     account_url = f"https://{account_name}.blob.core.windows.net"
     blob_service_client = BlobServiceClient(
         account_url=account_url,
