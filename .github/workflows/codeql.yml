@@ -1,0 +1,63 @@
+name: "CodeQL Advanced"
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+  schedule:
+    - cron: "40 14 * * 3"  # This runs every Wednesday at 14:40 UTC.
+
+jobs:
+  analyze:
+    # Creates a separate job for each language in the matrix below.
+    name: Analyze (${{ matrix.language }})
+
+    # Use macOS for Swift; otherwise use Ubuntu.
+    # This matrix has only actions and Python, so both jobs use Ubuntu.
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+
+    permissions:
+      security-events: write # Upload CodeQL findings to code scanning.
+      packages: read         # Read packages, if needed.
+      actions: read          # Read workflow/action metadata.
+      contents: read         # Check out and read repository files.
+
+    strategy:
+      fail-fast: false # Let other language jobs continue if one fails.
+      matrix:
+        include:
+          - language: actions # Analyze GitHub Actions workflow files.
+            build-mode: none
+          - language: python  # Analyze Python source files.
+            build-mode: none
+            # Build-mode values are language-dependent:
+            # - none: Do not run a build. Suitable for interpreted languages such as Python.
+            # - autobuild: Let CodeQL try to build the code automatically.
+            # - manual: You provide the build commands in a step like the one below.
+            # Check CodeQL's supported build modes for each language before changing this.
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+
+      # This step runs only when build-mode is "manual".
+      # Replace these example commands with your real build commands.
+      - name: Run manual build steps
+        if: matrix.build-mode == 'manual'
+        shell: bash
+        run: |
+          echo 'Replace this placeholder with your build commands.'
+          exit 1
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          # Keep results from each language categorized separately.
+          category: "/language:${{ matrix.language }}"
